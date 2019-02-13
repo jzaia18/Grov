@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 namespace MergeTest
 {
     /// <summary>
-    /// This is the main type for your game.
+    /// This is not a game - Rachel Wong
     /// </summary>
     public class Game1 : Game
     {
