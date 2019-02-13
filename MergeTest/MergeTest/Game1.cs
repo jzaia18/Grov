@@ -6,6 +6,7 @@ namespace MergeTest
 {
     /// <summary>
     /// It's peanut butter jelly time! - Jake Zaia
+    /// jake's commit will cause an error - jack
     /// </summary>
     public class Game1 : Game
     {
