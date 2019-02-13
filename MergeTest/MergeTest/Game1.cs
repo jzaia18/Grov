@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework.Input;
 namespace MergeTest
 {
     /// <summary>
+    /// It's peanut butter jelly time! - Jake Zaia
+    /// jake's commit will cause an error - jack
+    /// This is not a game - Rachel Wong
     /// UwU - Duncan
     /// </summary>
     public class Game1 : Game
