@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 namespace MergeTest
 {
     /// <summary>
-    /// jake's commit will cause an error
+    /// jake's commit will cause an error - jack
     /// </summary>
     public class Game1 : Game
     {
