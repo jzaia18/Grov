@@ -19,11 +19,16 @@ namespace Level_Editor
         private Color currentColor;
         private PictureBox[,] mapArray;
 
+        //Is the title of the window == the title of the file we have open?
         private bool fileNameTitle;
+        //Are there unsaved changes?
         private bool unsavedChanges;
+        //Name of the file we're working on
+        //Also the path/directory of the file
         private string fileName;
 
-        //This constructor is for making a new file
+        //This constructor is for making a new file, NOT loading one
+        //This is called from the previous window, never once we're already in the editor screen
         public LevelEditor(int height, int width)
         {
             this.width = width;
@@ -31,7 +36,7 @@ namespace Level_Editor
 
             fileNameTitle = false;
             unsavedChanges = false;
-
+            
             //Default Color is blue
             currentColor = Color.Blue;
 
@@ -40,9 +45,11 @@ namespace Level_Editor
 
             InitializeComponent();
 
+            //Create a default map
             CreateMap();
         }
-        //This constructor is for loading files
+        //This constructor is for loading existing files
+        //This is called from the previous window, never once we're already in the editor screen
         public LevelEditor(string fileName)
         {
             InitializeComponent();
@@ -51,6 +58,7 @@ namespace Level_Editor
             this.FormClosing += CloseEvent;
 
             this.fileName = fileName;
+            //open the chosen file
             LoadMap(fileName);
         }
 
@@ -92,14 +100,20 @@ namespace Level_Editor
 
 
 
-        //Save the map
+        /// <summary>
+        /// Save the map to a file
+        /// </summary>
         private void saveButton_Click(object sender, EventArgs e)
         {
+            //Open a save dialog
             SaveFileDialog saveDialog = new SaveFileDialog();
+            //Misc. visual flair
             saveDialog.Title = "Save a Level File";
-            saveDialog.Filter = "Level Files (*.level)|*.level";
+            saveDialog.Filter = "Level Files (*.grovlev)|*.grovlev";
             saveDialog.FileName = "MyLevel";
             DialogResult result = saveDialog.ShowDialog();
+            
+            //Code only executes if they chose to go ahead and save the file
             if(result == DialogResult.OK)
             {
                 BinaryWriter writer = null;
@@ -113,6 +127,7 @@ namespace Level_Editor
                     writer.Write(height);
                     writer.Write(width);
 
+                    //Write the RGB value of every tile in order
                     for(int i = 0; i < height; i++)
                     {
                         for(int ii = 0; ii < width; ii++)
@@ -121,6 +136,7 @@ namespace Level_Editor
                         }
                     }
 
+                    //Message displays if it didn't break
                     MessageBox.Show("File Saved Successfully", "File Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     //Mark the file as saved
                     fileNameTitle = true;
@@ -141,12 +157,28 @@ namespace Level_Editor
                 }
             }
         }
-        //Load a map
+
+
+        /// <summary>
+        /// Execute when clicking the "load file" button
+        /// </summary>
         private void loadButton_Click(object sender, EventArgs e)
         {
+            //Throw a fit if there are unsaved changes
+            if (unsavedChanges)
+            {
+                DialogResult panic = MessageBox.Show("You have unsaved changes! Are you sure you want to continue?", "Unsaved Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (panic != DialogResult.Yes)
+                {
+                    return;
+                }
+            }
+
+            //Windows file selection dialog
             OpenFileDialog openFile = new OpenFileDialog();
+            //Misc. visual flair
             openFile.Title = "Open a Level File";
-            openFile.Filter = "Level Files (*.level)|*.level";
+            openFile.Filter = "Level Files (*.grovlev)|*.grovlev";
             DialogResult result = openFile.ShowDialog();
             if(result == DialogResult.OK)
             {
@@ -201,7 +233,10 @@ namespace Level_Editor
 
 
 
-        //The actual process for loading a map
+        /// <summary>
+        /// Once a file has been selected, load a map from it
+        /// </summary>
+        /// <param name="openFile">Path to the file</param>
         private void LoadMap(string openFile)
         {
             BinaryReader reader = null;
@@ -218,7 +253,7 @@ namespace Level_Editor
                 //Create a new map with the data
                 CreateMap();
 
-                //Write all the color data
+                //Read all the color data
                 for (int i = 0; i < height; i++)
                 {
                     for (int ii = 0; ii < width; ii++)
@@ -227,6 +262,7 @@ namespace Level_Editor
                     }
                 }
 
+                //Message shows up if it didn't fuck up the loading process
                 MessageBox.Show("File Loaded Successfully", "File Loaded", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //Mark the file as saved
                 fileNameTitle = true;
@@ -249,9 +285,14 @@ namespace Level_Editor
 
 
 
-        //Form closing event
+        /// <summary>
+        /// Make sure we don't have a sad gamer moment and accidentally lose any progress by closing the form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CloseEvent(object sender, FormClosingEventArgs e)
         {
+            //Throw a fit if there are unsaved changes
             if(unsavedChanges)
             {
                 DialogResult result = MessageBox.Show("You have unsaved changes! Are you sure you want to quit?", "Unsaved Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Information);

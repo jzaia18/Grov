@@ -25,7 +25,7 @@ namespace Level_Editor
         {
             OpenFileDialog openFile = new OpenFileDialog();
             openFile.Title = "Open a Level File";
-            openFile.Filter = "Level Files (*.level)|*.level";
+            openFile.Filter = "Level Files (*.grovlev)|*.grovlev";
             DialogResult result = openFile.ShowDialog();
             if(result == DialogResult.OK)
             {
@@ -87,7 +87,7 @@ namespace Level_Editor
             else
             {
                 LevelEditor levelEditor = new LevelEditor(height, width);
-                levelEditor.ShowDialog(); 
+                levelEditor.ShowDialog();
             }
         }
     }
