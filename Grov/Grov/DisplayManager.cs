@@ -15,7 +15,7 @@ namespace Grov
     {
 
         // ************* Fields ************* //
-
+        
         private EntityManager em;
         private FloorManager fm;
         private HUD hud;
@@ -32,7 +32,7 @@ namespace Grov
 
         // ************* Methods ************* //
 
-        void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             em.Draw(spriteBatch);
             fm.Draw(spriteBatch);

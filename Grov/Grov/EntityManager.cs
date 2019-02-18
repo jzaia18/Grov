@@ -13,8 +13,12 @@ namespace Grov
     class EntityManager
     {
         // ************* Fields ************* //
-        // Player player
+        // Player player;
+        // List<Enemy> enemies;
+        // List<Projectile> hostileProjectiles;
+        // List<Projectile> friendlyProjectiles;
         // 
+
 
 
         // ************* Constructor ************* //
@@ -25,7 +29,7 @@ namespace Grov
 
         // ************* Methods ************* //
 
-        void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
 
         }

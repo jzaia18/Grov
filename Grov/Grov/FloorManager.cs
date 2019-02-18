@@ -12,6 +12,21 @@ namespace Grov
 {
     class FloorManager
     {
+        // ************* Fields ************* //
 
+
+        // ************* Constructor ************* //
+
+        public FloorManager()
+        {
+
+        }
+
+        // ************* Methods ************* //
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+
+        }
     }
 }
