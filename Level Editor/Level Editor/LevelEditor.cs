@@ -38,7 +38,7 @@ namespace Level_Editor
             unsavedChanges = false;
             
             //Default Color is blue
-            currentColor = Color.Blue;
+            currentColor = Color.FromArgb(153, 213, 100);
 
             //Close event
             this.FormClosing += CloseEvent;
@@ -209,7 +209,7 @@ namespace Level_Editor
                     //Add it to the Map Box
                     mapBox.Controls.Add(mapArray[i, ii]);
                     //Default color
-                    mapArray[i, ii].BackColor = Color.Blue;
+                    mapArray[i, ii].BackColor = Color.FromArgb(153, 213, 100);
                     //Draw the borders
                     if (i == 0 || ii == 0 || i == 17 || ii == 31)
                     {
