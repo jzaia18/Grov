@@ -1,27 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+
+/*
+ * Authors
+ * Jack Hoffman
+ */
 
 namespace Grov
 {
     class Entity
     {
         // ************* Fields ************* //
+
+        private Rectangle drawPos;
+        private Rectangle hitbox;
+        private Vector2 position;
+        private Vector2 velocity;
+        private Random rng;
+        private bool isActive;
         protected Texture2D texture;
+        
 
         // ************* Properties ************* //
 
-        public Rectangle DrawPos { get; set; }
-        public Rectangle Hitbox { get; set; }
-        public Vector2 Position { get; set; }
-        public Vector2 Velocity { get; set; }
-        public Random Rng { get; set; }
-        public bool IsActive { get; set; }
+        public Rectangle DrawPos { get => drawPos; set => drawPos = value; }
+        public Rectangle Hitbox { get => hitbox; set => hitbox = value; }
+        public Vector2 Position { get => position; set => position = value; }
+        public Vector2 Velocity { get => velocity; set => velocity = value; }
+        public Random Rng { get => rng; set => rng = value; }
+        public bool IsActive { get => isActive; set => IsActive = value; }
 
         // ************* Constructors ************* //
 
