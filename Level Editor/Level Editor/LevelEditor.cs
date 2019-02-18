@@ -208,8 +208,46 @@ namespace Level_Editor
                     mapArray[i, ii] = new PictureBox();
                     //Add it to the Map Box
                     mapBox.Controls.Add(mapArray[i, ii]);
-                    //Default Color will be Blue
+                    //Default color
                     mapArray[i, ii].BackColor = Color.Blue;
+                    //Draw the borders
+                    if (i == 0 || ii == 0 || i == 17 || ii == 31)
+                    {
+                        mapArray[i, ii].BackColor = Color.ForestGreen;
+                    }
+                    //Draw the doors
+                    if (ii == 0 && i == 8) // Left door 1
+                    {
+                        mapArray[i, ii].BackColor = Color.Purple;
+                    }
+                    if (ii == 0 && i == 9) // Left door 2
+                    {
+                        mapArray[i, ii].BackColor = Color.Purple;
+                    }
+                    if (ii == 31 && i == 8) // Right door 1
+                    {
+                        mapArray[i, ii].BackColor = Color.Purple;
+                    }
+                    if (ii == 31 && i == 9) // Right door 2
+                    {
+                        mapArray[i, ii].BackColor = Color.Purple;
+                    }
+                    if (ii == 15 && i == 0) // Top door 1
+                    {
+                        mapArray[i, ii].BackColor = Color.Purple;
+                    }
+                    if (ii == 16 && i == 0) // Top door 2
+                    {
+                        mapArray[i, ii].BackColor = Color.Purple;
+                    }
+                    if (ii == 15 && i == 17) // Bottom door 1
+                    {
+                        mapArray[i, ii].BackColor = Color.Purple;
+                    }
+                    if (ii == 16 && i == 17) // Bottom door 2
+                    {
+                        mapArray[i, ii].BackColor = Color.Purple;
+                    }
                     //Set the size of the box
                     mapArray[i, ii].Height = boxSize;
                     mapArray[i, ii].Width = boxSize;
