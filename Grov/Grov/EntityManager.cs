@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+// Authors: Jake Zaia
+
+namespace Grov
+{
+    class EntityManager
+    {
+        // ************* Fields ************* //
+        // Player player
+        // 
+
+
+        // ************* Constructor ************* //
+
+        public EntityManager() {
+                
+        }
+
+        // ************* Methods ************* //
+
+        void Draw(SpriteBatch spriteBatch)
+        {
+
+        }
+    }
+}
