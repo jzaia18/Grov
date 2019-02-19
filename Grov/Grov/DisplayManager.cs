@@ -19,15 +19,15 @@ namespace Grov
         private EntityManager em;
         private FloorManager fm;
         private HUD hud;
-        //private Player player;
+        private Player player;
 
         // ************* Constructor ************* //
-        public DisplayManager(EntityManager em, FloorManager fm, HUD hud)//Player player)
+        public DisplayManager(EntityManager em, FloorManager fm, HUD hud, Player player)
         {
             this.em = em;
             this.fm = fm;
             this.hud = hud;
-            //this.player = player;
+            this.player = player;
         }
 
         // ************* Methods ************* //

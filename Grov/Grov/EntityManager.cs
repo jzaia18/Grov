@@ -13,8 +13,8 @@ namespace Grov
     class EntityManager
     {
         // ************* Fields ************* //
-        // Player player;
-        // List<Enemy> enemies;
+        Player player;
+        List<Enemy> enemies;
         // List<Projectile> hostileProjectiles;
         // List<Projectile> friendlyProjectiles;
         // 
