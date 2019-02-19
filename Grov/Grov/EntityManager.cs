@@ -13,18 +13,25 @@ namespace Grov
     class EntityManager
     {
         // ************* Fields ************* //
-        Player player;
-        List<Enemy> enemies;
-        // List<Projectile> hostileProjectiles;
-        // List<Projectile> friendlyProjectiles;
-        // 
+        private Player player;
+        private List<Enemy> enemies;
+        private List<Projectile> hostileProjectiles;
+        private List<Projectile> friendlyProjectiles;
+        private Dictionary<EnemyType, Texture2D> textureMap;
 
+
+        // ************* Properties ************* //
+
+        public Player Player { get => player; set => player = value; }
 
 
         // ************* Constructor ************* //
 
         public EntityManager() {
-                
+            enemies = new List<Enemy>();
+            hostileProjectiles = new List<Projectile>();
+            friendlyProjectiles = new List<Projectile>();
+            textureMap = new Dictionary<EnemyType, Texture2D>();
         }
 
         // ************* Methods ************* //
