@@ -22,9 +22,12 @@ namespace Grov
 
         // ************* Constructor ************* //
 
-        public Enemy()
+        public Enemy(EnemyType enemyType, int maxHP, bool melee, double fireRate, double attackDamage)
         {
-
+            this.enemyType = enemyType;
+            this.maxHP = maxHP;
+            this.fireRate = fireRate;
+            this.attackDamage = attackDamage;
         }
 
 

@@ -13,12 +13,12 @@ namespace Grov
     {
         // ************* Fields ************* //
 
-        private Rectangle drawPos;
-        private Rectangle hitbox;
-        private Vector2 position;
-        private Vector2 velocity;
-        private Random rng;
-        private bool isActive;
+        protected Rectangle drawPos;
+        protected Rectangle hitbox;
+        protected Vector2 position;
+        protected Vector2 velocity;
+        protected Random rng;
+        protected bool isActive;
         protected Texture2D texture;
         
 
