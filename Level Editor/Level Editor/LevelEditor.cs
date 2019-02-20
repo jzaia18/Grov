@@ -9,6 +9,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
+/*
+ * Color values for tile types
+ * Floor : -6695580
+ * Border Wall : -14513374
+ * Water : -16776961
+ * Rocks : -4144960
+ * Door : -8388480
+ * Log : -11123140
+ * Bridge : -128
+ */
+
 namespace Level_Editor
 {
     public partial class LevelEditor : Form
@@ -71,6 +82,8 @@ namespace Level_Editor
         {
             currentColor = ((Button)sender).BackColor;
             currentTilePicture.BackColor = currentColor;
+            Console.WriteLine(((Button)sender).BackColor.ToArgb());
+            //153, 213, 100
         }
         /// <summary>
         /// Change the color of the selected map tile
@@ -123,16 +136,47 @@ namespace Level_Editor
                     Stream streamOut = File.OpenWrite(saveDialog.FileName);
                     writer = new BinaryWriter(streamOut);
 
-                    //Write the height, then width
-                    writer.Write(height);
-                    writer.Write(width);
-
                     //Write the RGB value of every tile in order
                     for(int i = 0; i < height; i++)
                     {
                         for(int ii = 0; ii < width; ii++)
                         {
-                            writer.Write((mapArray[i, ii].BackColor).ToArgb());
+                            //Write the int corresponding to the enum
+                            switch(mapArray[i, ii].BackColor.ToArgb())
+                                {
+                                    //Floor
+                                    case -6695580:
+                                        writer.Write(0);
+                                        break;
+                                    //Border wall
+                                    case -14513374:
+                                        writer.Write(1);
+                                        break;
+                                    //Water
+                                    case -16776961:
+                                        writer.Write(3);
+                                        break;
+                                    //Rocks
+                                    case -4144960:
+                                        writer.Write(4);
+                                        break;
+                                    //Door
+                                    case -8388480:
+                                        writer.Write(2);
+                                        break;
+                                    //Log
+                                    case -11123140:
+                                        writer.Write(5);
+                                        break;
+                                    //Bridge
+                                    case -128:
+                                        writer.Write(6);
+                                        break;
+                                    //HELP ME :'(
+                                    default:
+                                        throw new Exception();
+                                        break;
+                                }
                         }
                     }
 
