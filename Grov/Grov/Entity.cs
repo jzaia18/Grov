@@ -29,7 +29,7 @@ namespace Grov
         public Vector2 Position { get => position; set => position = value; }
         public Vector2 Velocity { get => velocity; set => velocity = value; }
         public Random Rng { get => rng; set => rng = value; }
-        public bool IsActive { get => isActive; set => IsActive = value; }
+        public bool IsActive { get => isActive; set => isActive = value; }
 
         // ************* Constructors ************* //
 
