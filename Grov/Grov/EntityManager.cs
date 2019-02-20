@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 
 // Authors: Jake Zaia
 
@@ -36,9 +37,53 @@ namespace Grov
 
         // ************* Methods ************* //
 
+        public void Update()
+        {
+
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
 
         }
+
+        public void HandleCollisions()
+        {
+
+        }
+
+        public void SpawnEnemies(int numEnemies, EnemyType enemyType)
+        {
+
+            //TODO: MUST TEST
+            string filename = @"enemies\" + enemyType + ".txt"; 
+            StreamReader reader = null;
+            try
+            {
+                reader = new StreamReader(filename);
+
+                string name = reader.ReadLine();
+                int maxHP = Int32.Parse(reader.ReadLine());
+                bool melee = Boolean.Parse(reader.ReadLine());
+                double fireRate = Double.Parse(reader.ReadLine());
+                double attackDamage = Double.Parse(reader.ReadLine());
+
+                while (numEnemies-- > 0)
+                    enemies.Add(new Enemy(enemyType, maxHP, melee, fireRate, attackDamage));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+            }
+        }
+
+
     }
 }

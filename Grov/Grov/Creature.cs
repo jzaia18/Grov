@@ -13,11 +13,11 @@ namespace Grov
     {
         // ************* Fields ************* //
 
-        private int maxHP;
-        private int currentHP;
-        private bool melee;
-        private double fireRate;
-        private int attackDamage;
+        protected int maxHP;
+        protected int currentHP;
+        protected bool melee;
+        protected double fireRate;
+        protected double attackDamage;
 
         // ************* Properties ************* //
 
@@ -25,7 +25,7 @@ namespace Grov
         public int CurrentHP { get => currentHP; set => currentHP = value; }
         public bool Melee { get => melee; set => melee = value; }
         public double FireRate { get => fireRate; set => fireRate = value; }
-        public int AttackDamage { get => attackDamage; set => attackDamage = value; }
+        public double AttackDamage { get => attackDamage; set => attackDamage = value; }
 
         // ************* Methods ************* //
 
