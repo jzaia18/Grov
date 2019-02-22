@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-// Authors: Jake Zaia
+// Authors: Jake Zaia, Duncan Mott
 
 namespace Grov
 {
@@ -86,8 +86,17 @@ namespace Grov
             {
                 reader = new BinaryReader(stream);
 
+                //Height
+                for (int i = 0; i < 17; i++)
+                {
+                    //Width
+                    for(int ii = 0; ii < 31; ii++)
+                    {
+                        int thisTile = reader.ReadInt32();
 
-                // TODO: the actual work (reading from the file)
+                        tiles[ii][i] = new Tile((TileType)thisTile);
+                    }
+                }
             }
             catch (Exception e)
             {
