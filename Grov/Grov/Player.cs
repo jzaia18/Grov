@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
  * Authors
  * Jack Hoffman
  * Jake Zaia
+ * Rachel Wong
  */
  
 namespace Grov
@@ -29,11 +30,6 @@ namespace Grov
         private Vector2 aimDirection;
         private bool isInputKeyboard;
         private float projectileVelocity;
-
-        // ************* Constant Fields ************* //
-
-        private float MOVESPEED = 5f;
-
 
         // ************* Properties ************* //
 
@@ -65,6 +61,7 @@ namespace Grov
         {
             this.maxMP = maxMP;
             this.currMP = maxMP;
+			moveSpeed = 5f;
             keys = 0;
             bombs = 0;
             keyboardPreviousState = Keyboard.GetState();
@@ -138,7 +135,7 @@ namespace Grov
                 }
             }
 
-            velocity = MOVESPEED * direction;
+            velocity = moveSpeed * direction;
 
             position += velocity;
 

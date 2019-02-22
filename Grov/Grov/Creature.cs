@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 /*
  * Authors
  * Jack Hoffman
+ * Rachel Wong
  */ 
 
 namespace Grov
@@ -18,10 +19,11 @@ namespace Grov
         protected bool melee;
         protected double fireRate;
         protected double attackDamage;
+		protected float moveSpeed;
 
-        // ************* Properties ************* //
+		// ************* Properties ************* //
 
-        public int MaxHP { get => maxHP; set => maxHP = value; }
+		public int MaxHP { get => maxHP; set => maxHP = value; }
         public int CurrentHP { get => currentHP; set => currentHP = value; }
         public bool Melee { get => melee; set => melee = value; }
         public double FireRate { get => fireRate; set => fireRate = value; }
