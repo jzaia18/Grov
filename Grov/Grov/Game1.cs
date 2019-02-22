@@ -11,10 +11,10 @@ namespace Grov
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Player player;
 
         //debug
         Room testRoom;
+        Player player;
 
         public Game1()
         {
@@ -37,6 +37,8 @@ namespace Grov
             graphics.PreferredBackBufferHeight = 1080;
             graphics.PreferredBackBufferWidth = 1920;
             graphics.ApplyChanges();
+
+            IsMouseVisible = true;
             base.Initialize();
         }
 

@@ -86,11 +86,11 @@ namespace Grov
         /// </summary>
         public override void Update()
         {
-            MouseState mouseState = Mouse.GetState();
-            GamePadState gamePadState = GamePad.GetState(0);
-            KeyboardState keyboardState = Keyboard.GetState();
-            this.Move();
+            mouseState = Mouse.GetState();
+            gamePadState = GamePad.GetState(0);
+            keyboardState = Keyboard.GetState();
             this.Aim();
+            base.Update();
             gamePadPreviousState = gamePadState;
             keyboardPreviousState = keyboardState;
             mousePreviousState = mouseState;
@@ -101,7 +101,7 @@ namespace Grov
         /// </summary>
         protected override void Move()
         {
-            Vector2 direction = new Vector2(0f, 0f);
+           Vector2 direction = new Vector2(0f, 0f);
 
             // Handles keyboard input
             if (isInputKeyboard)
