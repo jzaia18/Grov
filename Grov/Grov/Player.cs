@@ -23,6 +23,13 @@ namespace Grov
         //private Weapon weapon;
         private int keys;
         private int bombs;
+        private GamePadState gamePadPreviousState;
+        private KeyboardState keyboardPreviousState;
+        private Vector2 aimDirection;
+        private bool isInputKeyboard;
+
+        // ************* Constant Fields ************* //
+        private float MOVESPEED = 5f;
 
 
         // ************* Properties ************* //
@@ -56,6 +63,9 @@ namespace Grov
             this.currMP = maxMP;
             keys = 0;
             bombs = 0;
+            keyboardPreviousState = Keyboard.GetState();
+            gamePadPreviousState = GamePad.GetState(0);
+            isInputKeyboard = true;
         }
 
 
@@ -63,7 +73,56 @@ namespace Grov
 
         private void HandleInput()
         {
-            throw new NotImplementedException();
+            this.Aim();
+            base.Update();
+        }
+
+        protected override void Move()
+        {
+            KeyboardState keyboardState = Keyboard.GetState();
+            GamePadState gamePadState = GamePad.GetState(0);
+            Vector2 direction = new Vector2(0f, 0f);
+
+            if (isInputKeyboard)
+            {
+                if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.W))
+                {
+                    direction += new Vector2(0f, -1f);
+                }
+                if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.S))
+                {
+                    direction += new Vector2(0f, 1f);
+                }
+                if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.A))
+                {
+                    direction += new Vector2(-1f, 0f);
+                }
+                if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D))
+                {
+                    direction += new Vector2(1f, 0f);
+                }
+            }
+            else
+            {
+                direction = gamePadState.ThumbSticks.Left;
+            }
+
+            direction.Normalize();
+
+            velocity = MOVESPEED * direction;
+
+            position += velocity;
+
+            velocity = new Vector2(0f, 0f);
+            gamePadPreviousState = gamePadState;
+            keyboardPreviousState = keyboardState;
+        }
+
+        public void Aim()
+        {
+            MouseState mouseState = Mouse.GetState();
+
+            aimDirection = new Vector2(mouseState.X - DrawPos.X + DrawPos.Width / 2, mouseState.Y - DrawPos.Y + DrawPos.Height / 2);
         }
 
         public void Attack()

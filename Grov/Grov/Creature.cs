@@ -37,6 +37,6 @@ namespace Grov
 
         // ************* Helper Methods ************* //
 
-        public void Move(){ }
+        protected virtual void Move(){ }
     }
 }
