@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-//Brought ot you in part by:
+//Brought to you in part by:
 //Duncan Mott
 
 namespace Grov

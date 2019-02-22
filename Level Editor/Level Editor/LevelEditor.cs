@@ -328,10 +328,6 @@ namespace Level_Editor
                 Stream streamIn = File.OpenRead(openFile);
                 reader = new BinaryReader(streamIn);
 
-                //Read the height, then the width
-                height = reader.ReadInt32();
-                width = reader.ReadInt32();
-
                 //Create a new map with the data
                 CreateMap();
 
@@ -340,7 +336,39 @@ namespace Level_Editor
                 {
                     for (int ii = 0; ii < width; ii++)
                     {
-                        mapArray[i, ii].BackColor = Color.FromArgb(reader.ReadInt32());
+                        switch(reader.ReadInt32())
+                        {
+                            //Floor
+                            case 0:
+                                mapArray[i, ii].BackColor = Color.FromArgb(-6695580);
+                                break;
+                            //Wall
+                            case 1:
+                                mapArray[i, ii].BackColor = Color.FromArgb(-14513374);
+                                break;
+                            //Entrance
+                            case 2:
+                                mapArray[i, ii].BackColor = Color.FromArgb(-8388480);
+                                break;
+                            //Water
+                            case 3:
+                                mapArray[i, ii].BackColor = Color.FromArgb(-16776961);
+                                break;
+                            //Rock
+                            case 4:
+                                mapArray[i, ii].BackColor = Color.FromArgb(-4144960);
+                                break;
+                            //Stump
+                            case 5:
+                                mapArray[i, ii].BackColor = Color.FromArgb(-11123140);
+                                break;
+                            //Bridge
+                            case 6:
+                                mapArray[i, ii].BackColor = Color.FromArgb(-128);
+                                break;
+                            default:
+                                throw new Exception();
+                        }
                     }
                 }
 
