@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Microsoft.Xna.Framework;
 
 // Authors: Jake Zaia
 
@@ -84,7 +85,7 @@ namespace Grov
             base.Update();
         }
 
-        public void Use()
+        public void Use(Vector2 vector2)
         {
             throw new NotImplementedException();
         }
