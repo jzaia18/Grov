@@ -169,16 +169,45 @@ namespace Grov
         {
             MouseState mouseState = Mouse.GetState();
             GamePadState gamePadState = GamePad.GetState(0);
-            Vector2 direction;
+            KeyboardState keyboardState = Keyboard.GetState();
+            Vector2 direction = new Vector2(0f, 0f);
+            bool isMouse = true;
 
+            // Handles keyboard input
             if (isInputKeyboard)
             {
-                direction = new Vector2(mouseState.X - DrawPos.X + DrawPos.Width / 2, mouseState.Y - DrawPos.Y + DrawPos.Height / 2);
+                if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Up))
+                {
+                    direction += new Vector2(0f, -1f);
+                    isMouse = false;
+                }
+                if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Down))
+                {
+                    direction += new Vector2(0f, 1f);
+                    isMouse = false;
+                }
+                if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Left))
+                {
+                    direction += new Vector2(-1f, 0f);
+                    isMouse = false;
+                }
+                if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Right))
+                {
+                    direction += new Vector2(1f, 0f);
+                    isMouse = false;
+                }
+                if (isMouse)
+                {
+                    direction = new Vector2(mouseState.X - DrawPos.X + DrawPos.Width / 2, mouseState.Y - DrawPos.Y + DrawPos.Height / 2);
+                }
+
+
                 if(gamePadState.Triggers.Right != 0f && gamePadPreviousState.Triggers.Right == 0f)
                 {
                     isInputKeyboard = false;
                 }
             }
+            // Handles gamepad input
             else
             {
                 direction = GamePad.GetState(0).ThumbSticks.Right;
@@ -189,6 +218,7 @@ namespace Grov
                 }
             }
 
+            // Normalize and finish calculations
             direction.Normalize();
             if (!float.IsNaN(direction.Y) || !float.IsNaN(direction.X))
             {
