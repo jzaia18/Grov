@@ -23,7 +23,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:EnemyholderSprite.png
+/build:EnemyholderSprite.png;EnemyholderSprite
 
 #begin FireballholderSprite.png
 /importer:TextureImporter
@@ -35,7 +35,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:FireballholderSprite.png
+/build:FireballholderSprite.png;FireballholderSprite
 
 #begin MageholderSprite.png
 /importer:TextureImporter
@@ -47,5 +47,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:MageholderSprite.png
+/build:MageholderSprite.png;MageholderSprite
 
