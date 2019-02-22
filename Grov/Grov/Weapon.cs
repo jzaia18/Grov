@@ -42,8 +42,7 @@ namespace Grov
 
         public Weapon(string filename) : base(PickupType.Weapon)
         {
-            readFromFile(@"weapons\" + filename + ".txt");
-            //TODO: use name to read in other data from a file
+			readFromFile(@"weapons\" + filename + ".txt");
         }
 
 
