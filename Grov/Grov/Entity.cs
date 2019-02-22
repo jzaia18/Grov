@@ -30,6 +30,7 @@ namespace Grov
         public Vector2 Velocity { get => velocity; set => velocity = value; }
         public Random Rng { get => rng; set => rng = value; }
         public bool IsActive { get => isActive; set => isActive = value; }
+        public Texture2D Texture { get => texture; set => texture = value; }
 
         // ************* Constructors ************* //
 
@@ -45,7 +46,7 @@ namespace Grov
         /// </summary>
         public virtual void Update()
         {
-            DrawPos = new Rectangle((int)(Position.X + .5f), (int)(Position.Y + .5f), DrawPos.Width, DrawPos.Height);
+            drawPos = new Rectangle((int)(position.X + .5f), (int)(position.Y + .5f), drawPos.Width, drawPos.Height);
         }
 
         /// <summary>
@@ -53,7 +54,7 @@ namespace Grov
         /// </summary>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, DrawPos, Color.White);
+            spriteBatch.Draw(Texture, DrawPos, Color.White);
         }
 
         /// <summary>

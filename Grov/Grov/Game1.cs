@@ -11,6 +11,7 @@ namespace Grov
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Player player;
 
         public Game1()
         {
@@ -27,7 +28,11 @@ namespace Grov
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            player = new Player(100);
 
+            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.ApplyChanges();
             base.Initialize();
         }
 
@@ -40,6 +45,7 @@ namespace Grov
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            player.Texture = Content.Load<Texture2D>("MageholderSprite");
             // TODO: use this.Content to load your game content here
         }
 
@@ -62,6 +68,7 @@ namespace Grov
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            player.Update();
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -75,7 +82,11 @@ namespace Grov
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+
+            player.Draw(spriteBatch);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
