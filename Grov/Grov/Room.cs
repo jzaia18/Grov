@@ -77,7 +77,27 @@ namespace Grov
 
         private void ReadFromFile(string filename)
         {
+            filename = @"rooms\" + filename + ".grovlev";
 
+            FileStream stream = File.OpenRead(filename);
+            BinaryReader reader = null;
+
+            try
+            {
+                reader = new BinaryReader(stream);
+
+
+                // TODO: the actual work (reading from the file)
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
+            }
         }
     }
 }
