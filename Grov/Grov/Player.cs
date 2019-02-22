@@ -28,6 +28,9 @@ namespace Grov
         private GamePadState gamePadPreviousState;
         private KeyboardState keyboardPreviousState;
         private MouseState mousePreviousState;
+        private GamePadState gamePadState;
+        private KeyboardState keyboardState;
+        private MouseState mouseState;
         private Vector2 aimDirection;
         private bool isInputKeyboard;
         private float projectileVelocity;
@@ -78,10 +81,19 @@ namespace Grov
 
         // ************* Methods ************* //
 
+        /// <summary>
+        /// Updates location and initiates all needed calculations
+        /// </summary>
         public override void Update()
         {
+            MouseState mouseState = Mouse.GetState();
+            GamePadState gamePadState = GamePad.GetState(0);
+            KeyboardState keyboardState = Keyboard.GetState();
+            this.Move();
             this.Aim();
-            base.Update();
+            gamePadPreviousState = gamePadState;
+            keyboardPreviousState = keyboardState;
+            mousePreviousState = mouseState;
         }
 
         /// <summary>
@@ -89,8 +101,6 @@ namespace Grov
         /// </summary>
         protected override void Move()
         {
-            KeyboardState keyboardState = Keyboard.GetState();
-            GamePadState gamePadState = GamePad.GetState(0);
             Vector2 direction = new Vector2(0f, 0f);
 
             // Handles keyboard input
@@ -158,8 +168,6 @@ namespace Grov
             position += velocity;
             
             velocity = new Vector2(0f, 0f);
-            gamePadPreviousState = gamePadState;
-            keyboardPreviousState = keyboardState;
         }
 
         /// <summary>
@@ -167,9 +175,6 @@ namespace Grov
         /// </summary>
         public void Aim()
         {
-            MouseState mouseState = Mouse.GetState();
-            GamePadState gamePadState = GamePad.GetState(0);
-            KeyboardState keyboardState = Keyboard.GetState();
             Vector2 direction = new Vector2(0f, 0f);
             bool isMouse = true;
 
@@ -237,8 +242,6 @@ namespace Grov
             {
                 aimDirection = new Vector2(1f, 0f);
             }
-
-            mousePreviousState = mouseState;
         }
 
         /// <summary>
