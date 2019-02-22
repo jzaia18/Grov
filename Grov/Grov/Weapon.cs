@@ -42,7 +42,7 @@ namespace Grov
 
         public Weapon(string filename) : base(PickupType.Weapon)
         {
-			readFromFile(@"weapons\" + filename + ".txt");
+            readFromFile(@"weapons\" + filename + ".txt");
         }
 
 
