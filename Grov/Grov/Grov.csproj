@@ -81,6 +81,7 @@
     <None Include="rooms\testlevel.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="rooms\testNoDoor.grovlev" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

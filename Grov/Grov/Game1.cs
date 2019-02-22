@@ -13,6 +13,9 @@ namespace Grov
         SpriteBatch spriteBatch;
         Player player;
 
+        //debug
+        Room testRoom;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -27,8 +30,9 @@ namespace Grov
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             player = new Player(100);
+
+            testRoom = new Room(RoomType.Normal);
 
             graphics.PreferredBackBufferHeight = 1080;
             graphics.PreferredBackBufferWidth = 1920;

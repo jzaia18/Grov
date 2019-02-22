@@ -59,7 +59,7 @@ namespace Grov
             }
             this.type = type;
 
-            ReadFromFile("test");
+            ReadFromFile("testNoDoor");
         }
 
 
@@ -87,10 +87,10 @@ namespace Grov
                 reader = new BinaryReader(stream);
 
                 //Height
-                for (int i = 0; i < 17; i++)
+                for (int i = 0; i < 18; i++)
                 {
                     //Width
-                    for(int ii = 0; ii < 31; ii++)
+                    for(int ii = 0; ii < 32; ii++)
                     {
                         int thisTile = reader.ReadInt32();
 
