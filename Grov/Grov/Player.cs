@@ -18,6 +18,7 @@ namespace Grov
     class Player: Creature
     {
         // ************* Fields ************* //
+
         private int maxMP;
         private int currMP;
         //private Weapon weapon;
@@ -29,6 +30,7 @@ namespace Grov
         private bool isInputKeyboard;
 
         // ************* Constant Fields ************* //
+
         private float MOVESPEED = 5f;
 
 
@@ -73,8 +75,8 @@ namespace Grov
 
         private void HandleInput()
         {
-            this.Aim();
             base.Update();
+            this.Aim();
         }
 
         protected override void Move()
@@ -121,8 +123,18 @@ namespace Grov
         public void Aim()
         {
             MouseState mouseState = Mouse.GetState();
+            
 
-            aimDirection = new Vector2(mouseState.X - DrawPos.X + DrawPos.Width / 2, mouseState.Y - DrawPos.Y + DrawPos.Height / 2);
+            if (isInputKeyboard)
+            {
+                aimDirection = new Vector2(mouseState.X - DrawPos.X + DrawPos.Width / 2, mouseState.Y - DrawPos.Y + DrawPos.Height / 2);
+            }
+            else
+            {
+                aimDirection = GamePad.GetState(0).ThumbSticks.Right;
+            }
+
+            aimDirection.Normalize();
         }
 
         public void Attack()
