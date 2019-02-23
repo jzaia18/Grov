@@ -13,7 +13,7 @@ namespace Grov
 {
     enum EnemyType
     {
-
+		TestEnemy
     }
 
     class Enemy : Creature
@@ -32,12 +32,15 @@ namespace Grov
             this.fireRate = fireRate;
             this.attackDamage = attackDamage;
 			this.moveSpeed = moveSpeed;
+			drawPos = new Rectangle(300, 300, 150, 150);
+			position = new Vector2 (300, 300);
+			velocity = new Vector2(0f, 0f);
 			rng = new Random();
         }
 
         public void Update(Entity target)
         {
-            throw new NotImplementedException();
+			base.Update();
         }
 
         private void Attack(Entity target)
@@ -55,12 +58,19 @@ namespace Grov
 			direction += new Vector2(rng.Next(-1, 2), rng.Next(-1, 2));
 			direction.Normalize();
 
-			if (moveSpeed != 0)
+			velocity = moveSpeed * direction;
+
+			if (float.IsNaN(direction.X))
 			{
-				velocity = moveSpeed * direction;
-				position += velocity;
-				velocity = new Vector2(0f, 0f);
+				direction.X = 0;
 			}
+			if (float.IsNaN(direction.Y))
+			{
+				direction.Y = 0;
+			}
+
+			position += velocity;
+			velocity = new Vector2(0f, 0f);
 		}
 	}
 }

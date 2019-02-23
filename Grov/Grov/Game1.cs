@@ -15,6 +15,7 @@ namespace Grov
         //debug
         Room testRoom;
         Player player;
+		Enemy enemy;
 
         public Game1()
         {
@@ -31,6 +32,7 @@ namespace Grov
         protected override void Initialize()
         {
             player = new Player(100);
+			enemy = new Enemy(EnemyType.TestEnemy, 10, true, 0, 0, 3f);
 
             testRoom = new Room(RoomType.Normal);
 
@@ -52,6 +54,7 @@ namespace Grov
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             player.Texture = Content.Load<Texture2D>("MageholderSprite");
+			enemy.Texture = Content.Load<Texture2D>("EnemyHolderSprite");
             // TODO: use this.Content to load your game content here
         }
 
@@ -75,6 +78,7 @@ namespace Grov
                 Exit();
 
             player.Update();
+			enemy.Update();
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -91,6 +95,7 @@ namespace Grov
             spriteBatch.Begin();
 
             player.Draw(spriteBatch);
+			enemy.Draw(spriteBatch);
 
             spriteBatch.End();
 
