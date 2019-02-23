@@ -34,7 +34,7 @@ namespace Grov
         protected override void Initialize()
         {
             player = new Player(100);
-			enemy = new Enemy(EnemyType.TestEnemy, 10, true, 0, 0, 20f);
+			enemy = new Enemy(EnemyType.TestEnemy, 10, true, 0, 0, 10f);
 
             testRoom = new Room(RoomType.Normal);
 
