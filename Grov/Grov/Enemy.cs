@@ -58,8 +58,6 @@ namespace Grov
 			direction += new Vector2(rng.Next(-1, 2), rng.Next(-1, 2));
 			direction.Normalize();
 
-			velocity = moveSpeed * direction;
-
 			if (float.IsNaN(direction.X))
 			{
 				direction.X = 0;
@@ -69,7 +67,9 @@ namespace Grov
 				direction.Y = 0;
 			}
 
+			velocity = moveSpeed * direction;
 			position += velocity;
+
 			velocity = new Vector2(0f, 0f);
 		}
 	}

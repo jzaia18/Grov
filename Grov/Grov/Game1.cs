@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using System.Diagnostics;
+
 namespace Grov
 {
     /// <summary>
@@ -32,7 +34,7 @@ namespace Grov
         protected override void Initialize()
         {
             player = new Player(100);
-			enemy = new Enemy(EnemyType.TestEnemy, 10, true, 0, 0, 3f);
+			enemy = new Enemy(EnemyType.TestEnemy, 10, true, 0, 0, 20f);
 
             testRoom = new Room(RoomType.Normal);
 
@@ -79,6 +81,8 @@ namespace Grov
 
             player.Update();
 			enemy.Update();
+
+			Debug.WriteLine(enemy.Position.ToString() + ", " + enemy.DrawPos.ToString());
             // TODO: Add your update logic here
 
             base.Update(gameTime);
