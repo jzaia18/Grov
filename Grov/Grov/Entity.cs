@@ -3,8 +3,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 /*
- * Authors
+ * Authors:
  * Jack Hoffman
+ * Jake Zaia
  */
 
 namespace Grov
@@ -30,7 +31,7 @@ namespace Grov
         public Vector2 Velocity { get => velocity; set => velocity = value; }
         public Random Rng { get => rng; set => rng = value; }
         public bool IsActive { get => isActive; set => isActive = value; }
-        public Texture2D Texture { get => texture; }
+        public Texture2D Texture { get => texture; set => texture = value; }
 
         // ************* Constructors ************* //
 
@@ -71,7 +72,8 @@ namespace Grov
         /// </summary>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, DrawPos, Color.White);
+            if (texture != null)
+                spriteBatch.Draw(texture, drawPos, Color.White);
         }
 
         /// <summary>
