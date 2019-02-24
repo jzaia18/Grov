@@ -21,23 +21,13 @@ namespace Grov
         // ************* Fields ************* //
 
         private EnemyType enemyType;
-        private float fireDelay;
 
 
 		// ************* Constructor ************* //
 
-		public Enemy(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed)
+		public Enemy(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, float projectileSpeed, Rectangle drawPos, Vector2 velocity, Random rng, Texture2D texture) : base(maxHP,melee, fireRate, moveSpeed, attackDamage, drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), velocity, rng, true, texture)
         {
             this.enemyType = enemyType;
-            this.maxHP = maxHP;
-            this.fireRate = fireRate;
-            this.fireDelay = fireRate;
-            this.attackDamage = attackDamage;
-			this.moveSpeed = moveSpeed;
-			drawPos = new Rectangle(300, 300, 150, 150);
-			position = new Vector2 (300, 300);
-			velocity = new Vector2(0f, 0f);
-			rng = new Random();
         }
 
         public void Update(Entity target)
@@ -51,14 +41,12 @@ namespace Grov
                 this.Move(target);
             }
             base.Update();
+            hitbox = drawPos;
         }
 
         private void Attack(Entity target)
         {
-            if(this.fireDelay > 0 && this.hitbox.Intersects(target.Hitbox))
-            {
-                ((Player)target).CurrentHP -= this.AttackDamage;
-            }
+
         }
 
 		/// <summary>
@@ -66,16 +54,15 @@ namespace Grov
 		/// </summary>
 		protected void Move(Entity target)
 		{
-            if (!target.DrawPos.Intersects(this.drawPos))
-            {
-                Vector2 direction = target.Position - this.position;
+            Vector2 direction = target.Position - this.position;
 
-                direction.Normalize();
+            direction.Normalize();
 
-                velocity = direction * moveSpeed;
+            velocity = direction * moveSpeed;
 
-                position += velocity;
-            }
+            position += velocity;
+
+            this.fireDelay = FireRate;
 		}
 	}
 }

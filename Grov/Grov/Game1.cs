@@ -34,7 +34,7 @@ namespace Grov
         protected override void Initialize()
         {
             player = new Player(100);
-			enemy = new Enemy(EnemyType.TestEnemy, 10, true, 0, 0, 5f);
+			enemy = new Enemy(EnemyType.TestEnemy, 10, true, 60f, 1f, 3f);
 
             testRoom = new Room(RoomType.Normal);
 
@@ -82,7 +82,9 @@ namespace Grov
             player.Update();
 			enemy.Update(player);
 
-			Debug.WriteLine(enemy.Position.ToString() + ", " + enemy.DrawPos.ToString());
+            //System.Console.WriteLine(player.CurrentHP);
+
+			//Debug.WriteLine(enemy.Position.ToString() + ", " + enemy.DrawPos.ToString());
             // TODO: Add your update logic here
 
             base.Update(gameTime);

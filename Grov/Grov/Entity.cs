@@ -3,8 +3,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 /*
- * Authors
+ * Authors:
  * Jack Hoffman
+ * Jake Zaia
  */
 
 namespace Grov
@@ -34,9 +35,26 @@ namespace Grov
 
         // ************* Constructors ************* //
 
-        public Entity()
+        public Entity(Rectangle drawPos, Texture2D texture)
         {
-            // TODO: write code
+            this.drawPos = drawPos;
+            this.hitbox = drawPos;
+            this.position = new Vector2(drawPos.X, drawPos.Y);
+            this.velocity = new Vector2(0, 0);
+            this.rng = new Random();
+            this.isActive = true;
+            this.texture = texture;
+        }
+
+        public Entity(Rectangle drawPos, Rectangle hitbox, Vector2 position, Vector2 velocity, Random rng, bool isActive, Texture2D texture)
+        {
+            this.drawPos = drawPos;
+            this.hitbox = hitbox;
+            this.position = position;
+            this.velocity = velocity;
+            this.rng = rng;
+            this.isActive = isActive;
+            this.texture = texture;
         }
 
         // ************* Methods ************* //
@@ -54,7 +72,8 @@ namespace Grov
         /// </summary>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, DrawPos, Color.White);
+            if (texture != null)
+                spriteBatch.Draw(texture, drawPos, Color.White);
         }
 
         /// <summary>
