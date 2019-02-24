@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -13,6 +14,12 @@ namespace Grov
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        EntityManager entityManager;
+        DisplayManager displayManager;
+        FloorManager floorManager;
+
+        Random rng;
 
         //debug
         Room testRoom;
@@ -33,6 +40,10 @@ namespace Grov
         /// </summary>
         protected override void Initialize()
         {
+            entityManager = new EntityManager(GraphicsDevice, rng);
+            floorManager = new FloorManager();
+            displayManager = new DisplayManager(entityManager, floorManager, new HUD(), player);
+
             player = new Player(100);
 			enemy = new Enemy(EnemyType.TestEnemy, 10, true, 60f, 1f, 3f);
 

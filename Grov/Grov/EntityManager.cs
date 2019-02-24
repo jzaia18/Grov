@@ -19,6 +19,8 @@ namespace Grov
         private List<Projectile> hostileProjectiles;
         private List<Projectile> friendlyProjectiles;
         private Dictionary<EnemyType, Texture2D> textureMap;
+        private GraphicsDevice graphicsDevice;
+        private Random rng;
 
 
         // ************* Properties ************* //
@@ -28,11 +30,14 @@ namespace Grov
 
         // ************* Constructor ************* //
 
-        public EntityManager() {
+        public EntityManager(GraphicsDevice graphicsDevice, Random rng) {
             enemies = new List<Enemy>();
             hostileProjectiles = new List<Projectile>();
             friendlyProjectiles = new List<Projectile>();
             textureMap = new Dictionary<EnemyType, Texture2D>();
+            this.graphicsDevice = graphicsDevice;
+            this.rng = rng;
+            //player = new Player();
         }
 
         // ************* Methods ************* //
@@ -71,7 +76,7 @@ namespace Grov
                 float projectileSpeed = float.Parse(reader.ReadLine());
 
                 while (numEnemies-- > 0)
-                    enemies.Add(new Enemy(enemyType, maxHP, melee, fireRate, attackDamage, moveSpeed));
+                    enemies.Add(new Enemy(enemyType, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle(rng.Next(graphicsDevice.Viewport.Width), rng.Next(graphicsDevice.Viewport.Height), 100, 100), new Vector2(0,0), rng, null));
             }
             catch (Exception e)
             {
