@@ -76,6 +76,7 @@ namespace Grov
             drawPos = new Rectangle(0, 0, 150, 200);
             velocity = new Vector2(0f, 0f);
             position = new Vector2(100f, 100f);
+            weapon = new Weapon("default");
         }
 
 
@@ -91,6 +92,7 @@ namespace Grov
             keyboardState = Keyboard.GetState();
             this.Aim();
             base.Update();
+            this.hitbox = DrawPos;
             gamePadPreviousState = gamePadState;
             keyboardPreviousState = keyboardState;
             mousePreviousState = mouseState;
@@ -168,6 +170,7 @@ namespace Grov
             position += velocity;
             
             velocity = new Vector2(0f, 0f);
+            weapon.Position = new Vector2(this.position.X + this.DrawPos.Width / 2, this.position.Y + this.DrawPos.Height / 2);
         }
 
         /// <summary>

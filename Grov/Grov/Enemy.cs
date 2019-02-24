@@ -37,6 +37,7 @@ namespace Grov
 			drawPos = new Rectangle(300, 300, 150, 150);
 			position = new Vector2 (300, 300);
 			velocity = new Vector2(0f, 0f);
+            hitbox = drawPos;
 			rng = new Random();
         }
 
@@ -51,14 +52,12 @@ namespace Grov
                 this.Move(target);
             }
             base.Update();
+            hitbox = drawPos;
         }
 
         private void Attack(Entity target)
         {
-            if(this.fireDelay > 0 && this.hitbox.Intersects(target.Hitbox))
-            {
-                ((Player)target).CurrentHP -= this.AttackDamage;
-            }
+
         }
 
 		/// <summary>
@@ -66,16 +65,15 @@ namespace Grov
 		/// </summary>
 		protected void Move(Entity target)
 		{
-            if (!target.DrawPos.Intersects(this.drawPos))
-            {
-                Vector2 direction = target.Position - this.position;
+            Vector2 direction = target.Position - this.position;
 
-                direction.Normalize();
+            direction.Normalize();
 
-                velocity = direction * moveSpeed;
+            velocity = direction * moveSpeed;
 
-                position += velocity;
-            }
+            position += velocity;
+
+            this.fireDelay = FireRate;
 		}
 	}
 }
