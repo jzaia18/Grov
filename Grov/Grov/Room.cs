@@ -65,9 +65,30 @@ namespace Grov
 
         // ************* Methods ************* //
 
+		/// <summary>
+		/// Determines state of entrances (open or closed)
+		/// </summary>
         public void Update()
         {
-
+			if (isCleared)
+			{
+				if(left != null)
+				{
+					left.State = EntranceState.Open;
+				}
+				if (right != null)
+				{
+					right.State = EntranceState.Open;
+				}
+				if (top != null)
+				{
+					left.State = EntranceState.Open;
+				}
+				if (bottom != null)
+				{
+					left.State = EntranceState.Open;
+				}
+			}
         }
 
         public void Draw(SpriteBatch spriteBatch)

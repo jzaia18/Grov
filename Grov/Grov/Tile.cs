@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 
 //Brought to you in part by:
 //Duncan Mott
+//Rachel Wong
 
 namespace Grov
 {
@@ -23,23 +24,33 @@ namespace Grov
         Stump = 5,
         Bridge = 6
     }
-    class Tile
-    {
+	class Tile
+	{
+		// Fields
+		private Point location;
+		private TileType type;
+		private bool isPassable;
+		private bool blocksProjectiles;
+		private Texture2D texture;
 
-        private Point location;
-        private TileType tileType;
-        private bool isPassable;
-        private bool blocksProjectiles;
-        private Texture2D texture;
+		// Constants
+		int tileWidth = 1920 / 32;
+		int tileHeight = 1080 / 18;
+
+		// Properties
+		public TileType Type { get => type; set => type = value; }
+		public Texture2D Texture { get => texture; set => texture = value; }
+		public int TileWidth { get => tileWidth; }
+		public int TileHeight { get => tileHeight; }
 
         /// <summary>
         /// Create a new tile
         /// </summary>
-        public Tile(TileType tileType)
+        public Tile(TileType type)
         {
-            this.tileType = tileType;
+            this.type = type;
 
-            switch ((int)tileType)
+            switch ((int)type)
             {
                 //Floor
                 case 0:

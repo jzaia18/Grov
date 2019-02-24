@@ -6,14 +6,19 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-// Authors: Jake Zaia
+// Authors: Jake Zaia, Rachel Wong
 
 namespace Grov
 {
     class FloorManager
     {
-        // ************* Fields ************* //
-
+		// ************* Fields ************* //
+		private Room startRoom;
+		private Room currRoom;
+		private Room bossRoom;
+		private int numRooms;
+		private int floorNumber;
+		private Random rng;
 
         // ************* Constructor ************* //
 
