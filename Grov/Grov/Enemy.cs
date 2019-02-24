@@ -26,7 +26,7 @@ namespace Grov
 
 		// ************* Constructor ************* //
 
-		public Enemy(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed)
+		public Enemy(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, Rectangle drawPos, Vector2 velocity, Random rng, Texture2D texture) : base(drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), velocity, rng, true, texture)
         {
             this.enemyType = enemyType;
             this.maxHP = maxHP;
