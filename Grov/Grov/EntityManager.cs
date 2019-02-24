@@ -65,8 +65,8 @@ namespace Grov
                 string name = reader.ReadLine();
                 int maxHP = Int32.Parse(reader.ReadLine());
                 bool melee = Boolean.Parse(reader.ReadLine());
-                double fireRate = Double.Parse(reader.ReadLine());
-                double attackDamage = Double.Parse(reader.ReadLine());
+                float fireRate = float.Parse(reader.ReadLine());
+                float attackDamage = float.Parse(reader.ReadLine());
                 float moveSpeed = float.Parse(reader.ReadLine());
 
                 while (numEnemies-- > 0)

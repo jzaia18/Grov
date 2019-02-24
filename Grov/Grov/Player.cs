@@ -20,8 +20,8 @@ namespace Grov
     {
         // ************* Fields ************* //
 
-        private int maxMP;
-        private int currMP;
+        private float maxMP;
+        private float currMP;
         private Weapon weapon;
         private int keys;
         private int bombs;
@@ -37,7 +37,7 @@ namespace Grov
 
         // ************* Properties ************* //
 
-        public int CurrMP
+        public float CurrMP
         {
             get => currMP;
             set
@@ -53,7 +53,7 @@ namespace Grov
             }
         }
 
-        public int MaxMP { get => maxMP; set => maxMP = value; }
+        public float MaxMP { get => maxMP; set => maxMP = value; }
         public int Keys { get => keys; set => keys = value; }
         public int Bombs { get => bombs; set => bombs = value; }
         public float ProjectileVelocity { get => projectileVelocity; set => projectileVelocity = value; }
@@ -61,7 +61,7 @@ namespace Grov
 
         // ************* Constructor ************* //
 
-        public Player(int maxMP)
+        public Player(float maxMP)
         {
             this.maxMP = maxMP;
             this.currMP = maxMP;
