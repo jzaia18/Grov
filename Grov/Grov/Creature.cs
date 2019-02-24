@@ -29,6 +29,13 @@ namespace Grov
         public float FireRate { get => fireRate; set => fireRate = value; }
         public float AttackDamage { get => attackDamage; set => attackDamage = value; }
 
+        // ************* Constructor ************* //
+
+        public Creature(Rectangle drawPos, Rectangle hitbox, Vector2 position, Vector2 velocity, Random rng, bool isActive, Texture2D texture) : base(drawPos, hitbox, position, velocity, rng, isActive, texture)
+        {
+
+        }
+        
         // ************* Methods ************* //
 
         public override void Update()
