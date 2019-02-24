@@ -13,28 +13,30 @@ namespace Grov
     {
         // ************* Fields ************* //
 
-        private double lifespan;
-        private Entity origin;
+        private float lifespan;
+        private bool isFromPlayer;
         private bool noclip;
 
         // ************* Properties ************* //
 
-        public double Lifespan { get => lifespan; set => lifespan = value; }
-        public Entity Origin { get => origin; set => origin = value; }
+        public float Lifespan { get => lifespan; set => lifespan = value; }
+        public bool IsFromPlayer { get => isFromPlayer; set => isFromPlayer = value; }
         public bool Noclip { get => noclip; set => noclip = value; }
 
 
         // ************* Constructor ************* //
-        public Projectile(double lifespan, Vector2 velocity, Entity origin, bool noclip)
+
+        public Projectile(float lifespan, Vector2 position, Vector2 velocity, bool isFromPlayer, bool noclip)
         {
-            this.position = new Vector2(origin.Position.X + origin.DrawPos.Width / 2, origin.Position.Y + origin.DrawPos.Height / 2);
             this.lifespan = lifespan;
+            this.position = position;
             this.velocity = velocity;
-            this.origin = origin;
+            this.isFromPlayer = isFromPlayer;
             this.noclip = noclip;
         }
 
         // ************* Methods ************* //
+
         public override void Update()
         {
             this.position += velocity;

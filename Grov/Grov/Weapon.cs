@@ -23,20 +23,22 @@ namespace Grov
         // ************* Fields ************* //
 
         private string name;
-        private double fireRate;
-        private double atkDamage;
+        private float fireRate;
+        private float atkDamage;
         private int manaCost;
         private int numProjectiles;
         private ShotType shotType;
+        private float shotSpeed;
 
 
         // ************* Properties ************* //
         
         public string Name { get => name; }
-        public double FireRate { get => fireRate; }
-        public double AttackDamage { get => atkDamage; }
+        public float FireRate { get => fireRate; }
+        public float AttackDamage { get => atkDamage; }
         public int ManaCost { get => manaCost; }
         public int NumProjectiles { get => numProjectiles; }
+        public float ShotSpeed { get => shotSpeed; set => shotSpeed = value; }
         public ShotType ShotType { get => shotType; }
 
         // ************* Constructor ************* //
@@ -56,10 +58,11 @@ namespace Grov
                 reader = new StreamReader(filename);
 
                 name = reader.ReadLine();
-                fireRate = Double.Parse(reader.ReadLine());
-                atkDamage = Double.Parse(reader.ReadLine());
-                manaCost = Int32.Parse(reader.ReadLine());
-                numProjectiles = Int32.Parse(reader.ReadLine());
+                fireRate = float.Parse(reader.ReadLine());
+                atkDamage = float.Parse(reader.ReadLine());
+                manaCost = int.Parse(reader.ReadLine());
+                numProjectiles = int.Parse(reader.ReadLine());
+                shotSpeed = float.Parse(reader.ReadLine());
                 shotType = (ShotType) Enum.Parse(typeof(ShotType), reader.ReadLine(), true);
             }
             catch (Exception e)
@@ -85,8 +88,25 @@ namespace Grov
             base.Update();
         }
 
-        public void Use(Vector2 vector2)
+        public List<Projectile> Use(Vector2 direction)
         {
+            float projectileLifeSpan = 0;
+            List<Projectile> projList = new List<Projectile>();
+
+            switch (shotType)
+            {
+                case ShotType.Normal:
+                    
+                    float offset = (float) Math.PI / (numProjectiles+1);
+                    float playerOffset = (float) Math.Atan2(direction.Y, direction.X);
+
+                    for (int i = 1; i < numProjectiles + 1; i++)
+                    {
+                        Vector2 projVelocity = new Vector2(shotSpeed * (float) Math.Cos(playerOffset + i * offset), shotSpeed * (float) Math.Sin(playerOffset + i * offset));
+                        projList.Add(new Projectile(projectileLifeSpan, position, projVelocity, true, false);
+                    }
+                    return projList;
+            }
             throw new NotImplementedException();
         }
     }
