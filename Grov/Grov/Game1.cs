@@ -41,9 +41,11 @@ namespace Grov
         /// </summary>
         protected override void Initialize()
         {
+            HUD = new HUD(player, Content);
+
             entityManager = new EntityManager(GraphicsDevice, rng);
             floorManager = new FloorManager();
-            displayManager = new DisplayManager(entityManager, floorManager, new HUD(), player);
+            displayManager = new DisplayManager(entityManager, floorManager, HUD, player);
 
             player = new Player(100);
 			enemy = new Enemy(EnemyType.TestEnemy, 10, true, 60f, 1f, 3f);
@@ -56,8 +58,6 @@ namespace Grov
 
             IsMouseVisible = true;
             base.Initialize();
-
-            HUD = new HUD(player, Content);
         }
 
         /// <summary>
