@@ -3,10 +3,61 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
 
 namespace Grov
 {
     class HUD
     {
+        // ************* Fields ************* //
+
+        private Player player;
+        private ContentManager contentManager;
+        Texture2D healthBarFull;
+        Texture2D healthBarEmpty;
+        Texture2D manaBarFull;
+        Texture2D manaBarEmpty;
+
+        // ************* Constructors ************* //
+
+        public HUD(Player player, ContentManager contentManager)
+        {
+            this.player = player;
+            this.contentManager = contentManager;
+            this.Initialize();
+        }
+
+        // ************* Methods ************* //
+
+        public void Initialize()
+        {
+            healthBarFull = contentManager.Load<Texture2D>("HealthBarFullSprite");
+            healthBarEmpty = contentManager.Load<Texture2D>("HealthBarEmptySprite");
+            //manaBarFull = contentManager.Load<Texture2D>("ManaBarFullSprite");
+            //manaBarEmpty = contentManager.Load<Texture2D>("ManaBarEmptySprite");
+        }
+
+        public void Draw(SpriteBatch sb)
+        {
+            DrawHealth(sb);
+            //DrawMana(sb);
+        }
+
+        // ************* Helper Methods ************* //
+
+        private void DrawHealth(SpriteBatch sb)
+        {
+            sb.Draw(healthBarEmpty, new Rectangle(10, 10, healthBarEmpty.Width, healthBarEmpty.Height), Color.White);
+            sb.Draw(healthBarFull, new Rectangle(10, 10,(int)(healthBarFull.Width * player.CurrentHP / player.MaxHP), healthBarFull.Height), Color.White);
+        }
+
+        private void DrawMana(SpriteBatch sb)
+        {
+            sb.Draw(manaBarEmpty, new Rectangle(10, 10 + 10 + healthBarFull.Height, manaBarEmpty.Width, manaBarEmpty.Height), Color.White);
+            sb.Draw(manaBarFull, new Rectangle(10, 10 + 10 + healthBarFull.Height, (int)(manaBarFull.Width * player.CurrentHP / player.MaxHP), manaBarFull.Height), Color.White);
+        }
     }
 }

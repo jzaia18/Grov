@@ -25,6 +25,7 @@ namespace Grov
         Room testRoom;
         Player player;
 		Enemy enemy;
+        HUD HUD;
 
         public Game1()
         {
@@ -55,6 +56,8 @@ namespace Grov
 
             IsMouseVisible = true;
             base.Initialize();
+
+            HUD = new HUD(player, Content);
         }
 
         /// <summary>
@@ -65,7 +68,7 @@ namespace Grov
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            HUD.Initialize();
             player.Texture = Content.Load<Texture2D>("MageholderSprite");
 			enemy.Texture = Content.Load<Texture2D>("EnemyHolderSprite");
             // TODO: use this.Content to load your game content here
@@ -96,7 +99,6 @@ namespace Grov
             //System.Console.WriteLine(player.CurrentHP);
 
 			//Debug.WriteLine(enemy.Position.ToString() + ", " + enemy.DrawPos.ToString());
-            // TODO: Add your update logic here
 
             base.Update(gameTime);
         }
@@ -113,6 +115,7 @@ namespace Grov
 
             player.Draw(spriteBatch);
 			enemy.Draw(spriteBatch);
+            HUD.Draw(spriteBatch);
 
             spriteBatch.End();
 
