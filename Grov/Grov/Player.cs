@@ -33,7 +33,6 @@ namespace Grov
         private MouseState mouseState;
         private Vector2 aimDirection;
         private bool isInputKeyboard;
-        private float projectileVelocity;
 
         // ************* Properties ************* //
 
@@ -56,27 +55,21 @@ namespace Grov
         public float MaxMP { get => maxMP; set => maxMP = value; }
         public int Keys { get => keys; set => keys = value; }
         public int Bombs { get => bombs; set => bombs = value; }
-        public float ProjectileVelocity { get => projectileVelocity; set => projectileVelocity = value; }
 
 
         // ************* Constructor ************* //
 
-        public Player(float maxMP)
+        public Player(float maxHP, float maxMP, float fireRate, float moveSpeed, float attackDamage, float projectileSpeed, Rectangle drawPos, Rectangle hitbox, Vector2 position, Vector2 velocity, Random rng, Texture2D texture) : base(maxHP, false, fireRate, moveSpeed, attackDamage, projectileSpeed, drawPos, hitbox, position, velocity, rng, true, texture)
         {
             this.maxMP = maxMP;
             this.currMP = maxMP;
-			moveSpeed = 5f;
             keys = 0;
             bombs = 0;
             keyboardPreviousState = Keyboard.GetState();
             gamePadPreviousState = GamePad.GetState(0);
             mousePreviousState = Mouse.GetState();
             isInputKeyboard = true;
-            projectileVelocity = 10f;
-            drawPos = new Rectangle(0, 0, 150, 200);
-            velocity = new Vector2(0f, 0f);
-            position = new Vector2(100f, 100f);
-            weapon = new Weapon("default");
+            weapon = new Weapon("Default");
         }
 
 

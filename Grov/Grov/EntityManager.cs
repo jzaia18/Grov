@@ -68,6 +68,7 @@ namespace Grov
                 float fireRate = float.Parse(reader.ReadLine());
                 float attackDamage = float.Parse(reader.ReadLine());
                 float moveSpeed = float.Parse(reader.ReadLine());
+                float projectileSpeed = float.Parse(reader.ReadLine());
 
                 while (numEnemies-- > 0)
                     enemies.Add(new Enemy(enemyType, maxHP, melee, fireRate, attackDamage, moveSpeed));
