@@ -103,7 +103,7 @@ namespace Grov
                     for (int i = 1; i < numProjectiles + 1; i++)
                     {
                         Vector2 projVelocity = new Vector2(shotSpeed * (float) Math.Cos(playerOffset + i * offset), shotSpeed * (float) Math.Sin(playerOffset + i * offset));
-                        projList.Add(new Projectile(projectileLifeSpan, position, projVelocity, true, false);
+                        projList.Add(new Projectile(projectileLifeSpan, position, projVelocity, true, false));
                     }
                     return projList;
             }
