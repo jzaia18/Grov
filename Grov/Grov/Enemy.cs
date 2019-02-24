@@ -21,24 +21,13 @@ namespace Grov
         // ************* Fields ************* //
 
         private EnemyType enemyType;
-        private float fireDelay;
 
 
 		// ************* Constructor ************* //
 
-		public Enemy(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, Rectangle drawPos, Vector2 velocity, Random rng, Texture2D texture) : base(drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), velocity, rng, true, texture)
+		public Enemy(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, Rectangle drawPos, Vector2 velocity, Random rng, Texture2D texture) : base(maxHP,melee, fireRate, moveSpeed, attackDamage, drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), velocity, rng, true, texture)
         {
             this.enemyType = enemyType;
-            this.maxHP = maxHP;
-            this.fireRate = fireRate;
-            this.fireDelay = fireRate;
-            this.attackDamage = attackDamage;
-			this.moveSpeed = moveSpeed;
-			drawPos = new Rectangle(300, 300, 150, 150);
-			position = new Vector2 (300, 300);
-			velocity = new Vector2(0f, 0f);
-            hitbox = drawPos;
-			rng = new Random();
         }
 
         public void Update(Entity target)

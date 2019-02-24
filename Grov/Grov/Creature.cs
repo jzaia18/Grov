@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
  * Authors
  * Jack Hoffman
  * Rachel Wong
+ * Jake Zaia
  */ 
 
 namespace Grov
@@ -18,6 +19,7 @@ namespace Grov
         protected float currentHP;
         protected bool melee;
         protected float fireRate;
+        protected float fireDelay;
         protected float attackDamage;
 		protected float moveSpeed;
 
@@ -28,12 +30,19 @@ namespace Grov
         public bool Melee { get => melee; set => melee = value; }
         public float FireRate { get => fireRate; set => fireRate = value; }
         public float AttackDamage { get => attackDamage; set => attackDamage = value; }
+        public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
 
         // ************* Constructor ************* //
 
-        public Creature(Rectangle drawPos, Rectangle hitbox, Vector2 position, Vector2 velocity, Random rng, bool isActive, Texture2D texture) : base(drawPos, hitbox, position, velocity, rng, isActive, texture)
+        public Creature(float maxHP, bool melee, float fireRate, float moveSpeed, float attackDamage, Rectangle drawPos, Rectangle hitbox, Vector2 position, Vector2 velocity, Random rng, bool isActive, Texture2D texture) : base(drawPos, hitbox, position, velocity, rng, isActive, texture)
         {
-
+            this.maxHP = maxHP;
+            this.currentHP = maxHP;
+            this.melee = melee;
+            this.fireRate = fireRate;
+            this.fireDelay = fireRate;
+            this.attackDamage = attackDamage;
+            this.moveSpeed = moveSpeed;
         }
         
         // ************* Methods ************* //
