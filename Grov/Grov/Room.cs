@@ -21,19 +21,20 @@ namespace Grov
         Secret
     }
 
-    class Room
-    {
-        // ************* Fields ************* //
+	class Room
+	{
+		// ************* Fields ************* //
 
-        private Entrance top, bottom, left, right;
-        private RoomType type;
-        private bool isCleared;
-        private Tile[][] tiles;
+		private Entrance top, bottom, left, right;
+		private RoomType type;
+		private bool isCleared;
+		private Tile[][] tiles;
+		private Texture2D[] tile_textures;
 
 
-        // ************* Properties ************* //
+		// ************* Properties ************* //
 
-        public Entrance Top { get => top; set => top = value; }
+		public Entrance Top { get => top; set => top = value; }
         public Entrance Bottom { get => bottom; set => bottom = value; }
         public Entrance Left { get => left; set => left = value; }
         public Entrance Right { get => right; set => right = value; }
@@ -49,8 +50,9 @@ namespace Grov
 
         // ************* Constructor ************* //
 
-        public Room(RoomType type)
+        public Room(RoomType type, Texture2D[] textures)
         {
+			tile_textures = textures;
             isCleared = false;
             tiles = new Tile[32][];
             for (int i = 0; i < tiles.Length; i++)
@@ -93,40 +95,13 @@ namespace Grov
 
         public void Draw(SpriteBatch spriteBatch)
         {
-			for (int row = 0; row < tiles.Length; row++)
+			for (int x = 0; x < tiles.Length; x++)
 			{
-				for (int col = 0; col < tiles[col].Length; col++)
+				for (int y = 0; y < tiles[x].Length; y++)
 				{
-					Tile cur = tiles[row][col];
+					Tile cur = tiles[x][y];
 
-					if (cur.Texture == null)
-					{
-						Texture2D rect = new Texture2D(null, cur.TileWidth, cur.TileHeight);
-						switch ((int)cur.Type)
-						{
-							case 0:
-								spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), new Color(153, 213, 100));
-								break;
-							case 1:
-								spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), Color.ForestGreen);
-								break;
-							case 2:
-								spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), Color.Purple);
-								break;
-							case 3:
-								spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), Color.CornflowerBlue);
-								break;
-							case 4:
-								spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), Color.Silver);
-								break;
-							case 5:
-								spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), new Color(86, 70, 60));
-								break;
-							case 6:
-								spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), Color.Beige);
-								break;
-						}
-					}
+					spriteBatch.Draw(tile_textures[(int)cur.Type], new Rectangle(cur.TileWidth * x, cur.TileHeight * y, cur.TileWidth, cur.TileHeight), Color.White);
 				}
 			}
 		}
