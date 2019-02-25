@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-// Authors: Jake Zaia, Duncan Mott
+// Authors: Jake Zaia, Duncan Mott, Rachel Wong
 
 namespace Grov
 {
@@ -93,8 +93,23 @@ namespace Grov
 
         public void Draw(SpriteBatch spriteBatch)
         {
+			for (int row = 0; row < tiles.Length; row++)
+			{
+				for (int col = 0; col < tiles[col].Length; col++)
+				{
+					Tile cur = tiles[row][col];
 
-        }
+					if (cur.Texture == null)
+					{
+						Texture2D rect = new Texture2D(null, cur.TileWidth, cur.TileHeight);
+						if (tiles[row][col].Type == TileType.Floor)
+						{
+							spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), new Color(153, 213, 100));
+						}
+					}
+				}
+			}
+		}
 
         private void ReadFromFile(string filename)
         {
