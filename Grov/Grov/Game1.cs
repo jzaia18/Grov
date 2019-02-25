@@ -22,7 +22,6 @@ namespace Grov
         Random rng;
 
         //debug
-        Room testRoom;
         Player player;
 		Enemy enemy;
         HUD HUD;
@@ -51,8 +50,6 @@ namespace Grov
             player = new Player(10, 10, 2, 5, 5, 10, new Rectangle(0, 0, 215, 265), new Rectangle(0, 0, 215, 265), new Vector2(0, 0), rng, null);
             enemy = new Enemy(EnemyType.TestEnemy, 10, true, 60f, 1f, 3f, 3, new Rectangle(100, 100, 200, 200), new Vector2(0, 0), rng, null);
 
-            testRoom = new Room(RoomType.Normal);
-
             graphics.PreferredBackBufferHeight = 1080;
             graphics.PreferredBackBufferWidth = 1920;
             graphics.ApplyChanges();
@@ -62,8 +59,10 @@ namespace Grov
             HUD = new HUD(player, Content);
 
             entityManager = new EntityManager(GraphicsDevice, rng);
-            floorManager = new FloorManager();
+            floorManager = new FloorManager(Content);
             displayManager = new DisplayManager(entityManager, floorManager, HUD, player);
+
+            rng = new Random();
 
             base.Initialize();
         }
@@ -125,7 +124,8 @@ namespace Grov
 
             spriteBatch.Begin();
 
-            player.Draw(spriteBatch);
+			floorManager.Draw(spriteBatch);
+			player.Draw(spriteBatch);
 			enemy.Draw(spriteBatch);
             HUD.Draw(spriteBatch);
             foreach (Projectile projectile in projectiles)
