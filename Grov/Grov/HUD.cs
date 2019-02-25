@@ -50,8 +50,8 @@ namespace Grov
 
         private void DrawHealth(SpriteBatch sb)
         {
-            sb.Draw(healthBarEmpty, new Rectangle(10, 10, healthBarEmpty.Width, healthBarEmpty.Height), Color.White);
-            sb.Draw(healthBarFull, new Rectangle(10, 10, healthBarFull.Width, healthBarFull.Height), new Rectangle(0, 0,(int)(healthBarFull.Width * player.CurrentHP / player.MaxHP), healthBarFull.Height), Color.White);
+            sb.Draw(healthBarEmpty, new Rectangle(10, 10, 250, 150), Color.White);
+            sb.Draw(healthBarFull, new Rectangle(10, 10, 250, 150), new Rectangle(0, 0,(int)(healthBarFull.Width * player.CurrentHP / player.MaxHP), healthBarFull.Height), Color.White);
         }
 
         private void DrawMana(SpriteBatch sb)

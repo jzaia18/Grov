@@ -42,5 +42,10 @@ namespace Grov
             this.position += velocity;
             base.Update();
         }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(this.texture, this.drawPos, null, Color.White, (float)Math.Atan2(this.velocity.Y, this.velocity.X), this.position, SpriteEffects.None, 0f);
+        }
     }
 }
