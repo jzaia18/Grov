@@ -42,6 +42,7 @@ namespace Grov
         public int NumProjectiles { get => numProjectiles; }
         public float ShotSpeed { get => shotSpeed; set => shotSpeed = value; }
         public ShotType ShotType { get => shotType; }
+        public Texture2D ProjectileTexture { get => projectileTexture; set => projectileTexture = value; }
 
         // ************* Constructor ************* //
 
@@ -92,7 +93,7 @@ namespace Grov
             base.Update();
         }
 
-        public List<Projectile> Use(Vector2 direction)
+        public void Use(Vector2 direction)
         {
             float projectileLifeSpan = 0;
             List<Projectile> projList = new List<Projectile>();
@@ -102,16 +103,19 @@ namespace Grov
                 case ShotType.Normal:
                     
                     float offset = (float) Math.PI / (numProjectiles+1);
-                    float playerOffset = (float) Math.Atan2(direction.Y, direction.X);
+                    float playerOffset = (float) Math.Atan2(direction.X, direction.Y);
 
                     for (int i = 1; i < numProjectiles + 1; i++)
                     {
-                        Vector2 projVelocity = new Vector2(shotSpeed * (float) Math.Cos(playerOffset + i * offset), shotSpeed * (float) Math.Sin(playerOffset + i * offset));
+                        Vector2 projVelocity = new Vector2(-1 * shotSpeed * (float) Math.Cos(playerOffset + i * offset), shotSpeed * (float) Math.Sin(playerOffset + i * offset));
+                        //Console.WriteLine(projVelocity);
                         projList.Add(new Projectile(projectileLifeSpan, true, false, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, rng, projectileTexture));
                     }
-                    return projList;
+                    Game1.projectiles.AddRange(projList);
+                    break;
+                default:
+                    throw new NotImplementedException();
             }
-            throw new NotImplementedException();
         }
     }
 }

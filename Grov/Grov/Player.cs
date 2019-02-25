@@ -55,7 +55,7 @@ namespace Grov
         public float MaxMP { get => maxMP; set => maxMP = value; }
         public int Keys { get => keys; set => keys = value; }
         public int Bombs { get => bombs; set => bombs = value; }
-
+        public Weapon Weapon { get => weapon; set => weapon = value; }
 
         // ************* Constructor ************* //
 
@@ -245,6 +245,7 @@ namespace Grov
         /// </summary>
         public void Attack()
         {
+            Console.WriteLine(aimDirection);
             this.weapon.Use(aimDirection * projectileSpeed);
         }
 

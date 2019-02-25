@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Grov
@@ -10,7 +10,7 @@ namespace Grov
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Game1 : Game
+    class Game1 : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -26,6 +26,13 @@ namespace Grov
         Player player;
 		Enemy enemy;
         HUD HUD;
+        public static List<Projectile> projectiles = new List<Projectile>();
+
+        //public EntityManager EntityManager { get => entityManager; set => entityManager = value; }
+        //public DisplayManager DisplayManager { get => displayManager; set => displayManager = value; }
+        //public FloorManager FloorManager { get => floorManager; set => floorManager = value; }
+
+
 
         public Game1()
         {
@@ -41,8 +48,8 @@ namespace Grov
         /// </summary>
         protected override void Initialize()
         {
-            player = new Player(10, 10, 2, 5, 5, 10, new Rectangle(0, 0, 200, 300), new Rectangle(0, 0, 200, 300), new Vector2(0, 0), rng, null);
-            enemy = new Enemy(EnemyType.TestEnemy, 10, true, 60f, 1f, 3f, 3, new Rectangle(100, 100, 200, 300), new Vector2(0, 0), rng, null);
+            player = new Player(10, 10, 2, 5, 5, 10, new Rectangle(0, 0, 215, 265), new Rectangle(0, 0, 215, 265), new Vector2(0, 0), rng, null);
+            enemy = new Enemy(EnemyType.TestEnemy, 10, true, 60f, 1f, 3f, 3, new Rectangle(100, 100, 200, 200), new Vector2(0, 0), rng, null);
 
             testRoom = new Room(RoomType.Normal);
 
@@ -72,7 +79,7 @@ namespace Grov
             HUD.Initialize();
             player.Texture = Content.Load<Texture2D>("MageholderSprite");
 			enemy.Texture = Content.Load<Texture2D>("EnemyHolderSprite");
-            // TODO: use this.Content to load your game content here
+            player.Weapon.ProjectileTexture = Content.Load<Texture2D>("FireballholderSprite");
         }
 
         /// <summary>
@@ -96,6 +103,10 @@ namespace Grov
 
             player.Update();
 			enemy.Update(player);
+            foreach (Projectile projectile in projectiles)
+            {
+                projectile.Update();
+            }
 
             //System.Console.WriteLine(player.CurrentHP);
 
@@ -117,6 +128,10 @@ namespace Grov
             player.Draw(spriteBatch);
 			enemy.Draw(spriteBatch);
             HUD.Draw(spriteBatch);
+            foreach (Projectile projectile in projectiles)
+            {
+                projectile.Draw(spriteBatch);
+            }
 
             spriteBatch.End();
 
