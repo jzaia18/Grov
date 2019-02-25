@@ -40,7 +40,6 @@ namespace Grov
         // ************* Constructor ************* //
         private DisplayManager()
         {
-            //this.hud = new HUD(em.Player, contentManager);
         }
 
         public static void Initialize(ContentManager cm, GraphicsDevice gd)
@@ -50,6 +49,7 @@ namespace Grov
                 instance = new DisplayManager();
                 instance.contentManager = cm;
                 instance.graphicsDevice = gd;
+                instance.hud = new HUD();
             }
         }
 

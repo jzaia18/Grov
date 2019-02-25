@@ -36,7 +36,7 @@ namespace Grov
 
         // ************* Constructor ************* //
 
-        public Creature(float maxHP, bool melee, float fireRate, float moveSpeed, float attackDamage, float projectileSpeed, Rectangle drawPos, Rectangle hitbox, Vector2 position, Vector2 velocity, Random rng, bool isActive, Texture2D texture) : base(drawPos, hitbox, position, velocity, rng, isActive, texture)
+        public Creature(float maxHP, bool melee, float fireRate, float moveSpeed, float attackDamage, float projectileSpeed, Rectangle drawPos, Rectangle hitbox, Vector2 position, Vector2 velocity, bool isActive, Texture2D texture) : base(drawPos, hitbox, position, velocity, isActive, texture)
         {
             this.maxHP = maxHP;
             this.currentHP = maxHP;

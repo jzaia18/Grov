@@ -46,7 +46,7 @@ namespace Grov
 
         // ************* Constructor ************* //
 
-        public Weapon(string filename, Rectangle drawPos, Random rng, Texture2D texture, Texture2D projectileTexture, bool isActive) : base(PickupType.Weapon, drawPos, rng, texture)
+        public Weapon(string filename, Rectangle drawPos, Texture2D texture, Texture2D projectileTexture, bool isActive) : base(PickupType.Weapon, drawPos, texture)
         {
             readFromFile(@"weapons\" + filename + ".txt");
             this.isActive = isActive;
@@ -108,7 +108,7 @@ namespace Grov
                     for (int i = 1; i < numProjectiles + 1; i++)
                     {
                         Vector2 projVelocity = new Vector2(-1 * shotSpeed * (float) Math.Cos(playerOffset + i * offset), shotSpeed * (float) Math.Sin(playerOffset + i * offset));
-                        projList.Add(new Projectile(projectileLifeSpan, true, false, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, rng, projectileTexture));
+                        projList.Add(new Projectile(projectileLifeSpan, true, false, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileTexture));
                     }
                     Game1.projectiles.AddRange(projList);
                     break;

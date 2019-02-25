@@ -18,7 +18,6 @@ namespace Grov
         protected Rectangle hitbox;
         protected Vector2 position;
         protected Vector2 velocity;
-        protected Random rng;
         protected bool isActive;
         protected Texture2D texture;
         
@@ -29,7 +28,6 @@ namespace Grov
         public Rectangle Hitbox { get => hitbox; set => hitbox = value; }
         public Vector2 Position { get => position; set => position = value; }
         public Vector2 Velocity { get => velocity; set => velocity = value; }
-        public Random Rng { get => rng; set => rng = value; }
         public bool IsActive { get => isActive; set => isActive = value; }
         public Texture2D Texture { get => texture; set => texture = value; }
 
@@ -41,18 +39,16 @@ namespace Grov
             this.hitbox = drawPos;
             this.position = new Vector2(drawPos.X, drawPos.Y);
             this.velocity = new Vector2(0, 0);
-            this.rng = new Random();
             this.isActive = true;
             this.texture = texture;
         }
 
-        public Entity(Rectangle drawPos, Rectangle hitbox, Vector2 position, Vector2 velocity, Random rng, bool isActive, Texture2D texture)
+        public Entity(Rectangle drawPos, Rectangle hitbox, Vector2 position, Vector2 velocity, bool isActive, Texture2D texture)
         {
             this.drawPos = drawPos;
             this.hitbox = hitbox;
             this.position = position;
             this.velocity = velocity;
-            this.rng = rng;
             this.isActive = isActive;
             this.texture = texture;
         }

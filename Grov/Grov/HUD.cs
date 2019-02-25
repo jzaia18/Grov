@@ -23,21 +23,18 @@ namespace Grov
 
         // ************* Constructors ************* //
 
-        public HUD(Player player, ContentManager contentManager)
+        public HUD()
         {
-            this.player = player;
-            this.contentManager = contentManager;
-            this.Initialize();
+            healthBarFull = DisplayManager.ContentManager.Load<Texture2D>("HealthBarFullSprite");
+            healthBarEmpty = DisplayManager.ContentManager.Load<Texture2D>("HealthBarEmptySprite");
+            //manaBarFull = contentManager.Load<Texture2D>("ManaBarFullSprite");
+            //manaBarEmpty = contentManager.Load<Texture2D>("ManaBarEmptySprite");
         }
 
         // ************* Methods ************* //
 
         public void Initialize()
         {
-            healthBarFull = contentManager.Load<Texture2D>("HealthBarFullSprite");
-            healthBarEmpty = contentManager.Load<Texture2D>("HealthBarEmptySprite");
-            //manaBarFull = contentManager.Load<Texture2D>("ManaBarFullSprite");
-            //manaBarEmpty = contentManager.Load<Texture2D>("ManaBarEmptySprite");
         }
 
         public void Draw(SpriteBatch sb)
