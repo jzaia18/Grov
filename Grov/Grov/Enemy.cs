@@ -25,13 +25,15 @@ namespace Grov
 
 		// ************* Constructor ************* //
 
-		public Enemy(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, float projectileSpeed, Rectangle drawPos, Vector2 velocity, Texture2D texture) : base(maxHP, melee, fireRate, moveSpeed, attackDamage, projectileSpeed, drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), velocity, true, texture)
+		public Enemy(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, float projectileSpeed, Rectangle drawPos, Vector2 velocity) : base(maxHP, melee, fireRate, moveSpeed, attackDamage, projectileSpeed, drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), velocity, true, DisplayManager.EnemyTextureMap[enemyType])
         {
             this.enemyType = enemyType;
         }
 
-        public void Update(Entity target)
+        public override void Update()
         {
+            Entity target = EntityManager.Player;
+
             if (this.hitbox.Intersects(target.Hitbox))
             {
                 this.Attack(target);

@@ -20,11 +20,9 @@ namespace Grov
         private List<Enemy> enemies;
         private List<Projectile> hostileProjectiles;
         private List<Projectile> friendlyProjectiles;
-        private Dictionary<EnemyType, Texture2D> textureMap;
         private Random rng;
         private static EntityManager instance;
         #endregion
-
 
         #region properties
         // ************* Properties ************* //
@@ -41,9 +39,11 @@ namespace Grov
             enemies = new List<Enemy>();
             hostileProjectiles = new List<Projectile>();
             friendlyProjectiles = new List<Projectile>();
-            textureMap = new Dictionary<EnemyType, Texture2D>();
             rng = new Random();
+
+            //testing
             player = new Player(10, 10, 2, 5, 5, 10, new Rectangle(0, 0, 215, 265), new Rectangle(0, 0, 215, 265), new Vector2(0, 0), null);
+            enemies.Add(new Enemy(EnemyType.TestEnemy, 10, true, 60f, 1f, 3f, 3, new Rectangle(100, 100, 200, 200), new Vector2(0, 0)));
         }
 
         public static void Initialize()
@@ -61,12 +61,18 @@ namespace Grov
         public void Update()
         {
             Player.Update();
+            foreach (Enemy enemy in enemies) enemy.Update();
+            foreach (Projectile projectile in friendlyProjectiles) projectile.Update();
+            foreach (Projectile projectile in hostileProjectiles) projectile.Update();
         }
 
 
         public void Draw(SpriteBatch spriteBatch)
         {
             Player.Draw(spriteBatch);
+            foreach (Enemy enemy in enemies) enemy.Draw(spriteBatch);
+            foreach (Projectile projectile in friendlyProjectiles) projectile.Draw(spriteBatch);
+            foreach (Projectile projectile in hostileProjectiles) projectile.Draw(spriteBatch);
         }
 
         public void HandleCollisions()
@@ -93,7 +99,7 @@ namespace Grov
                 float projectileSpeed = float.Parse(reader.ReadLine());
 
                 while (numEnemies-- > 0)
-                    enemies.Add(new Enemy(enemyType, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle(rng.Next(DisplayManager.GraphicsDevice.Viewport.Width), rng.Next(DisplayManager.GraphicsDevice.Viewport.Height), 100, 100), new Vector2(0,0), null));
+                    enemies.Add(new Enemy(enemyType, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle(rng.Next(DisplayManager.GraphicsDevice.Viewport.Width), rng.Next(DisplayManager.GraphicsDevice.Viewport.Height), 100, 100), new Vector2(0,0)));
             }
             catch (Exception e)
             {
@@ -107,6 +113,19 @@ namespace Grov
                 }
             }
         }
+
+        public static void AddProjectile(Projectile projectile)
+        {
+            if (projectile.IsFromPlayer)
+            {
+                instance.friendlyProjectiles.Add(projectile);
+            } else
+            {
+                instance.hostileProjectiles.Add(projectile);
+            }
+        }
+
+
 
         #endregion
     }

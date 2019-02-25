@@ -20,6 +20,7 @@ namespace Grov
 
         private HUD hud;
         private Texture2D[] tileTextureMap;
+        private Dictionary<EnemyType, Texture2D> enemyTextureMap;
         private ContentManager contentManager;
         private GraphicsDevice graphicsDevice;
         private static DisplayManager instance;
@@ -32,7 +33,7 @@ namespace Grov
         public static ContentManager ContentManager { get => instance.contentManager; }
         public static GraphicsDevice GraphicsDevice { get => instance.graphicsDevice; }
         public static Texture2D[] TileTextureMap { get => instance.tileTextureMap; }
-
+        public static Dictionary<EnemyType, Texture2D> EnemyTextureMap { get => instance.enemyTextureMap; }
 
         #endregion
 
@@ -50,8 +51,8 @@ namespace Grov
                 instance.contentManager = cm;
                 instance.graphicsDevice = gd;
                 instance.hud = new HUD();
-                LoadContent();
             }
+            LoadContent();
         }
 
         private static void LoadContent()
@@ -59,11 +60,16 @@ namespace Grov
             if (instance == null)
                 throw new InvalidOperationException("Cannot load content before Display Manager is initialized");
 
+            // Load all tile textures into map
             instance.tileTextureMap = new Texture2D[7];
             for (int i = 0; i < instance.tileTextureMap.Length; i++)
             {
                 instance.tileTextureMap[i] = ContentManager.Load<Texture2D>("tile" + i);
             }
+
+            // Load all enemy textures into map
+            instance.enemyTextureMap = new Dictionary<EnemyType, Texture2D>();
+            EnemyTextureMap[EnemyType.TestEnemy] = ContentManager.Load<Texture2D>("EnemyHolderSprite");
         }
         #endregion
 

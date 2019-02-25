@@ -15,17 +15,6 @@ namespace Grov
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         
-        //debug
-        Player player;
-		Enemy enemy;
-        public static List<Projectile> projectiles = new List<Projectile>();
-
-        //public EntityManager EntityManager { get => entityManager; set => entityManager = value; }
-        //public DisplayManager DisplayManager { get => displayManager; set => displayManager = value; }
-        //public FloorManager FloorManager { get => floorManager; set => floorManager = value; }
-
-
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -50,12 +39,9 @@ namespace Grov
         /// </summary>
         protected override void LoadContent()
         {
+            DisplayManager.Initialize(Content, GraphicsDevice);
             EntityManager.Initialize();
             FloorManager.Initialize();
-            DisplayManager.Initialize(Content, GraphicsDevice);
-
-            //this.player = new Player(10, 10, 2, 5, 5, 10, new Rectangle(0, 0, 215, 265), new Rectangle(0, 0, 215, 265), new Vector2(0, 0), null);
-            enemy = new Enemy(EnemyType.TestEnemy, 10, true, 60f, 1f, 3f, 3, new Rectangle(100, 100, 200, 200), new Vector2(0, 0), null);
 
             graphics.PreferredBackBufferHeight = 1080;
             graphics.PreferredBackBufferWidth = 1920;
@@ -63,13 +49,9 @@ namespace Grov
 
             IsMouseVisible = true;
 
-
-
-
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             EntityManager.Player.Texture = Content.Load<Texture2D>("MageholderSprite");
-			enemy.Texture = Content.Load<Texture2D>("EnemyHolderSprite");
             EntityManager.Player.Weapon.ProjectileTexture = Content.Load<Texture2D>("FireballholderSprite");
         }
 
@@ -95,16 +77,6 @@ namespace Grov
             EntityManager.Instance.Update();
             FloorManager.Instance.Update();
 
-			enemy.Update(EntityManager.Player);
-            foreach (Projectile projectile in projectiles)
-            {
-                projectile.Update();
-            }
-
-            //System.Console.WriteLine(player.CurrentHP);
-
-			//Debug.WriteLine(enemy.Position.ToString() + ", " + enemy.DrawPos.ToString());
-
             base.Update(gameTime);
         }
 
@@ -115,20 +87,11 @@ namespace Grov
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
             spriteBatch.Begin();
 
             DisplayManager.Instance.Draw(spriteBatch);
 
-            //player.Draw(spriteBatch);
-            enemy.Draw(spriteBatch);
-            foreach (Projectile projectile in projectiles)
-            {
-                projectile.Draw(spriteBatch);
-            }
-
             spriteBatch.End();
-
             base.Draw(gameTime);
         }
     }

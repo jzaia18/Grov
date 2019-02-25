@@ -96,7 +96,6 @@ namespace Grov
         public void Use(Vector2 direction)
         {
             float projectileLifeSpan = 0;
-            List<Projectile> projList = new List<Projectile>();
 
             switch (shotType)
             {
@@ -108,9 +107,8 @@ namespace Grov
                     for (int i = 1; i < numProjectiles + 1; i++)
                     {
                         Vector2 projVelocity = new Vector2(-1 * shotSpeed * (float) Math.Cos(playerOffset + i * offset), shotSpeed * (float) Math.Sin(playerOffset + i * offset));
-                        projList.Add(new Projectile(projectileLifeSpan, true, false, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileTexture));
+                        EntityManager.AddProjectile(new Projectile(projectileLifeSpan, true, false, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileTexture));
                     }
-                    Game1.projectiles.AddRange(projList);
                     break;
                 default:
                     throw new NotImplementedException();

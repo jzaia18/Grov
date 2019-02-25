@@ -245,7 +245,6 @@ namespace Grov
         /// </summary>
         public void Attack()
         {
-            Console.WriteLine(aimDirection);
             this.weapon.Use(aimDirection * projectileSpeed);
         }
 
