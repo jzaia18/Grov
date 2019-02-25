@@ -35,13 +35,19 @@ namespace Grov
             {
                 textureMap[i] = contentManager.Load<Texture2D>("tile"+i);
             }
+            currRoom = new Room(RoomType.Normal, textureMap);
         }
 
         // ************* Methods ************* //
 
+        public void Update()
+        {
+            currRoom.Update();
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
-
+            currRoom.Draw(spriteBatch);
         }
     }
 }

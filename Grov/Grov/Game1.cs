@@ -62,7 +62,7 @@ namespace Grov
             HUD = new HUD(player, Content);
 
             entityManager = new EntityManager(GraphicsDevice, rng);
-            floorManager = new FloorManager();
+            floorManager = new FloorManager(Content);
             displayManager = new DisplayManager(entityManager, floorManager, HUD, player);
 
             rng = new Random();
