@@ -117,10 +117,10 @@ namespace Grov
 								spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), Color.CornflowerBlue);
 								break;
 							case 4:
-								spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), Color.Gray);
+								spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), Color.Silver);
 								break;
 							case 5:
-								spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), Color.Brown);
+								spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), new Color(86, 70, 60));
 								break;
 							case 6:
 								spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), Color.Beige);
