@@ -65,6 +65,8 @@ namespace Grov
             floorManager = new FloorManager();
             displayManager = new DisplayManager(entityManager, floorManager, HUD, player);
 
+            rng = new Random();
+
             base.Initialize();
         }
 

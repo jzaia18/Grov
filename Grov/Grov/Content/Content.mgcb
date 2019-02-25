@@ -155,5 +155,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:tile7.png
+/build:tile7.png;tile0.png
 
