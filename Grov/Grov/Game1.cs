@@ -41,14 +41,8 @@ namespace Grov
         /// </summary>
         protected override void Initialize()
         {
-            HUD = new HUD(player, Content);
-
-            entityManager = new EntityManager(GraphicsDevice, rng);
-            floorManager = new FloorManager();
-            displayManager = new DisplayManager(entityManager, floorManager, HUD, player);
-
-            player = new Player(100);
-			enemy = new Enemy(EnemyType.TestEnemy, 10, true, 60f, 1f, 3f);
+            player = new Player(10, 10, 2, 5, 5, 10, new Rectangle(0, 0, 200, 300), new Rectangle(0, 0, 200, 300), new Vector2(0, 0), rng, null);
+            enemy = new Enemy(EnemyType.TestEnemy, 10, true, 60f, 1f, 3f, 3, new Rectangle(100, 100, 200, 300), new Vector2(0, 0), rng, null);
 
             testRoom = new Room(RoomType.Normal);
 
@@ -57,6 +51,13 @@ namespace Grov
             graphics.ApplyChanges();
 
             IsMouseVisible = true;
+
+            HUD = new HUD(player, Content);
+
+            entityManager = new EntityManager(GraphicsDevice, rng);
+            floorManager = new FloorManager();
+            displayManager = new DisplayManager(entityManager, floorManager, HUD, player);
+
             base.Initialize();
         }
 
