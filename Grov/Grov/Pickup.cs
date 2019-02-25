@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 // Authors: Jake Zaia
 
@@ -32,7 +34,7 @@ namespace Grov
 
         // ************* Constructors ************* //
 
-        public Pickup(PickupType pickupType)
+        public Pickup(PickupType pickupType, Rectangle drawPos, Random rng, Texture2D texture) : base(drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), new Vector2(0,0), rng, true, texture)
         {
             this.pickupType = pickupType;
         }

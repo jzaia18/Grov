@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
 
 // Authors: Jake Zaia
 
@@ -43,9 +45,10 @@ namespace Grov
 
         // ************* Constructor ************* //
 
-        public Weapon(string filename) : base(PickupType.Weapon)
+        public Weapon(string filename, Rectangle drawPos, Random rng, Texture2D texture, bool isActive) : base(PickupType.Weapon, drawPos, rng, texture)
         {
             readFromFile(@"weapons\" + filename + ".txt");
+            this.isActive = isActive;
         }
 
 
