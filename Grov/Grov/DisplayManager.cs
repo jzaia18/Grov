@@ -67,6 +67,7 @@ namespace Grov
         }
         #endregion
 
+        #region methods
         // ************* Methods ************* //
 
         public void Draw(SpriteBatch spriteBatch)
@@ -75,5 +76,6 @@ namespace Grov
             EntityManager.Instance.Draw(spriteBatch);
             hud.Draw(spriteBatch);
         }
+        #endregion
     }
 }

@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 //Brought to you in part by:
 //Duncan Mott
 //Rachel Wong
+//Jake Zaia
 
 namespace Grov
 {
@@ -26,8 +27,10 @@ namespace Grov
     }
 	class Tile
 	{
-		// Fields
-		private Point location;
+        #region fields
+        // ************* Fields ************* //
+
+        private Point location;
 		private TileType type;
 		private bool isPassable;
 		private bool blocksProjectiles;
@@ -36,12 +39,19 @@ namespace Grov
 		// Constants
 		int tileWidth = 1920 / 32;
 		int tileHeight = 1080 / 18;
+        #endregion
 
-		// Properties
-		public TileType Type { get => type; set => type = value; }
+        #region properties
+        // ************* Properties ************* //
+
+        public TileType Type { get => type; set => type = value; }
 		public Texture2D Texture { get => texture; set => texture = value; }
 		public int TileWidth { get => tileWidth; }
 		public int TileHeight { get => tileHeight; }
+        #endregion
+
+        #region constructor
+        // ************* Constructor ************* //
 
         /// <summary>
         /// Create a new tile
@@ -88,6 +98,10 @@ namespace Grov
                     break;
             }
         }
+        #endregion
+
+        #region methods
+        // ************* Methods ************* //
 
         /// <summary>
         /// Draw function for each tile in the room
@@ -97,6 +111,6 @@ namespace Grov
         {
             throw new NotImplementedException();
         }
-
+        #endregion
     }
 }
