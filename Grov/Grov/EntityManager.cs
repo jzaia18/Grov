@@ -13,40 +13,57 @@ namespace Grov
 {
     class EntityManager
     {
+        #region fields
         // ************* Fields ************* //
+
         private Player player;
         private List<Enemy> enemies;
         private List<Projectile> hostileProjectiles;
         private List<Projectile> friendlyProjectiles;
         private Dictionary<EnemyType, Texture2D> textureMap;
-        private GraphicsDevice graphicsDevice;
         private Random rng;
+        private static EntityManager instance;
+        #endregion
 
 
+        #region properties
         // ************* Properties ************* //
 
         public Player Player { get => player; set => player = value; }
+        public static EntityManager Instance { get => instance; }
+        public static Random RNG { get => instance.rng; }
+        #endregion
 
-
+        #region constructor
         // ************* Constructor ************* //
 
-        public EntityManager(GraphicsDevice graphicsDevice, Random rng) {
+        private EntityManager() {
             enemies = new List<Enemy>();
             hostileProjectiles = new List<Projectile>();
             friendlyProjectiles = new List<Projectile>();
             textureMap = new Dictionary<EnemyType, Texture2D>();
-            this.graphicsDevice = graphicsDevice;
-            this.rng = rng;
+            this.rng = new Random();
 
             //player = new Player();
         }
 
+        public static void Initialize()
+        {
+            if (instance == null)
+            {
+                instance = new EntityManager();
+            }
+        }
+        #endregion
+
+        #region methods
         // ************* Methods ************* //
 
         public void Update()
         {
 
         }
+
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -77,7 +94,7 @@ namespace Grov
                 float projectileSpeed = float.Parse(reader.ReadLine());
 
                 while (numEnemies-- > 0)
-                    enemies.Add(new Enemy(enemyType, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle(rng.Next(graphicsDevice.Viewport.Width), rng.Next(graphicsDevice.Viewport.Height), 100, 100), new Vector2(0,0), rng, null));
+                    enemies.Add(new Enemy(enemyType, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle(rng.Next(DisplayManager.GraphicsDevice.Viewport.Width), rng.Next(DisplayManager.GraphicsDevice.Viewport.Height), 100, 100), new Vector2(0,0), rng, null));
             }
             catch (Exception e)
             {
@@ -92,6 +109,6 @@ namespace Grov
             }
         }
 
-
+        #endregion
     }
 }

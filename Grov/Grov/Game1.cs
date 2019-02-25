@@ -14,13 +14,7 @@ namespace Grov
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
-        EntityManager entityManager;
-        DisplayManager displayManager;
-        FloorManager floorManager;
-
-        Random rng;
-
+        
         //debug
         Player player;
 		Enemy enemy;
@@ -47,6 +41,13 @@ namespace Grov
         /// </summary>
         protected override void Initialize()
         {
+            base.Initialize();
+
+            EntityManager.Initialize();
+            FloorManager.Initialize();
+            DisplayManager.Initialize(Content, GraphicsDevice);
+
+
             player = new Player(10, 10, 2, 5, 5, 10, new Rectangle(0, 0, 215, 265), new Rectangle(0, 0, 215, 265), new Vector2(0, 0), rng, null);
             enemy = new Enemy(EnemyType.TestEnemy, 10, true, 60f, 1f, 3f, 3, new Rectangle(100, 100, 200, 200), new Vector2(0, 0), rng, null);
 
@@ -58,13 +59,6 @@ namespace Grov
 
             HUD = new HUD(player, Content);
 
-            entityManager = new EntityManager(GraphicsDevice, rng);
-            floorManager = new FloorManager(Content);
-            displayManager = new DisplayManager(entityManager, floorManager, HUD, player);
-
-            rng = new Random();
-
-            base.Initialize();
         }
 
         /// <summary>

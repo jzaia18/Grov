@@ -13,6 +13,7 @@ namespace Grov
 {
     class FloorManager
     {
+        #region fields
         // ************* Fields ************* //
 
         private Room startRoom;
@@ -21,23 +22,35 @@ namespace Grov
 		private int numRooms;
 		private int floorNumber;
 		private Random rng;
-        private Texture2D[] textureMap;
-        private ContentManager contentManager;
+        private static FloorManager instance;
+        #endregion
 
+        #region properties
+        // ************* Properties ************* //
+        public static FloorManager Instance { get => instance; }
+        public static Random RNG { get => instance.rng; }
+        #endregion
 
+        #region constructor
         // ************* Constructor ************* //
 
-        public FloorManager(ContentManager contentManager)
+        private FloorManager()
         {
-            this.contentManager = contentManager;
-            textureMap = new Texture2D[7];
-            for (int i = 0; i < textureMap.Length; i++)
-            {
-                textureMap[i] = contentManager.Load<Texture2D>("tile"+i);
-            }
-            currRoom = new Room(RoomType.Normal, textureMap);
+            currRoom = new Room(RoomType.Normal);
+            rng = new Random();
+            floorNumber = 1;
         }
 
+        public static void Initialize()
+        {
+            if (instance == null)
+            {
+                instance = new FloorManager();
+            }
+        }
+        #endregion
+
+        #region methods
         // ************* Methods ************* //
 
         public void Update()
@@ -49,5 +62,6 @@ namespace Grov
         {
             currRoom.Draw(spriteBatch);
         }
+        #endregion
     }
 }
