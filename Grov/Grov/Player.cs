@@ -69,7 +69,7 @@ namespace Grov
             gamePadPreviousState = GamePad.GetState(0);
             mousePreviousState = Mouse.GetState();
             isInputKeyboard = true;
-            weapon = new Weapon("Default", default(Rectangle), rng, null, false);
+            weapon = new Weapon("Default", default(Rectangle), rng, null, null, false);
         }
 
 

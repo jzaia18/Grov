@@ -31,7 +31,7 @@ namespace Grov
         private int numProjectiles;
         private ShotType shotType;
         private float shotSpeed;
-
+        private Texture2D projectileTexture;
 
         // ************* Properties ************* //
         
@@ -45,10 +45,11 @@ namespace Grov
 
         // ************* Constructor ************* //
 
-        public Weapon(string filename, Rectangle drawPos, Random rng, Texture2D texture, bool isActive) : base(PickupType.Weapon, drawPos, rng, texture)
+        public Weapon(string filename, Rectangle drawPos, Random rng, Texture2D texture, Texture2D projectileTexture, bool isActive) : base(PickupType.Weapon, drawPos, rng, texture)
         {
             readFromFile(@"weapons\" + filename + ".txt");
             this.isActive = isActive;
+            this.projectileTexture = projectileTexture;
         }
 
 
@@ -106,7 +107,7 @@ namespace Grov
                     for (int i = 1; i < numProjectiles + 1; i++)
                     {
                         Vector2 projVelocity = new Vector2(shotSpeed * (float) Math.Cos(playerOffset + i * offset), shotSpeed * (float) Math.Sin(playerOffset + i * offset));
-                        projList.Add(new Projectile(projectileLifeSpan, position, projVelocity, true, false));
+                        projList.Add(new Projectile(projectileLifeSpan, true, false, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, rng, projectileTexture));
                     }
                     return projList;
             }
