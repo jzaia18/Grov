@@ -102,9 +102,29 @@ namespace Grov
 					if (cur.Texture == null)
 					{
 						Texture2D rect = new Texture2D(null, cur.TileWidth, cur.TileHeight);
-						if (tiles[row][col].Type == TileType.Floor)
+						switch ((int)cur.Type)
 						{
-							spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), new Color(153, 213, 100));
+							case 0:
+								spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), new Color(153, 213, 100));
+								break;
+							case 1:
+								spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), Color.ForestGreen);
+								break;
+							case 2:
+								spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), Color.Purple);
+								break;
+							case 3:
+								spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), Color.CornflowerBlue);
+								break;
+							case 4:
+								spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), Color.Gray);
+								break;
+							case 5:
+								spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), Color.Brown);
+								break;
+							case 6:
+								spriteBatch.Draw(rect, new Vector2(cur.TileWidth * col, cur.TileHeight * row), Color.Beige);
+								break;
 						}
 					}
 				}
