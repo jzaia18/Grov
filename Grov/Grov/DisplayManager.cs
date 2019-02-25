@@ -50,10 +50,11 @@ namespace Grov
                 instance.contentManager = cm;
                 instance.graphicsDevice = gd;
                 instance.hud = new HUD();
+                LoadContent();
             }
         }
 
-        public static void LoadContent()
+        private static void LoadContent()
         {
             if (instance == null)
                 throw new InvalidOperationException("Cannot load content before Display Manager is initialized");
@@ -70,8 +71,8 @@ namespace Grov
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            EntityManager.Instance.Draw(spriteBatch);
             FloorManager.Instance.Draw(spriteBatch);
+            EntityManager.Instance.Draw(spriteBatch);
             hud.Draw(spriteBatch);
         }
     }

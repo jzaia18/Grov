@@ -54,7 +54,7 @@ namespace Grov
             FloorManager.Initialize();
             DisplayManager.Initialize(Content, GraphicsDevice);
 
-            this.player = new Player(10, 10, 2, 5, 5, 10, new Rectangle(0, 0, 215, 265), new Rectangle(0, 0, 215, 265), new Vector2(0, 0), null);
+            //this.player = new Player(10, 10, 2, 5, 5, 10, new Rectangle(0, 0, 215, 265), new Rectangle(0, 0, 215, 265), new Vector2(0, 0), null);
             enemy = new Enemy(EnemyType.TestEnemy, 10, true, 60f, 1f, 3f, 3, new Rectangle(100, 100, 200, 200), new Vector2(0, 0), null);
 
             graphics.PreferredBackBufferHeight = 1080;
@@ -68,9 +68,9 @@ namespace Grov
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            player.Texture = Content.Load<Texture2D>("MageholderSprite");
+            EntityManager.Player.Texture = Content.Load<Texture2D>("MageholderSprite");
 			enemy.Texture = Content.Load<Texture2D>("EnemyHolderSprite");
-            player.Weapon.ProjectileTexture = Content.Load<Texture2D>("FireballholderSprite");
+            EntityManager.Player.Weapon.ProjectileTexture = Content.Load<Texture2D>("FireballholderSprite");
         }
 
         /// <summary>
@@ -92,8 +92,10 @@ namespace Grov
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            player.Update();
-			enemy.Update(player);
+            EntityManager.Instance.Update();
+            FloorManager.Instance.Update();
+
+			enemy.Update(EntityManager.Player);
             foreach (Projectile projectile in projectiles)
             {
                 projectile.Update();
@@ -116,9 +118,10 @@ namespace Grov
 
             spriteBatch.Begin();
 
+            DisplayManager.Instance.Draw(spriteBatch);
 
-			player.Draw(spriteBatch);
-			enemy.Draw(spriteBatch);
+            //player.Draw(spriteBatch);
+            enemy.Draw(spriteBatch);
             foreach (Projectile projectile in projectiles)
             {
                 projectile.Draw(spriteBatch);

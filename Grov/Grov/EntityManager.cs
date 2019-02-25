@@ -29,7 +29,7 @@ namespace Grov
         #region properties
         // ************* Properties ************* //
 
-        public Player Player { get => player; set => player = value; }
+        public static Player Player { get => instance.player; }
         public static EntityManager Instance { get => instance; }
         public static Random RNG { get => instance.rng; }
         #endregion
@@ -42,9 +42,8 @@ namespace Grov
             hostileProjectiles = new List<Projectile>();
             friendlyProjectiles = new List<Projectile>();
             textureMap = new Dictionary<EnemyType, Texture2D>();
-            this.rng = new Random();
-
-            //player = new Player();
+            rng = new Random();
+            player = new Player(10, 10, 2, 5, 5, 10, new Rectangle(0, 0, 215, 265), new Rectangle(0, 0, 215, 265), new Vector2(0, 0), null);
         }
 
         public static void Initialize()
@@ -61,13 +60,13 @@ namespace Grov
 
         public void Update()
         {
-
+            Player.Update();
         }
 
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
+            Player.Draw(spriteBatch);
         }
 
         public void HandleCollisions()

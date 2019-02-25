@@ -14,8 +14,6 @@ namespace Grov
     {
         // ************* Fields ************* //
 
-        private Player player;
-        private ContentManager contentManager;
         Texture2D healthBarFull;
         Texture2D healthBarEmpty;
         Texture2D manaBarFull;
@@ -48,13 +46,13 @@ namespace Grov
         private void DrawHealth(SpriteBatch sb)
         {
             sb.Draw(healthBarEmpty, new Rectangle(10, 10, 250, 150), Color.White);
-            sb.Draw(healthBarFull, new Rectangle(10, 10, 250, 150), new Rectangle(0, 0,(int)(healthBarFull.Width * player.CurrentHP / player.MaxHP), healthBarFull.Height), Color.White);
+            sb.Draw(healthBarFull, new Rectangle(10, 10, 250, 150), new Rectangle(0, 0,(int)(healthBarFull.Width * EntityManager.Player.CurrentHP / EntityManager.Player.MaxHP), healthBarFull.Height), Color.White);
         }
 
         private void DrawMana(SpriteBatch sb)
         {
             sb.Draw(manaBarEmpty, new Rectangle(10, 10 + 10 + manaBarEmpty.Height, manaBarEmpty.Width, manaBarEmpty.Height), Color.White);
-            sb.Draw(manaBarFull, new Rectangle(10, 10, manaBarFull.Width, manaBarFull.Height), new Rectangle(10, 10 + 10 + healthBarFull.Height, (int)(manaBarFull.Width * player.CurrentHP / player.MaxHP), manaBarFull.Height), Color.White);
+            sb.Draw(manaBarFull, new Rectangle(10, 10, manaBarFull.Width, manaBarFull.Height), new Rectangle(10, 10 + 10 + healthBarFull.Height, (int)(manaBarFull.Width * EntityManager.Player.CurrentHP / EntityManager.Player.MaxHP), manaBarFull.Height), Color.White);
         }
     }
 }
