@@ -43,7 +43,8 @@ namespace Grov
 
             //testing
             player = new Player(10, 10, 2, 5, 5, 10, new Rectangle(0, 0, 215, 265), new Rectangle(0, 0, 215, 265), new Vector2(0, 0), null);
-            enemies.Add(new Enemy(EnemyType.TestEnemy, 10, true, 60f, 1f, 3f, 3, new Rectangle(100, 100, 200, 200), new Vector2(0, 0)));
+            SpawnEnemies(1, EnemyType.Test);
+            //enemies.Add(new Enemy(EnemyType.Test, 10, true, 60f, 1f, 3f, 3, new Rectangle(100, 100, 200, 200), new Vector2(0, 0)));
         }
 
         public static void Initialize()

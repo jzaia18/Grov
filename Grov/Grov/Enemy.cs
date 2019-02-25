@@ -13,7 +13,7 @@ namespace Grov
 {
     enum EnemyType
     {
-		TestEnemy
+		Test
     }
 
     class Enemy : Creature

@@ -69,7 +69,7 @@ namespace Grov
 
             // Load all enemy textures into map
             instance.enemyTextureMap = new Dictionary<EnemyType, Texture2D>();
-            EnemyTextureMap[EnemyType.TestEnemy] = ContentManager.Load<Texture2D>("EnemyHolderSprite");
+            EnemyTextureMap[EnemyType.Test] = ContentManager.Load<Texture2D>("EnemyHolderSprite");
         }
         #endregion
 
