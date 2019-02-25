@@ -37,6 +37,7 @@ namespace Grov
             textureMap = new Dictionary<EnemyType, Texture2D>();
             this.graphicsDevice = graphicsDevice;
             this.rng = rng;
+
             //player = new Player();
         }
 

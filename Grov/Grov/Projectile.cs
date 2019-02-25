@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
 
 // Authors: Jake Zaia
 
@@ -26,11 +28,9 @@ namespace Grov
 
         // ************* Constructor ************* //
 
-        public Projectile(float lifespan, Vector2 position, Vector2 velocity, bool isFromPlayer, bool noclip)
+        public Projectile(float lifespan, bool isFromPlayer, bool noclip, Rectangle drawPos, Vector2 velocity, Random rng, Texture2D texture) : base(drawPos, drawPos,new Vector2(drawPos.X, drawPos.Y), velocity, rng, true, texture)
         {
             this.lifespan = lifespan;
-            this.position = position;
-            this.velocity = velocity;
             this.isFromPlayer = isFromPlayer;
             this.noclip = noclip;
         }
