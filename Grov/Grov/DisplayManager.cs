@@ -36,7 +36,7 @@ namespace Grov
         {
             em.Draw(spriteBatch);
             fm.Draw(spriteBatch);
-            //hud.Draw(spriteBatch, player);
+            hud.Draw(spriteBatch);
         }
 
     }

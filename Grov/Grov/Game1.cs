@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -14,10 +15,17 @@ namespace Grov
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        EntityManager entityManager;
+        DisplayManager displayManager;
+        FloorManager floorManager;
+
+        Random rng;
+
         //debug
         Room testRoom;
         Player player;
 		Enemy enemy;
+        HUD HUD;
 
         public Game1()
         {
@@ -33,6 +41,12 @@ namespace Grov
         /// </summary>
         protected override void Initialize()
         {
+            HUD = new HUD(player, Content);
+
+            entityManager = new EntityManager(GraphicsDevice, rng);
+            floorManager = new FloorManager();
+            displayManager = new DisplayManager(entityManager, floorManager, HUD, player);
+
             player = new Player(100);
 			enemy = new Enemy(EnemyType.TestEnemy, 10, true, 60f, 1f, 3f);
 
@@ -54,7 +68,7 @@ namespace Grov
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            HUD.Initialize();
             player.Texture = Content.Load<Texture2D>("MageholderSprite");
 			enemy.Texture = Content.Load<Texture2D>("EnemyHolderSprite");
             // TODO: use this.Content to load your game content here
@@ -85,7 +99,6 @@ namespace Grov
             //System.Console.WriteLine(player.CurrentHP);
 
 			//Debug.WriteLine(enemy.Position.ToString() + ", " + enemy.DrawPos.ToString());
-            // TODO: Add your update logic here
 
             base.Update(gameTime);
         }
@@ -102,6 +115,7 @@ namespace Grov
 
             player.Draw(spriteBatch);
 			enemy.Draw(spriteBatch);
+            HUD.Draw(spriteBatch);
 
             spriteBatch.End();
 
