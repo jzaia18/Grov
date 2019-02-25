@@ -28,7 +28,7 @@ namespace Grov
 
         // ************* Constructor ************* //
 
-        public Projectile(float lifespan, bool isFromPlayer, bool noclip, Rectangle drawPos, Vector2 velocity, Random rng, Texture2D texture) : base(drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), velocity, rng, true, texture)
+        public Projectile(float lifespan, bool isFromPlayer, bool noclip, Rectangle drawPos, Vector2 velocity, Texture2D texture) : base(drawPos, drawPos,new Vector2(drawPos.X, drawPos.Y), velocity, true, texture)
         {
             this.lifespan = lifespan;
             this.isFromPlayer = isFromPlayer;

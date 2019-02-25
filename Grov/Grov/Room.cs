@@ -23,18 +23,19 @@ namespace Grov
 
 	class Room
 	{
-		// ************* Fields ************* //
+        #region fields
+        // ************* Fields ************* //
 
-		private Entrance top, bottom, left, right;
+        private Entrance top, bottom, left, right;
 		private RoomType type;
 		private bool isCleared;
 		private Tile[][] tiles;
-		private Texture2D[] tile_textures;
+        #endregion
 
+        #region properties
+        // ************* Properties ************* //
 
-		// ************* Properties ************* //
-
-		public Entrance Top { get => top; set => top = value; }
+        public Entrance Top { get => top; set => top = value; }
         public Entrance Bottom { get => bottom; set => bottom = value; }
         public Entrance Left { get => left; set => left = value; }
         public Entrance Right { get => right; set => right = value; }
@@ -46,13 +47,14 @@ namespace Grov
             get => tiles[x][y];
             set => tiles[x][y] = value;
         }
+        #endregion
 
 
+        #region constructor
         // ************* Constructor ************* //
 
-        public Room(RoomType type, Texture2D[] textures)
+        public Room(RoomType type)
         {
-			tile_textures = textures;
             isCleared = false;
             tiles = new Tile[32][];
             for (int i = 0; i < tiles.Length; i++)
@@ -63,13 +65,14 @@ namespace Grov
 
             ReadFromFile("testNoDoor");
         }
+        #endregion
 
-
+        #region methods
         // ************* Methods ************* //
 
-		/// <summary>
-		/// Determines state of entrances (open or closed)
-		/// </summary>
+        /// <summary>
+        /// Determines state of entrances (open or closed)
+        /// </summary>
         public void Update()
         {
 			if (isCleared)
@@ -101,7 +104,7 @@ namespace Grov
 				{
 					Tile cur = tiles[x][y];
 
-					spriteBatch.Draw(tile_textures[(int)cur.Type], new Rectangle(cur.TileWidth * x, cur.TileHeight * y, cur.TileWidth, cur.TileHeight), Color.White);
+					spriteBatch.Draw(DisplayManager.TileTextureMap[(int)cur.Type], new Rectangle(cur.TileWidth * x, cur.TileHeight * y, cur.TileWidth, cur.TileHeight), Color.White);
 				}
 			}
 		}
@@ -139,5 +142,6 @@ namespace Grov
                     reader.Close();
             }
         }
+        #endregion
     }
 }
