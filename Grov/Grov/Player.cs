@@ -199,7 +199,7 @@ namespace Grov
                 }
                 if (isMouse)
                 {
-                    direction = new Vector2(mouseState.X - DrawPos.X + DrawPos.Width / 2, mouseState.Y - DrawPos.Y + DrawPos.Height / 2);
+                    direction = new Vector2(mouseState.X - (DrawPos.X + DrawPos.Width / 2), mouseState.Y - (DrawPos.Y + DrawPos.Height / 2));
                 }
 
 

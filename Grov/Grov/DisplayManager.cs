@@ -38,6 +38,5 @@ namespace Grov
             fm.Draw(spriteBatch);
             hud.Draw(spriteBatch);
         }
-
     }
 }
