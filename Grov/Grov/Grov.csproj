@@ -41,23 +41,23 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="class\entity\Creature.cs" />
-    <Compile Include="class\manager\DisplayManager.cs" />
-    <Compile Include="class\entity\creature\Enemy.cs" />
-    <Compile Include="class\entity\creature\Entity.cs" />
-    <Compile Include="class\manager\EntityManager.cs" />
-    <Compile Include="class\env\Entrance.cs" />
-    <Compile Include="class\manager\FloorManager.cs" />
-    <Compile Include="class\Game1.cs" />
-    <Compile Include="class\manager\HUD.cs" />
-    <Compile Include="class\entity\item\Pickup.cs" />
-    <Compile Include="class\entity\creature\Player.cs" />
-    <Compile Include="class\Program.cs" />
-    <Compile Include="class\entity\Projectile.cs" />
+    <Compile Include="classes\entities\creatures\Creature.cs" />
+    <Compile Include="classes\managers\DisplayManager.cs" />
+    <Compile Include="classes\entities\creatures\Enemy.cs" />
+    <Compile Include="classes\entities\creatures\Entity.cs" />
+    <Compile Include="classes\managers\EntityManager.cs" />
+    <Compile Include="classes\environment\Entrance.cs" />
+    <Compile Include="classes\managers\FloorManager.cs" />
+    <Compile Include="classes\Game1.cs" />
+    <Compile Include="classes\managers\HUD.cs" />
+    <Compile Include="classes\entities\pickups\Pickup.cs" />
+    <Compile Include="classes\entities\creatures\Player.cs" />
+    <Compile Include="classes\Program.cs" />
+    <Compile Include="classes\entities\Projectile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="class\env\Room.cs" />
-    <Compile Include="class\env\Tile.cs" />
-    <Compile Include="class\entity\item\Weapon.cs" />
+    <Compile Include="classes\environment\Room.cs" />
+    <Compile Include="classes\environment\Tile.cs" />
+    <Compile Include="classes\entities\pickups\Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
