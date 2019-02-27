@@ -84,7 +84,7 @@ namespace Grov
         {
 
             //TODO: MUST TEST
-            string filename = @"enemies\" + enemyType + ".txt"; 
+            string filename = @"resources\enemies\" + enemyType + ".txt"; 
             StreamReader reader = null;
             try
             {

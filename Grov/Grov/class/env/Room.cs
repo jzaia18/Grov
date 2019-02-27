@@ -110,7 +110,7 @@ namespace Grov
 
         private void ReadFromFile(string filename)
         {
-            filename = @"rooms\" + filename + ".grovlev";
+            filename = @"resources\rooms\" + filename + ".grovlev";
 
             FileStream stream = File.OpenRead(filename);
             BinaryReader reader = null;

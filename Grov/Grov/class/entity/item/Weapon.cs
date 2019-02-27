@@ -53,7 +53,7 @@ namespace Grov
 
         public Weapon(string filename, Rectangle drawPos, Texture2D texture, Texture2D projectileTexture, bool isActive) : base(PickupType.Weapon, drawPos, texture)
         {
-            readFromFile(@"weapons\" + filename + ".txt");
+            readFromFile(@"resources\weapons\" + filename + ".txt");
             this.isActive = isActive;
             this.projectileTexture = projectileTexture;
         }
