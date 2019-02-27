@@ -56,7 +56,7 @@ namespace Grov
 		/// </summary>
 		protected void Move(Entity target)
 		{
-            Vector2 direction = target.Position - this.position;
+            Vector2 direction = (target.Position + new Vector2(target.DrawPos.Width/2, target.DrawPos.Height/2)) - (this.position + new Vector2(drawPos.Width/2, drawPos.Height/2));
 
             direction.Normalize();
 

@@ -22,6 +22,7 @@ namespace Grov
 
     class Weapon : Pickup
     {
+        #region fields
         // ************* Fields ************* //
 
         private string name;
@@ -32,9 +33,11 @@ namespace Grov
         private ShotType shotType;
         private float shotSpeed;
         private Texture2D projectileTexture;
+        #endregion
 
+        #region properties
         // ************* Properties ************* //
-        
+
         public string Name { get => name; }
         public float FireRate { get => fireRate; }
         public float AttackDamage { get => atkDamage; }
@@ -43,7 +46,9 @@ namespace Grov
         public float ShotSpeed { get => shotSpeed; set => shotSpeed = value; }
         public ShotType ShotType { get => shotType; }
         public Texture2D ProjectileTexture { get => projectileTexture; set => projectileTexture = value; }
+        #endregion
 
+        #region constructor
         // ************* Constructor ************* //
 
         public Weapon(string filename, Rectangle drawPos, Texture2D texture, Texture2D projectileTexture, bool isActive) : base(PickupType.Weapon, drawPos, texture)
@@ -52,8 +57,9 @@ namespace Grov
             this.isActive = isActive;
             this.projectileTexture = projectileTexture;
         }
+        #endregion
 
-
+        #region methods
         // ************* Methods ************* //
 
         private void readFromFile(string filename)
@@ -103,10 +109,11 @@ namespace Grov
                     
                     float offset = (float) Math.PI / (numProjectiles+1);
                     float playerOffset = (float) Math.Atan2(direction.X, direction.Y);
+                    float speedModifier = Math.Abs(direction.Length());
 
                     for (int i = 1; i < numProjectiles + 1; i++)
                     {
-                        Vector2 projVelocity = new Vector2(-1 * shotSpeed * (float) Math.Cos(playerOffset + i * offset), shotSpeed * (float) Math.Sin(playerOffset + i * offset));
+                        Vector2 projVelocity = shotSpeed * speedModifier * (new Vector2(-1 * (float) Math.Cos(playerOffset + i * offset), (float) Math.Sin(playerOffset + i * offset)));
                         EntityManager.AddProjectile(new Projectile(projectileLifeSpan, true, false, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileTexture));
                     }
                     break;
@@ -114,5 +121,6 @@ namespace Grov
                     throw new NotImplementedException();
             }
         }
+        #endregion
     }
 }

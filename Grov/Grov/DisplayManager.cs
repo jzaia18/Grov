@@ -51,8 +51,12 @@ namespace Grov
                 instance.contentManager = cm;
                 instance.graphicsDevice = gd;
                 instance.hud = new HUD();
+                LoadContent();
             }
-            LoadContent();
+            else
+            {
+                throw new InvalidOperationException();
+            }
         }
 
         private static void LoadContent()

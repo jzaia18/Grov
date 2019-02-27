@@ -101,16 +101,6 @@ namespace Grov
         #endregion
 
         #region methods
-        // ************* Methods ************* //
-
-        /// <summary>
-        /// Draw function for each tile in the room
-        /// </summary>
-        /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
     }
 }
