@@ -45,6 +45,10 @@ namespace Grov
 
             graphics.PreferredBackBufferHeight = 1080;
             graphics.PreferredBackBufferWidth = 1920;
+            //Set the game to Fullscreen mode
+            graphics.IsFullScreen = true;
+            //This makes it a "soft" fullscreen, AKA borderless fullscreen. Less efficient but faster to initialize
+            graphics.HardwareModeSwitch = false;
             graphics.ApplyChanges();
 
             IsMouseVisible = true;
