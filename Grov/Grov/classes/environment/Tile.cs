@@ -43,7 +43,8 @@ namespace Grov
 
         public TileType Type { get => type; set => type = value; }
 		public bool IsPassable { get => isPassable; }
-		public bool BloacksProjectiles { get => blocksProjectiles; }
+		public bool BlocksProjectiles { get => blocksProjectiles; }
+        public Point Location { get => location; set => location = value; }
         #endregion
 
         #region constructor

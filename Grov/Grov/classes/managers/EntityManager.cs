@@ -103,7 +103,51 @@ namespace Grov
 
         public void HandleTerrainCollisions()
         {
-            
+            // Gathering all the tiles that the entities touch
+            List<Tile> playerTiles = FloorManager.Instance.CollidesWith(player);
+
+            foreach(Tile playerTile in playerTiles)
+            {
+                if (!playerTile.IsPassable)
+                {
+                    // Temp variables for structs
+                    Rectangle temp = player.Hitbox;
+
+                    // Finding spatial position of obstacle against player
+                    int dx = playerTile.Location.X - player.Hitbox.X;
+                    int dy = playerTile.Location.Y - player.Hitbox.Y;
+
+                    // Determining where to move player after collision
+                    Rectangle overlap = Rectangle.Intersect(player.Hitbox, new Rectangle(FloorManager.TileWidth * playerTile.Location.X, FloorManager.TileHeight * playerTile.Location.Y, FloorManager.TileWidth, FloorManager.TileHeight));
+
+                    if(overlap.Width > overlap.Height)
+                    {
+                        if(dy > 0)
+                        {
+                            temp.Y -= overlap.Height;
+                            player.Hitbox = temp;
+                        }
+                        else
+                        {
+                            temp.Y += overlap.Height;
+                            player.Hitbox = temp;
+                        }
+                    }
+                    else
+                    {
+                        if (dx > 0)
+                        {
+                            temp.X -= overlap.Width;
+                            player.Hitbox = temp;
+                        }
+                        else
+                        {
+                            temp.X += overlap.Width;
+                            player.Hitbox = temp;
+                        }
+                    }
+                }
+            }
         }
 
         public void HandleMeleeCollisions()
