@@ -103,7 +103,9 @@ namespace Grov
 				{
 					Tile cur = tiles[x][y];
 
-					spriteBatch.Draw(DisplayManager.TileTextureMap[(int)cur.Type], new Rectangle(cur.TileWidth * x, cur.TileHeight * y, cur.TileWidth, cur.TileHeight), Color.White);
+					spriteBatch.Draw(DisplayManager.TileTextureMap[(int)cur.Type], 
+						             new Rectangle(FloorManager.TileWidth * x, FloorManager.TileHeight * y, FloorManager.TileWidth, FloorManager.TileHeight), 
+									 Color.White);
 				}
 			}
 		}
