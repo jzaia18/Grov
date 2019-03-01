@@ -86,6 +86,7 @@ namespace Grov
             this.Aim();
             base.Update();
             this.hitbox = DrawPos;
+            this.weapon.Update();
             gamePadPreviousState = gamePadState;
             keyboardPreviousState = keyboardState;
             mousePreviousState = mouseState;
@@ -117,8 +118,8 @@ namespace Grov
                 {
                     direction += new Vector2(1f, 0f);
                 }
-                if((keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Space) && !keyboardPreviousState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Space))
-                    || (Mouse.GetState().LeftButton.Equals(ButtonState.Pressed) && !mousePreviousState.LeftButton.Equals(ButtonState.Pressed)))
+                if ((keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Space)
+                    || mouseState.LeftButton.Equals(ButtonState.Pressed)) && weapon.ReadyToFire(fireRate))
                 {
                     this.Attack();
                 }
@@ -136,7 +137,7 @@ namespace Grov
                 direction = gamePadState.ThumbSticks.Left;
                 direction.Y = -direction.Y;
 
-                if (gamePadState.IsButtonDown(Buttons.RightTrigger) && !gamePadPreviousState.IsButtonDown(Buttons.RightTrigger))
+                if (gamePadState.IsButtonDown(Buttons.RightTrigger) && weapon.ReadyToFire(fireRate))
                 {
                     this.Attack();
                 }

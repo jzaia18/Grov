@@ -45,7 +45,6 @@ namespace Grov
         public override void Update()
         {
             base.Update();
-            throw new NotImplementedException();
         }
     }
 }
