@@ -46,14 +46,14 @@ namespace Grov
 
         private void DrawHealth(SpriteBatch sb)
         {
-            sb.Draw(healthBarEmpty, new Rectangle(10, 0, 250, 150), Color.White);
-            sb.Draw(healthBarFull, new Rectangle(10, 0, (int)(250 * EntityManager.Player.CurrHP / EntityManager.Player.MaxHP), 150), new Rectangle(0, 0,(int)(healthBarFull.Width * EntityManager.Player.CurrHP / EntityManager.Player.MaxHP), healthBarFull.Height), Color.White);
+            sb.Draw(healthBarEmpty, new Rectangle(10, 5, 300, 45), Color.White);
+            sb.Draw(healthBarFull, new Rectangle(10, 5, (int)(300 * EntityManager.Player.CurrHP / EntityManager.Player.MaxHP), 45), new Rectangle(0, 0,(int)(healthBarFull.Width * EntityManager.Player.CurrHP / EntityManager.Player.MaxHP), healthBarFull.Height), Color.White);
         }
 
         private void DrawMana(SpriteBatch sb)
         {
-            sb.Draw(manaBarEmpty, new Rectangle(10, 25, 250, 150), Color.White);
-            sb.Draw(manaBarFull, new Rectangle(10, 25, (int)(250 * EntityManager.Player.CurrMP / EntityManager.Player.MaxMP), 150), new Rectangle(0, 0, (int)(manaBarFull.Width * (EntityManager.Player.CurrMP / EntityManager.Player.MaxMP)), manaBarFull.Height), Color.White);
+            sb.Draw(manaBarEmpty, new Rectangle(10, 55, 300, 45), Color.White);
+            sb.Draw(manaBarFull, new Rectangle(10, 55, (int)((300 * EntityManager.Player.CurrMP / EntityManager.Player.MaxMP) + .5), 45), new Rectangle(0, 0, (int)(manaBarFull.Width * (EntityManager.Player.CurrMP / EntityManager.Player.MaxMP)), manaBarFull.Height), Color.White);
         }
     }
 }
