@@ -44,7 +44,7 @@
     <Compile Include="classes\entities\creatures\Creature.cs" />
     <Compile Include="classes\managers\DisplayManager.cs" />
     <Compile Include="classes\entities\creatures\Enemy.cs" />
-    <Compile Include="classes\entities\creatures\Entity.cs" />
+    <Compile Include="classes\entities\Entity.cs" />
     <Compile Include="classes\managers\EntityManager.cs" />
     <Compile Include="classes\environment\Entrance.cs" />
     <Compile Include="classes\managers\FloorManager.cs" />
