@@ -23,18 +23,21 @@ namespace Grov
 		private int floorNumber;
 		private Random rng;
         private static FloorManager instance;
-        #endregion
 
-        #region properties
-        // ************* Properties ************* //
-        public static FloorManager Instance { get => instance; }
+		#endregion
+
+		#region properties
+		// ************* Properties ************* //
+		public static FloorManager Instance { get => instance; }
         public static Random RNG { get => instance.rng; }
-        #endregion
+		public static int TileWidth { get => 1920 / 32; }
+		public static int TileHeight { get => 1080 / 18; }
+		#endregion
 
-        #region constructor
-        // ************* Constructor ************* //
+		#region constructor
+		// ************* Constructor ************* //
 
-        private FloorManager()
+		private FloorManager()
         {
             currRoom = new Room(RoomType.Normal);
             rng = new Random();
@@ -62,6 +65,49 @@ namespace Grov
         {
             currRoom.Draw(spriteBatch);
         }
+
+		/// <summary>
+		/// Checks to see if an entity's hitbox collides with a tile
+		/// </summary>
+		/// <param name="entity"> The entity to check collision with </param>
+		/// <returns> List of tiles that entity passes through </returns>
+		public List<Tile> CollidesWith(Entity entity)
+		{
+			List<Tile> tilesTouched = new List<Tile>();
+			List<Tile> cornerTiles = new List<Tile>(); // Tiles touched by entity corners
+
+			cornerTiles.Add(currRoom[entity.Hitbox.X / TileWidth, entity.Hitbox.Y / TileHeight]);
+			cornerTiles.Add(currRoom[(entity.Hitbox.X + entity.Hitbox.Width) / TileWidth, entity.Hitbox.Y / TileHeight]);
+			cornerTiles.Add(currRoom[entity.Hitbox.X / TileWidth, (entity.Hitbox.Y + entity.Hitbox.Height) / TileHeight]);
+			cornerTiles.Add(currRoom[(entity.Hitbox.X + entity.Hitbox.Width) / TileWidth, (entity.Hitbox.Y + entity.Hitbox.Height) / TileHeight]);
+
+			foreach(Tile cornerTile in cornerTiles)
+			{
+				int curTilesTouchedCount = tilesTouched.Count;
+
+				if(tilesTouched.Count == 0)
+				{
+					tilesTouched.Add(cornerTile);
+				}
+				else
+				{
+					// Checks if current cornerTile is already added into tilesTouched list
+					for(int i = 0; i < curTilesTouchedCount; i++)
+					{
+						if(cornerTile == tilesTouched[i])
+						{
+							break;
+						}
+						else
+						{
+							tilesTouched.Add(cornerTile);
+						}
+					}
+				}
+			}
+
+			return tilesTouched;
+		}
         #endregion
     }
 }
