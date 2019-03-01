@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
+//debugging
+using System.Diagnostics;
+
 // Authors: Jake Zaia, Rachel Wong
 
 namespace Grov
@@ -75,6 +78,8 @@ namespace Grov
 		{
 			List<Tile> tilesTouched = new List<Tile>();
 			List<Tile> cornerTiles = new List<Tile>(); // Tiles touched by entity corners
+
+            Debug.WriteLine(tilesTouched.ToString());
 
 			cornerTiles.Add(currRoom[entity.Hitbox.X / TileWidth, entity.Hitbox.Y / TileHeight]);
 			cornerTiles.Add(currRoom[(entity.Hitbox.X + entity.Hitbox.Width) / TileWidth, entity.Hitbox.Y / TileHeight]);
