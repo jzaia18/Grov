@@ -73,6 +73,30 @@
 /processorParam:TextureFormat=Color
 /build:MageholderSprite.png;MageholderSprite
 
+#begin ManaBarEmpty.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ManaBarEmpty.png;ManaBarEmptySprite
+
+#begin ManaBarFull.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ManaBarFull.png;ManaBarFullSprite
+
 #begin tile0.png
 /importer:TextureImporter
 /processor:TextureProcessor

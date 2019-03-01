@@ -27,7 +27,7 @@ namespace Grov
 		// ************* Properties ************* //
 
 		public float MaxHP { get => maxHP; set => maxHP = value; }
-        public float CurrentHP { get => currentHP; set => currentHP = value; }
+        public float CurrHP { get => currentHP; set => currentHP = value; }
         public bool Melee { get => melee; set => melee = value; }
         public float FireRate { get => fireRate; set => fireRate = value; }
         public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }

@@ -63,10 +63,7 @@ namespace Grov
         /// UnloadContent will be called once per game and is the place to unload
         /// game-specific content.
         /// </summary>
-        protected override void UnloadContent()
-        {
-            // TODO: Unload any non ContentManager content here
-        }
+        protected override void UnloadContent() {}
 
         /// <summary>
         /// Allows the game to run logic such as updating the world,

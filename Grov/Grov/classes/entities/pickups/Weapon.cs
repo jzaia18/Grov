@@ -26,13 +26,14 @@ namespace Grov
         // ************* Fields ************* //
 
         private string name;
-        private float fireRate;
+        private int fireRate;
         private float atkDamage;
         private int manaCost;
         private int numProjectiles;
         private ShotType shotType;
         private float shotSpeed;
         private Texture2D projectileTexture;
+        private int fireDelay;
         #endregion
 
         #region properties
@@ -69,7 +70,7 @@ namespace Grov
                 reader = new StreamReader(filename);
 
                 name = reader.ReadLine();
-                fireRate = float.Parse(reader.ReadLine());
+                fireRate = int.Parse(reader.ReadLine());
                 atkDamage = float.Parse(reader.ReadLine());
                 manaCost = int.Parse(reader.ReadLine());
                 numProjectiles = int.Parse(reader.ReadLine());
@@ -95,7 +96,14 @@ namespace Grov
             // Active => item is on ground
             // Inactive => item is usable and held by player
 
-            throw new NotImplementedException();
+            if (!isActive)
+            {
+                if (fireDelay < fireRate)
+                {
+                    fireDelay++;
+                }
+            }
+
             base.Update();
         }
 
@@ -120,6 +128,18 @@ namespace Grov
                 default:
                     throw new NotImplementedException();
             }
+
+            this.fireDelay = 0;
+        }
+
+        /// <summary>
+        /// Checks to see if the weapon is ready to be fired before
+        /// </summary>
+        /// <param name="multiplier">The entity's firerate mulitplier</param>
+        /// <returns>True if ready to fire, False if not</returns>
+        public bool ReadyToFire(float multiplier)
+        {
+            return (this.fireRate <= this.fireDelay * multiplier);
         }
         #endregion
     }

@@ -110,6 +110,10 @@ namespace Grov
 			}
 		}
 
+        /// <summary>
+        /// Read room arrays from the room file
+        /// </summary>
+        /// <param name="filename"></param>
         private void ReadFromFile(string filename)
         {
             filename = @"resources\rooms\" + filename + ".grovlev";
@@ -132,6 +136,7 @@ namespace Grov
                         tiles[ii][i] = new Tile((TileType)thisTile);
                     }
                 }
+
             }
             catch (Exception e)
             {
