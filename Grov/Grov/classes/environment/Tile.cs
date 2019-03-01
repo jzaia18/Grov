@@ -36,18 +36,14 @@ namespace Grov
 		private bool blocksProjectiles;
 		private Texture2D texture;
 
-		// Constants
-		int tileWidth = 1920 / 32;
-		int tileHeight = 1080 / 18;
         #endregion
 
         #region properties
         // ************* Properties ************* //
 
         public TileType Type { get => type; set => type = value; }
-		public Texture2D Texture { get => texture; set => texture = value; }
-		public int TileWidth { get => tileWidth; }
-		public int TileHeight { get => tileHeight; }
+		public bool IsPassable { get => isPassable; }
+		public bool BloacksProjectiles { get => blocksProjectiles; }
         #endregion
 
         #region constructor
@@ -74,7 +70,8 @@ namespace Grov
                     break;
                 //Door
                 case 2:
-                    throw new NotImplementedException();
+					isPassable = true;
+					blocksProjectiles = true;
                     break;
                 //Water
                 case 3:

@@ -48,7 +48,7 @@ namespace Grov
             //Set the game to Fullscreen mode
             graphics.IsFullScreen = true;
             //This makes it a "soft" fullscreen, AKA borderless fullscreen. Less efficient but faster to initialize
-            graphics.HardwareModeSwitch = false;
+            graphics.HardwareModeSwitch = true;
             graphics.ApplyChanges();
 
             IsMouseVisible = true;
