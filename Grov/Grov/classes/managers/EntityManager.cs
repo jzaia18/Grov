@@ -22,6 +22,10 @@ namespace Grov
         private List<Projectile> friendlyProjectiles;
         private Random rng;
         private static EntityManager instance;
+
+        // ************* Constants ************* //
+
+        private int MAX_IFRAMES = 60;
         #endregion
 
         #region properties
@@ -42,7 +46,7 @@ namespace Grov
             rng = new Random();
 
             //testing
-            player = new Player(10, 100, 2, 5, 5, 1, new Rectangle(0, 0, 107, 132), new Rectangle(0, 0, 215, 265), new Vector2(0, 0), null);
+            player = new Player(100, 100, 2, 5, 5, 1, new Rectangle(0, 0, 107, 132), new Rectangle(0, 0, 215, 265), new Vector2(0, 0), null);
             SpawnEnemies(1, EnemyType.Test);
         }
 
@@ -61,9 +65,18 @@ namespace Grov
         public void Update()
         {
             Player.Update();
-            foreach (Enemy enemy in enemies) enemy.Update();
+            if (enemies.Count > 0)
+            {
+                foreach (Enemy enemy in enemies) enemy.Update();
+            }
+        
             foreach (Projectile projectile in friendlyProjectiles) projectile.Update();
             foreach (Projectile projectile in hostileProjectiles) projectile.Update();
+
+            HandleTerrainCollisions();
+            HandlePlayerDamageCollisions();
+            HandleEnemyDamageCollisions();
+            HandleMeleeCollisions();
         }
 
 
@@ -75,9 +88,52 @@ namespace Grov
             foreach (Projectile projectile in hostileProjectiles) projectile.Draw(spriteBatch);
         }
 
-        public void HandleCollisions()
+        public void HandlePlayerDamageCollisions()
         {
+            foreach(Projectile projectile in hostileProjectiles)
+            {
+                if (projectile.Hitbox.Intersects(player.Hitbox) && player.IFrames == 0)
+                {
+                    projectile.IsActive = false;
+                    player.CurrHP -= 1f;
+                    player.IFrames = MAX_IFRAMES;
+                }
+            }
+        }
 
+        public void HandleTerrainCollisions()
+        {
+            
+        }
+
+        public void HandleMeleeCollisions()
+        {
+            foreach(Enemy enemy in enemies)
+            {
+                if (enemy.Melee)
+                {
+                    if (enemy.Hitbox.Intersects(player.Hitbox) && Player.IFrames == 0)
+                    {
+                        player.CurrHP -= 10f;
+                        player.IFrames = MAX_IFRAMES;
+                    }
+                }
+            }
+        }
+
+        public void HandleEnemyDamageCollisions()
+        {
+            foreach(Projectile projectile in friendlyProjectiles)
+            {
+                foreach(Enemy enemy in enemies)
+                {
+                    if (projectile.Hitbox.Intersects(enemy.Hitbox))
+                    {
+                        enemy.CurrHP -= 1f;
+                        projectile.IsActive = false;
+                    }
+                }
+            }
         }
 
         public void SpawnEnemies(int numEnemies, EnemyType enemyType)
@@ -99,7 +155,7 @@ namespace Grov
                 float projectileSpeed = float.Parse(reader.ReadLine());
 
                 while (numEnemies-- > 0)
-                    enemies.Add(new Enemy(enemyType, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle(rng.Next(DisplayManager.GraphicsDevice.Viewport.Width), rng.Next(DisplayManager.GraphicsDevice.Viewport.Height), 100, 100), new Vector2(0,0)));
+                    enemies.Add(new Enemy(enemyType, maxHP, true, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle(rng.Next(DisplayManager.GraphicsDevice.Viewport.Width), rng.Next(DisplayManager.GraphicsDevice.Viewport.Height), 100, 100), new Vector2(0,0)));
             }
             catch (Exception e)
             {
@@ -112,6 +168,11 @@ namespace Grov
                     reader.Close();
                 }
             }
+        }
+
+        public void RemoveEnemy(Enemy enemy)
+        {
+            throw new NotImplementedException();
         }
 
         public static void AddProjectile(Projectile projectile)

@@ -39,14 +39,31 @@ namespace Grov
 
         public override void Update()
         {
-            this.position += velocity;
-            this.drawPos = new Rectangle((int)(this.position.X), (int)(this.position.Y), this.drawPos.Width, this.drawPos.Height);
-            this.hitbox = this.drawPos;
+            if (this.isActive)
+            {
+                this.position += velocity;
+                this.drawPos = new Rectangle((int)(this.position.X), (int)(this.position.Y), this.drawPos.Width, this.drawPos.Height);
+                this.hitbox = this.drawPos;
+            }
+            else
+            {
+                if (this.drawPos.Width > 0)
+                {
+                    this.IsActive = false;
+                    this.position = new Vector2(0f, 0f);
+                    this.drawPos.Width = 0;
+                    this.drawPos.Height = 0;
+                }
+                return;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.texture, new Rectangle(this.drawPos.X + this.drawPos.Width / 2, this.drawPos.Y + this.drawPos.Height / 2, this.drawPos.Width, this.drawPos.Height), null, Color.White, (float)Math.Atan2(this.velocity.Y, this.velocity.X), new Vector2(this.drawPos.Width, this.drawPos.Height), SpriteEffects.None, 0f);
+            if (this.isActive)
+            {
+                spriteBatch.Draw(this.texture, new Rectangle(this.drawPos.X + this.drawPos.Width / 2, this.drawPos.Y + this.drawPos.Height / 2, this.drawPos.Width, this.drawPos.Height), null, Color.White, (float)Math.Atan2(this.velocity.Y, this.velocity.X), new Vector2(this.drawPos.Width, this.drawPos.Height), SpriteEffects.None, 0f);
+            }
         }
     }
 }

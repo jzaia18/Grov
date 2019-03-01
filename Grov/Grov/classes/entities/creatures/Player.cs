@@ -33,6 +33,7 @@ namespace Grov
         private MouseState mouseState;
         private Vector2 aimDirection;
         private bool isInputKeyboard;
+        private int Iframes;
 
         // ************* Properties ************* //
 
@@ -56,6 +57,7 @@ namespace Grov
         public int Keys { get => keys; set => keys = value; }
         public int Bombs { get => bombs; set => bombs = value; }
         public Weapon Weapon { get => weapon; set => weapon = value; }
+        public int IFrames { get => Iframes; set => Iframes = value; }
 
         // ************* Constructor ************* //
 
@@ -91,6 +93,11 @@ namespace Grov
             if(this.currMP < this.MaxMP)
             {
                 this.currMP += .25f;
+            }
+
+            if(this.Iframes > 0)
+            {
+                Iframes--;
             }
 
             gamePadPreviousState = gamePadState;

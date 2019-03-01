@@ -32,18 +32,34 @@ namespace Grov
 
         public override void Update()
         {
-            Entity target = EntityManager.Player;
+            if (IsActive)
+            {
+                if (this.currentHP <= 0)
+                {
+                    this.IsActive = false;
+                    this.position = new Vector2(0f, 0f);
+                    this.drawPos.Width = 0;
+                    this.drawPos.Height = 0;
+                    return;
+                }
 
-            if (this.hitbox.Intersects(target.Hitbox))
-            {
-                this.Attack(target);
+                Entity target = EntityManager.Player;
+
+                if (!this.hitbox.Intersects(target.Hitbox))
+                {
+                    this.Move(target);
+                }
+                base.Update();
+                hitbox = drawPos;
             }
-            else
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if (this.isActive)
             {
-                this.Move(target);
+                base.Draw(spriteBatch);
             }
-            base.Update();
-            hitbox = drawPos;
         }
 
         private void Attack(Entity target)
