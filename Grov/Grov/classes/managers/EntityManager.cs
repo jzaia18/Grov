@@ -42,7 +42,7 @@ namespace Grov
             rng = new Random();
 
             //testing
-            player = new Player(10, 10, 2, 5, 5, 1, new Rectangle(0, 0, 107, 132), new Rectangle(0, 0, 215, 265), new Vector2(0, 0), null);
+            player = new Player(10, 100, 2, 5, 5, 1, new Rectangle(0, 0, 107, 132), new Rectangle(0, 0, 215, 265), new Vector2(0, 0), null);
             SpawnEnemies(1, EnemyType.Test);
         }
 

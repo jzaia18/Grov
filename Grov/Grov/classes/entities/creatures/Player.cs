@@ -87,6 +87,12 @@ namespace Grov
             base.Update();
             this.hitbox = DrawPos;
             this.weapon.Update();
+
+            if(this.currMP < this.MaxMP)
+            {
+                this.currMP += .25f;
+            }
+
             gamePadPreviousState = gamePadState;
             keyboardPreviousState = keyboardState;
             mousePreviousState = mouseState;
@@ -119,7 +125,7 @@ namespace Grov
                     direction += new Vector2(1f, 0f);
                 }
                 if ((keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Space)
-                    || mouseState.LeftButton.Equals(ButtonState.Pressed)) && weapon.ReadyToFire(fireRate))
+                    || mouseState.LeftButton.Equals(ButtonState.Pressed)) && this.currMP >= weapon.ManaCost && weapon.ReadyToFire(fireRate))
                 {
                     this.Attack();
                 }
@@ -137,7 +143,7 @@ namespace Grov
                 direction = gamePadState.ThumbSticks.Left;
                 direction.Y = -direction.Y;
 
-                if (gamePadState.IsButtonDown(Buttons.RightTrigger) && weapon.ReadyToFire(fireRate))
+                if (gamePadState.IsButtonDown(Buttons.RightTrigger) && this.currMP >= weapon.ManaCost && weapon.ReadyToFire(fireRate))
                 {
                     this.Attack();
                 }
@@ -247,6 +253,7 @@ namespace Grov
         public void Attack()
         {
             this.weapon.Use(aimDirection * projectileSpeed);
+            this.currMP -= weapon.ManaCost;
         }
 
     }
