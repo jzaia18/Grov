@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 
-// Authors: Jake Zaia
+// Authors: Jake Zaia, Duncan Mott, Rachel Wong
 
 namespace Grov
 {
@@ -46,7 +46,7 @@ namespace Grov
             rng = new Random();
 
             //testing
-            player = new Player(100, 100, 2, 5, 5, 1, new Rectangle(0, 0, 107, 132), new Rectangle(0, 0, 215, 265), new Vector2(0, 0), null);
+            player = new Player(100, 100, 2, 5, 5, 1, new Rectangle(65, 65, 60, 74), new Rectangle(65, 65, 60, 74), new Vector2(0, 0), null);
             SpawnEnemies(1, EnemyType.Test);
         }
 
@@ -114,8 +114,8 @@ namespace Grov
                     Rectangle temp = player.Hitbox;
 
                     // Finding spatial position of obstacle against player
-                    int dx = playerTile.Location.X - player.Hitbox.X;
-                    int dy = playerTile.Location.Y - player.Hitbox.Y;
+                    int dx = (playerTile.Location.X * FloorManager.TileWidth) - player.Hitbox.X;
+                    int dy = (playerTile.Location.Y * FloorManager.TileHeight) - player.Hitbox.Y;
 
                     // Determining where to move player after collision
                     Rectangle overlap = Rectangle.Intersect(player.Hitbox, new Rectangle(FloorManager.TileWidth * playerTile.Location.X, FloorManager.TileHeight * playerTile.Location.Y, FloorManager.TileWidth, FloorManager.TileHeight));
@@ -126,11 +126,13 @@ namespace Grov
                         {
                             temp.Y -= overlap.Height;
                             player.Hitbox = temp;
+                            player.Position = new Vector2(player.Hitbox.X, player.Hitbox.Y);
                         }
                         else
                         {
                             temp.Y += overlap.Height;
                             player.Hitbox = temp;
+                            player.Position = new Vector2(player.Hitbox.X, player.Hitbox.Y);
                         }
                     }
                     else
@@ -139,11 +141,13 @@ namespace Grov
                         {
                             temp.X -= overlap.Width;
                             player.Hitbox = temp;
+                            player.Position = new Vector2(player.Hitbox.X, player.Hitbox.Y);
                         }
                         else
                         {
                             temp.X += overlap.Width;
                             player.Hitbox = temp;
+                            player.Position = new Vector2(player.Hitbox.X, player.Hitbox.Y);
                         }
                     }
                 }
