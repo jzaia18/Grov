@@ -14,6 +14,13 @@ namespace Grov
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        //Customizable display options
+            //TODO: when we make options, these should be properties/in another class
+        public int windowHeight = 1080;
+        public int windowWidth = 1920;
+        public bool fullScreen = true;
+        public bool hardwareSwitch = true;
         
         public Game1()
         {
@@ -29,6 +36,19 @@ namespace Grov
         /// </summary>
         protected override void Initialize()
         {
+            DisplayManager.Initialize(Content, GraphicsDevice);
+            EntityManager.Initialize();
+            FloorManager.Initialize();
+
+            graphics.PreferredBackBufferHeight = windowHeight;
+            graphics.PreferredBackBufferWidth = windowWidth;
+            //Set the game to Fullscreen mode
+            graphics.IsFullScreen = fullScreen;
+            //This makes it a "soft" fullscreen, AKA borderless fullscreen. Less efficient but faster to initialize
+            graphics.HardwareModeSwitch = hardwareSwitch;
+            graphics.ApplyChanges();
+
+            IsMouseVisible = true;
 
             base.Initialize();
         }
@@ -39,21 +59,7 @@ namespace Grov
         /// </summary>
         protected override void LoadContent()
         {
-            DisplayManager.Initialize(Content, GraphicsDevice);
-            EntityManager.Initialize();
-            FloorManager.Initialize();
-
-            graphics.PreferredBackBufferHeight = 1080;
-            graphics.PreferredBackBufferWidth = 1920;
-            //Set the game to Fullscreen mode
-            graphics.IsFullScreen = true;
-            //This makes it a "soft" fullscreen, AKA borderless fullscreen. Less efficient but faster to initialize
-            graphics.HardwareModeSwitch = true;
-            graphics.ApplyChanges();
-
-            IsMouseVisible = true;
-
-            // Create a new SpriteBatch, which can be used to draw textures.
+// Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             EntityManager.Player.Texture = Content.Load<Texture2D>("MageholderSprite");
             EntityManager.Player.Weapon.ProjectileTexture = Content.Load<Texture2D>("FireballholderSprite");
