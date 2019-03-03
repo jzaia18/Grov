@@ -53,9 +53,10 @@ namespace Grov
         /// <summary>
         /// Create a new tile
         /// </summary>
-        public Tile(TileType type)
+        public Tile(TileType type, int x, int y)
         {
             this.type = type;
+            location = new Point(x, y);
 
             switch ((int)type)
             {

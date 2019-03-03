@@ -126,14 +126,14 @@ namespace Grov
                 reader = new BinaryReader(stream);
 
                 //Height
-                for (int i = 0; i < 18; i++)
+                for (int y = 0; y < 18; y++)
                 {
                     //Width
-                    for(int ii = 0; ii < 32; ii++)
+                    for(int x = 0; x < 32; x++)
                     {
                         int thisTile = reader.ReadInt32();
 
-                        tiles[ii][i] = new Tile((TileType)thisTile);
+                        tiles[x][y] = new Tile((TileType)thisTile, x, y);
                     }
                 }
 

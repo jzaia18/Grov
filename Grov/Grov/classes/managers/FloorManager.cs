@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Content;
 //debugging
 using System.Diagnostics;
 
-// Authors: Jake Zaia, Rachel Wong
+// Authors: Jake Zaia, Rachel Wong, Duncan Mott
 
 namespace Grov
 {
@@ -96,22 +96,11 @@ namespace Grov
 				}
 				else
 				{
-					// Checks if current cornerTile is already added into tilesTouched list
-					for(int i = 0; i < curTilesTouchedCount; i++)
-					{
-						if(cornerTile == tilesTouched[i])
-						{
-							break;
-						}
-						else
-						{
-							tilesTouched.Add(cornerTile);
-						}
-					}
+                    // Checks if current cornerTile is already added into tilesTouched list
+                    if(!tilesTouched.Contains(cornerTile)) tilesTouched.Add(cornerTile);
 				}
 			}
-
-			return tilesTouched;
+            return tilesTouched;
 		}
         #endregion
     }
