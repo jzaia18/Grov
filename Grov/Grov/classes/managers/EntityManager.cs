@@ -215,6 +215,7 @@ namespace Grov
                     {
                         enemy.CurrHP -= 1f;
                         projectile.IsActive = false;
+                        enemy.Hitstun += player.Weapon.Hitstun;
                     }
                 }
             }

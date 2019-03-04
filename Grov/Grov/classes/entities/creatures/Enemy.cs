@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-// Authors: Jake Zaia, Rachel Wong
+// Authors: Jake Zaia, Rachel Wong, Duncan Mott
 
 namespace Grov
 {
@@ -21,11 +21,14 @@ namespace Grov
         // ************* Fields ************* //
 
         private EnemyType enemyType;
+        private int hitstun;
 
+        // ************* Properties ************* //
+        public int Hitstun { get => hitstun; set => hitstun = value; }
 
-		// ************* Constructor ************* //
+        // ************* Constructor ************* //
 
-		public Enemy(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, float projectileSpeed, Rectangle drawPos, Vector2 velocity) : base(maxHP, melee, fireRate, moveSpeed, attackDamage, projectileSpeed, drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), velocity, true, DisplayManager.EnemyTextureMap[enemyType])
+        public Enemy(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, float projectileSpeed, Rectangle drawPos, Vector2 velocity) : base(maxHP, melee, fireRate, moveSpeed, attackDamage, projectileSpeed, drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), velocity, true, DisplayManager.EnemyTextureMap[enemyType])
         {
             this.enemyType = enemyType;
         }
@@ -45,20 +48,33 @@ namespace Grov
 
                 Entity target = EntityManager.Player;
 
-                if (!this.hitbox.Intersects(target.Hitbox))
+                if (hitstun == 0)
                 {
-                    this.Move(target);
+                    if (!this.hitbox.Intersects(target.Hitbox))
+                    {
+                        this.Move(target);
+                    }
+                    base.Update();
+                    hitbox = drawPos;
                 }
-                base.Update();
-                hitbox = drawPos;
+                else
+                {
+                    hitstun--;
+                }
             }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (this.isActive)
+            if (this.isActive && this.hitstun == 0)
             {
                 base.Draw(spriteBatch);
+            }
+            //Hitstun
+            else if(this.isActive)
+            {
+                if (texture != null)
+                    spriteBatch.Draw(texture, drawPos, Color.Red);
             }
         }
 

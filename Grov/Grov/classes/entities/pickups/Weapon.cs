@@ -35,6 +35,7 @@ namespace Grov
         private Texture2D projectileTexture;
         private int fireDelay;
         private int cooldown = 80;
+        private int hitstun = 7;
         #endregion
 
         #region properties
@@ -49,6 +50,7 @@ namespace Grov
         public ShotType ShotType { get => shotType; }
         public Texture2D ProjectileTexture { get => projectileTexture; set => projectileTexture = value; }
         public int Cooldown { get => cooldown; }
+        public int Hitstun { get => hitstun; }
         #endregion
 
         #region constructor

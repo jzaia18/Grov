@@ -112,6 +112,28 @@ namespace Grov
         }
 
         /// <summary>
+        /// Draw the player
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if (this.isActive && this.Iframes == 0)
+            {
+                base.Draw(spriteBatch);
+            }
+            //Hitstun
+            else if (this.isActive)
+            {
+                if (texture != null)
+                    if (Iframes % 9 <= 4)
+                    {
+                        spriteBatch.Draw(texture, drawPos, Color.White);
+                    }
+                    else spriteBatch.Draw(texture, drawPos, Color.Black);
+            }
+        }
+
+        /// <summary>
         /// Handles all movement-based calculations and inputs
         /// </summary>
         protected override void Move()
