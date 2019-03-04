@@ -158,6 +158,7 @@ namespace Grov
                         {
                             temp.Y -= overlap.Height;
                             entity.Hitbox = temp;
+                            entity.DrawPos = new Rectangle(entity.Hitbox.X, entity.Hitbox.Y, entity.DrawPos.Width, entity.DrawPos.Height);
                             entity.Position = new Vector2(entity.Hitbox.X, entity.Hitbox.Y);
                             if (entity is Projectile) entity.IsActive = false;
                         }
@@ -165,6 +166,7 @@ namespace Grov
                         {
                             temp.Y += overlap.Height;
                             entity.Hitbox = temp;
+                            entity.DrawPos = new Rectangle(entity.Hitbox.X, entity.Hitbox.Y, entity.DrawPos.Width, entity.DrawPos.Height);
                             entity.Position = new Vector2(entity.Hitbox.X, entity.Hitbox.Y);
                             if (entity is Projectile) entity.IsActive = false;
                         }
@@ -175,6 +177,7 @@ namespace Grov
                         {
                             temp.X -= overlap.Width;
                             entity.Hitbox = temp;
+                            entity.DrawPos = new Rectangle(entity.Hitbox.X, entity.Hitbox.Y, entity.DrawPos.Width, entity.DrawPos.Height);
                             entity.Position = new Vector2(entity.Hitbox.X, entity.Hitbox.Y);
                             if (entity is Projectile) entity.IsActive = false;
                         }
@@ -182,6 +185,7 @@ namespace Grov
                         {
                             temp.X += overlap.Width;
                             entity.Hitbox = temp;
+                            entity.DrawPos = new Rectangle(entity.Hitbox.X, entity.Hitbox.Y, entity.DrawPos.Width, entity.DrawPos.Height);
                             entity.Position = new Vector2(entity.Hitbox.X, entity.Hitbox.Y);
                             if (entity is Projectile) entity.IsActive = false;
                         }
