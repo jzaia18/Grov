@@ -47,7 +47,7 @@ namespace Grov
 
             //testing
             player = new Player(100, 100, 2, 5, 5, 1, new Rectangle(65, 65, 60, 74), new Rectangle(65, 65, 60, 74), new Vector2(0, 0), null);
-            SpawnEnemies(1, EnemyType.Test);
+            SpawnEnemies(3, EnemyType.Test);
         }
 
         public static void Initialize()
@@ -239,7 +239,7 @@ namespace Grov
                 float projectileSpeed = float.Parse(reader.ReadLine());
 
                 while (numEnemies-- > 0)
-                    enemies.Add(new Enemy(enemyType, maxHP, true, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle(rng.Next(DisplayManager.GraphicsDevice.Viewport.Width), rng.Next(DisplayManager.GraphicsDevice.Viewport.Height), 100, 100), new Vector2(0,0)));
+                    enemies.Add(new Enemy(enemyType, maxHP, true, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle(rng.Next(DisplayManager.GraphicsDevice.Viewport.Width), rng.Next(DisplayManager.GraphicsDevice.Viewport.Height), 60, 60), new Vector2(0,0)));
             }
             catch (Exception e)
             {

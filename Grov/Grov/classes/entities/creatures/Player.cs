@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Input;
  * Jack Hoffman
  * Jake Zaia
  * Rachel Wong
+ * Duncan Mott
  */
  
 namespace Grov
@@ -22,6 +23,8 @@ namespace Grov
 
         private float maxMP;
         private float currMP;
+        private int cooldown;
+        private bool stoppedFiring;
         private Weapon weapon;
         private int keys;
         private int bombs;
@@ -90,15 +93,18 @@ namespace Grov
             this.hitbox = DrawPos;
             this.weapon.Update();
 
-            if(this.currMP < this.MaxMP)
+            if(this.currMP < this.MaxMP && cooldown == 0 && weapon.ReadyToFire(fireRate))
             {
-                this.currMP += .25f;
+                this.currMP += .5f;
             }
 
             if(this.Iframes > 0)
             {
                 Iframes--;
             }
+
+            //Weapon cooldown
+            if (cooldown > 0 && stoppedFiring) cooldown--;
 
             gamePadPreviousState = gamePadState;
             keyboardPreviousState = keyboardState;
@@ -132,9 +138,18 @@ namespace Grov
                     direction += new Vector2(1f, 0f);
                 }
                 if ((keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Space)
-                    || mouseState.LeftButton.Equals(ButtonState.Pressed)) && this.currMP >= weapon.ManaCost && weapon.ReadyToFire(fireRate))
+                    || mouseState.LeftButton.Equals(ButtonState.Pressed)) && this.currMP > 0 && weapon.ReadyToFire(fireRate) && cooldown == 0)
                 {
                     this.Attack();
+                    if (currMP <= 0) cooldown += weapon.Cooldown;
+                    stoppedFiring = false;
+                }
+
+                //Stop the cooldown from recharging until button is released
+                if(stoppedFiring == false && !(keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Space)
+                    || mouseState.LeftButton.Equals(ButtonState.Pressed)))
+                {
+                    stoppedFiring = true;
                 }
 
                 direction.Normalize();
@@ -150,12 +165,20 @@ namespace Grov
                 direction = gamePadState.ThumbSticks.Left;
                 direction.Y = -direction.Y;
 
-                if (gamePadState.IsButtonDown(Buttons.RightTrigger) && this.currMP >= weapon.ManaCost && weapon.ReadyToFire(fireRate))
+                if (gamePadState.IsButtonDown(Buttons.RightTrigger) && this.currMP >= 0 && weapon.ReadyToFire(fireRate) && cooldown == 0)
                 {
                     this.Attack();
+                    if (currMP <= 0) cooldown += weapon.Cooldown;
+                    stoppedFiring = false;
                 }
 
-                if(keyboardState != keyboardPreviousState)
+                //Stop the cooldown from recharging until button is released
+                if (stoppedFiring == false && !gamePadState.IsButtonDown(Buttons.RightTrigger))
+                {
+                    stoppedFiring = true;
+                }
+
+                if (keyboardState != keyboardPreviousState)
                 {
                     isInputKeyboard = true;
                 }
