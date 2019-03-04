@@ -67,13 +67,42 @@ namespace Grov
             Player.Update();
             if (enemies.Count > 0)
             {
-                foreach (Enemy enemy in enemies) enemy.Update();
+                //Update enemies, this time actually kill them though
+                for(int i = 0; i < enemies.Count; i++)
+                {
+                    enemies[i].Update();
+                    if (enemies[i].IsActive == false)
+                    {
+                        enemies.RemoveAt(i);
+                        i--;
+                    }
+                }
             }
-        
-            foreach (Projectile projectile in friendlyProjectiles) projectile.Update();
-            foreach (Projectile projectile in hostileProjectiles) projectile.Update();
 
-            HandleTerrainCollisions();
+            //Update friendly projectiles
+            for (int i = 0; i < friendlyProjectiles.Count; i++)
+            {
+                friendlyProjectiles[i].Update();
+                if (friendlyProjectiles[i].IsActive == false)
+                {
+                    friendlyProjectiles.RemoveAt(i);
+                    i--;
+                }
+            }
+            for (int i = 0; i < hostileProjectiles.Count; i++)
+            {
+                hostileProjectiles[i].Update();
+                if (hostileProjectiles[i].IsActive == false)
+                {
+                    hostileProjectiles.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            HandleTerrainCollisions(player);
+            foreach (Enemy enemy in enemies) HandleTerrainCollisions(enemy);
+            foreach (Projectile projectile in friendlyProjectiles) HandleTerrainCollisions(projectile);
+            foreach (Projectile projectile in hostileProjectiles) HandleTerrainCollisions(projectile);
             HandlePlayerDamageCollisions();
             HandleEnemyDamageCollisions();
             HandleMeleeCollisions();
@@ -101,38 +130,43 @@ namespace Grov
             }
         }
 
-        public void HandleTerrainCollisions()
+        public void HandleTerrainCollisions(Entity entity)
         {
             // Gathering all the tiles that the entities touch
-            List<Tile> playerTiles = FloorManager.Instance.CollidesWith(player);
+            List<Tile> playerTiles = FloorManager.Instance.CollidesWith(entity);
+
+            //We need to see if it's a projectile or not
+            Projectile proj = new Projectile(0, false, false, new Rectangle(-10, -10, 0, 0), new Vector2(0, 0), null);
 
             foreach(Tile playerTile in playerTiles)
             {
-                if (!playerTile.IsPassable)
+                if ((!playerTile.IsPassable && !(entity is Projectile)) || (playerTile.BlocksProjectiles && (entity is Projectile)))
                 {
                     // Temp variables for structs
-                    Rectangle temp = player.Hitbox;
+                    Rectangle temp = entity.Hitbox;
 
                     // Finding spatial position of obstacle against player
-                    int dx = (playerTile.Location.X * FloorManager.TileWidth) - player.Hitbox.X;
-                    int dy = (playerTile.Location.Y * FloorManager.TileHeight) - player.Hitbox.Y;
+                    int dx = (playerTile.Location.X * FloorManager.TileWidth) - entity.Hitbox.X;
+                    int dy = (playerTile.Location.Y * FloorManager.TileHeight) - entity.Hitbox.Y;
 
                     // Determining where to move player after collision
-                    Rectangle overlap = Rectangle.Intersect(player.Hitbox, new Rectangle(FloorManager.TileWidth * playerTile.Location.X, FloorManager.TileHeight * playerTile.Location.Y, FloorManager.TileWidth, FloorManager.TileHeight));
+                    Rectangle overlap = Rectangle.Intersect(entity.Hitbox, new Rectangle(FloorManager.TileWidth * playerTile.Location.X, FloorManager.TileHeight * playerTile.Location.Y, FloorManager.TileWidth, FloorManager.TileHeight));
 
                     if(overlap.Width > overlap.Height)
                     {
                         if(dy > 0)
                         {
                             temp.Y -= overlap.Height;
-                            player.Hitbox = temp;
-                            player.Position = new Vector2(player.Hitbox.X, player.Hitbox.Y);
+                            entity.Hitbox = temp;
+                            entity.Position = new Vector2(entity.Hitbox.X, entity.Hitbox.Y);
+                            if (entity is Projectile) entity.IsActive = false;
                         }
                         else
                         {
                             temp.Y += overlap.Height;
-                            player.Hitbox = temp;
-                            player.Position = new Vector2(player.Hitbox.X, player.Hitbox.Y);
+                            entity.Hitbox = temp;
+                            entity.Position = new Vector2(entity.Hitbox.X, entity.Hitbox.Y);
+                            if (entity is Projectile) entity.IsActive = false;
                         }
                     }
                     else
@@ -140,14 +174,16 @@ namespace Grov
                         if (dx > 0)
                         {
                             temp.X -= overlap.Width;
-                            player.Hitbox = temp;
-                            player.Position = new Vector2(player.Hitbox.X, player.Hitbox.Y);
+                            entity.Hitbox = temp;
+                            entity.Position = new Vector2(entity.Hitbox.X, entity.Hitbox.Y);
+                            if (entity is Projectile) entity.IsActive = false;
                         }
                         else
                         {
                             temp.X += overlap.Width;
-                            player.Hitbox = temp;
-                            player.Position = new Vector2(player.Hitbox.X, player.Hitbox.Y);
+                            entity.Hitbox = temp;
+                            entity.Position = new Vector2(entity.Hitbox.X, entity.Hitbox.Y);
+                            if (entity is Projectile) entity.IsActive = false;
                         }
                     }
                 }
