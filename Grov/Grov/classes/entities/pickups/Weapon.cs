@@ -34,7 +34,7 @@ namespace Grov
         private float shotSpeed;
         private Texture2D projectileTexture;
         private int fireDelay;
-        private int cooldown = 80;
+        private int cooldown = 60;
         private int hitstun = 7;
         #endregion
 
