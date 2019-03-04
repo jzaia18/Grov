@@ -133,12 +133,9 @@ namespace Grov
         public void HandleTerrainCollisions(Entity entity)
         {
             // Gathering all the tiles that the entities touch
-            List<Tile> playerTiles = FloorManager.Instance.CollidesWith(entity);
+            List<Tile> entityTiles = FloorManager.Instance.CollidesWith(entity);
 
-            //We need to see if it's a projectile or not
-            Projectile proj = new Projectile(0, false, false, new Rectangle(-10, -10, 0, 0), new Vector2(0, 0), null);
-
-            foreach(Tile playerTile in playerTiles)
+            foreach(Tile playerTile in entityTiles)
             {
                 if ((!playerTile.IsPassable && !(entity is Projectile)) || (playerTile.BlocksProjectiles && (entity is Projectile)))
                 {
