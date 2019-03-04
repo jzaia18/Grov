@@ -135,58 +135,47 @@ namespace Grov
             // Gathering all the tiles that the entities touch
             List<Tile> entityTiles = FloorManager.Instance.CollidesWith(entity);
 
-            foreach(Tile playerTile in entityTiles)
+            foreach(Tile entityTile in entityTiles)
             {
-                if ((!playerTile.IsPassable && !(entity is Projectile)) || (playerTile.BlocksProjectiles && (entity is Projectile)))
+                if ((!entityTile.IsPassable && !(entity is Projectile)) || (entityTile.BlocksProjectiles && (entity is Projectile)))
                 {
                     // Temp variables for structs
                     Rectangle temp = entity.Hitbox;
 
                     // Finding spatial position of obstacle against player
-                    int dx = (playerTile.Location.X * FloorManager.TileWidth) - entity.Hitbox.X;
-                    int dy = (playerTile.Location.Y * FloorManager.TileHeight) - entity.Hitbox.Y;
+                    int dx = (entityTile.Location.X * FloorManager.TileWidth) - entity.Hitbox.X;
+                    int dy = (entityTile.Location.Y * FloorManager.TileHeight) - entity.Hitbox.Y;
 
                     // Determining where to move player after collision
-                    Rectangle overlap = Rectangle.Intersect(entity.Hitbox, new Rectangle(FloorManager.TileWidth * playerTile.Location.X, FloorManager.TileHeight * playerTile.Location.Y, FloorManager.TileWidth, FloorManager.TileHeight));
+                    Rectangle overlap = Rectangle.Intersect(entity.Hitbox, new Rectangle(FloorManager.TileWidth * entityTile.Location.X, FloorManager.TileHeight * entityTile.Location.Y, FloorManager.TileWidth, FloorManager.TileHeight));
 
                     if(overlap.Width > overlap.Height)
                     {
                         if(dy > 0)
                         {
-                            temp.Y -= overlap.Height;
-                            entity.Hitbox = temp;
-                            entity.DrawPos = new Rectangle(entity.Hitbox.X, entity.Hitbox.Y, entity.DrawPos.Width, entity.DrawPos.Height);
-                            entity.Position = new Vector2(entity.Hitbox.X, entity.Hitbox.Y);
-                            if (entity is Projectile) entity.IsActive = false;
+                            temp.Y -= overlap.Height + 1;
                         }
                         else
                         {
-                            temp.Y += overlap.Height;
-                            entity.Hitbox = temp;
-                            entity.DrawPos = new Rectangle(entity.Hitbox.X, entity.Hitbox.Y, entity.DrawPos.Width, entity.DrawPos.Height);
-                            entity.Position = new Vector2(entity.Hitbox.X, entity.Hitbox.Y);
-                            if (entity is Projectile) entity.IsActive = false;
+                            temp.Y += overlap.Height + 1;
+                            
                         }
                     }
                     else
                     {
                         if (dx > 0)
                         {
-                            temp.X -= overlap.Width;
-                            entity.Hitbox = temp;
-                            entity.DrawPos = new Rectangle(entity.Hitbox.X, entity.Hitbox.Y, entity.DrawPos.Width, entity.DrawPos.Height);
-                            entity.Position = new Vector2(entity.Hitbox.X, entity.Hitbox.Y);
-                            if (entity is Projectile) entity.IsActive = false;
+                            temp.X -= overlap.Width + 1;
                         }
                         else
                         {
-                            temp.X += overlap.Width;
-                            entity.Hitbox = temp;
-                            entity.DrawPos = new Rectangle(entity.Hitbox.X, entity.Hitbox.Y, entity.DrawPos.Width, entity.DrawPos.Height);
-                            entity.Position = new Vector2(entity.Hitbox.X, entity.Hitbox.Y);
-                            if (entity is Projectile) entity.IsActive = false;
+                            temp.X += overlap.Width + 1;
                         }
                     }
+                    entity.Hitbox = temp;
+                    entity.DrawPos = new Rectangle(entity.Hitbox.X, entity.Hitbox.Y, entity.DrawPos.Width, entity.DrawPos.Height);
+                    entity.Position = new Vector2(entity.Hitbox.X, entity.Hitbox.Y);
+                    if (entity is Projectile) entity.IsActive = false;
                 }
             }
         }
