@@ -41,9 +41,14 @@ namespace Grov
         {
             if (this.isActive)
             {
+                this.lifespan -= 1;
                 this.position += velocity;
                 this.drawPos = new Rectangle((int)(this.position.X), (int)(this.position.Y), this.drawPos.Width, this.drawPos.Height);
                 this.hitbox = this.drawPos;
+                if(this.lifespan == 0)
+                {
+                    this.isActive = false;
+                }
             }
             else
             {
