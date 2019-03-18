@@ -46,7 +46,7 @@ namespace Grov
             rng = new Random();
 
             //testing
-            player = new Player(100, 100, 2, 5, 5, 1, new Rectangle(65, 65, 60, 74), new Rectangle(65, 65, 60, 74), new Vector2(0, 0), null);
+            player = new Player(100, 100, 2, 5, 5, 1, new Rectangle(65, 65, 60, 74), new Rectangle(65, 110, 60, 29), new Vector2(0, 0), null);
         }
 
         public static void Initialize()
@@ -152,11 +152,11 @@ namespace Grov
                     {
                         if(dy > 0)
                         {
-                            temp.Y -= overlap.Height + 1;
+                            temp.Y -= overlap.Height;
                         }
                         else
                         {
-                            temp.Y += overlap.Height + 1;
+                            temp.Y += overlap.Height;
                             
                         }
                     }
@@ -164,16 +164,17 @@ namespace Grov
                     {
                         if (dx > 0)
                         {
-                            temp.X -= overlap.Width + 1;
+                            temp.X -= overlap.Width;
                         }
                         else
                         {
-                            temp.X += overlap.Width + 1;
+                            temp.X += overlap.Width;
                         }
                     }
+                    Point delta = temp.Location - entity.Hitbox.Location;
+                    entity.DrawPos = new Rectangle(entity.DrawPos.X + delta.X, entity.DrawPos.Y + delta.Y, entity.DrawPos.Width, entity.DrawPos.Height);
+                    entity.Position = new Vector2(entity.DrawPos.X, entity.DrawPos.Y);
                     entity.Hitbox = temp;
-                    entity.DrawPos = new Rectangle(entity.Hitbox.X, entity.Hitbox.Y, entity.DrawPos.Width, entity.DrawPos.Height);
-                    entity.Position = new Vector2(entity.Hitbox.X, entity.Hitbox.Y);
                     if (entity is Projectile) entity.IsActive = false;
                 }
             }
