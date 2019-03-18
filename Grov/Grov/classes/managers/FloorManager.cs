@@ -42,7 +42,9 @@ namespace Grov
 
 		private FloorManager()
         {
-            currRoom = new Room(RoomType.Normal);
+            currRoom = new Room(RoomType.Normal, "spawn");
+            currRoom.Top.NextRoom = new Room(RoomType.Normal, "testDoorBottom");
+            currRoom.Top.NextRoom.Bottom.NextRoom = currRoom;
             rng = new Random();
             floorNumber = 1;
         }

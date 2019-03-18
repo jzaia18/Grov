@@ -29,6 +29,8 @@ namespace Grov
         private Entrance top, bottom, left, right;
 		private RoomType type;
 		private bool isCleared;
+        private string filename;
+
 		private Tile[][] tiles;
         #endregion
 
@@ -52,7 +54,7 @@ namespace Grov
         #region constructor
         // ************* Constructor ************* //
 
-        public Room(RoomType type)
+        public Room(RoomType type, string fileName)
         {
             isCleared = false;
             tiles = new Tile[32][];
@@ -62,7 +64,8 @@ namespace Grov
             }
             this.type = type;
 
-            ReadFromFile("testLevel");
+            this.filename = fileName;
+            ReadFromFile(fileName);
 
 
         }
@@ -88,11 +91,11 @@ namespace Grov
 				}
 				if (top != null)
 				{
-					left.State = EntranceState.Open;
+					top.State = EntranceState.Open;
 				}
 				if (bottom != null)
 				{
-					left.State = EntranceState.Open;
+					bottom.State = EntranceState.Open;
 				}
 			}
         }
@@ -127,6 +130,7 @@ namespace Grov
             {
                 reader = new BinaryReader(stream);
 
+                //Handle tiles
                 //Height
                 for (int y = 0; y < 18; y++)
                 {
@@ -139,9 +143,71 @@ namespace Grov
                     }
                 }
 
+                //Check top/bottom for door
+                for(int i = 0; i < 32; i++)
+                {
+                    //Top
+                    if(tiles[i][0].Type == TileType.Entrance)
+                    {
+                        if(top == null)
+                            top = new Entrance();
+                    }
+                    //Bottom
+                    if (tiles[i][17].Type == TileType.Entrance)
+                    {
+                        if (bottom == null)
+                            bottom = new Entrance();
+                    }
+                }
+                //Check left for door
+                for (int i = 0; i < 18; i++)
+                {
+                    //Top
+                    if (tiles[0][i].Type == TileType.Entrance)
+                    {
+                        if (left == null)
+                            left = new Entrance();
+                    }
+                    //Bottom
+                    if (tiles[i][17].Type == TileType.Entrance)
+                    {
+                        if (right == null)
+                            right = new Entrance();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
+            }
+        }
+
+        public void SpawnEnemies()
+        {
+            filename = @"resources\rooms\" + filename + ".grovlev";
+
+            FileStream stream = File.OpenRead(filename);
+            BinaryReader reader = null;
+
+            try
+            {
+                reader = new BinaryReader(stream);
+
+                //Skip the tile info
+                for(int i = 0; i < 32 * 18; i++)
+                {
+                    reader.ReadInt32();
+                }
+
+                //Handle Enemies
                 int enemyCount = reader.ReadInt32();
 
-                for(int i = 0; i < enemyCount; i++)
+                for (int i = 0; i < enemyCount; i++)
                 {
                     int x = reader.ReadInt32();
                     int y = reader.ReadInt32();
@@ -161,6 +227,7 @@ namespace Grov
                     reader.Close();
             }
         }
+
         #endregion
     }
 }
