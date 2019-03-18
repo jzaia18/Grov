@@ -46,7 +46,7 @@ namespace Grov
             rng = new Random();
 
             //testing
-            player = new Player(100, 100, 2, 5, 5, 1, new Rectangle(65, 65, 60, 74), new Rectangle(65, 110, 60, 29), new Vector2(0, 0), null);
+            player = new Player(100, 100, 2, 5, 5, 1, new Rectangle(15  * FloorManager.TileWidth, 8 * FloorManager.TileHeight, 60, 74), new Rectangle(15 * FloorManager.TileWidth, (8 * FloorManager.TileHeight) + 45, 60, 29), new Vector2(0, 0), null);
         }
 
         public static void Initialize()
@@ -105,6 +105,11 @@ namespace Grov
             HandlePlayerDamageCollisions();
             HandleEnemyDamageCollisions();
             HandleMeleeCollisions();
+
+            if(enemies.Count == 0)
+            {
+                FloorManager.Instance.CurrRoom.IsCleared = true;
+            }
         }
 
 
@@ -148,16 +153,16 @@ namespace Grov
                     // Determining where to move player after collision
                     Rectangle overlap = Rectangle.Intersect(entity.Hitbox, new Rectangle(FloorManager.TileWidth * entityTile.Location.X, FloorManager.TileHeight * entityTile.Location.Y, FloorManager.TileWidth, FloorManager.TileHeight));
 
-                    if(overlap.Width > overlap.Height)
+                    if (overlap.Width > overlap.Height)
                     {
-                        if(dy > 0)
+                        if (dy > 0)
                         {
                             temp.Y -= overlap.Height;
                         }
                         else
                         {
                             temp.Y += overlap.Height;
-                            
+
                         }
                     }
                     else
@@ -176,6 +181,10 @@ namespace Grov
                     entity.Position = new Vector2(entity.DrawPos.X, entity.DrawPos.Y);
                     entity.Hitbox = temp;
                     if (entity is Projectile) entity.IsActive = false;
+                }
+                else if(entityTile.Type == TileType.Entrance)
+                {
+                    throw new NotImplementedException();
                 }
             }
         }

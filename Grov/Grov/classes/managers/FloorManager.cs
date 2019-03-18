@@ -35,6 +35,8 @@ namespace Grov
         public static Random RNG { get => instance.rng; }
 		public static int TileWidth { get => 1920 / 32; }
 		public static int TileHeight { get => 1080 / 18; }
+        public Room CurrRoom { get => currRoom; }
+
 		#endregion
 
 		#region constructor
@@ -43,6 +45,7 @@ namespace Grov
 		private FloorManager()
         {
             currRoom = new Room(RoomType.Normal, "spawn");
+            currRoom.SpawnEnemies();
             currRoom.Top.NextRoom = new Room(RoomType.Normal, "testDoorBottom");
             currRoom.Top.NextRoom.Bottom.NextRoom = currRoom;
             rng = new Random();

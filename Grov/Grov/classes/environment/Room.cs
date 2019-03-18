@@ -83,20 +83,20 @@ namespace Grov
 			{
 				if(left != null)
 				{
-					left.State = EntranceState.Open;
+					left.OpenDoor();
 				}
 				if (right != null)
 				{
-					right.State = EntranceState.Open;
-				}
+                    right.OpenDoor();
+                }
 				if (top != null)
 				{
-					top.State = EntranceState.Open;
-				}
+					top.OpenDoor();
+                }
 				if (bottom != null)
 				{
-					bottom.State = EntranceState.Open;
-				}
+					bottom.OpenDoor();
+                }
 			}
         }
 
@@ -149,30 +149,34 @@ namespace Grov
                     //Top
                     if(tiles[i][0].Type == TileType.Entrance)
                     {
-                        if(top == null)
+                        if (top == null)
                             top = new Entrance();
+                        top.AddTile(tiles[i][0]);
                     }
                     //Bottom
                     if (tiles[i][17].Type == TileType.Entrance)
                     {
                         if (bottom == null)
                             bottom = new Entrance();
+                        bottom.AddTile(tiles[i][17]);
                     }
                 }
                 //Check left for door
                 for (int i = 0; i < 18; i++)
                 {
-                    //Top
+                    //Left
                     if (tiles[0][i].Type == TileType.Entrance)
                     {
                         if (left == null)
                             left = new Entrance();
+                        left.AddTile(tiles[0][i]);
                     }
-                    //Bottom
-                    if (tiles[i][17].Type == TileType.Entrance)
+                    //Right
+                    if (tiles[31][i].Type == TileType.Entrance)
                     {
                         if (right == null)
                             right = new Entrance();
+                        right.AddTile(tiles[31][i]);
                     }
                 }
             }

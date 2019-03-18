@@ -42,7 +42,7 @@ namespace Grov
         // ************* Properties ************* //
 
         public TileType Type { get => type; set => type = value; }
-		public bool IsPassable { get => isPassable; }
+		public bool IsPassable { get => isPassable; set => isPassable = value; }
 		public bool BlocksProjectiles { get => blocksProjectiles; }
         public Point Location { get => location; set => location = value; }
         #endregion
@@ -72,7 +72,7 @@ namespace Grov
                     break;
                 //Door
                 case 2:
-					isPassable = true;
+					isPassable = false;
 					blocksProjectiles = true;
                     break;
                 //Water
