@@ -21,6 +21,9 @@ namespace Grov
     {
         // ************* Fields ************* //
 
+        //Constant
+        private const bool DEVWEAPON = true;
+
         private float maxMP;
         private float currMP;
         private int cooldown;
@@ -74,7 +77,10 @@ namespace Grov
             gamePadPreviousState = GamePad.GetState(0);
             mousePreviousState = Mouse.GetState();
             isInputKeyboard = true;
-            weapon = new Weapon("Default", default(Rectangle), null, null, false);
+            if (DEVWEAPON)
+                weapon = new Weapon("Dev", default(Rectangle), null, null, false);
+            else
+                weapon = new Weapon("Default", default(Rectangle), null, null, false);
         }
 
 
