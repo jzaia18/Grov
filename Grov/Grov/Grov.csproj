@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="classes\Button.cs" />
     <Compile Include="classes\entities\creatures\Creature.cs" />
     <Compile Include="classes\managers\DisplayManager.cs" />
     <Compile Include="classes\entities\creatures\Enemy.cs" />

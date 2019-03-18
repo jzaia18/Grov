@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
 
 
 // Authors: Jake Zaia
@@ -24,6 +25,7 @@ namespace Grov
         private ContentManager contentManager;
         private GraphicsDevice graphicsDevice;
         private static DisplayManager instance;
+        private SpriteFont courierNew;
         #endregion
 
         #region properties
@@ -74,6 +76,7 @@ namespace Grov
             // Load all enemy textures into map
             instance.enemyTextureMap = new Dictionary<EnemyType, Texture2D>();
             EnemyTextureMap[EnemyType.Test] = ContentManager.Load<Texture2D>("EnemyHolderSprite");
+            instance.courierNew = ContentManager.Load<SpriteFont>("CourierNew");
         }
         #endregion
 
@@ -88,6 +91,12 @@ namespace Grov
                     FloorManager.Instance.Draw(spriteBatch);
                     EntityManager.Instance.Draw(spriteBatch);
                     hud.Draw(spriteBatch);
+                    break;
+                case GameState.Menu:
+                    spriteBatch.DrawString(courierNew, "Grov", new Vector2(900, 200), Color.DarkGreen);
+                    spriteBatch.DrawString(courierNew, "Start", new Vector2(890, 500), Color.DarkGreen);
+                    spriteBatch.DrawString(courierNew, "Options", new Vector2(850, 600), Color.DarkGreen);
+                    spriteBatch.DrawString(courierNew, "Exit", new Vector2(900, 700), Color.DarkGreen);
                     break;
             }
         }
