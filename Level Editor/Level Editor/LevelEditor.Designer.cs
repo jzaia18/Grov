@@ -345,8 +345,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1544, 1028);
-            this.Controls.Add(this.enemyBox);
             this.Controls.Add(this.palletteButton);
+            this.Controls.Add(this.enemyBox);
             this.Controls.Add(this.mapBox);
             this.Controls.Add(this.loadButton);
             this.Controls.Add(this.saveButton);
