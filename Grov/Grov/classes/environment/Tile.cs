@@ -24,7 +24,8 @@ namespace Grov
         Water = 3,
         Rock = 4,
         Stump = 5,
-        Bridge = 6
+        Bridge = 6,
+        Flower = 7
     }
 	class Tile
 	{

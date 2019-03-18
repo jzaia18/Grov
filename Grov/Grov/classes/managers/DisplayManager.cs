@@ -67,7 +67,7 @@ namespace Grov
                 throw new InvalidOperationException("Cannot load content before Display Manager is initialized");
 
             // Load all tile textures into map
-            instance.tileTextureMap = new Texture2D[7];
+            instance.tileTextureMap = new Texture2D[8];
             for (int i = 0; i < instance.tileTextureMap.Length; i++)
             {
                 instance.tileTextureMap[i] = ContentManager.Load<Texture2D>("tile" + i);

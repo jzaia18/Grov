@@ -30,7 +30,7 @@
         {
             this.colorBox = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.button7 = new System.Windows.Forms.Button();
+            this.bridgeButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -44,26 +44,30 @@
             this.brownButton = new System.Windows.Forms.Button();
             this.grassButton = new System.Windows.Forms.Button();
             this.currentBox = new System.Windows.Forms.GroupBox();
+            this.currentTilePicture = new System.Windows.Forms.PictureBox();
             this.saveButton = new System.Windows.Forms.Button();
             this.loadButton = new System.Windows.Forms.Button();
             this.mapBox = new System.Windows.Forms.GroupBox();
             this.enemyBox = new System.Windows.Forms.GroupBox();
-            this.palletteButton = new System.Windows.Forms.Button();
             this.eraseEnemy = new System.Windows.Forms.PictureBox();
             this.enemy0 = new System.Windows.Forms.PictureBox();
-            this.currentTilePicture = new System.Windows.Forms.PictureBox();
+            this.palletteButton = new System.Windows.Forms.Button();
+            this.flowerButton = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
             this.colorBox.SuspendLayout();
             this.currentBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.currentTilePicture)).BeginInit();
             this.enemyBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eraseEnemy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.enemy0)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.currentTilePicture)).BeginInit();
             this.SuspendLayout();
             // 
             // colorBox
             // 
+            this.colorBox.Controls.Add(this.label8);
+            this.colorBox.Controls.Add(this.flowerButton);
             this.colorBox.Controls.Add(this.label7);
-            this.colorBox.Controls.Add(this.button7);
+            this.colorBox.Controls.Add(this.bridgeButton);
             this.colorBox.Controls.Add(this.label6);
             this.colorBox.Controls.Add(this.label5);
             this.colorBox.Controls.Add(this.label4);
@@ -93,15 +97,15 @@
             this.label7.TabIndex = 13;
             this.label7.Text = "Bridge";
             // 
-            // button7
+            // bridgeButton
             // 
-            this.button7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.button7.Location = new System.Drawing.Point(16, 438);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(94, 92);
-            this.button7.TabIndex = 12;
-            this.button7.UseVisualStyleBackColor = false;
-            this.button7.Click += new System.EventHandler(this.colorButton_Click);
+            this.bridgeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.bridgeButton.Location = new System.Drawing.Point(16, 438);
+            this.bridgeButton.Name = "bridgeButton";
+            this.bridgeButton.Size = new System.Drawing.Size(94, 92);
+            this.bridgeButton.TabIndex = 12;
+            this.bridgeButton.UseVisualStyleBackColor = false;
+            this.bridgeButton.Click += new System.EventHandler(this.colorButton_Click);
             // 
             // label6
             // 
@@ -233,6 +237,16 @@
             this.currentBox.TabStop = false;
             this.currentBox.Text = "Current Tile";
             // 
+            // currentTilePicture
+            // 
+            this.currentTilePicture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(213)))), ((int)(((byte)(100)))));
+            this.currentTilePicture.Location = new System.Drawing.Point(56, 45);
+            this.currentTilePicture.Name = "currentTilePicture";
+            this.currentTilePicture.Size = new System.Drawing.Size(110, 109);
+            this.currentTilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.currentTilePicture.TabIndex = 0;
+            this.currentTilePicture.TabStop = false;
+            // 
             // saveButton
             // 
             this.saveButton.Location = new System.Drawing.Point(32, 809);
@@ -274,16 +288,6 @@
             this.enemyBox.Text = "Enemies";
             this.enemyBox.Visible = false;
             // 
-            // palletteButton
-            // 
-            this.palletteButton.Location = new System.Drawing.Point(133, 2);
-            this.palletteButton.Name = "palletteButton";
-            this.palletteButton.Size = new System.Drawing.Size(97, 34);
-            this.palletteButton.TabIndex = 5;
-            this.palletteButton.Text = "Next Page";
-            this.palletteButton.UseVisualStyleBackColor = true;
-            this.palletteButton.Click += new System.EventHandler(this.palletteButton_Click);
-            // 
             // eraseEnemy
             // 
             this.eraseEnemy.Image = global::Level_Editor.Properties.Resources.eraser;
@@ -306,23 +310,43 @@
             this.enemy0.TabStop = false;
             this.enemy0.Click += new System.EventHandler(this.enemy_Click);
             // 
-            // currentTilePicture
+            // palletteButton
             // 
-            this.currentTilePicture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(213)))), ((int)(((byte)(100)))));
-            this.currentTilePicture.Location = new System.Drawing.Point(56, 45);
-            this.currentTilePicture.Name = "currentTilePicture";
-            this.currentTilePicture.Size = new System.Drawing.Size(110, 109);
-            this.currentTilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.currentTilePicture.TabIndex = 0;
-            this.currentTilePicture.TabStop = false;
+            this.palletteButton.Location = new System.Drawing.Point(133, 2);
+            this.palletteButton.Name = "palletteButton";
+            this.palletteButton.Size = new System.Drawing.Size(97, 34);
+            this.palletteButton.TabIndex = 5;
+            this.palletteButton.Text = "Next Page";
+            this.palletteButton.UseVisualStyleBackColor = true;
+            this.palletteButton.Click += new System.EventHandler(this.palletteButton_Click);
+            // 
+            // flowerButton
+            // 
+            this.flowerButton.BackColor = System.Drawing.Color.Fuchsia;
+            this.flowerButton.Location = new System.Drawing.Point(122, 438);
+            this.flowerButton.Name = "flowerButton";
+            this.flowerButton.Size = new System.Drawing.Size(94, 92);
+            this.flowerButton.TabIndex = 14;
+            this.flowerButton.UseVisualStyleBackColor = false;
+            this.flowerButton.Click += new System.EventHandler(this.colorButton_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(123, 540);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(56, 20);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "Flower";
             // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1544, 1028);
-            this.Controls.Add(this.palletteButton);
             this.Controls.Add(this.enemyBox);
+            this.Controls.Add(this.palletteButton);
             this.Controls.Add(this.mapBox);
             this.Controls.Add(this.loadButton);
             this.Controls.Add(this.saveButton);
@@ -333,10 +357,10 @@
             this.colorBox.ResumeLayout(false);
             this.colorBox.PerformLayout();
             this.currentBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.currentTilePicture)).EndInit();
             this.enemyBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.eraseEnemy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.enemy0)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.currentTilePicture)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -362,10 +386,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button bridgeButton;
         private System.Windows.Forms.Button palletteButton;
         private System.Windows.Forms.GroupBox enemyBox;
         private System.Windows.Forms.PictureBox enemy0;
         private System.Windows.Forms.PictureBox eraseEnemy;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button flowerButton;
     }
 }
