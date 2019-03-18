@@ -1,0 +1,7 @@
+﻿Dev-ine Hand of Fire
+1
+10000
+0
+5
+25
+Normal
