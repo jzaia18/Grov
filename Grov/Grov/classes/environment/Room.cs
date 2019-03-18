@@ -108,10 +108,19 @@ namespace Grov
 				{
 					Tile cur = tiles[x][y];
 
-					spriteBatch.Draw(DisplayManager.TileTextureMap[(int)cur.Type], 
-						             new Rectangle(FloorManager.TileWidth * x, FloorManager.TileHeight * y, FloorManager.TileWidth, FloorManager.TileHeight), 
-									 Color.White);
-				}
+                    if(cur.Type != TileType.Entrance)
+					    spriteBatch.Draw(DisplayManager.TileTextureMap[(int)cur.Type], 
+						                 new Rectangle(FloorManager.TileWidth * x, FloorManager.TileHeight * y, FloorManager.TileWidth, FloorManager.TileHeight), 
+									     Color.White);
+                    else if(isCleared)
+                        spriteBatch.Draw(DisplayManager.TileTextureMap[(int)TileType.Floor],
+                                         new Rectangle(FloorManager.TileWidth * x, FloorManager.TileHeight * y, FloorManager.TileWidth, FloorManager.TileHeight),
+                                         Color.White);
+                    else
+                        spriteBatch.Draw(DisplayManager.TileTextureMap[(int)TileType.Wall],
+                                         new Rectangle(FloorManager.TileWidth * x, FloorManager.TileHeight * y, FloorManager.TileWidth, FloorManager.TileHeight),
+                                         Color.White);
+                }
 			}
 		}
 
