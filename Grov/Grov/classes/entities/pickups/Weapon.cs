@@ -127,7 +127,7 @@ namespace Grov
                     for (int i = 1; i < numProjectiles + 1; i++)
                     {
                         Vector2 projVelocity = shotSpeed * speedModifier * (new Vector2(-1 * (float) Math.Cos(playerOffset + i * offset), (float) Math.Sin(playerOffset + i * offset)));
-                        EntityManager.AddProjectile(new Projectile(projectileLifeSpan, true, false, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileTexture));
+                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, true, false, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileTexture));
                     }
                     break;
                 default:

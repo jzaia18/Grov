@@ -264,7 +264,7 @@ namespace Grov
                 {
                     if (projectile.Hitbox.Intersects(enemy.Hitbox))
                     {
-                        enemy.CurrHP -= 1f;
+                        enemy.CurrHP -= projectile.Damage;
                         projectile.IsActive = false;
                         enemy.Hitstun += player.Weapon.Hitstun;
                     }
