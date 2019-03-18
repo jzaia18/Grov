@@ -80,11 +80,16 @@ namespace Grov
         #region methods
         // ************* Methods ************* //
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GameState state)
         {
-            FloorManager.Instance.Draw(spriteBatch);
-            EntityManager.Instance.Draw(spriteBatch);
-            hud.Draw(spriteBatch);
+            switch (state)
+            {
+                case GameState.Game:
+                    FloorManager.Instance.Draw(spriteBatch);
+                    EntityManager.Instance.Draw(spriteBatch);
+                    hud.Draw(spriteBatch);
+                    break;
+            }
         }
         #endregion
     }

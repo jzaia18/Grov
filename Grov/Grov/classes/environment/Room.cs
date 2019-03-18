@@ -62,7 +62,9 @@ namespace Grov
             }
             this.type = type;
 
-            ReadFromFile("testNoDoor");
+            ReadFromFile("testLevel");
+
+
         }
         #endregion
 
@@ -135,6 +137,17 @@ namespace Grov
 
                         tiles[x][y] = new Tile((TileType)thisTile, x, y);
                     }
+                }
+
+                int enemyCount = reader.ReadInt32();
+
+                for(int i = 0; i < enemyCount; i++)
+                {
+                    int x = reader.ReadInt32();
+                    int y = reader.ReadInt32();
+                    EnemyType type = (EnemyType)reader.ReadInt32();
+
+                    EntityManager.Instance.SpawnEnemies(type, new Vector2(x * 60, y * 60));
                 }
 
             }
