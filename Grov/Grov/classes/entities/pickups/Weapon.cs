@@ -36,6 +36,7 @@ namespace Grov
         private int fireDelay;
         private int cooldown = 60;
         private int hitstun = 7;
+        private int projectileLifeSpan;
         #endregion
 
         #region properties
@@ -51,6 +52,7 @@ namespace Grov
         public Texture2D ProjectileTexture { get => projectileTexture; set => projectileTexture = value; }
         public int Cooldown { get => cooldown; }
         public int Hitstun { get => hitstun; }
+        public int ProjectileLifeSpan { get => projectileLifeSpan; }
         #endregion
 
         #region constructor
@@ -80,6 +82,7 @@ namespace Grov
                 numProjectiles = int.Parse(reader.ReadLine());
                 shotSpeed = float.Parse(reader.ReadLine());
                 shotType = (ShotType) Enum.Parse(typeof(ShotType), reader.ReadLine(), true);
+                projectileLifeSpan = int.Parse(reader.ReadLine());
             }
             catch (Exception e)
             {
@@ -113,8 +116,6 @@ namespace Grov
 
         public void Use(Vector2 direction)
         {
-            float projectileLifeSpan = 0;
-
             switch (shotType)
             {
                 case ShotType.Normal:
