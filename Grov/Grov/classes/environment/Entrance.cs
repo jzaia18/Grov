@@ -16,7 +16,7 @@ namespace Grov
 		Bombable
 	}
 
-    class Entrance : Tile
+    class Entrance
     {
 		// Fields
 		private EntranceState state;
@@ -26,9 +26,6 @@ namespace Grov
 		public EntranceState State { get => state; set => state = value; }
 		public Room NextRoom { get => nextRoom; set => nextRoom = value; }
 
-        public Entrance(TileType tileType, int x, int y) : base(tileType, x, y)
-        {
-
-        }
+        public Entrance() { }
     }
 }

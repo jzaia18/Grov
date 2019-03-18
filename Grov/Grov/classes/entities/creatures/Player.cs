@@ -91,12 +91,14 @@ namespace Grov
         /// </summary>
         public override void Update()
         {
+            Point point = DrawPos.Location;
             mouseState = Mouse.GetState();
             gamePadState = GamePad.GetState(0);
             keyboardState = Keyboard.GetState();
             this.Aim();
             base.Update();
-            this.hitbox = DrawPos;
+            point = drawPos.Location - point;
+            this.hitbox.Location += point;
             this.weapon.Update();
 
             if(this.currMP < this.MaxMP && cooldown == 0 && weapon.ReadyToFire(fireRate))
