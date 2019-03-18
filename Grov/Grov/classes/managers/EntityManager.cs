@@ -142,6 +142,13 @@ namespace Grov
 
             foreach(Tile entityTile in entityTiles)
             {
+                //Kill entity if it goes out of bounds
+                if(entityTile.Type == TileType.Death)
+                {
+                    entity.IsActive = false;
+                    return;
+                }
+
                 if ((!entityTile.IsPassable && !(entity is Projectile)) || (entityTile.BlocksProjectiles && (entity is Projectile)))
                 {
                     // Temp variables for structs

@@ -86,6 +86,13 @@ namespace Grov
 			List<Tile> tilesTouched = new List<Tile>();
 			List<Tile> cornerTiles = new List<Tile>(); // Tiles touched by entity corners
 
+            //Death
+            if (entity.Hitbox.X / TileWidth < 0 || entity.Hitbox.X / TileWidth > 31 || entity.Hitbox.Y / TileWidth < 0 || entity.Hitbox.Y / TileWidth > 18)
+            {
+                tilesTouched.Add(new Tile(TileType.Death, 0, 0));
+                return tilesTouched;
+            }
+
 			cornerTiles.Add(currRoom[entity.Hitbox.X / TileWidth, entity.Hitbox.Y / TileHeight]);
 			cornerTiles.Add(currRoom[(entity.Hitbox.X + entity.Hitbox.Width) / TileWidth, entity.Hitbox.Y / TileHeight]);
 			cornerTiles.Add(currRoom[entity.Hitbox.X / TileWidth, (entity.Hitbox.Y + entity.Hitbox.Height) / TileHeight]);

@@ -17,6 +17,7 @@ namespace Grov
 {
     enum TileType
     {
+        Death = -1,
         Floor = 0,
         Wall = 1,
         Entrance = 2,
@@ -94,6 +95,12 @@ namespace Grov
                 case 6:
                     isPassable = true;
                     blocksProjectiles = false;
+                    break;
+
+                //Death
+                case -1:
+                    isPassable = false;
+                    blocksProjectiles = true;
                     break;
             }
         }
