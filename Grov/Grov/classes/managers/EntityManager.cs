@@ -121,7 +121,7 @@ namespace Grov
         {
             foreach(Projectile projectile in hostileProjectiles)
             {
-                if (projectile.Hitbox.Intersects(player.Hitbox) && player.IFrames == 0)
+                if (projectile.Hitbox.Intersects(player.DrawPos) && player.IFrames == 0)
                 {
                     projectile.IsActive = false;
                     player.CurrHP -= 1f;
