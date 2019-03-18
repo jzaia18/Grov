@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 // Authors: Rachel Wong, Duncan Mott
 
@@ -20,10 +23,12 @@ namespace Grov
         private EntranceState state;
 		private Room nextRoom;
         private List<Tile> tiles;
+        private Point location;
 
 		// Properties
 		public EntranceState State { get => state; set => state = value; }
 		public Room NextRoom { get => nextRoom; set => nextRoom = value; }
+        public Point Location { get => location; }
 
         public Entrance()
         {
@@ -43,6 +48,12 @@ namespace Grov
             {
                 tile.IsPassable = true;
             }
+        }
+
+        public void UpdateLocation(Point point)
+        {
+            if(location != null)
+                this.location = point;
         }
     }
 }

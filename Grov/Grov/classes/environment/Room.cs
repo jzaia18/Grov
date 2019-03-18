@@ -79,25 +79,25 @@ namespace Grov
         /// </summary>
         public void Update()
         {
-			if (isCleared)
-			{
-				if(left != null)
-				{
-					left.OpenDoor();
-				}
-				if (right != null)
-				{
+            if (isCleared)
+            {
+                if (left != null)
+                {
+                    left.OpenDoor();
+                }
+                if (right != null)
+                {
                     right.OpenDoor();
                 }
-				if (top != null)
-				{
-					top.OpenDoor();
+                if (top != null)
+                {
+                    top.OpenDoor();
                 }
-				if (bottom != null)
-				{
-					bottom.OpenDoor();
+                if (bottom != null)
+                {
+                    bottom.OpenDoor();
                 }
-			}
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -152,6 +152,7 @@ namespace Grov
                         if (top == null)
                             top = new Entrance();
                         top.AddTile(tiles[i][0]);
+                        top.UpdateLocation(new Point(i, 0));
                     }
                     //Bottom
                     if (tiles[i][17].Type == TileType.Entrance)
@@ -159,6 +160,7 @@ namespace Grov
                         if (bottom == null)
                             bottom = new Entrance();
                         bottom.AddTile(tiles[i][17]);
+                        bottom.UpdateLocation(new Point(i, 17));
                     }
                 }
                 //Check left for door
@@ -170,6 +172,7 @@ namespace Grov
                         if (left == null)
                             left = new Entrance();
                         left.AddTile(tiles[0][i]);
+                        left.UpdateLocation(new Point(0, i));
                     }
                     //Right
                     if (tiles[31][i].Type == TileType.Entrance)
@@ -177,6 +180,7 @@ namespace Grov
                         if (right == null)
                             right = new Entrance();
                         right.AddTile(tiles[31][i]);
+                        right.UpdateLocation(new Point(31, i));
                     }
                 }
             }

@@ -46,7 +46,8 @@ namespace Grov
             rng = new Random();
 
             //testing
-            player = new Player(100, 100, 2, 5, 5, 1, new Rectangle(15  * FloorManager.TileWidth, 8 * FloorManager.TileHeight, 60, 74), new Rectangle(15 * FloorManager.TileWidth, (8 * FloorManager.TileHeight) + 45, 60, 29), new Vector2(0, 0), null);
+            player = new Player(100, 100, 2, 5, 5, 1, new Rectangle((15  * FloorManager.TileWidth) + FloorManager.TileWidth/2, (8 * FloorManager.TileHeight) + FloorManager.TileWidth/2, 60, 74), 
+                new Rectangle((15 * FloorManager.TileWidth) + FloorManager.TileWidth/2, (8 * FloorManager.TileHeight) + FloorManager.TileWidth/2 + 45, 60, 29), new Vector2(0, 0), null);
         }
 
         public static void Initialize()
@@ -182,9 +183,53 @@ namespace Grov
                     entity.Hitbox = temp;
                     if (entity is Projectile) entity.IsActive = false;
                 }
-                else if(entityTile.Type == TileType.Entrance)
+                else if(entityTile.Type == TileType.Entrance && entity == player)
                 {
-                    throw new NotImplementedException();
+                    //Delete all entities in the room
+                    enemies.Clear();
+                    hostileProjectiles.Clear();
+                    friendlyProjectiles.Clear();
+
+                    //Which door did we take?
+                    int door = -1; // 0 top 1 left 2 bottom 3 right
+                    if (entityTile.Location.Y == 0) //top
+                        door = 0;
+                    else if (entityTile.Location.X == 0) //left
+                        door = 1;
+                    else if (entityTile.Location.Y == 17) //bottom
+                        door = 2;
+                    else if (entityTile.Location.X == 31) //Right
+                        door = 3;
+
+                    //We are in a new room now
+                    switch (door)
+                    {
+                        case 0: //From top to bottom
+                            FloorManager.Instance.CurrRoom = FloorManager.Instance.CurrRoom.Top.NextRoom;
+                            player.Position = new Vector2((FloorManager.Instance.CurrRoom.Bottom.Location.X * 60) - 30, DisplayManager.GraphicsDevice.Viewport.Height - player.DrawPos.Height - (FloorManager.TileHeight * 1.05f));
+                            break;
+                        case 1: //From Left to Right
+                            FloorManager.Instance.CurrRoom = FloorManager.Instance.CurrRoom.Left.NextRoom;
+                            player.Position = new Vector2(DisplayManager.GraphicsDevice.Viewport.Width - Player.Hitbox.Width - (FloorManager.TileHeight * 1.05f), (FloorManager.Instance.CurrRoom.Right.Location.Y * 60) - 30);
+                            break;
+                        case 2: //From Bottom to Top
+                            FloorManager.Instance.CurrRoom = FloorManager.Instance.CurrRoom.Bottom.NextRoom;
+                            player.Position = new Vector2((FloorManager.Instance.CurrRoom.Top.Location.X * 60) - 30, (FloorManager.TileHeight * 1.05f));
+                            break;
+                        case 3: //From Right to left
+                            FloorManager.Instance.CurrRoom = FloorManager.Instance.CurrRoom.Right.NextRoom;
+                            player.Position = new Vector2((FloorManager.TileHeight * 1.05f), (FloorManager.Instance.CurrRoom.Left.Location.Y * 60) - 30);
+                            break;
+                    }
+
+                    //Spawn enemies
+                    if(!FloorManager.Instance.CurrRoom.IsCleared)
+                    {
+                        FloorManager.Instance.CurrRoom.SpawnEnemies();
+                    }
+
+                    //Rest of the collisions don't matter because we're in a new room now
+                    return;
                 }
             }
         }
