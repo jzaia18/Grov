@@ -126,7 +126,7 @@ namespace Level_Editor
             if(sender == eraseEnemy)
             {
                 currentImage = null;
-                currentTilePicture = null;
+                currentTilePicture.Image = null;
             }
             else
             {
