@@ -7,6 +7,13 @@ using System.Diagnostics;
 
 namespace Grov
 {
+
+    enum GameState
+    {
+        Game,
+        Menu
+    }
+
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -21,6 +28,7 @@ namespace Grov
         public int windowWidth = 1920;
         public bool fullScreen = true;
         public bool hardwareSwitch = true;
+        public GameState state;
         
         public Game1()
         {
@@ -39,6 +47,8 @@ namespace Grov
             DisplayManager.Initialize(Content, GraphicsDevice);
             EntityManager.Initialize();
             FloorManager.Initialize();
+
+            state = GameState.Menu;
 
             graphics.PreferredBackBufferHeight = windowHeight;
             graphics.PreferredBackBufferWidth = windowWidth;
@@ -81,8 +91,20 @@ namespace Grov
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            EntityManager.Instance.Update();
-            FloorManager.Instance.Update();
+            switch (state)
+            {
+                case GameState.Game:
+                    EntityManager.Instance.Update();
+                    FloorManager.Instance.Update();
+                    break;
+                case GameState.Menu:
+                    KeyboardState kb = Keyboard.GetState();
+                    if(kb.IsKeyDown(Keys.Enter))
+                    {
+                        state = GameState.Game;
+                    }
+                    break;
+            }
 
             base.Update(gameTime);
         }
@@ -96,7 +118,7 @@ namespace Grov
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
 
-            DisplayManager.Instance.Draw(spriteBatch);
+            DisplayManager.Instance.Draw(spriteBatch, state);
 
             spriteBatch.End();
             base.Draw(gameTime);

@@ -28,7 +28,11 @@ namespace Level_Editor
         private int height;
         private int boxSize;
         private Color currentColor;
+        private Image currentImage;
         private PictureBox[,] mapArray;
+
+        private int pallette;
+        private int palletteMax = 1;
 
         //Is the title of the window == the title of the file we have open?
         private bool fileNameTitle;
@@ -47,9 +51,12 @@ namespace Level_Editor
 
             fileNameTitle = false;
             unsavedChanges = false;
+
+            this.pallette = 0;
             
             //Default Color is blue
             currentColor = Color.FromArgb(153, 213, 100);
+            currentImage = null;
 
             //Close event
             this.FormClosing += CloseEvent;
@@ -81,7 +88,9 @@ namespace Level_Editor
         private void colorButton_Click(object sender, EventArgs e)
         {
             currentColor = ((Button)sender).BackColor;
+            currentImage = null;
             currentTilePicture.BackColor = currentColor;
+            currentTilePicture.Image = null;
             Console.WriteLine(((Button)sender).BackColor.ToArgb());
             //153, 213, 100
         }
@@ -97,6 +106,7 @@ namespace Level_Editor
             {
                 //Change the color
                 ((PictureBox)sender).BackColor = currentColor;
+                ((PictureBox)sender).Image = currentImage;
 
                 //There are now unsaved changes
                 if (fileNameTitle)
@@ -108,6 +118,20 @@ namespace Level_Editor
                     this.Text = "Level Editor *";
                 }
                 unsavedChanges = true;
+            }
+        }
+        //When you click on an enemy
+        private void enemy_Click(object sender, EventArgs e)
+        {
+            if(sender == eraseEnemy)
+            {
+                currentImage = null;
+                currentTilePicture = null;
+            }
+            else
+            {
+                currentImage = ((PictureBox)sender).Image;
+                currentTilePicture.Image = ((PictureBox)sender).Image;
             }
         }
 
@@ -177,6 +201,42 @@ namespace Level_Editor
                                         throw new Exception();
                                         break;
                                 }
+                        }
+                    }
+
+                    //Get the number of enemies
+                    int enemyCount = 0;
+                    for(int i = 0; i < height; i++)
+                    {
+                        for (int ii = 0; ii < width; ii++)
+                        {
+                            if (mapArray[i, ii].Image != null)
+                            {
+                                enemyCount++;
+                            }
+                        }
+                    }
+
+                    //Confirm number of enemies
+                    writer.Write(enemyCount);
+
+                    //Coordinates and enemy type for every enemy
+                    for (int i = 0; i < height; i++)
+                    {
+                        for (int ii = 0; ii < width; ii++)
+                        {
+                            if (mapArray[i, ii].Image != null)
+                            {
+                                writer.Write(ii);
+                                writer.Write(i);
+
+                                //Enemy 0
+                                if(mapArray[i, ii].Image == enemy0.Image)
+                                {
+                                    writer.Write(0);
+                                }
+
+                            }
                         }
                     }
 
@@ -254,6 +314,7 @@ namespace Level_Editor
                     mapBox.Controls.Add(mapArray[i, ii]);
                     //Default color
                     mapArray[i, ii].BackColor = Color.FromArgb(153, 213, 100);
+                    mapArray[i, ii].SizeMode = PictureBoxSizeMode.StretchImage;
                     //Draw the borders
                     if (i == 0 || ii == 0 || i == 17 || ii == 31)
                     {
@@ -372,6 +433,22 @@ namespace Level_Editor
                     }
                 }
 
+                int enemyCount = reader.ReadInt32();
+
+                for(int i = 0; i < enemyCount; i++)
+                {
+                    int x = reader.ReadInt32();
+                    int y = reader.ReadInt32();
+                    int type = reader.ReadInt32();
+
+                    switch(type)
+                    {
+                        case 0:
+                            mapArray[y, x].Image = enemy0.Image;
+                            break;
+                    }
+                }
+
                 //Message shows up if it didn't fuck up the loading process
                 MessageBox.Show("File Loaded Successfully", "File Loaded", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //Mark the file as saved
@@ -413,5 +490,31 @@ namespace Level_Editor
             }
         }
 
+        /// <summary>
+        /// Switch pallette pages
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void palletteButton_Click(object sender, EventArgs e)
+        {
+            this.pallette++;
+            if (pallette > palletteMax)
+            {
+                pallette = 0;
+            }
+
+            switch (pallette)
+            {
+                case 0:
+                    this.colorBox.Visible = true;
+                    this.enemyBox.Visible = false;
+                    break;
+                case 1:
+                    this.colorBox.Visible = false;
+                    this.enemyBox.Visible = true;
+                    break;
+            }
+
+        }
     }
 }

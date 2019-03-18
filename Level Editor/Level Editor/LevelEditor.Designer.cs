@@ -44,12 +44,19 @@
             this.brownButton = new System.Windows.Forms.Button();
             this.grassButton = new System.Windows.Forms.Button();
             this.currentBox = new System.Windows.Forms.GroupBox();
-            this.currentTilePicture = new System.Windows.Forms.PictureBox();
             this.saveButton = new System.Windows.Forms.Button();
             this.loadButton = new System.Windows.Forms.Button();
             this.mapBox = new System.Windows.Forms.GroupBox();
+            this.enemyBox = new System.Windows.Forms.GroupBox();
+            this.palletteButton = new System.Windows.Forms.Button();
+            this.eraseEnemy = new System.Windows.Forms.PictureBox();
+            this.enemy0 = new System.Windows.Forms.PictureBox();
+            this.currentTilePicture = new System.Windows.Forms.PictureBox();
             this.colorBox.SuspendLayout();
             this.currentBox.SuspendLayout();
+            this.enemyBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.eraseEnemy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.enemy0)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.currentTilePicture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,11 +76,9 @@
             this.colorBox.Controls.Add(this.blueButton);
             this.colorBox.Controls.Add(this.brownButton);
             this.colorBox.Controls.Add(this.grassButton);
-            this.colorBox.Location = new System.Drawing.Point(10, 13);
-            this.colorBox.Margin = new System.Windows.Forms.Padding(2);
+            this.colorBox.Location = new System.Drawing.Point(15, 30);
             this.colorBox.Name = "colorBox";
-            this.colorBox.Padding = new System.Windows.Forms.Padding(2);
-            this.colorBox.Size = new System.Drawing.Size(153, 387);
+            this.colorBox.Size = new System.Drawing.Size(230, 585);
             this.colorBox.TabIndex = 0;
             this.colorBox.TabStop = false;
             this.colorBox.Text = "Tile Selector";
@@ -81,19 +86,19 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 351);
+            this.label7.Location = new System.Drawing.Point(18, 540);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(37, 13);
+            this.label7.Size = new System.Drawing.Size(55, 20);
             this.label7.TabIndex = 13;
             this.label7.Text = "Bridge";
             // 
             // button7
             // 
             this.button7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.button7.Location = new System.Drawing.Point(11, 285);
-            this.button7.Margin = new System.Windows.Forms.Padding(2);
+            this.button7.Location = new System.Drawing.Point(16, 438);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(63, 60);
+            this.button7.Size = new System.Drawing.Size(94, 92);
             this.button7.TabIndex = 12;
             this.button7.UseVisualStyleBackColor = false;
             this.button7.Click += new System.EventHandler(this.colorButton_Click);
@@ -101,64 +106,69 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(78, 260);
+            this.label6.Location = new System.Drawing.Point(117, 400);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(60, 13);
+            this.label6.Size = new System.Drawing.Size(87, 20);
             this.label6.TabIndex = 11;
             this.label6.Text = "Log/Stump";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 261);
+            this.label5.Location = new System.Drawing.Point(22, 402);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(30, 13);
+            this.label5.Size = new System.Drawing.Size(44, 20);
             this.label5.TabIndex = 10;
             this.label5.Text = "Door";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(82, 171);
+            this.label4.Location = new System.Drawing.Point(123, 263);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(38, 13);
+            this.label4.Size = new System.Drawing.Size(54, 20);
             this.label4.TabIndex = 9;
             this.label4.Text = "Rocks";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 172);
+            this.label3.Location = new System.Drawing.Point(18, 265);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(36, 13);
+            this.label3.Size = new System.Drawing.Size(52, 20);
             this.label3.TabIndex = 8;
             this.label3.Text = "Water";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(79, 81);
+            this.label2.Location = new System.Drawing.Point(118, 125);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(62, 13);
+            this.label2.Size = new System.Drawing.Size(91, 20);
             this.label2.TabIndex = 7;
             this.label2.Text = "Border Wall";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 82);
+            this.label1.Location = new System.Drawing.Point(18, 126);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 13);
+            this.label1.Size = new System.Drawing.Size(45, 20);
             this.label1.TabIndex = 6;
             this.label1.Text = "Floor";
             // 
             // snowButton
             // 
             this.snowButton.BackColor = System.Drawing.Color.Purple;
-            this.snowButton.Location = new System.Drawing.Point(12, 195);
-            this.snowButton.Margin = new System.Windows.Forms.Padding(2);
+            this.snowButton.Location = new System.Drawing.Point(18, 300);
             this.snowButton.Name = "snowButton";
-            this.snowButton.Size = new System.Drawing.Size(63, 60);
+            this.snowButton.Size = new System.Drawing.Size(94, 92);
             this.snowButton.TabIndex = 5;
             this.snowButton.UseVisualStyleBackColor = false;
             this.snowButton.Click += new System.EventHandler(this.colorButton_Click);
@@ -166,10 +176,9 @@
             // foliageButton
             // 
             this.foliageButton.BackColor = System.Drawing.Color.ForestGreen;
-            this.foliageButton.Location = new System.Drawing.Point(78, 16);
-            this.foliageButton.Margin = new System.Windows.Forms.Padding(2);
+            this.foliageButton.Location = new System.Drawing.Point(117, 25);
             this.foliageButton.Name = "foliageButton";
-            this.foliageButton.Size = new System.Drawing.Size(63, 60);
+            this.foliageButton.Size = new System.Drawing.Size(94, 92);
             this.foliageButton.TabIndex = 4;
             this.foliageButton.UseVisualStyleBackColor = false;
             this.foliageButton.Click += new System.EventHandler(this.colorButton_Click);
@@ -177,10 +186,9 @@
             // grayButton
             // 
             this.grayButton.BackColor = System.Drawing.Color.Silver;
-            this.grayButton.Location = new System.Drawing.Point(79, 106);
-            this.grayButton.Margin = new System.Windows.Forms.Padding(2);
+            this.grayButton.Location = new System.Drawing.Point(118, 163);
             this.grayButton.Name = "grayButton";
-            this.grayButton.Size = new System.Drawing.Size(63, 60);
+            this.grayButton.Size = new System.Drawing.Size(94, 92);
             this.grayButton.TabIndex = 3;
             this.grayButton.UseVisualStyleBackColor = false;
             this.grayButton.Click += new System.EventHandler(this.colorButton_Click);
@@ -188,10 +196,9 @@
             // blueButton
             // 
             this.blueButton.BackColor = System.Drawing.Color.Blue;
-            this.blueButton.Location = new System.Drawing.Point(12, 106);
-            this.blueButton.Margin = new System.Windows.Forms.Padding(2);
+            this.blueButton.Location = new System.Drawing.Point(18, 163);
             this.blueButton.Name = "blueButton";
-            this.blueButton.Size = new System.Drawing.Size(63, 60);
+            this.blueButton.Size = new System.Drawing.Size(94, 92);
             this.blueButton.TabIndex = 2;
             this.blueButton.UseVisualStyleBackColor = false;
             this.blueButton.Click += new System.EventHandler(this.colorButton_Click);
@@ -199,10 +206,9 @@
             // brownButton
             // 
             this.brownButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(86)))), ((int)(((byte)(70)))), ((int)(((byte)(60)))));
-            this.brownButton.Location = new System.Drawing.Point(79, 195);
-            this.brownButton.Margin = new System.Windows.Forms.Padding(2);
+            this.brownButton.Location = new System.Drawing.Point(118, 300);
             this.brownButton.Name = "brownButton";
-            this.brownButton.Size = new System.Drawing.Size(63, 60);
+            this.brownButton.Size = new System.Drawing.Size(94, 92);
             this.brownButton.TabIndex = 1;
             this.brownButton.UseVisualStyleBackColor = false;
             this.brownButton.Click += new System.EventHandler(this.colorButton_Click);
@@ -210,10 +216,9 @@
             // grassButton
             // 
             this.grassButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(213)))), ((int)(((byte)(100)))));
-            this.grassButton.Location = new System.Drawing.Point(11, 16);
-            this.grassButton.Margin = new System.Windows.Forms.Padding(2);
+            this.grassButton.Location = new System.Drawing.Point(16, 25);
             this.grassButton.Name = "grassButton";
-            this.grassButton.Size = new System.Drawing.Size(63, 60);
+            this.grassButton.Size = new System.Drawing.Size(94, 92);
             this.grassButton.TabIndex = 0;
             this.grassButton.UseVisualStyleBackColor = false;
             this.grassButton.Click += new System.EventHandler(this.colorButton_Click);
@@ -221,31 +226,18 @@
             // currentBox
             // 
             this.currentBox.Controls.Add(this.currentTilePicture);
-            this.currentBox.Location = new System.Drawing.Point(11, 404);
-            this.currentBox.Margin = new System.Windows.Forms.Padding(2);
+            this.currentBox.Location = new System.Drawing.Point(16, 622);
             this.currentBox.Name = "currentBox";
-            this.currentBox.Padding = new System.Windows.Forms.Padding(2);
-            this.currentBox.Size = new System.Drawing.Size(153, 118);
+            this.currentBox.Size = new System.Drawing.Size(230, 182);
             this.currentBox.TabIndex = 1;
             this.currentBox.TabStop = false;
             this.currentBox.Text = "Current Tile";
             // 
-            // currentTilePicture
-            // 
-            this.currentTilePicture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(213)))), ((int)(((byte)(100)))));
-            this.currentTilePicture.Location = new System.Drawing.Point(37, 29);
-            this.currentTilePicture.Margin = new System.Windows.Forms.Padding(2);
-            this.currentTilePicture.Name = "currentTilePicture";
-            this.currentTilePicture.Size = new System.Drawing.Size(73, 71);
-            this.currentTilePicture.TabIndex = 0;
-            this.currentTilePicture.TabStop = false;
-            // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(21, 526);
-            this.saveButton.Margin = new System.Windows.Forms.Padding(2);
+            this.saveButton.Location = new System.Drawing.Point(32, 809);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(131, 58);
+            this.saveButton.Size = new System.Drawing.Size(196, 89);
             this.saveButton.TabIndex = 2;
             this.saveButton.Text = "Save File";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -253,10 +245,9 @@
             // 
             // loadButton
             // 
-            this.loadButton.Location = new System.Drawing.Point(21, 588);
-            this.loadButton.Margin = new System.Windows.Forms.Padding(2);
+            this.loadButton.Location = new System.Drawing.Point(32, 905);
             this.loadButton.Name = "loadButton";
-            this.loadButton.Size = new System.Drawing.Size(131, 72);
+            this.loadButton.Size = new System.Drawing.Size(196, 111);
             this.loadButton.TabIndex = 3;
             this.loadButton.Text = "Load File";
             this.loadButton.UseVisualStyleBackColor = true;
@@ -264,31 +255,87 @@
             // 
             // mapBox
             // 
-            this.mapBox.Location = new System.Drawing.Point(192, 13);
-            this.mapBox.Margin = new System.Windows.Forms.Padding(2);
+            this.mapBox.Location = new System.Drawing.Point(288, 20);
             this.mapBox.Name = "mapBox";
-            this.mapBox.Padding = new System.Windows.Forms.Padding(2);
-            this.mapBox.Size = new System.Drawing.Size(707, 647);
+            this.mapBox.Size = new System.Drawing.Size(1060, 995);
             this.mapBox.TabIndex = 4;
             this.mapBox.TabStop = false;
             this.mapBox.Text = "Map";
             // 
+            // enemyBox
+            // 
+            this.enemyBox.Controls.Add(this.eraseEnemy);
+            this.enemyBox.Controls.Add(this.enemy0);
+            this.enemyBox.Location = new System.Drawing.Point(15, 30);
+            this.enemyBox.Name = "enemyBox";
+            this.enemyBox.Size = new System.Drawing.Size(230, 585);
+            this.enemyBox.TabIndex = 6;
+            this.enemyBox.TabStop = false;
+            this.enemyBox.Text = "Enemies";
+            this.enemyBox.Visible = false;
+            // 
+            // palletteButton
+            // 
+            this.palletteButton.Location = new System.Drawing.Point(133, 2);
+            this.palletteButton.Name = "palletteButton";
+            this.palletteButton.Size = new System.Drawing.Size(97, 34);
+            this.palletteButton.TabIndex = 5;
+            this.palletteButton.Text = "Next Page";
+            this.palletteButton.UseVisualStyleBackColor = true;
+            this.palletteButton.Click += new System.EventHandler(this.palletteButton_Click);
+            // 
+            // eraseEnemy
+            // 
+            this.eraseEnemy.Image = global::Level_Editor.Properties.Resources.eraser;
+            this.eraseEnemy.Location = new System.Drawing.Point(5, 37);
+            this.eraseEnemy.Name = "eraseEnemy";
+            this.eraseEnemy.Size = new System.Drawing.Size(100, 99);
+            this.eraseEnemy.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.eraseEnemy.TabIndex = 1;
+            this.eraseEnemy.TabStop = false;
+            this.eraseEnemy.Click += new System.EventHandler(this.enemy_Click);
+            // 
+            // enemy0
+            // 
+            this.enemy0.Image = global::Level_Editor.Properties.Resources.EnemyholderSprite;
+            this.enemy0.Location = new System.Drawing.Point(111, 37);
+            this.enemy0.Name = "enemy0";
+            this.enemy0.Size = new System.Drawing.Size(100, 99);
+            this.enemy0.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.enemy0.TabIndex = 0;
+            this.enemy0.TabStop = false;
+            this.enemy0.Click += new System.EventHandler(this.enemy_Click);
+            // 
+            // currentTilePicture
+            // 
+            this.currentTilePicture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(213)))), ((int)(((byte)(100)))));
+            this.currentTilePicture.Location = new System.Drawing.Point(56, 45);
+            this.currentTilePicture.Name = "currentTilePicture";
+            this.currentTilePicture.Size = new System.Drawing.Size(110, 109);
+            this.currentTilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.currentTilePicture.TabIndex = 0;
+            this.currentTilePicture.TabStop = false;
+            // 
             // LevelEditor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1029, 668);
+            this.ClientSize = new System.Drawing.Size(1544, 1028);
+            this.Controls.Add(this.palletteButton);
+            this.Controls.Add(this.enemyBox);
             this.Controls.Add(this.mapBox);
             this.Controls.Add(this.loadButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.currentBox);
             this.Controls.Add(this.colorBox);
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "LevelEditor";
             this.Text = "Level Editor";
             this.colorBox.ResumeLayout(false);
             this.colorBox.PerformLayout();
             this.currentBox.ResumeLayout(false);
+            this.enemyBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.eraseEnemy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.enemy0)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.currentTilePicture)).EndInit();
             this.ResumeLayout(false);
 
@@ -316,5 +363,9 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button palletteButton;
+        private System.Windows.Forms.GroupBox enemyBox;
+        private System.Windows.Forms.PictureBox enemy0;
+        private System.Windows.Forms.PictureBox eraseEnemy;
     }
 }
