@@ -50,6 +50,9 @@ namespace Grov
             currRoom.Top.NextRoom.Bottom.NextRoom = currRoom;
             currRoom.Right.NextRoom = new Room(RoomType.Normal, "testLevel");
             currRoom.Right.NextRoom.Left.NextRoom = currRoom;
+            currRoom.Left.NextRoom = new Room(RoomType.Normal, "0101_DockBridge");
+            currRoom.Left.NextRoom.Right.NextRoom = currRoom;
+
             rng = new Random();
             floorNumber = 1;
         }
@@ -87,7 +90,7 @@ namespace Grov
 			List<Tile> cornerTiles = new List<Tile>(); // Tiles touched by entity corners
 
             //Death
-            if (entity.Hitbox.X / TileWidth < 0 || entity.Hitbox.X / TileWidth > 31 || entity.Hitbox.Y / TileWidth < 0 || entity.Hitbox.Y / TileWidth > 18)
+            if (entity.Hitbox.X / TileWidth < 0 || (entity.Hitbox.X + entity.Hitbox.Width) / TileWidth > 31 || entity.Hitbox.Y / TileWidth < 0 || (entity.Hitbox.Y + entity.Hitbox.Height) / TileWidth > 17)
             {
                 tilesTouched.Add(new Tile(TileType.Death, 0, 0));
                 return tilesTouched;

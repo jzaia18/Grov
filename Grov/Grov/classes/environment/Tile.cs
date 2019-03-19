@@ -97,6 +97,11 @@ namespace Grov
                     isPassable = true;
                     blocksProjectiles = false;
                     break;
+                //Flowers
+                case 7:
+                    isPassable = true;
+                    blocksProjectiles = false;
+                    break;
 
                 //Death
                 case -1:

@@ -65,6 +65,18 @@ namespace Grov
         public void Update()
         {
             Player.Update();
+
+            //Update friendly projectiles
+            for (int i = 0; i < friendlyProjectiles.Count; i++)
+            {
+                friendlyProjectiles[i].Update();
+                if (friendlyProjectiles[i].IsActive == false)
+                {
+                    friendlyProjectiles.RemoveAt(i);
+                    i--;
+                }
+            }
+
             if (enemies.Count > 0)
             {
                 //Update enemies, this time actually kill them though
@@ -79,16 +91,6 @@ namespace Grov
                 }
             }
 
-            //Update friendly projectiles
-            for (int i = 0; i < friendlyProjectiles.Count; i++)
-            {
-                friendlyProjectiles[i].Update();
-                if (friendlyProjectiles[i].IsActive == false)
-                {
-                    friendlyProjectiles.RemoveAt(i);
-                    i--;
-                }
-            }
             for (int i = 0; i < hostileProjectiles.Count; i++)
             {
                 hostileProjectiles[i].Update();
@@ -103,8 +105,8 @@ namespace Grov
             foreach (Enemy enemy in enemies) HandleTerrainCollisions(enemy);
             foreach (Projectile projectile in friendlyProjectiles) HandleTerrainCollisions(projectile);
             foreach (Projectile projectile in hostileProjectiles) HandleTerrainCollisions(projectile);
-            HandlePlayerDamageCollisions();
             HandleEnemyDamageCollisions();
+            HandlePlayerDamageCollisions();
             HandleMeleeCollisions();
 
             if(enemies.Count == 0)
@@ -137,6 +139,11 @@ namespace Grov
 
         public void HandleTerrainCollisions(Entity entity)
         {
+            //Noclip entities don't collide
+            if (entity is Projectile)
+                if (((Projectile)entity).Noclip)
+                    return;
+
             // Gathering all the tiles that the entities touch
             List<Tile> entityTiles = FloorManager.Instance.CollidesWith(entity);
 
@@ -265,7 +272,8 @@ namespace Grov
                     if (projectile.Hitbox.Intersects(enemy.Hitbox))
                     {
                         enemy.CurrHP -= projectile.Damage;
-                        projectile.IsActive = false;
+                        if(!projectile.Noclip)
+                            projectile.IsActive = false;
                         enemy.Hitstun += player.Weapon.Hitstun;
                     }
                 }

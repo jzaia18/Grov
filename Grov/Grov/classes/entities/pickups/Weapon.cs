@@ -17,7 +17,8 @@ namespace Grov
         Normal,   // symmetrical cone in one direction
         Radial,   // laterally from all sides of the character
         Spread,   // in a cone, but more randomly spread out
-        Clump     // a straight line of packets/clumps of projectiles
+        Clump,     // a straight line of packets/clumps of projectiles
+        Bubble      //Shield
     }
 
     class Weapon : Pickup
@@ -28,11 +29,12 @@ namespace Grov
         private string name;
         private int fireRate;
         private float atkDamage;
-        private int manaCost;
+        private float manaCost;
         private int numProjectiles;
         private ShotType shotType;
         private float shotSpeed;
         private Texture2D projectileTexture;
+        private Texture2D bubbleTexture;
         private int fireDelay;
         private int cooldown = 60;
         private int hitstun = 7;
@@ -45,11 +47,12 @@ namespace Grov
         public string Name { get => name; }
         public float FireRate { get => fireRate; }
         public float AttackDamage { get => atkDamage; }
-        public int ManaCost { get => manaCost; }
+        public float ManaCost { get => manaCost; }
         public int NumProjectiles { get => numProjectiles; }
         public float ShotSpeed { get => shotSpeed; set => shotSpeed = value; }
         public ShotType ShotType { get => shotType; }
         public Texture2D ProjectileTexture { get => projectileTexture; set => projectileTexture = value; }
+        public Texture2D BubbleTexture { get => bubbleTexture; set => bubbleTexture = value; }
         public int Cooldown { get => cooldown; }
         public int Hitstun { get => hitstun; }
         public int ProjectileLifeSpan { get => projectileLifeSpan; }
@@ -78,11 +81,12 @@ namespace Grov
                 name = reader.ReadLine();
                 fireRate = int.Parse(reader.ReadLine());
                 atkDamage = float.Parse(reader.ReadLine());
-                manaCost = int.Parse(reader.ReadLine());
+                manaCost = float.Parse(reader.ReadLine());
                 numProjectiles = int.Parse(reader.ReadLine());
                 shotSpeed = float.Parse(reader.ReadLine());
                 shotType = (ShotType) Enum.Parse(typeof(ShotType), reader.ReadLine(), true);
                 projectileLifeSpan = int.Parse(reader.ReadLine());
+                hitstun = int.Parse(reader.ReadLine());
             }
             catch (Exception e)
             {
@@ -127,8 +131,12 @@ namespace Grov
                     for (int i = 1; i < numProjectiles + 1; i++)
                     {
                         Vector2 projVelocity = shotSpeed * speedModifier * (new Vector2(-1 * (float) Math.Cos(playerOffset + i * offset), (float) Math.Sin(playerOffset + i * offset)));
-                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, true, false, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileTexture));
+                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, true, false, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileTexture, shotType));
                     }
+                    break;
+                case ShotType.Bubble:
+                    Projectile bubble = new Projectile(atkDamage, projectileLifeSpan, true, true, new Rectangle(EntityManager.Player.DrawPos.X - (170 - EntityManager.Player.DrawPos.Width) / 2, EntityManager.Player.DrawPos.Y - (170 - EntityManager.Player.DrawPos.Height) / 2, 170, 170), new Vector2(0f, 0f), bubbleTexture, shotType);
+                    EntityManager.AddProjectile(bubble);
                     break;
                 default:
                     throw new NotImplementedException();

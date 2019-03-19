@@ -74,6 +74,7 @@ namespace Grov
             spriteBatch = new SpriteBatch(GraphicsDevice);
             EntityManager.Player.Texture = Content.Load<Texture2D>("MageholderSprite");
             EntityManager.Player.Weapon.ProjectileTexture = Content.Load<Texture2D>("FireballholderSprite");
+            EntityManager.Player.Weapon.BubbleTexture = Content.Load<Texture2D>("Bubble_Holder");
         }
 
         /// <summary>
