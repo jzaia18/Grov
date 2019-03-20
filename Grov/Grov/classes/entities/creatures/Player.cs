@@ -80,7 +80,7 @@ namespace Grov
             if (DEVWEAPON)
                 weapon = new Weapon("Dev", default(Rectangle), null, null, false);
             else
-                weapon = new Weapon("Default", default(Rectangle), null, null, false);
+                weapon = new Weapon("StarBurst", default(Rectangle), null, null, false);
         }
 
 
