@@ -12,6 +12,7 @@ namespace Grov
 {
     class Entity
     {
+        #region fields
         // ************* Fields ************* //
 
         protected Rectangle drawPos;
@@ -19,9 +20,11 @@ namespace Grov
         protected Vector2 position;
         protected Vector2 velocity;
         protected bool isActive;
-        protected Texture2D texture;
-        
+        protected AnimatedTexture texture;
 
+        #endregion
+
+        #region properties
         // ************* Properties ************* //
 
         public Rectangle DrawPos { get => drawPos; set => drawPos = value; }
@@ -29,11 +32,13 @@ namespace Grov
         public Vector2 Position { get => position; set => position = value; }
         public Vector2 Velocity { get => velocity; set => velocity = value; }
         public bool IsActive { get => isActive; set => isActive = value; }
-        public Texture2D Texture { get => texture; set => texture = value; }
+        public AnimatedTexture Texture { get => texture; set => texture = value; }
+        #endregion
 
+        #region constructors
         // ************* Constructors ************* //
 
-        public Entity(Rectangle drawPos, Texture2D texture)
+        public Entity(Rectangle drawPos, AnimatedTexture texture)
         {
             this.drawPos = drawPos;
             this.hitbox = drawPos;
@@ -43,7 +48,7 @@ namespace Grov
             this.texture = texture;
         }
 
-        public Entity(Rectangle drawPos, Rectangle hitbox, Vector2 position, Vector2 velocity, bool isActive, Texture2D texture)
+        public Entity(Rectangle drawPos, Rectangle hitbox, Vector2 position, Vector2 velocity, bool isActive, AnimatedTexture texture)
         {
             this.drawPos = drawPos;
             this.hitbox = hitbox;
@@ -52,7 +57,9 @@ namespace Grov
             this.isActive = isActive;
             this.texture = texture;
         }
+        #endregion
 
+        #region methods
         // ************* Methods ************* //
 
         /// <summary>
@@ -69,7 +76,7 @@ namespace Grov
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             if (texture != null)
-                spriteBatch.Draw(texture, drawPos, Color.White);
+                spriteBatch.Draw(texture.GetNextTexture(), drawPos, Color.White);
         }
 
         /// <summary>
@@ -81,5 +88,6 @@ namespace Grov
         {
             return Hitbox.Intersects(entity.Hitbox);
         }
+        #endregion
     }
 }

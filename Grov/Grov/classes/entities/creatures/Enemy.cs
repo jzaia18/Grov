@@ -74,7 +74,7 @@ namespace Grov
             else if(this.isActive)
             {
                 if (texture != null)
-                    spriteBatch.Draw(texture, drawPos, Color.Red);
+                    spriteBatch.Draw(texture.GetNextTexture(), drawPos, Color.Red);
             }
         }
 

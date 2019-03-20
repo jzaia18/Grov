@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Grov.classes
+namespace Grov
 {
     class AnimatedTexture : ICloneable
     {
@@ -16,7 +16,7 @@ namespace Grov.classes
 
         private List<Texture2D> textures;
         private int currframe;
-        
+
         #endregion
 
         #region properties
@@ -33,6 +33,11 @@ namespace Grov.classes
         public AnimatedTexture()
         {
             textures = new List<Texture2D>();
+        }
+
+        public AnimatedTexture(Texture2D firstTexture) : this()
+        {
+            textures.Add(firstTexture);
         }
         #endregion
 
