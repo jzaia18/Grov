@@ -73,8 +73,6 @@ namespace Grov
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             EntityManager.Player.Texture = new AnimatedTexture(Content.Load<Texture2D>("MageholderSprite"));
-            EntityManager.Player.Weapon.ProjectileTexture = new AnimatedTexture(Content.Load<Texture2D>("FireballholderSprite"));
-            EntityManager.Player.Weapon.BubbleTexture = new AnimatedTexture(Content.Load<Texture2D>("Bubble_Holder"));
         }
 
         /// <summary>

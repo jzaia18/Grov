@@ -7,3 +7,4 @@
 Normal
 -1
 200
+Fire

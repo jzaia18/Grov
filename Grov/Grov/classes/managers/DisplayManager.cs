@@ -22,6 +22,7 @@ namespace Grov
         private HUD hud;
         private AnimatedTexture[] tileTextureMap;
         private Dictionary<EnemyType, AnimatedTexture> enemyTextureMap;
+        private Dictionary<ProjectileType, AnimatedTexture> projectileTextureMap;
         private ContentManager contentManager;
         private GraphicsDevice graphicsDevice;
         private static DisplayManager instance;
@@ -47,6 +48,7 @@ namespace Grov
         public static GraphicsDevice GraphicsDevice { get => instance.graphicsDevice; }
         public static AnimatedTexture[] TileTextureMap { get => instance.tileTextureMap; }
         public static Dictionary<EnemyType, AnimatedTexture> EnemyTextureMap { get => instance.enemyTextureMap; }
+        public static Dictionary<ProjectileType, AnimatedTexture> ProjectileTextureMap { get => instance.projectileTextureMap; }
 
         #endregion
 
@@ -80,14 +82,19 @@ namespace Grov
             // Load all tile textures into map
             instance.tileTextureMap = new AnimatedTexture[8];
             for (int i = 0; i < instance.tileTextureMap.Length; i++)
-            {
-                instance.tileTextureMap[i] = new AnimatedTexture(ContentManager.Load<Texture2D>("tile" + i));
-            }
+                instance.tileTextureMap[i] = new AnimatedTexture(ContentManager.Load<Texture2D>("tiles/tile" + i));
 
             // Load all enemy textures into map
             instance.enemyTextureMap = new Dictionary<EnemyType, AnimatedTexture>();
             EnemyTextureMap[EnemyType.Test] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
 
+            // Load all projectile textures into map
+            instance.projectileTextureMap = new Dictionary<ProjectileType, AnimatedTexture>();
+            foreach (ProjectileType ptype in Enum.GetValues(typeof(ProjectileType))) {
+                ProjectileTextureMap[ptype] = new AnimatedTexture(ContentManager.Load<Texture2D>("projectiles/" + Enum.GetName(typeof(ProjectileType), ptype)));
+            }
+
+            // Load SpriteFonts
             instance.courierNew = ContentManager.Load<SpriteFont>("CourierNew");
 
             // Loading and initializing menu buttons

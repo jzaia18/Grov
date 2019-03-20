@@ -11,35 +11,49 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Grov
 {
+    enum ProjectileType
+    {
+        Fire,
+        Bubble
+    }
+
     class Projectile : Entity
     {
+        #region fields
         // ************* Fields ************* //
 
         private float lifespan;
         private bool isFromPlayer;
         private bool noclip;
         private float damage;
-        private ShotType type;
+        private ProjectileType type;
+        #endregion
 
+        #region properties
         // ************* Properties ************* //
 
         public float Lifespan { get => lifespan; set => lifespan = value; }
         public bool IsFromPlayer { get => isFromPlayer; set => isFromPlayer = value; }
         public bool Noclip { get => noclip; set => noclip = value; }
         public float Damage { get => damage; }
-        public ShotType Type { get => type; }
+        public ProjectileType Type { get => type; }
+        #endregion
 
+        #region constructor
         // ************* Constructor ************* //
 
-        public Projectile(float damage, float lifespan, bool isFromPlayer, bool noclip, Rectangle drawPos, Vector2 velocity, AnimatedTexture texture, ShotType type) : base(drawPos, drawPos,new Vector2(drawPos.X, drawPos.Y), velocity, true, texture)
+        public Projectile(float damage, float lifespan, bool isFromPlayer, bool noclip, Rectangle drawPos, Vector2 velocity, ProjectileType type) : base(drawPos, drawPos,new Vector2(drawPos.X, drawPos.Y), velocity, true, null)
         {
             this.damage = damage;
             this.lifespan = lifespan;
             this.isFromPlayer = isFromPlayer;
             this.noclip = noclip;
             this.type = type;
+            this.texture = (AnimatedTexture) DisplayManager.ProjectileTextureMap[type].Clone();
         }
+        #endregion
 
+        #region methods
         // ************* Methods ************* //
 
         public override void Update()
@@ -72,11 +86,12 @@ namespace Grov
         {
             if (this.isActive)
             {
-                if (type != ShotType.Bubble)
+                if (velocity.X != 0 && velocity.Y != 0) //if velocity is not zero
                     spriteBatch.Draw(texture.GetNextTexture(), new Rectangle(this.drawPos.X + this.drawPos.Width / 2, this.drawPos.Y + this.drawPos.Height / 2, this.drawPos.Width, this.drawPos.Height), null, Color.White, (float)Math.Atan2(this.velocity.Y, this.velocity.X), new Vector2(this.drawPos.Width, this.drawPos.Height), SpriteEffects.None, 0f);
                 else
-                    spriteBatch.Draw(texture.GetNextTexture(), new Rectangle(this.drawPos.X, this.drawPos.Y, this.drawPos.Width, this.drawPos.Height), null, Color.White);
+                    spriteBatch.Draw(texture.GetNextTexture(), drawPos, Color.White);
             }
         }
+        #endregion
     }
 }
