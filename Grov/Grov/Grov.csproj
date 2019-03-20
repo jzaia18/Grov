@@ -97,15 +97,6 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
-    <None Include="resources\rooms\0001_Placeholder.grovlev" />
-    <None Include="resources\rooms\0010_Placeholder.grovlev" />
-    <None Include="resources\rooms\0011_Plains.grovlev" />
-    <None Include="resources\rooms\0100_Placeholder.grovlev" />
-    <None Include="resources\rooms\0101_DockBridge.grovlev">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="resources\rooms\0110_Placeholder.grovlev" />
-    <None Include="resources\rooms\0111_Placeholder.grovlev" />
     <None Include="resources\rooms\1000\1000_Placeholder.grovlev" />
     <None Include="resources\rooms\1001\1001_Placeholder.grovlev" />
     <None Include="resources\rooms\1010\1010_Placeholder.grovlev" />
@@ -125,14 +116,6 @@
     <None Include="resources\rooms\0101\DockBridge.grovlev" />
     <None Include="resources\rooms\0110\Placeholder.grovlev" />
     <None Include="resources\rooms\0111\Placeholder.grovlev" />
-    <None Include="resources\rooms\1000_Placeholder.grovlev" />
-    <None Include="resources\rooms\1001_Placeholder.grovlev" />
-    <None Include="resources\rooms\1010_Placeholder.grovlev" />
-    <None Include="resources\rooms\1011_Placeholder.grovlev" />
-    <None Include="resources\rooms\1100_River.grovlev" />
-    <None Include="resources\rooms\1101_Placeholder.grovlev" />
-    <None Include="resources\rooms\1110_Placeholder.grovlev" />
-    <None Include="resources\rooms\1111_Original.grovlev" />
     <None Include="resources\rooms\boss\Placeholder\0001\Placeholder.grovlev" />
     <None Include="resources\rooms\boss\Placeholder\0010\Placeholder.grovlev" />
     <None Include="resources\rooms\boss\Placeholder\0100\Placeholder.grovlev" />
