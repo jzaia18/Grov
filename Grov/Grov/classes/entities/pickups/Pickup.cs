@@ -34,7 +34,7 @@ namespace Grov
 
         // ************* Constructors ************* //
 
-        public Pickup(PickupType pickupType, Rectangle drawPos, Texture2D texture) : base(drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), new Vector2(0,0), true, texture)
+        public Pickup(PickupType pickupType, Rectangle drawPos, AnimatedTexture texture) : base(drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), new Vector2(0,0), true, texture)
         {
             this.pickupType = pickupType;
         }

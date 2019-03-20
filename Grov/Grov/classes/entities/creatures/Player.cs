@@ -67,7 +67,7 @@ namespace Grov
 
         // ************* Constructor ************* //
 
-        public Player(float maxHP, float maxMP, float fireRate, float moveSpeed, float attackDamage, float projectileSpeed, Rectangle drawPos, Rectangle hitbox, Vector2 velocity, Texture2D texture) : base(maxHP, false, fireRate, moveSpeed, attackDamage, projectileSpeed, drawPos, hitbox, new Vector2(drawPos.X, drawPos.Y), velocity, true, texture)
+        public Player(float maxHP, float maxMP, float fireRate, float moveSpeed, float attackDamage, float projectileSpeed, Rectangle drawPos, Rectangle hitbox, Vector2 velocity, AnimatedTexture texture) : base(maxHP, false, fireRate, moveSpeed, attackDamage, projectileSpeed, drawPos, hitbox, new Vector2(drawPos.X, drawPos.Y), velocity, true, texture)
         {
             this.maxMP = maxMP;
             this.currMP = maxMP;
@@ -135,9 +135,9 @@ namespace Grov
                 if (texture != null)
                     if (Iframes % 9 <= 4)
                     {
-                        spriteBatch.Draw(texture, drawPos, Color.White);
+                        spriteBatch.Draw(texture.GetNextTexture(), drawPos, Color.White);
                     }
-                    else spriteBatch.Draw(texture, drawPos, Color.Black);
+                    else spriteBatch.Draw(texture.GetNextTexture(), drawPos, Color.Black);
             }
         }
 

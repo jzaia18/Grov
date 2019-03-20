@@ -31,7 +31,7 @@ namespace Grov
 
         // ************* Constructor ************* //
 
-        public Projectile(float damage, float lifespan, bool isFromPlayer, bool noclip, Rectangle drawPos, Vector2 velocity, Texture2D texture, ShotType type) : base(drawPos, drawPos,new Vector2(drawPos.X, drawPos.Y), velocity, true, texture)
+        public Projectile(float damage, float lifespan, bool isFromPlayer, bool noclip, Rectangle drawPos, Vector2 velocity, AnimatedTexture texture, ShotType type) : base(drawPos, drawPos,new Vector2(drawPos.X, drawPos.Y), velocity, true, texture)
         {
             this.damage = damage;
             this.lifespan = lifespan;
@@ -73,9 +73,9 @@ namespace Grov
             if (this.isActive)
             {
                 if (type != ShotType.Bubble)
-                    spriteBatch.Draw(this.texture, new Rectangle(this.drawPos.X + this.drawPos.Width / 2, this.drawPos.Y + this.drawPos.Height / 2, this.drawPos.Width, this.drawPos.Height), null, Color.White, (float)Math.Atan2(this.velocity.Y, this.velocity.X), new Vector2(this.drawPos.Width, this.drawPos.Height), SpriteEffects.None, 0f);
+                    spriteBatch.Draw(texture.GetNextTexture(), new Rectangle(this.drawPos.X + this.drawPos.Width / 2, this.drawPos.Y + this.drawPos.Height / 2, this.drawPos.Width, this.drawPos.Height), null, Color.White, (float)Math.Atan2(this.velocity.Y, this.velocity.X), new Vector2(this.drawPos.Width, this.drawPos.Height), SpriteEffects.None, 0f);
                 else
-                    spriteBatch.Draw(this.texture, new Rectangle(this.drawPos.X, this.drawPos.Y, this.drawPos.Width, this.drawPos.Height), null, Color.White);
+                    spriteBatch.Draw(texture.GetNextTexture(), new Rectangle(this.drawPos.X, this.drawPos.Y, this.drawPos.Width, this.drawPos.Height), null, Color.White);
             }
         }
     }
