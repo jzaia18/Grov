@@ -83,9 +83,23 @@ namespace Grov
             //Spawn
             floor[5, 5] = (DoorGen)15;
             bool isDone = false;
-            currentNodes.Add(floor[5, 5]);
 
-            
+            //Top
+            floor[location.X, location.Y - 1] = (DoorGen)2;
+            currentNodes.Add(floor[location.X, location.Y - 1]);
+
+            //Left
+            floor[location.X - 1, location.Y] = (DoorGen)1;
+            currentNodes.Add(floor[location.X - 1, location.Y]);
+
+            //Bottom
+            floor[location.X, location.Y + 1] = (DoorGen)8;
+            currentNodes.Add(floor[location.X, location.Y + 1]);
+
+            //Right
+            floor[location.X + 1, location.Y] = (DoorGen)4;
+            currentNodes.Add(floor[location.X + 1, location.Y]);
+
 
             while (!isDone)
             {
