@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-// Authors: Jake Zaia
+// Authors: Jake Zaia, Rachel Wong
 
 namespace Grov
 {
@@ -45,6 +45,14 @@ namespace Grov
         public override void Update()
         {
             base.Update();
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if (this.isActive)
+            {
+                base.Draw(spriteBatch);
+            }
         }
     }
 }

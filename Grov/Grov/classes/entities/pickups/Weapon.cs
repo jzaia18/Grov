@@ -63,7 +63,7 @@ namespace Grov
 
         public Weapon(string filename, Rectangle drawPos, AnimatedTexture texture, AnimatedTexture projectileTexture, bool isActive) : base(PickupType.Weapon, drawPos, texture)
         {
-            readFromFile(@"resources\weapons\" + filename + ".txt");
+            ReadFromFile(@"resources\weapons\" + filename + ".txt");
             this.isActive = isActive;
             this.projectileTexture = projectileTexture;
         }
@@ -72,7 +72,7 @@ namespace Grov
         #region methods
         // ************* Methods ************* //
 
-        private void readFromFile(string filename)
+        private void ReadFromFile(string filename)
         {
             StreamReader reader = null;
             try {
