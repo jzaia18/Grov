@@ -44,16 +44,10 @@ namespace Grov
 
 		private FloorManager()
         {
-            currRoom = new Room(RoomType.Normal, "spawn");
-            currRoom.SpawnEnemies();
-            currRoom.Top.NextRoom = new Room(RoomType.Normal, "testDoorBottom");
-            currRoom.Top.NextRoom.Bottom.NextRoom = currRoom;
-            currRoom.Right.NextRoom = new Room(RoomType.Normal, "testLevel");
-            currRoom.Right.NextRoom.Left.NextRoom = currRoom;
-            currRoom.Left.NextRoom = new Room(RoomType.Normal, "0101_DockBridge");
-            currRoom.Left.NextRoom.Right.NextRoom = currRoom;
-
             rng = new Random();
+
+            GenerateFloor();
+
             floorNumber = 1;
         }
 
@@ -68,6 +62,16 @@ namespace Grov
 
         #region methods
         // ************* Methods ************* //
+
+
+        public void GenerateFloor()
+        {
+            currRoom = new Room(RoomType.Normal, "spawn");
+
+
+
+            currRoom.SpawnEnemies();
+        }
 
         public void Update()
         {
