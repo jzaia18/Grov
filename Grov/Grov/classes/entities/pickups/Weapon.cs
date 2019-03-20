@@ -33,8 +33,8 @@ namespace Grov
         private int numProjectiles;
         private ShotType shotType;
         private float shotSpeed;
-        private Texture2D projectileTexture;
-        private Texture2D bubbleTexture;
+        private AnimatedTexture projectileTexture;
+        private AnimatedTexture bubbleTexture;
         private int fireDelay;
         private int cooldown = 60;
         private int hitstun = 7;
@@ -51,8 +51,8 @@ namespace Grov
         public int NumProjectiles { get => numProjectiles; }
         public float ShotSpeed { get => shotSpeed; set => shotSpeed = value; }
         public ShotType ShotType { get => shotType; }
-        public Texture2D ProjectileTexture { get => projectileTexture; set => projectileTexture = value; }
-        public Texture2D BubbleTexture { get => bubbleTexture; set => bubbleTexture = value; }
+        public AnimatedTexture ProjectileTexture { get => projectileTexture; set => projectileTexture = value; }
+        public AnimatedTexture BubbleTexture { get => bubbleTexture; set => bubbleTexture = value; }
         public int Cooldown { get => cooldown; }
         public int Hitstun { get => hitstun; }
         public int ProjectileLifeSpan { get => projectileLifeSpan; }
@@ -61,7 +61,7 @@ namespace Grov
         #region constructor
         // ************* Constructor ************* //
 
-        public Weapon(string filename, Rectangle drawPos, Texture2D texture, Texture2D projectileTexture, bool isActive) : base(PickupType.Weapon, drawPos, texture)
+        public Weapon(string filename, Rectangle drawPos, AnimatedTexture texture, AnimatedTexture projectileTexture, bool isActive) : base(PickupType.Weapon, drawPos, texture)
         {
             readFromFile(@"resources\weapons\" + filename + ".txt");
             this.isActive = isActive;

@@ -7,6 +7,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+
+// Authors: Rachel Wong
+
+
 namespace Grov
 {
     class Button
@@ -37,7 +41,7 @@ namespace Grov
         {
             MouseState ms = Mouse.GetState();
 
-            if (rect.Contains(ms.X, ms.Y))
+            if (rect.Contains(ms.X, ms.Y - 10))
             {
                 spriteBatch.Draw(hover, rect, Color.White);
             }

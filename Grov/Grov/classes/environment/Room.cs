@@ -109,15 +109,15 @@ namespace Grov
 					Tile cur = tiles[x][y];
 
                     if(cur.Type != TileType.Entrance)
-					    spriteBatch.Draw(DisplayManager.TileTextureMap[(int)cur.Type], 
+					    spriteBatch.Draw(DisplayManager.TileTextureMap[(int)cur.Type].GetNextTexture(), 
 						                 new Rectangle(FloorManager.TileWidth * x, FloorManager.TileHeight * y, FloorManager.TileWidth, FloorManager.TileHeight), 
 									     Color.White);
                     else if(isCleared)
-                        spriteBatch.Draw(DisplayManager.TileTextureMap[(int)TileType.Floor],
+                        spriteBatch.Draw(DisplayManager.TileTextureMap[(int)TileType.Floor].GetNextTexture(),
                                          new Rectangle(FloorManager.TileWidth * x, FloorManager.TileHeight * y, FloorManager.TileWidth, FloorManager.TileHeight),
                                          Color.White);
                     else
-                        spriteBatch.Draw(DisplayManager.TileTextureMap[(int)TileType.Wall],
+                        spriteBatch.Draw(DisplayManager.TileTextureMap[(int)TileType.Wall].GetNextTexture(),
                                          new Rectangle(FloorManager.TileWidth * x, FloorManager.TileHeight * y, FloorManager.TileWidth, FloorManager.TileHeight),
                                          Color.White);
                 }
