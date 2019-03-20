@@ -20,8 +20,8 @@ namespace Grov
         // ************* Fields ************* //
 
         private HUD hud;
-        private Texture2D[] tileTextureMap;
-        private Dictionary<EnemyType, Texture2D> enemyTextureMap;
+        private AnimatedTexture[] tileTextureMap;
+        private Dictionary<EnemyType, AnimatedTexture> enemyTextureMap;
         private ContentManager contentManager;
         private GraphicsDevice graphicsDevice;
         private static DisplayManager instance;
@@ -34,8 +34,8 @@ namespace Grov
         public static DisplayManager Instance { get => instance; }
         public static ContentManager ContentManager { get => instance.contentManager; }
         public static GraphicsDevice GraphicsDevice { get => instance.graphicsDevice; }
-        public static Texture2D[] TileTextureMap { get => instance.tileTextureMap; }
-        public static Dictionary<EnemyType, Texture2D> EnemyTextureMap { get => instance.enemyTextureMap; }
+        public static AnimatedTexture[] TileTextureMap { get => instance.tileTextureMap; }
+        public static Dictionary<EnemyType, AnimatedTexture> EnemyTextureMap { get => instance.enemyTextureMap; }
 
         #endregion
 
@@ -67,15 +67,16 @@ namespace Grov
                 throw new InvalidOperationException("Cannot load content before Display Manager is initialized");
 
             // Load all tile textures into map
-            instance.tileTextureMap = new Texture2D[8];
+            instance.tileTextureMap = new AnimatedTexture[8];
             for (int i = 0; i < instance.tileTextureMap.Length; i++)
             {
-                instance.tileTextureMap[i] = ContentManager.Load<Texture2D>("tile" + i);
+                instance.tileTextureMap[i] = new AnimatedTexture(ContentManager.Load<Texture2D>("tile" + i));
             }
 
             // Load all enemy textures into map
-            instance.enemyTextureMap = new Dictionary<EnemyType, Texture2D>();
-            EnemyTextureMap[EnemyType.Test] = ContentManager.Load<Texture2D>("EnemyHolderSprite");
+            instance.enemyTextureMap = new Dictionary<EnemyType, AnimatedTexture>();
+            EnemyTextureMap[EnemyType.Test] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
+
             instance.courierNew = ContentManager.Load<SpriteFont>("CourierNew");
         }
         #endregion
