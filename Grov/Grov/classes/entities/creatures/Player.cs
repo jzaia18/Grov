@@ -19,6 +19,7 @@ namespace Grov
 {
     class Player: Creature
     {
+        #region fields
         // ************* Fields ************* //
 
         //Constant
@@ -40,7 +41,9 @@ namespace Grov
         private Vector2 aimDirection;
         private bool isInputKeyboard;
         private int Iframes;
+        #endregion
 
+        #region properties
         // ************* Properties ************* //
 
         public float CurrMP
@@ -64,7 +67,9 @@ namespace Grov
         public int Bombs { get => bombs; set => bombs = value; }
         public Weapon Weapon { get => weapon; set => weapon = value; }
         public int IFrames { get => Iframes; set => Iframes = value; }
+        #endregion
 
+        #region constructors
         // ************* Constructor ************* //
 
         public Player(float maxHP, float maxMP, float fireRate, float moveSpeed, float attackDamage, float projectileSpeed, Rectangle drawPos, Rectangle hitbox, Vector2 velocity, AnimatedTexture texture) : base(maxHP, false, fireRate, moveSpeed, attackDamage, projectileSpeed, drawPos, hitbox, new Vector2(drawPos.X, drawPos.Y), velocity, true, texture)
@@ -82,8 +87,9 @@ namespace Grov
             else
                 weapon = new Weapon("Default", default(Rectangle), null, null, false);
         }
+        #endregion
 
-
+        #region methods
         // ************* Methods ************* //
 
         /// <summary>
@@ -315,6 +321,6 @@ namespace Grov
             this.weapon.Use(aimDirection * projectileSpeed);
             this.currMP -= weapon.ManaCost;
         }
-
+        #endregion
     }
 }
