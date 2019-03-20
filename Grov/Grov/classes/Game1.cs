@@ -27,8 +27,8 @@ namespace Grov
             //TODO: when we make options, these should be properties/in another class
         public int windowHeight = 1080;
         public int windowWidth = 1920;
-        public bool fullScreen = true;
-        public bool hardwareSwitch = true;
+        public bool fullScreen = false;
+        public bool hardwareSwitch = false;
         public GameState state;
         
         public Game1()
