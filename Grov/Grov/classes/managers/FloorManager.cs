@@ -16,13 +16,6 @@ namespace Grov
 { 
     class FloorManager
     {
-        private enum DoorGen : byte
-        {
-            top = 8,
-            left = 4,
-            bottom = 2,
-            right = 1
-        }
 
         #region fields
         // ************* Fields ************* //
@@ -34,7 +27,7 @@ namespace Grov
 		private int floorNumber;
 		private Random rng;
         private static FloorManager instance;
-        private DoorGen[,] floor = new DoorGen[11, 11];
+        private RoomNode[,] floor = new RoomNode[11, 11];
 
 		#endregion
 
@@ -75,125 +68,146 @@ namespace Grov
 
         public void GenerateFloor()
         {
-            List<DoorGen> currentNodes = new List<DoorGen>();
-            Point location = new Point(5, 5);
+            List<RoomNode> currentNodes = new List<RoomNode>();
 
             //Spawn
-            floor[5, 5] = (DoorGen)15;
-            bool isDone = false;
+            floor[5, 5] = new RoomNode(5, 5);
 
             //Top
-            floor[location.X, location.Y - 1] = (DoorGen)2;
-            currentNodes.Add(floor[location.X, location.Y - 1]);
+            floor[5, 4] = new RoomNode(5, 4, DoorGen.top);
+            currentNodes.Add(floor[5, 4]);
 
             //Left
-            floor[location.X - 1, location.Y] = (DoorGen)1;
-            currentNodes.Add(floor[location.X - 1, location.Y]);
+            floor[4, 5] = new RoomNode(4, 5, DoorGen.left);
+            currentNodes.Add(floor[4, 5]);
 
             //Bottom
-            floor[location.X, location.Y + 1] = (DoorGen)8;
-            currentNodes.Add(floor[location.X, location.Y + 1]);
+            floor[5, 6] = new RoomNode(5, 6, DoorGen.bottom);
+            currentNodes.Add(floor[5, 6]);
 
             //Right
-            floor[location.X + 1, location.Y] = (DoorGen)4;
-            currentNodes.Add(floor[location.X + 1, location.Y]);
+            floor[6, 5] = new RoomNode(6, 5, DoorGen.right);
+            currentNodes.Add(floor[6, 5]);
 
-
-            while (!isDone)
+            for (int i = 0; i < currentNodes.Count; i++)
             {
-                //CreateAdjacent(floor[5, 5], location, currentNodes);
+                byte door = 0;
 
+                for (int x = 0; x < 4; x++)
+                {
+                    if (rng.Next(0, 2) == 1)
+                    {
+                        door += 1;
+                    }
+                    door <<= 1;
+                }
+
+                currentNodes[i].Doors =(DoorGen)((byte)currentNodes[i].Doors | door);
+            }
+
+
+            while (currentNodes.Count > 0)
+            {
+                List<RoomNode> newNodes = new List<RoomNode>();
+
+                // Loop through all current Nodes
                 for (int i = 0; i < currentNodes.Count; i++)
                 {
+                    
                     //If there is a top door
-                    if (((byte)currentNodes[i] & 8) == 8)
+                    if (((byte)currentNodes[i].Doors & 8) == 8)
                     {
                         //Add a room on top of it
-                        if (floor[location.X, location.Y - 1] == 0)
+                        if (currentNodes[i].Y - 1 < 0)
                         {
-                            floor[location.X, location.Y - 1] = (DoorGen)2;
-                            currentNodes.Add(floor[location.X, location.Y - 1]);
+                            currentNodes[i].Doors = (DoorGen)((byte)currentNodes[i].Doors & (byte)7);
+                        }
+                        else if (floor[currentNodes[i].X, currentNodes[i].Y - 1] == null)
+                        {
+                            floor[currentNodes[i].X, currentNodes[i].Y - 1] = new RoomNode(currentNodes[i].X, currentNodes[i].Y - 1, DoorGen.top);
+                            newNodes.Add(floor[currentNodes[i].X, currentNodes[i].Y - 1]);
+                        }
+                        else
+                        {
+                            floor[currentNodes[i].X, currentNodes[i].Y - 1].Doors = (DoorGen)((int)DoorGen.bottom + (int)floor[currentNodes[i].X, currentNodes[i].Y - 1].Doors);
                         }
                     }
+
                     //If there is a left door
-                    if (((byte)currentNodes[i] & 4) == 4)
+                    if (((byte)currentNodes[i].Doors & 4) == 4)
                     {
-                        if (floor[location.X - 1, location.Y] == 0)
+                        if(currentNodes[i].X - 1 < 0)
                         {
-                            floor[location.X - 1, location.Y] = (DoorGen)1;
-                            currentNodes.Add(floor[location.X - 1, location.Y]);
+                            currentNodes[i].Doors = (DoorGen)((byte)currentNodes[i].Doors & (byte)11);
+                        }
+                        else if (floor[currentNodes[i].X - 1, currentNodes[i].Y] == null)
+                        {
+                            floor[currentNodes[i].X - 1, currentNodes[i].Y] = new RoomNode(currentNodes[i].X - 1, currentNodes[i].Y, DoorGen.left);
+                            newNodes.Add(floor[currentNodes[i].X - 1, currentNodes[i].Y]);
+                        }
+                        else
+                        {
+                            floor[currentNodes[i].X - 1, currentNodes[i].Y].Doors = (DoorGen)((int)DoorGen.right + (int)floor[currentNodes[i].X - 1, currentNodes[i].Y].Doors);
                         }
                     }
                     //If there is a bottom door
-                    if (((byte)currentNodes[i] & 2) == 2)
+                    if (((byte)currentNodes[i].Doors & 2) == 2)
                     {
-                        if (floor[location.X, location.Y + 1] == 0)
+                        if (currentNodes[i].Y + 1 < 0)
                         {
-                            floor[location.X, location.Y + 1] = (DoorGen)8;
-                            currentNodes.Add(floor[location.X, location.Y + 1]);
+                            currentNodes[i].Doors = (DoorGen)((byte)currentNodes[i].Doors & (byte)13);
+                        }
+                        else if (floor[currentNodes[i].X, currentNodes[i].Y + 1] == null)
+                        {
+                            floor[currentNodes[i].X, currentNodes[i].Y + 1] = new RoomNode(currentNodes[i].X, currentNodes[i].Y + 1, DoorGen.bottom);
+                            newNodes.Add(floor[currentNodes[i].X, currentNodes[i].Y + 1]);
+                        }
+                        else
+                        {
+                            floor[currentNodes[i].X, currentNodes[i].Y + 1].Doors = (DoorGen)((int)DoorGen.top + (int)floor[currentNodes[i].X, currentNodes[i].Y + 1].Doors);
                         }
                     }
                     //If there is a right door
-                    if (((byte)currentNodes[i] & 1) == 1)
+                    if (((byte)currentNodes[i].Doors & 1) == 1)
                     {
-                        if (floor[location.X + 1, location.Y] == 0)
+                        if (currentNodes[i].X + 1 < 0)
                         {
-                            floor[location.X + 1, location.Y] = (DoorGen)4;
-                            currentNodes.Add(floor[location.X + 1, location.Y]);
+                            currentNodes[i].Doors = (DoorGen)((byte)currentNodes[i].Doors & (byte)14);
+                        }
+                        else if (floor[currentNodes[i].X + 1, currentNodes[i].Y] == null)
+                        {
+                            floor[currentNodes[i].X + 1, currentNodes[i].Y] = new RoomNode(currentNodes[i].X + 1, currentNodes[i].Y, DoorGen.right);
+                            newNodes.Add(floor[currentNodes[i].X + 1, currentNodes[i].Y]);
+                        }
+                        else
+                        {
+                            floor[currentNodes[i].X + 1, currentNodes[i].Y].Doors = (DoorGen)((int)DoorGen.right + (int)floor[currentNodes[i].X + 1, currentNodes[i].Y].Doors);
                         }
                     }
                 }
-                isDone = true;
 
+                currentNodes = newNodes;
+
+                for (int i = 0; i < currentNodes.Count; i++)
+                {
+                    byte door = 0;
+
+                    for (int x = 0; x < 4; x++)
+                    {
+                        if (rng.Next(0, 2) == 1)
+                        {
+                            door += 1;
+                        }
+                        door <<= 1;
+                    }
+
+                    currentNodes[i].Doors = (DoorGen)((byte)currentNodes[i].Doors | door);
+                }
             }
 
 
             this.currRoom = new Room(RoomType.Normal, "spawn");
             currRoom.SpawnEnemies();
-        }
-
-        private void CreateAdjacent(DoorGen currentRoom, Point location, List<DoorGen> currentNodes)
-        {
-            for (int i = 0; i < currentNodes.Count; i++)
-            {
-                //If there is a top door
-                if (((byte)currentNodes[i] & 8) == 8)
-                {
-                    //Add a room on top of it
-                    if (floor[location.X, location.Y - 1] == 0)
-                    {
-                        floor[location.X, location.Y - 1] = (DoorGen)2;
-                        currentNodes.Add(floor[location.X, location.Y - 1]);
-                    }
-                }
-                //If there is a left door
-                if (((byte)currentNodes[i] & 4) == 4)
-                {
-                    if (floor[location.X - 1, location.Y] == 0)
-                    {
-                        floor[location.X - 1, location.Y] = (DoorGen)1;
-                        currentNodes.Add(floor[location.X - 1, location.Y]);
-                    }
-                }
-                //If there is a bottom door
-                if (((byte)currentNodes[i] & 2) == 2)
-                {
-                    if (floor[location.X, location.Y + 1] == 0)
-                    {
-                        floor[location.X, location.Y + 1] = (DoorGen)8;
-                        currentNodes.Add(floor[location.X, location.Y + 1]);
-                    }
-                }
-                //If there is a right door
-                if (((byte)currentNodes[i] & 1) == 1)
-                {
-                    if (floor[location.X + 1, location.Y] == 0)
-                    {
-                        floor[location.X + 1, location.Y] = (DoorGen)4;
-                        currentNodes.Add(floor[location.X + 1, location.Y]);
-                    }
-                }
-            }
         }
 
         public void Update()

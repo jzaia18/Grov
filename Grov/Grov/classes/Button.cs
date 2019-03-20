@@ -19,12 +19,14 @@ namespace Grov
         private Texture2D noHover;
         private Texture2D hover;
         private Rectangle rect;
+        private bool isHighlighted;
         #endregion
 
         #region properties
         public Texture2D NoHover { get => noHover; set => noHover = value; }
         public Texture2D Hover { get => hover; set => hover = value; }
         public Rectangle Rect { get => rect; }
+        public bool IsHighlighted { get => isHighlighted; }
         #endregion
 
         #region constructor
@@ -32,6 +34,7 @@ namespace Grov
         public Button(Rectangle rect)
         {
             this.rect = rect;
+            isHighlighted = false;
         }
         #endregion
 
@@ -43,10 +46,12 @@ namespace Grov
 
             if (rect.Contains(ms.X, ms.Y - 10))
             {
+                isHighlighted = true;
                 spriteBatch.Draw(hover, rect, Color.White);
             }
             else
             {
+                isHighlighted = false;
                 spriteBatch.Draw(noHover, rect, Color.White);
             }
         }
