@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
 
-// Authors: Jake Zaia
+// Authors: Jake Zaia, Rachel Wong
 
 
 namespace Grov
@@ -26,6 +26,17 @@ namespace Grov
         private GraphicsDevice graphicsDevice;
         private static DisplayManager instance;
         private SpriteFont courierNew;
+
+        // Button stuff
+        private Button startButton;
+        private Button optionsButton;
+        private Button exitButton;
+        private Texture2D startTexture_NH;
+        private Texture2D startTexture_H;
+        private Texture2D optionsTexture_NH;
+        private Texture2D optionsTexture_H;
+        private Texture2D exitTexture_NH;
+        private Texture2D exitTexture_H;
         #endregion
 
         #region properties
@@ -78,6 +89,25 @@ namespace Grov
             EnemyTextureMap[EnemyType.Test] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
 
             instance.courierNew = ContentManager.Load<SpriteFont>("CourierNew");
+
+            // Loading and initializing menu buttons
+            instance.startTexture_NH = ContentManager.Load<Texture2D>("button images/StartButton_NoHover");
+            instance.startTexture_H = ContentManager.Load<Texture2D>("button images/StartButton_Hover");
+            instance.startButton = new Button(new Rectangle(new Point(850, 500), new Point(instance.startTexture_NH.Width, instance.startTexture_NH.Height)));
+            instance.startButton.NoHover = instance.startTexture_NH;
+            instance.startButton.Hover = instance.startTexture_H;
+
+            instance.optionsTexture_NH = ContentManager.Load<Texture2D>("button images/OptionsButton_NoHover");
+            instance.optionsTexture_H = ContentManager.Load<Texture2D>("button images/OptionsButton_Hover");
+            instance.optionsButton = new Button(new Rectangle(new Point(850, 500 + instance.optionsTexture_NH.Height), new Point(instance.optionsTexture_NH.Width, instance.optionsTexture_NH.Height)));
+            instance.optionsButton.NoHover = instance.optionsTexture_NH;
+            instance.optionsButton.Hover = instance.optionsTexture_H;
+
+            instance.exitTexture_NH = ContentManager.Load<Texture2D>("button images/ExitButton_NoHover");
+            instance.exitTexture_H = ContentManager.Load<Texture2D>("button images/ExitButton_Hover");
+            instance.exitButton = new Button(new Rectangle(new Point(850, 500 + (2 * instance.exitTexture_NH.Height)), new Point(instance.exitTexture_NH.Width, instance.exitTexture_NH.Height)));
+            instance.exitButton.NoHover = instance.exitTexture_NH;
+            instance.exitButton.Hover = instance.exitTexture_H;
         }
         #endregion
 
@@ -95,9 +125,9 @@ namespace Grov
                     break;
                 case GameState.Menu:
                     spriteBatch.DrawString(courierNew, "Grov", new Vector2(900, 200), Color.DarkGreen);
-                    spriteBatch.DrawString(courierNew, "Start", new Vector2(890, 500), Color.DarkGreen);
-                    spriteBatch.DrawString(courierNew, "Options", new Vector2(850, 600), Color.DarkGreen);
-                    spriteBatch.DrawString(courierNew, "Exit", new Vector2(900, 700), Color.DarkGreen);
+                    startButton.Draw(spriteBatch);
+                    optionsButton.Draw(spriteBatch);
+                    exitButton.Draw(spriteBatch);
                     break;
             }
         }
