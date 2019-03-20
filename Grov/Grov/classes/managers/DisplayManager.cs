@@ -101,6 +101,12 @@ namespace Grov
             instance.optionsButton = new Button(new Rectangle(new Point(850, 500 + instance.optionsTexture_NH.Height), new Point(instance.optionsTexture_NH.Width, instance.optionsTexture_NH.Height)));
             instance.optionsButton.NoHover = instance.optionsTexture_NH;
             instance.optionsButton.Hover = instance.optionsTexture_H;
+
+            instance.exitTexture_NH = ContentManager.Load<Texture2D>("button images/ExitButton_NoHover");
+            instance.exitTexture_H = ContentManager.Load<Texture2D>("button images/ExitButton_Hover");
+            instance.exitButton = new Button(new Rectangle(new Point(850, 500 + (2 * instance.exitTexture_NH.Height)), new Point(instance.exitTexture_NH.Width, instance.exitTexture_NH.Height)));
+            instance.exitButton.NoHover = instance.exitTexture_NH;
+            instance.exitButton.Hover = instance.exitTexture_H;
         }
         #endregion
 
@@ -120,7 +126,7 @@ namespace Grov
                     spriteBatch.DrawString(courierNew, "Grov", new Vector2(900, 200), Color.DarkGreen);
                     startButton.Draw(spriteBatch);
                     optionsButton.Draw(spriteBatch);
-                    spriteBatch.DrawString(courierNew, "Exit", new Vector2(900, 700), Color.DarkGreen);
+                    exitButton.Draw(spriteBatch);
                     break;
             }
         }
