@@ -78,8 +78,6 @@ namespace Grov
             List<DoorGen> currentNodes = new List<DoorGen>();
             Point location = new Point(5, 5);
 
-
-
             //Spawn
             floor[5, 5] = (DoorGen)15;
             bool isDone = false;
