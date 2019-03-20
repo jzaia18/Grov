@@ -13,9 +13,17 @@ using System.Diagnostics;
 // Authors: Jake Zaia, Rachel Wong, Duncan Mott
 
 namespace Grov
-{
+{ 
     class FloorManager
     {
+        private enum DoorGen : byte
+        {
+            top = 8,
+            left = 4,
+            bottom = 2,
+            right = 1
+        }
+
         #region fields
         // ************* Fields ************* //
 
@@ -66,10 +74,40 @@ namespace Grov
 
         public void GenerateFloor()
         {
-            currRoom = new Room(RoomType.Normal, "spawn");
+            DoorGen[,] floor = new DoorGen[11, 11];
+            List<DoorGen> currentNodes = new List<DoorGen>();
+
+            //Spawn
+            floor[5, 5] = (DoorGen)15;
+            bool isDone = false;
+            currentNodes.Add(floor[5, 5]);
+
+            while (!isDone)
+            {
+                for(int i = 0; i < currentNodes.Count; i++)
+                {
+                    if ((int)currentNodes[i] >= 8)
+                    {
+                        
+                    }
+                    if(Math.Abs((int)currentNodes[i] - 8) >= 4)
+                    {
+
+                    }
+                    if (Math.Abs((int)currentNodes[i] - 8 - 4) >= 2)
+                    {
+
+                    }
+                    if(Math.Abs((int)currentNodes[i] - 8 - 4 - 2) >= 1)
+                    {
+
+                    }
+                }
+
+            }
 
 
-
+            this.currRoom = new Room(RoomType.Normal, "spawn");
             currRoom.SpawnEnemies();
         }
 
