@@ -70,7 +70,7 @@ namespace Grov
         /// </summary>
         protected override void LoadContent()
         {
-// Create a new SpriteBatch, which can be used to draw textures.
+            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             EntityManager.Player.Texture = Content.Load<Texture2D>("MageholderSprite");
             EntityManager.Player.Weapon.ProjectileTexture = Content.Load<Texture2D>("FireballholderSprite");

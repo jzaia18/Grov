@@ -120,17 +120,27 @@ namespace Grov
 
         public void Use(Vector2 direction)
         {
+            float speedModifier = Math.Abs(direction.Length());
+
             switch (shotType)
             {
                 case ShotType.Normal:
                     
                     float offset = (float) Math.PI / (numProjectiles+1);
                     float playerOffset = (float) Math.Atan2(direction.X, direction.Y);
-                    float speedModifier = Math.Abs(direction.Length());
-
+                    
                     for (int i = 1; i < numProjectiles + 1; i++)
                     {
                         Vector2 projVelocity = shotSpeed * speedModifier * (new Vector2(-1 * (float) Math.Cos(playerOffset + i * offset), (float) Math.Sin(playerOffset + i * offset)));
+                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, true, false, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileTexture, shotType));
+                    }
+                    break;
+                case ShotType.Spread:
+                    float theta = (float) Math.Atan2(direction.Y, direction.X);
+
+                    for (int i = 0; i < numProjectiles; i++) {
+                        float phi = theta + EntityManager.RNG.Next(-128, 128) / 244.46199f;  // Random "percent" * PI/6   (but simplified)
+                        Vector2 projVelocity = shotSpeed * speedModifier * (new Vector2((float) Math.Cos(phi), (float) Math.Sin(phi)));
                         EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, true, false, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileTexture, shotType));
                     }
                     break;
