@@ -28,9 +28,8 @@ namespace Grov
         private SpriteFont courierNew;
 
         // Button stuff
-        private Button startButton;
-        private Button optionsButton;
-        private Button exitButton;
+        private List<Button> menuButtons;
+
         private Texture2D startTexture_NH;
         private Texture2D startTexture_H;
         private Texture2D optionsTexture_NH;
@@ -47,6 +46,7 @@ namespace Grov
         public static GraphicsDevice GraphicsDevice { get => instance.graphicsDevice; }
         public static AnimatedTexture[] TileTextureMap { get => instance.tileTextureMap; }
         public static Dictionary<EnemyType, AnimatedTexture> EnemyTextureMap { get => instance.enemyTextureMap; }
+        public static List<Button> MenuButtons { get => instance.menuButtons; }
 
         #endregion
 
@@ -54,6 +54,7 @@ namespace Grov
         // ************* Constructor ************* //
         private DisplayManager()
         {
+            menuButtons = new List<Button>();
         }
 
         public static void Initialize(ContentManager cm, GraphicsDevice gd)
@@ -93,21 +94,21 @@ namespace Grov
             // Loading and initializing menu buttons
             instance.startTexture_NH = ContentManager.Load<Texture2D>("button images/StartButton_NoHover");
             instance.startTexture_H = ContentManager.Load<Texture2D>("button images/StartButton_Hover");
-            instance.startButton = new Button(new Rectangle(new Point(850, 500), new Point(instance.startTexture_NH.Width, instance.startTexture_NH.Height)));
-            instance.startButton.NoHover = instance.startTexture_NH;
-            instance.startButton.Hover = instance.startTexture_H;
+            instance.menuButtons.Add(new Button(new Rectangle(new Point(850, 500), new Point(instance.startTexture_NH.Width, instance.startTexture_NH.Height))));
+            instance.menuButtons[0].NoHover = instance.startTexture_NH;
+            instance.menuButtons[0].Hover = instance.startTexture_H;
 
             instance.optionsTexture_NH = ContentManager.Load<Texture2D>("button images/OptionsButton_NoHover");
             instance.optionsTexture_H = ContentManager.Load<Texture2D>("button images/OptionsButton_Hover");
-            instance.optionsButton = new Button(new Rectangle(new Point(850, 500 + instance.optionsTexture_NH.Height), new Point(instance.optionsTexture_NH.Width, instance.optionsTexture_NH.Height)));
-            instance.optionsButton.NoHover = instance.optionsTexture_NH;
-            instance.optionsButton.Hover = instance.optionsTexture_H;
+            instance.menuButtons.Add(new Button(new Rectangle(new Point(850, 500 + instance.optionsTexture_NH.Height), new Point(instance.optionsTexture_NH.Width, instance.optionsTexture_NH.Height))));
+            instance.menuButtons[1].NoHover = instance.optionsTexture_NH;
+            instance.menuButtons[1].Hover = instance.optionsTexture_H;
 
             instance.exitTexture_NH = ContentManager.Load<Texture2D>("button images/ExitButton_NoHover");
             instance.exitTexture_H = ContentManager.Load<Texture2D>("button images/ExitButton_Hover");
-            instance.exitButton = new Button(new Rectangle(new Point(850, 500 + (2 * instance.exitTexture_NH.Height)), new Point(instance.exitTexture_NH.Width, instance.exitTexture_NH.Height)));
-            instance.exitButton.NoHover = instance.exitTexture_NH;
-            instance.exitButton.Hover = instance.exitTexture_H;
+            instance.menuButtons.Add(new Button(new Rectangle(new Point(850, 500 + (2 * instance.exitTexture_NH.Height)), new Point(instance.exitTexture_NH.Width, instance.exitTexture_NH.Height))));
+            instance.menuButtons[2].NoHover = instance.exitTexture_NH;
+            instance.menuButtons[2].Hover = instance.exitTexture_H;
         }
         #endregion
 
@@ -125,9 +126,10 @@ namespace Grov
                     break;
                 case GameState.Menu:
                     spriteBatch.DrawString(courierNew, "Grov", new Vector2(900, 200), Color.DarkGreen);
-                    startButton.Draw(spriteBatch);
-                    optionsButton.Draw(spriteBatch);
-                    exitButton.Draw(spriteBatch);
+                    for(int i = 0; i < menuButtons.Count; i++)
+                    {
+                        menuButtons[i].Draw(spriteBatch);
+                    }
                     break;
             }
         }

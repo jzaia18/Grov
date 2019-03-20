@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Windows.Input;
 
 
 namespace Grov
@@ -100,10 +101,21 @@ namespace Grov
                     FloorManager.Instance.Update();
                     break;
                 case GameState.Menu:
-                    KeyboardState kb = Keyboard.GetState();
-                    if(kb.IsKeyDown(Keys.Enter))
+                    MouseState ms = Mouse.GetState();
+
+                    for(int i = 0; i < DisplayManager.MenuButtons.Count; i++)
                     {
-                        state = GameState.Game;
+                        if(ms.LeftButton.Equals(ButtonState.Pressed) && DisplayManager.MenuButtons[i].IsHighlighted)
+                        {
+                            if (i == DisplayManager.MenuButtons.Count - 1)
+                            {
+                                Exit();
+                            }
+                            else
+                            {
+                                state = GameState.Game;
+                            }
+                        }
                     }
                     break;
             }
