@@ -32,9 +32,8 @@ namespace Grov
         private float manaCost;
         private int numProjectiles;
         private ShotType shotType;
+        private ProjectileType projectileType;
         private float shotSpeed;
-        private AnimatedTexture projectileTexture;
-        private AnimatedTexture bubbleTexture;
         private int fireDelay;
         private int cooldown = 60;
         private int hitstun = 7;
@@ -51,8 +50,6 @@ namespace Grov
         public int NumProjectiles { get => numProjectiles; }
         public float ShotSpeed { get => shotSpeed; set => shotSpeed = value; }
         public ShotType ShotType { get => shotType; }
-        public AnimatedTexture ProjectileTexture { get => projectileTexture; set => projectileTexture = value; }
-        public AnimatedTexture BubbleTexture { get => bubbleTexture; set => bubbleTexture = value; }
         public int Cooldown { get => cooldown; }
         public int Hitstun { get => hitstun; }
         public int ProjectileLifeSpan { get => projectileLifeSpan; }
@@ -61,11 +58,10 @@ namespace Grov
         #region constructor
         // ************* Constructor ************* //
 
-        public Weapon(string filename, Rectangle drawPos, AnimatedTexture texture, AnimatedTexture projectileTexture, bool isActive) : base(PickupType.Weapon, drawPos, texture)
+        public Weapon(string filename, Rectangle drawPos, AnimatedTexture texture, bool isActive) : base(PickupType.Weapon, drawPos, texture)
         {
             ReadFromFile(@"resources\weapons\" + filename + ".txt");
             this.isActive = isActive;
-            this.projectileTexture = projectileTexture;
         }
         #endregion
 
@@ -87,6 +83,7 @@ namespace Grov
                 shotType = (ShotType) Enum.Parse(typeof(ShotType), reader.ReadLine(), true);
                 projectileLifeSpan = int.Parse(reader.ReadLine());
                 hitstun = int.Parse(reader.ReadLine());
+                projectileType = (ProjectileType) Enum.Parse(typeof(ProjectileType), reader.ReadLine(), true);
             }
             catch (Exception e)
             {
@@ -132,7 +129,7 @@ namespace Grov
                     for (int i = 1; i < numProjectiles + 1; i++)
                     {
                         Vector2 projVelocity = shotSpeed * speedModifier * (new Vector2(-1 * (float) Math.Cos(playerOffset + i * offset), (float) Math.Sin(playerOffset + i * offset)));
-                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, true, false, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileTexture, shotType));
+                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, true, false, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileType));
                     }
                     break;
                 case ShotType.Radial:
@@ -142,7 +139,7 @@ namespace Grov
                     for (int i = 0; i < numProjectiles; i++)
                     {
                         Vector2 projVelocity = shotSpeed * speedModifier * (new Vector2( (float) Math.Cos(originTheta + i*angleOffset), (float) Math.Sin(originTheta + i * angleOffset)));
-                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, true, false, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileTexture, shotType));
+                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, true, false, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileType));
                     }
                     break;
                 case ShotType.Spread:
@@ -151,11 +148,11 @@ namespace Grov
                     for (int i = 0; i < numProjectiles; i++) {
                         float phi = theta + EntityManager.RNG.Next(-128, 128) / 244.46199f;  // Random "percent" * PI/6   (but simplified)
                         Vector2 projVelocity = shotSpeed * speedModifier * (new Vector2((float) Math.Cos(phi), (float) Math.Sin(phi)));
-                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, true, false, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileTexture, shotType));
+                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, true, false, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileType));
                     }
                     break;
                 case ShotType.Bubble:
-                    Projectile bubble = new Projectile(atkDamage, projectileLifeSpan, true, true, new Rectangle(EntityManager.Player.DrawPos.X - (170 - EntityManager.Player.DrawPos.Width) / 2, EntityManager.Player.DrawPos.Y - (170 - EntityManager.Player.DrawPos.Height) / 2, 170, 170), new Vector2(0f, 0f), bubbleTexture, shotType);
+                    Projectile bubble = new Projectile(atkDamage, projectileLifeSpan, true, true, new Rectangle(EntityManager.Player.DrawPos.X - (170 - EntityManager.Player.DrawPos.Width) / 2, EntityManager.Player.DrawPos.Y - (170 - EntityManager.Player.DrawPos.Height) / 2, 170, 170), new Vector2(0f, 0f), projectileType);
                     EntityManager.AddProjectile(bubble);
                     break;
                 default:
