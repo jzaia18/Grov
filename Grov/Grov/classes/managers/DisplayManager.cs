@@ -132,7 +132,7 @@ namespace Grov
                     hud.Draw(spriteBatch);
                     break;
                 case GameState.Menu:
-                    spriteBatch.DrawString(courierNew, "Grov", new Vector2(900, 200), Color.DarkGreen);
+                    spriteBatch.DrawString(courierNew, "Grov", new Vector2(915, 200), Color.Black);
                     for(int i = 0; i < menuButtons.Count; i++)
                     {
                         menuButtons[i].Draw(spriteBatch);
