@@ -27,7 +27,7 @@ namespace Grov
 		private int floorNumber;
 		private Random rng;
         private static FloorManager instance;
-        private RoomNode[,] floor = new RoomNode[11, 11];
+        private Room[,] floorRooms;
 
 		#endregion
 
@@ -68,6 +68,8 @@ namespace Grov
 
         public void GenerateFloor()
         {
+            RoomNode[,] floor = new RoomNode[11, 11];
+            this.floorRooms = new Room[11, 11];
             List<RoomNode> currentNodes = new List<RoomNode>();
 
             //Spawn
@@ -89,27 +91,28 @@ namespace Grov
             floor[6, 5] = new RoomNode(6, 5, DoorGen.right);
             currentNodes.Add(floor[6, 5]);
 
-            for (int i = 0; i < currentNodes.Count; i++)
-            {
-                byte door = 0;
-
-                for (int x = 0; x < 4; x++)
-                {
-                    if (rng.Next(0, 2) == 1)
-                    {
-                        door += 1;
-                    }
-                    door <<= 1;
-                }
-
-                currentNodes[i].Doors =(DoorGen)((byte)currentNodes[i].Doors | door);
-            }
-
+            
 
             while (currentNodes.Count > 0)
             {
                 List<RoomNode> newNodes = new List<RoomNode>();
 
+
+                for (int i = 0; i < currentNodes.Count; i++)
+                {
+                    byte door = 0;
+
+                    for (int x = 0; x < 4; x++)
+                    {
+                        door <<= 1;
+                        if (rng.Next(0, 2) == 1)
+                        {
+                            door |= 1;
+                        }
+                    }
+
+                    currentNodes[i].Doors = (DoorGen)((byte)currentNodes[i].Doors | door);
+                }
                 // Loop through all current Nodes
                 for (int i = 0; i < currentNodes.Count; i++)
                 {
@@ -118,18 +121,21 @@ namespace Grov
                     if (((byte)currentNodes[i].Doors & 8) == 8)
                     {
                         //Add a room on top of it
+                        //If the room would be out of bounds, remove the door facing that way
                         if (currentNodes[i].Y - 1 < 0)
                         {
                             currentNodes[i].Doors = (DoorGen)((byte)currentNodes[i].Doors & (byte)7);
                         }
+                        //If there is no room in that direction, make a new one
                         else if (floor[currentNodes[i].X, currentNodes[i].Y - 1] == null)
                         {
                             floor[currentNodes[i].X, currentNodes[i].Y - 1] = new RoomNode(currentNodes[i].X, currentNodes[i].Y - 1, DoorGen.top);
                             newNodes.Add(floor[currentNodes[i].X, currentNodes[i].Y - 1]);
                         }
+                        //If there is a room, give it a door pointing at us
                         else
                         {
-                            floor[currentNodes[i].X, currentNodes[i].Y - 1].Doors = (DoorGen)((int)DoorGen.bottom + (int)floor[currentNodes[i].X, currentNodes[i].Y - 1].Doors);
+                            floor[currentNodes[i].X, currentNodes[i].Y - 1].Doors = (DoorGen)((byte)floor[currentNodes[i].X, currentNodes[i].Y - 1].Doors | (byte)2);
                         }
                     }
 
@@ -147,13 +153,13 @@ namespace Grov
                         }
                         else
                         {
-                            floor[currentNodes[i].X - 1, currentNodes[i].Y].Doors = (DoorGen)((int)DoorGen.right + (int)floor[currentNodes[i].X - 1, currentNodes[i].Y].Doors);
+                            floor[currentNodes[i].X - 1, currentNodes[i].Y].Doors = (DoorGen)((byte)floor[currentNodes[i].X - 1, currentNodes[i].Y].Doors | (byte)1);
                         }
                     }
                     //If there is a bottom door
                     if (((byte)currentNodes[i].Doors & 2) == 2)
                     {
-                        if (currentNodes[i].Y + 1 < 0)
+                        if (currentNodes[i].Y + 1 > 10)
                         {
                             currentNodes[i].Doors = (DoorGen)((byte)currentNodes[i].Doors & (byte)13);
                         }
@@ -164,13 +170,13 @@ namespace Grov
                         }
                         else
                         {
-                            floor[currentNodes[i].X, currentNodes[i].Y + 1].Doors = (DoorGen)((int)DoorGen.top + (int)floor[currentNodes[i].X, currentNodes[i].Y + 1].Doors);
+                            floor[currentNodes[i].X, currentNodes[i].Y + 1].Doors = (DoorGen)((byte)floor[currentNodes[i].X, currentNodes[i].Y + 1].Doors | (byte)8);
                         }
                     }
                     //If there is a right door
                     if (((byte)currentNodes[i].Doors & 1) == 1)
                     {
-                        if (currentNodes[i].X + 1 < 0)
+                        if (currentNodes[i].X + 1 > 10)
                         {
                             currentNodes[i].Doors = (DoorGen)((byte)currentNodes[i].Doors & (byte)14);
                         }
@@ -181,33 +187,113 @@ namespace Grov
                         }
                         else
                         {
-                            floor[currentNodes[i].X + 1, currentNodes[i].Y].Doors = (DoorGen)((int)DoorGen.right + (int)floor[currentNodes[i].X + 1, currentNodes[i].Y].Doors);
+                            floor[currentNodes[i].X + 1, currentNodes[i].Y].Doors = (DoorGen)((byte)floor[currentNodes[i].X + 1, currentNodes[i].Y].Doors | (byte)4);
                         }
                     }
                 }
 
                 currentNodes = newNodes;
 
-                for (int i = 0; i < currentNodes.Count; i++)
+            }
+
+            //Add the spawn room
+            this.currRoom = new Room(RoomType.Normal, "resources/rooms/spawn.grovlev");
+            this.floorRooms[5, 5] = currRoom;
+
+
+            //Populate the Room array
+            List<string> files = new List<string>();
+            for (int x = 0; x < floorRooms.GetLength(0); x++)
+            {
+                for(int y = 0; y < floorRooms.GetLength(1); y++)
                 {
-                    byte door = 0;
-
-                    for (int x = 0; x < 4; x++)
+                    //See if there is a room at these coordinates
+                    if(floor[x,y] != null)
                     {
-                        if (rng.Next(0, 2) == 1)
+                        //Retrieve the door configuration
+                        byte temp = (byte)floor[x, y].Doors;
+                        string path = "";
+                        for (byte checker = 8; checker > 0; checker >>= 1)
                         {
-                            door += 1;
+                            //if the bit matches the checker, then it is a 1
+                            if ((temp & checker) == checker)
+                            {
+                                path += '1';
+                            }
+                            else
+                            {
+                                path += '0';
+                            }
                         }
-                        door <<= 1;
-                    }
 
-                    currentNodes[i].Doors = (DoorGen)((byte)currentNodes[i].Doors | door);
+                        //Add all the level files from the specific path
+                        path = @"resources\rooms\" + path;
+                        files.AddRange(System.IO.Directory.GetFiles(path));
+                        Console.WriteLine("j");
+                        Console.WriteLine(path);
+                        //If there isn't already a room there, make one (basically only skips the spawn room)
+                        if(floorRooms[x,y] == null)
+                        {
+                            floorRooms[x, y] = new Room(RoomType.Normal, files[rng.Next(0, files.Count)]);
+                        }
+                    }
                 }
             }
 
+            //Link all the rooms together
+            for (int x = 0; x < floorRooms.GetLength(0); x++)
+            {
+                for (int y = 0; y < floorRooms.GetLength(1); y++)
+                {
+                    //if there is a room here
+                    if(floorRooms[x,y] != null)
+                    {
+                        //If the room has a top door
+                        if(floorRooms[x,y].Top != null)
+                        {
+                            floorRooms[x, y].Top.NextRoom = floorRooms[x, y - 1];
+                        }
+                        //If the room has a left door
+                        if (floorRooms[x, y].Left != null)
+                        {
+                            floorRooms[x, y].Left.NextRoom = floorRooms[x - 1, y];
+                        }
+                        //If the room has a bottom door
+                        if (floorRooms[x, y].Bottom != null)
+                        {
+                            floorRooms[x, y].Bottom.NextRoom = floorRooms[x, y + 1];
+                        }
+                        //If the room has a right door
+                        if (floorRooms[x, y].Right != null)
+                        {
+                            floorRooms[x, y].Right.NextRoom = floorRooms[x + 1, y];
+                        }
+                    }
+                }
+            }
 
-            this.currRoom = new Room(RoomType.Normal, "spawn");
+            //Spawn this room's enemies
             currRoom.SpawnEnemies();
+        }
+
+        //Prints the binary representation of a given byte
+        private static void PrintBinary(byte b)
+        {
+            //start with the leftmost bit
+            for (byte checker = 128; checker > 0; checker >>= 1)
+            {
+
+                //if the bit matches the checker, then it is a 1
+                if ((b & checker) == checker)
+                {
+                    Console.Write('1');
+                }
+                else
+                {
+                    Console.Write('0');
+                }
+            }
+            Console.WriteLine();
         }
 
         public void Update()

@@ -130,8 +130,6 @@ namespace Grov
         /// <param name="filename"></param>
         private void ReadFromFile(string filename)
         {
-            filename = @"resources\rooms\" + filename + ".grovlev";
-
             FileStream stream = File.OpenRead(filename);
             BinaryReader reader = null;
 
@@ -206,8 +204,6 @@ namespace Grov
 
         public void SpawnEnemies()
         {
-            filename = @"resources\rooms\" + filename + ".grovlev";
-
             FileStream stream = File.OpenRead(filename);
             BinaryReader reader = null;
 
