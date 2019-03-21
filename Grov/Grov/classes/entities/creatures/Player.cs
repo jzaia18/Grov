@@ -23,7 +23,7 @@ namespace Grov
         // ************* Fields ************* //
 
         //Constant
-        private const bool DEVWEAPON = true;
+        private const bool DEVWEAPON = false;
 
         private float maxMP;
         private float currMP;
@@ -85,7 +85,7 @@ namespace Grov
             if (DEVWEAPON)
                 weapon = new Weapon("Dev", default(Rectangle), null, false);
             else
-                weapon = new Weapon("FlameThrower", default(Rectangle), null, false);
+                weapon = new Weapon("Default", default(Rectangle), null, false);
         }
         #endregion
 

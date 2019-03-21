@@ -117,7 +117,10 @@
     <None Include="resources\rooms\1101\1101_Placeholder.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="resources\rooms\1110\1110_Placeholder.grovlev">
+    <None Include="resources\rooms\1110\CornerRiver.grovlev">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\rooms\1110\RiversideFlowerbed.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="resources\rooms\1111\1111_Original.grovlev">

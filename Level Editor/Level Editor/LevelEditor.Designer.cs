@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.colorBox = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.flowerButton = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.bridgeButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -52,8 +54,7 @@
             this.eraseEnemy = new System.Windows.Forms.PictureBox();
             this.enemy0 = new System.Windows.Forms.PictureBox();
             this.palletteButton = new System.Windows.Forms.Button();
-            this.flowerButton = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
+            this.clearButton = new System.Windows.Forms.Button();
             this.colorBox.SuspendLayout();
             this.currentBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.currentTilePicture)).BeginInit();
@@ -86,6 +87,26 @@
             this.colorBox.TabIndex = 0;
             this.colorBox.TabStop = false;
             this.colorBox.Text = "Tile Selector";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(123, 540);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(56, 20);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "Flower";
+            // 
+            // flowerButton
+            // 
+            this.flowerButton.BackColor = System.Drawing.Color.Fuchsia;
+            this.flowerButton.Location = new System.Drawing.Point(122, 438);
+            this.flowerButton.Name = "flowerButton";
+            this.flowerButton.Size = new System.Drawing.Size(94, 92);
+            this.flowerButton.TabIndex = 14;
+            this.flowerButton.UseVisualStyleBackColor = false;
+            this.flowerButton.Click += new System.EventHandler(this.colorButton_Click);
             // 
             // label7
             // 
@@ -251,7 +272,7 @@
             // 
             this.saveButton.Location = new System.Drawing.Point(32, 809);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(196, 89);
+            this.saveButton.Size = new System.Drawing.Size(194, 89);
             this.saveButton.TabIndex = 2;
             this.saveButton.Text = "Save File";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -261,7 +282,7 @@
             // 
             this.loadButton.Location = new System.Drawing.Point(32, 905);
             this.loadButton.Name = "loadButton";
-            this.loadButton.Size = new System.Drawing.Size(196, 111);
+            this.loadButton.Size = new System.Drawing.Size(107, 111);
             this.loadButton.TabIndex = 3;
             this.loadButton.Text = "Load File";
             this.loadButton.UseVisualStyleBackColor = true;
@@ -320,31 +341,22 @@
             this.palletteButton.UseVisualStyleBackColor = true;
             this.palletteButton.Click += new System.EventHandler(this.palletteButton_Click);
             // 
-            // flowerButton
+            // clearButton
             // 
-            this.flowerButton.BackColor = System.Drawing.Color.Fuchsia;
-            this.flowerButton.Location = new System.Drawing.Point(122, 438);
-            this.flowerButton.Name = "flowerButton";
-            this.flowerButton.Size = new System.Drawing.Size(94, 92);
-            this.flowerButton.TabIndex = 14;
-            this.flowerButton.UseVisualStyleBackColor = false;
-            this.flowerButton.Click += new System.EventHandler(this.colorButton_Click);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(123, 540);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(56, 20);
-            this.label8.TabIndex = 15;
-            this.label8.Text = "Flower";
+            this.clearButton.Location = new System.Drawing.Point(146, 905);
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(81, 110);
+            this.clearButton.TabIndex = 7;
+            this.clearButton.Text = "Clear";
+            this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
             // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1544, 1028);
+            this.Controls.Add(this.clearButton);
             this.Controls.Add(this.palletteButton);
             this.Controls.Add(this.enemyBox);
             this.Controls.Add(this.mapBox);
@@ -393,5 +405,6 @@
         private System.Windows.Forms.PictureBox eraseEnemy;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button flowerButton;
+        private System.Windows.Forms.Button clearButton;
     }
 }

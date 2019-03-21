@@ -524,5 +524,27 @@ namespace Level_Editor
             }
 
         }
+
+        /// <summary>
+        /// Clears the screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            //Throw a fit if there are unsaved changes
+            if (unsavedChanges)
+            {
+                DialogResult panic = MessageBox.Show("You have unsaved changes! Are you sure you want to continue?", "Unsaved Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (panic != DialogResult.Yes)
+                {
+                    return;
+                }
+            }
+
+            CreateMap();
+            unsavedChanges = false;
+            this.Text = "Level Editor";
+        }
     }
 }
