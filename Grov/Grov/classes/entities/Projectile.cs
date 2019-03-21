@@ -86,7 +86,7 @@ namespace Grov
         {
             if (this.isActive)
             {
-                if (velocity.X != 0 && velocity.Y != 0) //if velocity is not zero
+                if (velocity.X != 0 || velocity.Y != 0) //if velocity is not zero
                     spriteBatch.Draw(texture.GetNextTexture(), new Rectangle(this.drawPos.X + this.drawPos.Width / 2, this.drawPos.Y + this.drawPos.Height / 2, this.drawPos.Width, this.drawPos.Height), null, Color.White, (float)Math.Atan2(this.velocity.Y, this.velocity.X), new Vector2(this.drawPos.Width, this.drawPos.Height), SpriteEffects.None, 0f);
                 else
                     spriteBatch.Draw(texture.GetNextTexture(), drawPos, Color.White);
