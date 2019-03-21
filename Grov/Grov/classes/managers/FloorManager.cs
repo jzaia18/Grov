@@ -229,14 +229,13 @@ namespace Grov
                         //Add all the level files from the specific path
                         path = @"resources\rooms\" + path;
                         files.AddRange(System.IO.Directory.GetFiles(path));
-                        Console.WriteLine("j");
-                        Console.WriteLine(path);
                         //If there isn't already a room there, make one (basically only skips the spawn room)
                         if(floorRooms[x,y] == null)
                         {
                             floorRooms[x, y] = new Room(RoomType.Normal, files[rng.Next(0, files.Count)]);
                         }
                     }
+                    files.Clear();
                 }
             }
 
