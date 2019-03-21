@@ -99,22 +99,46 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
-    <None Include="resources\rooms\1000\1000_Placeholder.grovlev">
+    <None Include="resources\rooms\0001\AQuietSpring.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="resources\rooms\1001\1001_Placeholder.grovlev">
+    <None Include="resources\rooms\0010\AnOutlet.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="resources\rooms\1010\1010_Placeholder.grovlev">
+    <None Include="resources\rooms\0100\ASymbol.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="resources\rooms\1011\1011_Placeholder.grovlev">
+    <None Include="resources\rooms\0110\Fork.grovlev">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\rooms\0111\Peninsula.grovlev">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\rooms\0111\TheV.grovlev">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\rooms\1000\EasterIsland.grovlev">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\rooms\1001\Ruins.grovlev">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\rooms\1010\BlockedPath.grovlev">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\rooms\1011\BattleaxeClearing.grovlev">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\rooms\1011\BattleaxeClearing_2.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="resources\rooms\1100\River.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="resources\rooms\1101\1101_Placeholder.grovlev">
+    <None Include="resources\rooms\1101\NarrowSafePath.grovlev">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\rooms\1101\PondOfContemplation.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="resources\rooms\1110\CornerRiver.grovlev">
@@ -126,25 +150,19 @@
     <None Include="resources\rooms\1111\1111_Original.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="resources\rooms\0001\Placeholder.grovlev">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="resources\rooms\0010\Placeholder.grovlev">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="resources\rooms\0011\Plains.grovlev">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="resources\rooms\0100\Placeholder.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="resources\rooms\0101\DockBridge.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="resources\rooms\0110\Placeholder.grovlev">
+    <None Include="resources\rooms\1111\CalmForest.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="resources\rooms\0111\Placeholder.grovlev">
+    <None Include="resources\rooms\1111\CalmOcean.grovlev">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\rooms\1111\DeadlyMountain.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="resources\rooms\boss\Placeholder\0001\Placeholder.grovlev">
