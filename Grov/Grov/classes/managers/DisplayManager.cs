@@ -188,13 +188,14 @@ namespace Grov
             spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X, mapPoint.Y, 80, 80), new Rectangle(0, 0, 256, 256), Color.White);
             */
 
+            //Draw doors
             for(int x = 0; x < 11; x++)
             {
                 for(int y = 0; y < 11; y++)
                 {
                     if(FloorManager.Instance[x,y] != null)
                     {
-                        if (FloorManager.Instance[x,y].Visited)
+                        if (FloorManager.Instance[x,y].Visited || true)
                         {
                             //Draw Doors
                             mapPoint = new Point((x * 90) + (DisplayManager.GraphicsDevice.Viewport.Width / 4) + 30, (y * 85) + ((DisplayManager.GraphicsDevice.Viewport.Height / 4) - 200));
@@ -206,9 +207,23 @@ namespace Grov
                                 spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X + 65, mapPoint.Y - 25, 50, 50), new Rectangle(256, 0, 256, 256), Color.White, 1.57079632679f, new Vector2(0, 0), SpriteEffects.None, 0f); // Top
                             if (FloorManager.Instance[x, y].Bottom != null)
                                 spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X + 15, mapPoint.Y + 105, 50, 50), new Rectangle(256, 0, 256, 256), Color.White, -1.57079632679f, new Vector2(0, 0), SpriteEffects.None, 0f); // Bottom
+                        }
+                    }
+                }
+            }
+            //Draw rooms after doors, so they always appear on top
+            for (int x = 0; x < 11; x++)
+            {
+                for (int y = 0; y < 11; y++)
+                {
+                    if (FloorManager.Instance[x, y] != null)
+                    {
+                        if (FloorManager.Instance[x, y].Visited || true)
+                        {
                             //Draw Rooms
-                            if(FloorManager.Instance[x,y] == FloorManager.Instance.CurrRoom)
-                                spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X, mapPoint.Y, 80, 80), new Rectangle(0, 0, 256, 256), Color.Orange);
+                            mapPoint = new Point((x * 90) + (DisplayManager.GraphicsDevice.Viewport.Width / 4) + 30, (y * 85) + ((DisplayManager.GraphicsDevice.Viewport.Height / 4) - 200));
+                            if (FloorManager.Instance[x, y] == FloorManager.Instance.CurrRoom)
+                                spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X, mapPoint.Y, 80, 80), new Rectangle(0, 256, 256, 256), Color.Orange);
                             else
                                 spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X, mapPoint.Y, 80, 80), new Rectangle(0, 0, 256, 256), Color.White);
                         }
