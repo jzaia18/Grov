@@ -23,7 +23,7 @@ namespace Grov
         // ************* Fields ************* //
 
         //Constant
-        private const bool DEVWEAPON = false;
+        private const bool DEVWEAPON = true;
 
         private float maxMP;
         private float currMP;

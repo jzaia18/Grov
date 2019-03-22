@@ -30,6 +30,7 @@ namespace Grov
 		private RoomType type;
 		private bool isCleared;
         private string filename;
+        private bool visited;
 
 		private Tile[][] tiles;
         private List<Pickup> pickupsInRoom;
@@ -45,6 +46,7 @@ namespace Grov
         public RoomType Type { get => type; set => type = value; }
         public bool IsCleared { get => isCleared; set => isCleared = value; }
         public List<Pickup> PickupsInRoom { get => pickupsInRoom; }
+        public bool Visited { get => visited; set => visited = value; }
 
         public Tile this[int x, int y]
         {
@@ -59,6 +61,7 @@ namespace Grov
         public Room(RoomType type, string fileName)
         {
             isCleared = false;
+            visited = false;
             tiles = new Tile[32][];
             for (int i = 0; i < tiles.Length; i++)
             {

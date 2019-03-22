@@ -237,6 +237,8 @@ namespace Grov
                             break;
                     }
 
+                    FloorManager.Instance.CurrRoom.Visited = true;
+
                     //Spawn enemies
                     if(!FloorManager.Instance.CurrRoom.IsCleared)
                     {

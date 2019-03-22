@@ -275,6 +275,7 @@ namespace Grov
                 }
             }
 
+            currRoom.Visited = true;
             //Spawn this room's enemies
             currRoom.SpawnEnemies();
         }
