@@ -321,6 +321,22 @@ namespace Grov
             this.weapon.Use(aimDirection * projectileSpeed);
             this.currMP -= weapon.ManaCost;
         }
+
+        /// <summary>
+        /// Changes player's abilities and stats based on the pick-up item player walks over
+        /// </summary>
+        public void Interact(Pickup pickup_item)
+        {
+            switch (pickup_item.PickupType)
+            {
+                case PickupType.Weapon:
+                    this.weapon = (Weapon)pickup_item;
+                    break;
+                case PickupType.Heart:
+                    this.CurrHP += 1f;
+                    break;
+            }
+        }
         #endregion
     }
 }
