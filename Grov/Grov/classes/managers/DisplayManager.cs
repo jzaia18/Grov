@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
 
-// Authors: Jake Zaia, Rachel Wong
+// Authors: Jake Zaia, Rachel Wong, Duncan Mott
 
 
 namespace Grov
@@ -38,6 +38,7 @@ namespace Grov
         private Texture2D exitTexture_NH;
         private Texture2D exitTexture_H;
         private Texture2D dimScreen;
+        private Texture2D map;
         #endregion
 
         #region properties
@@ -119,6 +120,7 @@ namespace Grov
             instance.menuButtons[2].Hover = instance.exitTexture_H;
 
             instance.dimScreen = ContentManager.Load<Texture2D>("PauseDim");
+            instance.map = ContentManager.Load<Texture2D>("Map");
         }
         #endregion
 
@@ -147,6 +149,14 @@ namespace Grov
                     {
                         menuButtons[i].Draw(spriteBatch);
                     }
+                    break;
+                case GameState.Map:
+                    FloorManager.Instance.Draw(spriteBatch);
+                    EntityManager.Instance.Draw(spriteBatch);
+                    hud.Draw(spriteBatch);
+                    //Dim the screen
+                    spriteBatch.Draw(dimScreen, new Rectangle(0, 0, 1920, 1080), Color.White);
+                    spriteBatch.Draw(map, new Rectangle(0, 0, 1920, 1080), Color.White);
                     break;
             }
         }
