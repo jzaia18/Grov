@@ -40,6 +40,8 @@ namespace Grov
         private Texture2D exitTexture_H;
         private Texture2D dimScreen;
         private Texture2D map;
+
+        private Texture2D mapMarkerRoom;
         #endregion
 
         #region properties
@@ -131,6 +133,7 @@ namespace Grov
 
             instance.dimScreen = ContentManager.Load<Texture2D>("PauseDim");
             instance.map = ContentManager.Load<Texture2D>("Map");
+            instance.mapMarkerRoom = ContentManager.Load<Texture2D>("MapMarkers");
         }
         #endregion
 
@@ -167,7 +170,47 @@ namespace Grov
                     //Dim the screen
                     spriteBatch.Draw(dimScreen, new Rectangle(0, 0, 1920, 1080), Color.White);
                     spriteBatch.Draw(map, new Rectangle(0, 0, 1920, 1080), Color.White);
+                    this.DrawMap(spriteBatch);
                     break;
+            }
+        }
+
+        private void DrawMap(SpriteBatch spriteBatch)
+        {
+            Point mapPoint = new Point((DisplayManager.GraphicsDevice.Viewport.Width / 2), (DisplayManager.GraphicsDevice.Viewport.Height / 2) - 40);
+            /*
+            //Spawn doors
+            spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X + 60, mapPoint.Y + 20, 50, 50), new Rectangle(256, 0, 256, 256), Color.White); // Right
+            spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X - 30, mapPoint.Y + 20, 50, 50), new Rectangle(256, 0, 256, 256), Color.White); // Left
+            spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X + 65, mapPoint.Y - 25, 50, 50), new Rectangle(256, 0, 256, 256), Color.White, 1.57079632679f, new Vector2(0,0), SpriteEffects.None, 0f); // Top
+            spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X + 15, mapPoint.Y + 105, 50, 50), new Rectangle(256, 0, 256, 256), Color.White, -1.57079632679f, new Vector2(0, 0), SpriteEffects.None, 0f); // Bottom
+            //Spawn room
+            spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X, mapPoint.Y, 80, 80), new Rectangle(0, 0, 256, 256), Color.White);
+            */
+
+            for(int x = 0; x < 11; x++)
+            {
+                for(int y = 0; y < 11; y++)
+                {
+                    if(FloorManager.Instance[x,y] != null)
+                    {
+                        if (FloorManager.Instance[x,y].IsCleared)
+                        {
+                            //Draw Doors
+                            mapPoint = new Point((x * 90) + (DisplayManager.GraphicsDevice.Viewport.Width / 4) + 30, (y * 85) + ((DisplayManager.GraphicsDevice.Viewport.Height / 4) - 200));
+                            if (FloorManager.Instance[x, y].Right != null)
+                                spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X + 60, mapPoint.Y + 20, 50, 50), new Rectangle(256, 0, 256, 256), Color.White); // Right
+                            if (FloorManager.Instance[x, y].Left != null)
+                                spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X - 30, mapPoint.Y + 20, 50, 50), new Rectangle(256, 0, 256, 256), Color.White); // Left
+                            if (FloorManager.Instance[x, y].Top != null)
+                                spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X + 65, mapPoint.Y - 25, 50, 50), new Rectangle(256, 0, 256, 256), Color.White, 1.57079632679f, new Vector2(0, 0), SpriteEffects.None, 0f); // Top
+                            if (FloorManager.Instance[x, y].Bottom != null)
+                                spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X + 15, mapPoint.Y + 105, 50, 50), new Rectangle(256, 0, 256, 256), Color.White, -1.57079632679f, new Vector2(0, 0), SpriteEffects.None, 0f); // Bottom
+                                                                                                                                                                                                                                     //Draw Rooms
+                            spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X, mapPoint.Y, 80, 80), new Rectangle(0, 0, 256, 256), Color.White);
+                        }
+                    }
+                }
             }
         }
         #endregion
