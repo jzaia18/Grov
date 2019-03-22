@@ -124,6 +124,11 @@ namespace Grov
                                          Color.White);
                 }
 			}
+
+            foreach(Pickup pickup in pickupsInRoom)
+            {
+                pickup.Draw(spriteBatch);
+            }
 		}
 
         /// <summary>
