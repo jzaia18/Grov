@@ -95,8 +95,8 @@ namespace Grov
             floor[6, 5] = new RoomNode(6, 5, DoorGen.right);
             currentNodes.Add(floor[6, 5]);
 
-            
 
+            int instance = 1;
             while (currentNodes.Count > 0)
             {
                 List<RoomNode> newNodes = new List<RoomNode>();
@@ -109,7 +109,7 @@ namespace Grov
                     for (int x = 0; x < 4; x++)
                     {
                         door <<= 1;
-                        if (rng.Next(0, 2) == 1)
+                        if (rng.Next(0, 100) < 55 - (int)(instance * instance * instance))
                         {
                             door |= 1;
                         }
@@ -197,6 +197,7 @@ namespace Grov
                 }
 
                 currentNodes = newNodes;
+                instance++;
 
             }
 
