@@ -13,7 +13,8 @@ namespace Grov
     enum GameState
     {
         Game,
-        Menu
+        Menu,
+        PauseMenu
     }
 
     /// <summary>
@@ -31,7 +32,14 @@ namespace Grov
         public bool fullScreen = true;
         public bool hardwareSwitch = true;
         public GameState state;
-        
+
+        private GamePadState gamePadPreviousState;
+        private KeyboardState keyboardPreviousState;
+        private MouseState mousePreviousState;
+        private GamePadState gamePadState;
+        private KeyboardState keyboardState;
+        private MouseState mouseState;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -89,12 +97,16 @@ namespace Grov
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+
+            mouseState = Mouse.GetState();
+            gamePadState = GamePad.GetState(0);
+            keyboardState = Keyboard.GetState();
 
             switch (state)
             {
                 case GameState.Game:
+                    if( (keyboardState.IsKeyDown(Keys.Escape) || gamePadState.IsButtonDown(Buttons.Start)) && (!keyboardPreviousState.IsKeyDown(Keys.Escape) && !gamePadState.IsButtonDown(Buttons.Start)))
+                        state = GameState.PauseMenu;
                     EntityManager.Instance.Update();
                     FloorManager.Instance.Update();
                     break;
@@ -116,7 +128,17 @@ namespace Grov
                         }
                     }
                     break;
+                case GameState.PauseMenu:
+                    if ((keyboardState.IsKeyDown(Keys.Escape) || gamePadState.IsButtonDown(Buttons.Start)) && (!keyboardPreviousState.IsKeyDown(Keys.Escape) && !gamePadState.IsButtonDown(Buttons.Start)))
+                        state = GameState.Game;
+                    if (keyboardState.IsKeyDown(Keys.Enter))
+                        Exit();
+                    break;
             }
+
+            keyboardPreviousState = keyboardState;
+            gamePadPreviousState = gamePadState;
+            mousePreviousState = mouseState;
 
             base.Update(gameTime);
         }

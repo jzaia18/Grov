@@ -37,6 +37,7 @@ namespace Grov
         private Texture2D optionsTexture_H;
         private Texture2D exitTexture_NH;
         private Texture2D exitTexture_H;
+        private Texture2D dimScreen;
         #endregion
 
         #region properties
@@ -116,6 +117,8 @@ namespace Grov
             instance.menuButtons.Add(new Button(new Rectangle(new Point(850, 500 + (2 * instance.exitTexture_NH.Height)), new Point(instance.exitTexture_NH.Width, instance.exitTexture_NH.Height))));
             instance.menuButtons[2].NoHover = instance.exitTexture_NH;
             instance.menuButtons[2].Hover = instance.exitTexture_H;
+
+            instance.dimScreen = ContentManager.Load<Texture2D>("PauseDim");
         }
         #endregion
 
@@ -130,6 +133,13 @@ namespace Grov
                     FloorManager.Instance.Draw(spriteBatch);
                     EntityManager.Instance.Draw(spriteBatch);
                     hud.Draw(spriteBatch);
+                    break;
+                case GameState.PauseMenu:
+                    FloorManager.Instance.Draw(spriteBatch);
+                    EntityManager.Instance.Draw(spriteBatch);
+                    hud.Draw(spriteBatch);
+                    //Dim the screen
+                    spriteBatch.Draw(dimScreen, new Rectangle(0, 0, 1920, 1080), Color.White);
                     break;
                 case GameState.Menu:
                     spriteBatch.DrawString(courierNew, "Grov", new Vector2(915, 200), Color.Black);
