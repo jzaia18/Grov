@@ -38,13 +38,17 @@ namespace Grov
 		public static int TileWidth { get => 1920 / 32; }
 		public static int TileHeight { get => 1080 / 18; }
         public Room CurrRoom { get => currRoom; set => currRoom = value; }
+        public Room this[int x, int y]
+        {
+            get => floorRooms[x,y];
+        }
 
-		#endregion
+        #endregion
 
-		#region constructor
-		// ************* Constructor ************* //
+        #region constructor
+        // ************* Constructor ************* //
 
-		private FloorManager()
+        private FloorManager()
         {
             rng = new Random();
 
