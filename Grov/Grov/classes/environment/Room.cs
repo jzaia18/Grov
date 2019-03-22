@@ -70,6 +70,10 @@ namespace Grov
             ReadFromFile(fileName);
 
             pickupsInRoom = new List<Pickup>();
+
+            // Testing - adds either a random weapon or a heart into the room
+            int pickUpType = FloorManager.RNG.Next(0, 2)
+            //pickupsInRoom.Add(new Pickup((PickupType)pickUpType, new Rectangle(new Point(100, 100), new Point(50, 50)), ))
         }
         #endregion
 
@@ -127,10 +131,11 @@ namespace Grov
 
             if (isCleared)
             {
-                foreach(Pickup pickup in pickupsInRoom)
-                {
-                    pickup.Draw(spriteBatch);
-                }
+
+                //foreach(Pickup pickup in pickupsInRoom)
+                //{
+                //    pickup.Draw(spriteBatch);
+                //}
             }
 		}
 

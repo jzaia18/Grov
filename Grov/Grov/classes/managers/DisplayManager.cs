@@ -23,6 +23,7 @@ namespace Grov
         private AnimatedTexture[] tileTextureMap;
         private Dictionary<EnemyType, AnimatedTexture> enemyTextureMap;
         private Dictionary<ProjectileType, AnimatedTexture> projectileTextureMap;
+        private Dictionary<PickupType, AnimatedTexture> pickupTextureMap;
         private ContentManager contentManager;
         private GraphicsDevice graphicsDevice;
         private static DisplayManager instance;
@@ -50,6 +51,7 @@ namespace Grov
         public static AnimatedTexture[] TileTextureMap { get => instance.tileTextureMap; }
         public static Dictionary<EnemyType, AnimatedTexture> EnemyTextureMap { get => instance.enemyTextureMap; }
         public static Dictionary<ProjectileType, AnimatedTexture> ProjectileTextureMap { get => instance.projectileTextureMap; }
+        public static Dictionary<PickupType, AnimatedTexture> PickupTextureMap { get => instance.pickupTextureMap; }
         public static List<Button> MenuButtons { get => instance.menuButtons; }
 
         #endregion
@@ -93,8 +95,16 @@ namespace Grov
 
             // Load all projectile textures into map
             instance.projectileTextureMap = new Dictionary<ProjectileType, AnimatedTexture>();
-            foreach (ProjectileType ptype in Enum.GetValues(typeof(ProjectileType))) {
+            foreach (ProjectileType ptype in Enum.GetValues(typeof(ProjectileType)))
+            {
                 ProjectileTextureMap[ptype] = new AnimatedTexture(ContentManager.Load<Texture2D>("projectiles/" + Enum.GetName(typeof(ProjectileType), ptype)));
+            }
+
+            // Load all pickup textures into map
+            instance.pickupTextureMap = new Dictionary<PickupType, AnimatedTexture>();
+            foreach (PickupType typeOfPickup in Enum.GetValues(typeof(PickupType)))
+            {
+                PickupTextureMap[typeOfPickup] = new AnimatedTexture(ContentManager.Load<Texture2D>("pickups/" + Enum.GetName(typeof(PickupType), typeOfPickup)));
             }
 
             // Load SpriteFonts
