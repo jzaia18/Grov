@@ -32,6 +32,7 @@ namespace Grov
         private string filename;
 
 		private Tile[][] tiles;
+        private List<Pickup> pickupsInRoom;
         #endregion
 
         #region properties
@@ -43,6 +44,7 @@ namespace Grov
         public Entrance Right { get => right; set => right = value; }
         public RoomType Type { get => type; set => type = value; }
         public bool IsCleared { get => isCleared; set => isCleared = value; }
+        public List<Pickup> PickupsInRoom { get => pickupsInRoom; }
 
         public Tile this[int x, int y]
         {
@@ -67,7 +69,7 @@ namespace Grov
             this.filename = fileName;
             ReadFromFile(fileName);
 
-
+            pickupsInRoom = new List<Pickup>();
         }
         #endregion
 

@@ -97,7 +97,7 @@ namespace Grov
                 if (hostileProjectiles[i].IsActive == false)
                 {
                     hostileProjectiles.RemoveAt(i);
-                    i--;
+                    i--; 
                 }
             }
 
@@ -105,6 +105,7 @@ namespace Grov
             foreach (Enemy enemy in enemies) HandleTerrainCollisions(enemy);
             foreach (Projectile projectile in friendlyProjectiles) HandleTerrainCollisions(projectile);
             foreach (Projectile projectile in hostileProjectiles) HandleTerrainCollisions(projectile);
+            foreach (Pickup itemToPickUp in FloorManager.Instance.CurrRoom.PickupsInRoom) HandlePickUpCollisions(itemToPickUp);
             HandleEnemyDamageCollisions();
             HandlePlayerDamageCollisions();
             HandleMeleeCollisions();
@@ -277,6 +278,14 @@ namespace Grov
                         enemy.Hitstun += player.Weapon.Hitstun;
                     }
                 }
+            }
+        }
+
+        public void HandlePickUpCollisions(Pickup collectible)
+        {
+            if (player.Hitbox.Intersects(collectible.Hitbox))
+            {
+                player.Interact(collectible);
             }
         }
 
