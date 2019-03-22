@@ -125,9 +125,12 @@ namespace Grov
                 }
 			}
 
-            foreach(Pickup pickup in pickupsInRoom)
+            if (isCleared)
             {
-                pickup.Draw(spriteBatch);
+                foreach(Pickup pickup in pickupsInRoom)
+                {
+                    pickup.Draw(spriteBatch);
+                }
             }
 		}
 
