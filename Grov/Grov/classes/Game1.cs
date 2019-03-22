@@ -14,7 +14,8 @@ namespace Grov
     {
         Game,
         Menu,
-        PauseMenu
+        PauseMenu,
+        Map
     }
 
     /// <summary>
@@ -105,8 +106,10 @@ namespace Grov
             switch (state)
             {
                 case GameState.Game:
-                    if( (keyboardState.IsKeyDown(Keys.Escape) || gamePadState.IsButtonDown(Buttons.Start)) && (!keyboardPreviousState.IsKeyDown(Keys.Escape) && !gamePadState.IsButtonDown(Buttons.Start)))
+                    if( (keyboardState.IsKeyDown(Keys.Escape) && !keyboardPreviousState.IsKeyDown(Keys.Escape)) || (gamePadState.IsButtonDown(Buttons.Start) && !gamePadPreviousState.IsButtonDown(Buttons.Start)))
                         state = GameState.PauseMenu;
+                    if ((keyboardState.IsKeyDown(Keys.Tab) && !keyboardPreviousState.IsKeyDown(Keys.Tab)) || (gamePadState.IsButtonDown(Buttons.Back) && !gamePadPreviousState.IsButtonDown(Buttons.Back)))
+                        state = GameState.Map;
                     EntityManager.Instance.Update();
                     FloorManager.Instance.Update();
                     break;
@@ -129,10 +132,14 @@ namespace Grov
                     }
                     break;
                 case GameState.PauseMenu:
-                    if ((keyboardState.IsKeyDown(Keys.Escape) || gamePadState.IsButtonDown(Buttons.Start)) && (!keyboardPreviousState.IsKeyDown(Keys.Escape) && !gamePadState.IsButtonDown(Buttons.Start)))
+                    if ((keyboardState.IsKeyDown(Keys.Escape) && !keyboardPreviousState.IsKeyDown(Keys.Escape)) || (gamePadState.IsButtonDown(Buttons.Start) && !gamePadPreviousState.IsButtonDown(Buttons.Start)))
                         state = GameState.Game;
                     if (keyboardState.IsKeyDown(Keys.Enter))
                         Exit();
+                    break;
+                case GameState.Map:
+                    if ((keyboardState.IsKeyDown(Keys.Tab) && !keyboardPreviousState.IsKeyDown(Keys.Tab)) || (gamePadState.IsButtonDown(Buttons.Back) && !gamePadPreviousState.IsButtonDown(Buttons.Back)))
+                        state = GameState.Game;
                     break;
             }
 
