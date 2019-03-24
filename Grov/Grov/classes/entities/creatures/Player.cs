@@ -22,9 +22,6 @@ namespace Grov
         #region fields
         // ************* Fields ************* //
 
-        //Constant
-        private const bool DEVWEAPON = true;
-
         private float maxMP;
         private float currMP;
         private int cooldown;
@@ -32,12 +29,6 @@ namespace Grov
         private Weapon weapon;
         private int keys;
         private int bombs;
-        private GamePadState gamePadPreviousState;
-        private KeyboardState keyboardPreviousState;
-        private MouseState mousePreviousState;
-        private GamePadState gamePadState;
-        private KeyboardState keyboardState;
-        private MouseState mouseState;
         private Vector2 aimDirection;
         private bool isInputKeyboard;
         private int Iframes;
@@ -78,11 +69,8 @@ namespace Grov
             this.currMP = maxMP;
             keys = 0;
             bombs = 0;
-            keyboardPreviousState = Keyboard.GetState();
-            gamePadPreviousState = GamePad.GetState(0);
-            mousePreviousState = Mouse.GetState();
             isInputKeyboard = true;
-            if (DEVWEAPON)
+            if (GameManager.DEVMODE)
                 weapon = new Weapon("Dev", default(Rectangle), null, false);
             else
                 weapon = new Weapon("Default", default(Rectangle), null, false);
@@ -98,9 +86,6 @@ namespace Grov
         public override void Update()
         {
             Point point = DrawPos.Location;
-            mouseState = Mouse.GetState();
-            gamePadState = GamePad.GetState(0);
-            keyboardState = Keyboard.GetState();
             this.Aim();
             base.Update();
             point = drawPos.Location - point;
@@ -120,9 +105,6 @@ namespace Grov
             //Weapon cooldown
             if (cooldown > 0 && stoppedFiring) cooldown--;
 
-            gamePadPreviousState = gamePadState;
-            keyboardPreviousState = keyboardState;
-            mousePreviousState = mouseState;
         }
 
         /// <summary>
@@ -157,24 +139,24 @@ namespace Grov
             // Handles keyboard input
             if (isInputKeyboard)
             {
-                if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.W))
+                if (GameManager.CurrentKeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.W))
                 {
                     direction += new Vector2(0f, -1f);
                 }
-                if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.S))
+                if (GameManager.CurrentKeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.S))
                 {
                     direction += new Vector2(0f, 1f);
                 }
-                if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.A))
+                if (GameManager.CurrentKeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.A))
                 {
                     direction += new Vector2(-1f, 0f);
                 }
-                if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D))
+                if (GameManager.CurrentKeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D))
                 {
                     direction += new Vector2(1f, 0f);
                 }
-                if ((keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Space)
-                    || mouseState.LeftButton.Equals(ButtonState.Pressed)) && this.currMP > 0 && weapon.ReadyToFire(fireRate) && cooldown == 0)
+                if ((GameManager.CurrentKeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Space)
+                    || GameManager.CurrentMouseState.LeftButton.Equals(ButtonState.Pressed)) && this.currMP > 0 && weapon.ReadyToFire(fireRate) && cooldown == 0)
                 {
                     this.Attack();
                     if (currMP <= 0) cooldown += weapon.Cooldown;
@@ -182,15 +164,15 @@ namespace Grov
                 }
 
                 //Stop the cooldown from recharging until button is released
-                if(stoppedFiring == false && !(keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Space)
-                    || mouseState.LeftButton.Equals(ButtonState.Pressed)))
+                if(stoppedFiring == false && !(GameManager.CurrentKeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Space)
+                    || GameManager.CurrentMouseState.LeftButton.Equals(ButtonState.Pressed)))
                 {
                     stoppedFiring = true;
                 }
 
                 direction.Normalize();
 
-                if (keyboardState == keyboardPreviousState && gamePadState != gamePadPreviousState)
+                if (GameManager.CurrentKeyboardState == GameManager.PreviousKeyboardState && GameManager.CurrentGamePadState != GameManager.PreviousGamePadState)
                 {
                     isInputKeyboard = false;
                 }
@@ -198,10 +180,10 @@ namespace Grov
             // Handles gamepad input
             else
             {
-                direction = gamePadState.ThumbSticks.Left;
+                direction = GameManager.CurrentGamePadState.ThumbSticks.Left;
                 direction.Y = -direction.Y;
 
-                if (gamePadState.IsButtonDown(Buttons.RightTrigger) && this.currMP >= 0 && weapon.ReadyToFire(fireRate) && cooldown == 0)
+                if (GameManager.CurrentGamePadState.IsButtonDown(Buttons.RightTrigger) && this.currMP >= 0 && weapon.ReadyToFire(fireRate) && cooldown == 0)
                 {
                     this.Attack();
                     if (currMP <= 0) cooldown += weapon.Cooldown;
@@ -209,12 +191,12 @@ namespace Grov
                 }
 
                 //Stop the cooldown from recharging until button is released
-                if (stoppedFiring == false && !gamePadState.IsButtonDown(Buttons.RightTrigger))
+                if (stoppedFiring == false && !GameManager.CurrentGamePadState.IsButtonDown(Buttons.RightTrigger))
                 {
                     stoppedFiring = true;
                 }
 
-                if (keyboardState != keyboardPreviousState)
+                if (GameManager.CurrentKeyboardState != GameManager.PreviousKeyboardState)
                 {
                     isInputKeyboard = true;
                 }
@@ -250,33 +232,33 @@ namespace Grov
             // Handles keyboard input
             if (isInputKeyboard)
             {
-                if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Up))
+                if (GameManager.CurrentKeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Up))
                 {
                     direction += new Vector2(0f, -1f);
                     isMouse = false;
                 }
-                if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Down))
+                if (GameManager.CurrentKeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Down))
                 {
                     direction += new Vector2(0f, 1f);
                     isMouse = false;
                 }
-                if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Left))
+                if (GameManager.CurrentKeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Left))
                 {
                     direction += new Vector2(-1f, 0f);
                     isMouse = false;
                 }
-                if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Right))
+                if (GameManager.CurrentKeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Right))
                 {
                     direction += new Vector2(1f, 0f);
                     isMouse = false;
                 }
                 if (isMouse)
                 {
-                    direction = new Vector2(mouseState.X - (DrawPos.X + DrawPos.Width / 2), mouseState.Y - (DrawPos.Y + DrawPos.Height / 2));
+                    direction = new Vector2(GameManager.CurrentMouseState.X - (DrawPos.X + DrawPos.Width / 2), GameManager.CurrentMouseState.Y - (DrawPos.Y + DrawPos.Height / 2));
                 }
 
 
-                if(gamePadState.Triggers.Right != 0f && gamePadPreviousState.Triggers.Right == 0f)
+                if(GameManager.CurrentGamePadState.Triggers.Right != 0f && GameManager.PreviousGamePadState.Triggers.Right == 0f)
                 {
                     isInputKeyboard = false;
                 }
@@ -286,7 +268,7 @@ namespace Grov
             {
                 direction = GamePad.GetState(0).ThumbSticks.Right;
                 direction.Y = -direction.Y;
-                if (mouseState.LeftButton.Equals(ButtonState.Pressed) && !mousePreviousState.LeftButton.Equals(ButtonState.Pressed))
+                if (GameManager.CurrentMouseState.LeftButton.Equals(ButtonState.Pressed) && !GameManager.PreviousMouseState.LeftButton.Equals(ButtonState.Pressed))
                 {
                     isInputKeyboard = true;
                 }

@@ -25,7 +25,6 @@ namespace Grov
 		private Room bossRoom;
 		private int numRooms;
 		private int floorNumber;
-		private Random rng;
         private static FloorManager instance;
         private Room[,] floorRooms;
 
@@ -34,7 +33,6 @@ namespace Grov
 		#region properties
 		// ************* Properties ************* //
 		public static FloorManager Instance { get => instance; }
-        public static Random RNG { get => instance.rng; }
 		public static int TileWidth { get => 1920 / 32; }
 		public static int TileHeight { get => 1080 / 18; }
         public Room CurrRoom { get => currRoom; set => currRoom = value; }
@@ -50,8 +48,6 @@ namespace Grov
 
         private FloorManager()
         {
-            rng = new Random();
-
             GenerateFloor();
 
             floorNumber = 1;
@@ -109,7 +105,7 @@ namespace Grov
                     for (int x = 0; x < 4; x++)
                     {
                         door <<= 1;
-                        if (rng.Next(0, 100) < 55 - (int)(instance * instance * instance))
+                        if (GameManager.RNG.Next(0, 100) < 55 - (int)(instance * instance * instance))
                         {
                             door |= 1;
                         }
@@ -237,7 +233,7 @@ namespace Grov
                         //If there isn't already a room there, make one (basically only skips the spawn room)
                         if(floorRooms[x,y] == null)
                         {
-                            floorRooms[x, y] = new Room(RoomType.Normal, files[rng.Next(0, files.Count)]);
+                            floorRooms[x, y] = new Room(RoomType.Normal, files[GameManager.RNG.Next(0, files.Count)]);
                         }
                     }
                     files.Clear();

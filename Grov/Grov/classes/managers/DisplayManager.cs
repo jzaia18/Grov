@@ -140,9 +140,9 @@ namespace Grov
         #region methods
         // ************* Methods ************* //
 
-        public void Draw(SpriteBatch spriteBatch, GameState state)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            switch (state)
+            switch (GameManager.GameState)
             {
                 case GameState.Game:
                     FloorManager.Instance.Draw(spriteBatch);

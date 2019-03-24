@@ -20,7 +20,6 @@ namespace Grov
         private List<Enemy> enemies;
         private List<Projectile> hostileProjectiles;
         private List<Projectile> friendlyProjectiles;
-        private Random rng;
         private static EntityManager instance;
 
         // ************* Constants ************* //
@@ -33,7 +32,6 @@ namespace Grov
 
         public static Player Player { get => instance.player; }
         public static EntityManager Instance { get => instance; }
-        public static Random RNG { get => instance.rng; }
         #endregion
 
         #region constructor
@@ -43,7 +41,6 @@ namespace Grov
             enemies = new List<Enemy>();
             hostileProjectiles = new List<Projectile>();
             friendlyProjectiles = new List<Projectile>();
-            rng = new Random();
 
             //testing
             player = new Player(100, 100, 2, 5, 5, 1, new Rectangle((15  * FloorManager.TileWidth) + FloorManager.TileWidth/2, (8 * FloorManager.TileHeight) + FloorManager.TileWidth/2, 60, 74), 
