@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+// Authors: Jake Zaia
 
 namespace Grov
 {
@@ -44,6 +45,10 @@ namespace Grov
         #region methods
         // ************* Methods ************* //
 
+        /// <summary>
+        /// Creates an independant copy of this texture, useful for when multiple of the same texture must be used
+        /// </summary>
+        /// <returns> A copy of this object </returns>
         public object Clone()
         {
             AnimatedTexture newTexture = new AnimatedTexture();
@@ -54,12 +59,20 @@ namespace Grov
             return newTexture;
         }
 
+        /// <summary>
+        /// Returns the next texture in the sequence
+        /// </summary>
+        /// <returns>The next texture</returns>
         public Texture2D GetNextTexture()
         {
             CurrFrame++;
             return textures[currframe];
         }
 
+        /// <summary>
+        /// Adds a new texture to the end of the animation sequence
+        /// </summary>
+        /// <param name="texture">The texture to add</param>
         public void AddTexture(Texture2D texture)
         {
             textures.Add(texture);
