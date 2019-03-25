@@ -22,24 +22,31 @@ namespace Grov
 
     class Pickup : Entity
     {
+        #region fields
         // ************* Fields ************* //
 
         private PickupType pickupType;
-        
-        
+
+        #endregion
+
+        #region properties
         // ************* Properties ************* //
 
         public PickupType PickupType { get => PickupType; set => pickupType = value; }
 
+        #endregion
 
+        #region constructor
         // ************* Constructors ************* //
 
         public Pickup(PickupType pickupType, Rectangle drawPos, AnimatedTexture texture) : base(drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), new Vector2(0,0), true, texture)
         {
             this.pickupType = pickupType;
         }
+        #endregion
 
 
+        #region methods
         // ************* Methods ************* //
 
         public override void Update()
@@ -54,5 +61,6 @@ namespace Grov
                 base.Draw(spriteBatch);
             }
         }
+        #endregion
     }
 }

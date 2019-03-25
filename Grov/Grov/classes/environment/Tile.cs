@@ -36,7 +36,6 @@ namespace Grov
 		private TileType type;
 		private bool isPassable;
 		private bool blocksProjectiles;
-		private Texture2D texture;
 
         #endregion
 

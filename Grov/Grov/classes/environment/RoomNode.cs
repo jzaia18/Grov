@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// Authors: Jack Hoffman
+
 namespace Grov
 {
     public enum DoorGen : byte
@@ -27,7 +29,6 @@ namespace Grov
         public int Y { get => y; }
         public DoorGen Doors { get => doors; set => doors = value; }
         #endregion
-
 
         #region constructors
         public RoomNode(int x, int y, DoorGen previousRoomDoor)
