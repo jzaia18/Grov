@@ -263,9 +263,9 @@ namespace Grov
             }
 
             //We need to make a dead end
-            if(deadEnds.Count <= 3)
+            if(deadEnds.Count < 2)
             {
-
+                GenerateFloor();
             }
             //We don't need to make a new dead end
             else
