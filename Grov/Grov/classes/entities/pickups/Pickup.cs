@@ -55,7 +55,7 @@ namespace Grov
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (this.isActive)
+            if (this.isActive && (this.texture != null))
             {
                 base.Draw(spriteBatch);
             }
