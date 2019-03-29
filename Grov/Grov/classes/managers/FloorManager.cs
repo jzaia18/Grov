@@ -262,12 +262,19 @@ namespace Grov
                 }
             }
 
-            //We don't need to make new dead ends
-            if(deadEnds.Count > 3)
+            //We need to make a dead end
+            if(deadEnds.Count <= 3)
+            {
+
+            }
+            //We don't need to make a new dead end
+            else
             {
                 int rng = GameManager.RNG.Next(0, deadEnds.Count);
-                floor[deadEnds[rng].X, deadEnds[rng].y].Type = RoomType.Boss;
+                floor[deadEnds[rng].X, deadEnds[rng].Y].Type = RoomType.Boss;
                 deadEnds.RemoveAt(rng);
+                rng = GameManager.RNG.Next(0, deadEnds.Count);
+                floor[deadEnds[rng].X, deadEnds[rng].Y].Type = RoomType.Treasure;
             }
 
             //Populate the Room array
@@ -296,12 +303,23 @@ namespace Grov
                         }
 
                         //Add all the level files from the specific path
-                        path = @"resources\rooms\" + path;
+                        if (floor[x, y].Type == RoomType.Boss)
+                        {
+                            string tempPath = @"resources\rooms\boss\";
+                            List<string> bosses = new List<string>();
+                            bosses.AddRange(System.IO.Directory.GetDirectories(tempPath));
+                            tempPath = bosses[GameManager.RNG.Next(0, bosses.Count)];
+                            path = tempPath + "\\" + path;
+                        }
+                        else if (floor[x, y].Type == RoomType.Treasure)
+                            path = @"resources\rooms\treasure\" + path;
+                        else
+                            path = @"resources\rooms\" + path;
                         files.AddRange(System.IO.Directory.GetFiles(path));
                         //If there isn't already a room there, make one (basically only skips the spawn room)
                         if(floorRooms[x,y] == null)
                         {
-                            floorRooms[x, y] = new Room(RoomType.Normal, files[GameManager.RNG.Next(0, files.Count)]);
+                            floorRooms[x, y] = new Room(floor[x,y].Type, files[GameManager.RNG.Next(0, files.Count)]);
                         }
                     }
                     files.Clear();

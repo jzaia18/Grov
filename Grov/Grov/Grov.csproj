@@ -184,6 +184,18 @@
     <None Include="resources\rooms\spawn.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="resources\rooms\treasure\0001\Standard_Treasure.grovlev">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\rooms\treasure\0010\Standard_Treasure.grovlev">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\rooms\treasure\0100\Standard_Treasure.grovlev">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\rooms\treasure\1000\Standard_Treasure.grovlev">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
