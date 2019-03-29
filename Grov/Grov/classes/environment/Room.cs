@@ -16,9 +16,9 @@ namespace Grov
     {
         Normal,
         Boss,
-        Shop,
+        //Shop,
         Treasure,
-        Secret
+        //Secret
     }
 
 	class Room
@@ -73,6 +73,11 @@ namespace Grov
             ReadFromFile(fileName);
 
             pickupsInRoom = new List<Pickup>();
+
+            if(this.Type == RoomType.Treasure)
+            {
+                pickupsInRoom.Add(new Pickup(PickupType.Heart, new Rectangle))
+            }
 
             // Testing - adds either a random weapon or a heart into the room
             //int pickUpType = FloorManager.RNG.Next(0, 2);

@@ -12,8 +12,8 @@ namespace Grov
 {
     enum PickupType
     {
-        Weapon,
-        Heart,
+        Weapon = 0,
+        Heart = 1,
         //Bomb,
         //Key,
         //Powerup
