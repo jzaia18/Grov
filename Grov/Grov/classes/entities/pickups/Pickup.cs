@@ -14,10 +14,9 @@ namespace Grov
     {
         Weapon,
         Heart,
-        Mana,
-        Bomb,
-        Key,
-        Powerup
+        //Bomb,
+        //Key,
+        //Powerup
     }
 
     class Pickup : Entity
