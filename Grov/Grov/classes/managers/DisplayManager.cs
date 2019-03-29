@@ -195,7 +195,7 @@ namespace Grov
                 {
                     if(FloorManager.Instance[x,y] != null)
                     {
-                        if (FloorManager.Instance[x,y].Visited || true)
+                        if (FloorManager.Instance[x,y].Visited || GameManager.DEVMODE)
                         {
                             //Draw Doors
                             mapPoint = new Point((x * 90) + (DisplayManager.GraphicsDevice.Viewport.Width / 4) + 30, (y * 85) + ((DisplayManager.GraphicsDevice.Viewport.Height / 4) - 200));
@@ -218,7 +218,7 @@ namespace Grov
                 {
                     if (FloorManager.Instance[x, y] != null)
                     {
-                        if (FloorManager.Instance[x, y].Visited || true)
+                        if (FloorManager.Instance[x, y].Visited || GameManager.DEVMODE)
                         {
                             //Draw Rooms
                             mapPoint = new Point((x * 90) + (DisplayManager.GraphicsDevice.Viewport.Width / 4) + 30, (y * 85) + ((DisplayManager.GraphicsDevice.Viewport.Height / 4) - 200));
