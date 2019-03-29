@@ -112,6 +112,16 @@ namespace Grov
                     bottom.OpenDoor();
                 }
             }
+
+            if(pickupsInRoom.Count > 0)
+            {
+                for(int i = 0; i < pickupsInRoom.Count; i++)
+                {
+                    if (!pickupsInRoom[i].IsActive)
+                        pickupsInRoom.RemoveAt(i);
+                }
+            }
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
