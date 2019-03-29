@@ -113,6 +113,8 @@ namespace Grov
                             }
                             else
                             {
+                                FloorManager.Instance.GenerateFloor();
+                                FloorManager.Instance.FloorNumber = 1;
                                 gameState = GameState.Game;
                             }
                         }
@@ -122,7 +124,7 @@ namespace Grov
                     if ((currentKeyboardState.IsKeyDown(Keys.Escape) && !previousKeyboardState.IsKeyDown(Keys.Escape)) || (currentGamePadState.IsButtonDown(Buttons.Start) && !previousGamePadState.IsButtonDown(Buttons.Start)))
                         gameState = GameState.Game;
                     if (currentKeyboardState.IsKeyDown(Keys.Enter))
-                        Exit();
+                        gameState = GameState.Menu;
                     break;
                 case GameState.Map:
                     if ((!currentKeyboardState.IsKeyDown(Keys.Tab) && previousKeyboardState.IsKeyDown(Keys.Tab)) || (currentGamePadState.IsButtonDown(Buttons.Back) && !previousGamePadState.IsButtonDown(Buttons.Back)))

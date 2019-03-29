@@ -36,6 +36,7 @@ namespace Grov
 		public static int TileWidth { get => 1920 / 32; }
 		public static int TileHeight { get => 1080 / 18; }
         public Room CurrRoom { get => currRoom; set => currRoom = value; }
+        public int FloorNumber { get => floorNumber; set => floorNumber = value; }
         public Room this[int x, int y]
         {
             get => floorRooms[x,y];
@@ -46,12 +47,7 @@ namespace Grov
         #region constructor
         // ************* Constructor ************* //
 
-        private FloorManager()
-        {
-            GenerateFloor();
-
-            floorNumber = 1;
-        }
+        private FloorManager() { }
 
         public static void Initialize()
         {
@@ -100,7 +96,37 @@ namespace Grov
 
                 for (int i = 0; i < currentNodes.Count; i++)
                 {
+                    int doors = GameManager.RNG.Next(0, 100);
+                    //
+                    if (doors > 80 - (instance * 5))
+                    {
+                        doors = 2;
+                    }
+                    else if(doors > 60 - (instance * 6))
+                    {
+                        doors = 3;
+                    }
+                    else if(doors > 20 - (instance * 8))
+                    {
+                        doors = 6;
+                    }
+                    else
+                    {
+                        doors = 10;
+                    }
+
                     byte door = 0;
+
+                    for(int x = 0; x < doors; x++)
+                    {
+                        door <<= 1;
+                        if (GameManager.RNG.Next(0, 100) < 65 - (doors * 5))
+                            door |= 1;
+                    }
+
+                    currentNodes[i].Doors = (DoorGen)((byte)currentNodes[i].Doors | door);
+
+                    /*byte door = 0;
 
                     for (int x = 0; x < 4; x++)
                     {
@@ -111,7 +137,7 @@ namespace Grov
                         }
                     }
 
-                    currentNodes[i].Doors = (DoorGen)((byte)currentNodes[i].Doors | door);
+                    currentNodes[i].Doors = (DoorGen)((byte)currentNodes[i].Doors | door);*/
                 }
                 // Loop through all current Nodes
                 for (int i = 0; i < currentNodes.Count; i++)
@@ -197,10 +223,52 @@ namespace Grov
 
             }
 
+            numRooms = 0;
+            //Get the floor count
+            for(int x = 0; x < floor.GetLength(0); x++)
+            {
+                for(int y = 0; y < floor.GetLength(1); y++)
+                {
+                    if(floor[x,y] != null)
+                    {
+                        numRooms++;
+                    }
+                }
+            }
+
+            //If it's too small, throw it out
+            if(numRooms < 12)
+            {
+                GenerateFloor();
+            }
+
             //Add the spawn room
             this.currRoom = new Room(RoomType.Normal, "resources/rooms/spawn.grovlev");
             this.floorRooms[5, 5] = currRoom;
 
+            //We need to add boss rooms
+            List<Point> deadEnds = new List<Point>();
+            for (int x = 0; x < floor.GetLength(0); x++)
+            {
+                for (int y = 0; y < floor.GetLength(1); y++)
+                {
+                    if (floor[x, y] != null)
+                    {
+                        if (floor[x, y].Doors == DoorGen.top || floor[x, y].Doors == DoorGen.bottom || floor[x, y].Doors == DoorGen.left || floor[x, y].Doors == DoorGen.right)
+                        {
+                            deadEnds.Add(new Point(x, y));
+                        }
+                    }
+                }
+            }
+
+            //We don't need to make new dead ends
+            if(deadEnds.Count > 3)
+            {
+                int rng = GameManager.RNG.Next(0, deadEnds.Count);
+                floor[deadEnds[rng].X, deadEnds[rng].y].Type = RoomType.Boss;
+                deadEnds.RemoveAt(rng);
+            }
 
             //Populate the Room array
             List<string> files = new List<string>();

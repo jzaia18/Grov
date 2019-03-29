@@ -17,7 +17,7 @@ namespace Grov
         Normal,
         Boss,
         Shop,
-        treasure,
+        Treasure,
         Secret
     }
 
