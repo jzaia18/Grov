@@ -315,7 +315,9 @@ namespace Grov
                     this.weapon = (Weapon)pickup_item;
                     break;
                 case PickupType.Heart:
-                    this.CurrHP += 1f;
+                    this.CurrHP += 10f;
+                    if (this.CurrHP > this.MaxHP)
+                        this.CurrHP = this.MaxHP;
                     break;
             }
         }

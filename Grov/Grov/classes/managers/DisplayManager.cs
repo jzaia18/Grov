@@ -99,14 +99,14 @@ namespace Grov
             instance.projectileTextureMap = new Dictionary<ProjectileType, AnimatedTexture>();
             foreach (ProjectileType ptype in Enum.GetValues(typeof(ProjectileType)))
             {
-                ProjectileTextureMap[ptype] = new AnimatedTexture(ContentManager.Load<Texture2D>("projectiles/" + Enum.GetName(typeof(ProjectileType), ptype)));
+                Instance.projectileTextureMap[ptype] = new AnimatedTexture(ContentManager.Load<Texture2D>("projectiles/" + Enum.GetName(typeof(ProjectileType), ptype)));
             }
 
             // load all pickup textures into map
             instance.pickupTextureMap = new Dictionary<PickupType, AnimatedTexture>();
             foreach (PickupType typeOfPickup in Enum.GetValues(typeof(PickupType)))
             {
-                PickupTextureMap[typeOfPickup] = new AnimatedTexture(ContentManager.Load<Texture2D>("pickups/" + Enum.GetName(typeof(PickupType), typeOfPickup)));
+                Instance.pickupTextureMap[typeOfPickup] = new AnimatedTexture(ContentManager.Load<Texture2D>("pickups/" + Enum.GetName(typeof(PickupType), typeOfPickup)));
             }
 
             // Load SpriteFonts

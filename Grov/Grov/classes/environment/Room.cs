@@ -76,7 +76,7 @@ namespace Grov
 
             if(this.Type == RoomType.Treasure)
             {
-                pickupsInRoom.Add(new Pickup(PickupType.Heart, new Rectangle))
+                pickupsInRoom.Add(new Pickup(PickupType.Heart, new Rectangle(DisplayManager.GraphicsDevice.Viewport.Width/2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30, 60, 60), DisplayManager.PickupTextureMap[PickupType.Heart]));
             }
 
             // Testing - adds either a random weapon or a heart into the room
@@ -261,6 +261,14 @@ namespace Grov
             {
                 if (reader != null)
                     reader.Close();
+            }
+        }
+
+        public void SpawnPickups()
+        {
+            foreach(Pickup pickup in pickupsInRoom)
+            {
+                EntityManager.Instance.SpawnPickup(pickup);
             }
         }
 

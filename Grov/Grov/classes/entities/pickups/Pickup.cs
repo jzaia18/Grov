@@ -31,7 +31,7 @@ namespace Grov
         #region properties
         // ************* Properties ************* //
 
-        public PickupType PickupType { get => PickupType; set => pickupType = value; }
+        public PickupType PickupType { get => pickupType; set => pickupType = value; }
 
         #endregion
 
