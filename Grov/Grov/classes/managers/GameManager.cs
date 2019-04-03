@@ -20,12 +20,12 @@ namespace Grov
         Map
     }
 
-    enum ControlState
-    {
-        KeyboardMode,
-        MouseMode,
-        GamePadMode
-    }
+    //enum ControlState
+    //{
+    //    KeyboardMode,
+    //    MouseMode,
+    //    GamePadMode
+    //}
 
     class GameManager
     {
@@ -124,8 +124,10 @@ namespace Grov
 
                     for (int i = 0; i < DisplayManager.MenuButtons.Count; i++)
                     {
-                        if (DisplayManager.MenuPointer == i)
+                        // Checking which button the pointer is on
+                        if (DisplayManager.MenuPointer == i || DisplayManager.MenuButtons[i].Rect.Contains(currentMouseState.Position))
                         {
+                            DisplayManager.MenuPointer = i;
                             DisplayManager.MenuButtons[i].IsHighlighted = true;
                         }
                         else
