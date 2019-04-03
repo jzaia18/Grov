@@ -99,50 +99,41 @@ namespace Grov
                     List<RoomNode> newNodes = new List<RoomNode>();
 
 
+                    //Randomly decide to add doors to each new room
                     for (int i = 0; i < currentNodes.Count; i++)
                     {
-                        int doors = GameManager.RNG.Next(0, 100);
-                        //
-                        if (doors > 80 - (instance * 5))
+                        int chanceModifier = GameManager.RNG.Next(0, 100);
+
+                        //Randomly decrease the odds of adding a door
+                            //Odds decrease further as instance increases
+                        if (chanceModifier > 80 - (instance * 5))
                         {
-                            doors = 2;
+                            chanceModifier = 10;
                         }
-                        else if (doors > 60 - (instance * 6))
+                        else if (chanceModifier > 60 - (instance * 6))
                         {
-                            doors = 3;
+                            chanceModifier = 15;
                         }
-                        else if (doors > 20 - (instance * 8))
+                        else if (chanceModifier > 20 - (instance * 8))
                         {
-                            doors = 6;
+                            chanceModifier = 30;
                         }
                         else
                         {
-                            doors = 10;
+                            chanceModifier = 50;
                         }
 
                         byte door = 0;
 
-                        for (int x = 0; x < doors; x++)
+                        //Actually add the doors
+                        for (int x = 0; x < 4; x++)
                         {
                             door <<= 1;
-                            if (GameManager.RNG.Next(0, 100) < 65 - (doors * 5))
+                            if (GameManager.RNG.Next(0, 100) < 65 - chanceModifier)
                                 door |= 1;
                         }
 
                         currentNodes[i].Doors = (DoorGen)((byte)currentNodes[i].Doors | door);
-
-                        /*byte door = 0;
-
-                        for (int x = 0; x < 4; x++)
-                        {
-                            door <<= 1;
-                            if (GameManager.RNG.Next(0, 100) < 55 - (int)(instance * instance * instance))
-                            {
-                                door |= 1;
-                            }
-                        }
-
-                        currentNodes[i].Doors = (DoorGen)((byte)currentNodes[i].Doors | door);*/
                     }
                     // Loop through all current Nodes
                     for (int i = 0; i < currentNodes.Count; i++)
