@@ -12,12 +12,11 @@ namespace Grov
 {
     enum PickupType
     {
-        Weapon,
-        Heart,
-        Mana,
-        Bomb,
-        Key,
-        Powerup
+        Weapon = 0,
+        Heart = 1,
+        //Bomb,
+        //Key,
+        //Powerup
     }
 
     class Pickup : Entity
@@ -32,7 +31,7 @@ namespace Grov
         #region properties
         // ************* Properties ************* //
 
-        public PickupType PickupType { get => PickupType; set => pickupType = value; }
+        public PickupType PickupType { get => pickupType; set => pickupType = value; }
 
         #endregion
 
@@ -56,7 +55,7 @@ namespace Grov
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (this.isActive)
+            if (this.isActive && (this.texture != null))
             {
                 base.Draw(spriteBatch);
             }

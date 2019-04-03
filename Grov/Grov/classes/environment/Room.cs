@@ -16,9 +16,9 @@ namespace Grov
     {
         Normal,
         Boss,
-        Shop,
-        treasure,
-        Secret
+        //Shop,
+        Treasure,
+        //Secret
     }
 
 	class Room
@@ -74,6 +74,11 @@ namespace Grov
 
             pickupsInRoom = new List<Pickup>();
 
+            if(this.Type == RoomType.Treasure)
+            {
+                pickupsInRoom.Add(new Pickup(PickupType.Heart, new Rectangle(DisplayManager.GraphicsDevice.Viewport.Width/2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30, 60, 60), DisplayManager.PickupTextureMap[PickupType.Heart]));
+            }
+
             // Testing - adds either a random weapon or a heart into the room
             //int pickUpType = FloorManager.RNG.Next(0, 2);
             //pickupsInRoom.Add(new Pickup((PickupType)pickUpType, new Rectangle(new Point(100, 100), new Point(50, 50)), ))
@@ -107,6 +112,16 @@ namespace Grov
                     bottom.OpenDoor();
                 }
             }
+
+            if(pickupsInRoom.Count > 0)
+            {
+                for(int i = 0; i < pickupsInRoom.Count; i++)
+                {
+                    if (!pickupsInRoom[i].IsActive)
+                        pickupsInRoom.RemoveAt(i);
+                }
+            }
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -256,6 +271,14 @@ namespace Grov
             {
                 if (reader != null)
                     reader.Close();
+            }
+        }
+
+        public void SpawnPickups()
+        {
+            foreach(Pickup pickup in pickupsInRoom)
+            {
+                EntityManager.Instance.SpawnPickup(pickup);
             }
         }
 

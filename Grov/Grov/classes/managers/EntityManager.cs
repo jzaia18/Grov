@@ -20,6 +20,7 @@ namespace Grov
         private List<Enemy> enemies;
         private List<Projectile> hostileProjectiles;
         private List<Projectile> friendlyProjectiles;
+        private List<Pickup> pickups;
         private static EntityManager instance;
 
         // ************* Constants ************* //
@@ -30,7 +31,7 @@ namespace Grov
         #region properties
         // ************* Properties ************* //
 
-        public static Player Player { get => instance.player; }
+        public static Player Player { get => instance.player;  }
         public static EntityManager Instance { get => instance; }
         #endregion
 
@@ -41,6 +42,7 @@ namespace Grov
             enemies = new List<Enemy>();
             hostileProjectiles = new List<Projectile>();
             friendlyProjectiles = new List<Projectile>();
+            pickups = new List<Pickup>();
 
             //testing
             player = new Player(100, 100, 2, 5, 5, 1, new Rectangle((15  * FloorManager.TileWidth) + FloorManager.TileWidth/2, (8 * FloorManager.TileHeight) + FloorManager.TileWidth/2, 60, 74), 
@@ -98,11 +100,25 @@ namespace Grov
                 }
             }
 
+            if (pickups.Count > 0)
+            {
+                //Update pickups, this time actually kill them though
+                for (int i = 0; i < pickups.Count; i++)
+                {
+                    pickups[i].Update();
+                    if (pickups[i].IsActive == false)
+                    {
+                        pickups.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+
             HandleTerrainCollisions(player);
             foreach (Enemy enemy in enemies) HandleTerrainCollisions(enemy);
             foreach (Projectile projectile in friendlyProjectiles) HandleTerrainCollisions(projectile);
             foreach (Projectile projectile in hostileProjectiles) HandleTerrainCollisions(projectile);
-            foreach (Pickup itemToPickUp in FloorManager.Instance.CurrRoom.PickupsInRoom) HandlePickUpCollisions(itemToPickUp);
+            foreach (Pickup itemToPickUp in pickups) HandlePickUpCollisions(itemToPickUp);
             HandleEnemyDamageCollisions();
             HandlePlayerDamageCollisions();
             HandleMeleeCollisions();
@@ -120,6 +136,23 @@ namespace Grov
             foreach (Enemy enemy in enemies) enemy.Draw(spriteBatch);
             foreach (Projectile projectile in friendlyProjectiles) projectile.Draw(spriteBatch);
             foreach (Projectile projectile in hostileProjectiles) projectile.Draw(spriteBatch);
+            foreach (Pickup pickup in pickups) pickup.Draw(spriteBatch);
+        }
+
+        public void ClearEntities()
+        {
+            enemies.Clear();
+            hostileProjectiles.Clear();
+            friendlyProjectiles.Clear();
+            pickups.Clear();
+        }
+
+        public void ResetPlayer()
+        {
+            player.Position = new Vector2((15 * FloorManager.TileWidth) + FloorManager.TileWidth / 2, (8 * FloorManager.TileHeight) + FloorManager.TileWidth / 2);
+            player.CurrHP = 100;
+            player.MaxHP = 100;
+            player.MaxMP = 100;
         }
 
         public void HandlePlayerDamageCollisions()
@@ -198,9 +231,7 @@ namespace Grov
                 else if(entityTile.Type == TileType.Entrance && entity == player)
                 {
                     //Delete all entities in the room
-                    enemies.Clear();
-                    hostileProjectiles.Clear();
-                    friendlyProjectiles.Clear();
+                    this.ClearEntities();
 
                     //Which door did we take?
                     int door = -1; // 0 top 1 left 2 bottom 3 right
@@ -241,6 +272,7 @@ namespace Grov
                     {
                         FloorManager.Instance.CurrRoom.SpawnEnemies();
                     }
+                    FloorManager.Instance.CurrRoom.SpawnPickups();
 
                     //Rest of the collisions don't matter because we're in a new room now
                     return;
@@ -285,6 +317,7 @@ namespace Grov
             if (player.Hitbox.Intersects(collectible.Hitbox))
             {
                 player.Interact(collectible);
+                collectible.IsActive = false;
             }
         }
 
@@ -319,6 +352,15 @@ namespace Grov
                     reader.Close();
                 }
             }
+        }
+
+        /// <summary>
+        /// Adds the given pickup to the list of pickups in the current room
+        /// </summary>
+        /// <param name="pickup"></param>
+        public void SpawnPickup(Pickup pickup)
+        {
+            this.pickups.Add(pickup);
         }
 
         public void RemoveEnemy(Enemy enemy)

@@ -22,12 +22,14 @@ namespace Grov
         private int x;
         private int y;
         private DoorGen doors;
+        private RoomType type;
         #endregion
 
         #region properties
         public int X { get => x; }
         public int Y { get => y; }
         public DoorGen Doors { get => doors; set => doors = value; }
+        public RoomType Type { get => type; set => type = value; }
         #endregion
 
         #region constructors
@@ -51,6 +53,8 @@ namespace Grov
             {
                 this.doors = DoorGen.left;
             }
+
+            type = RoomType.Normal;
         }
 
         public RoomNode(int x, int y)

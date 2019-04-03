@@ -99,15 +99,15 @@ namespace Grov
             instance.projectileTextureMap = new Dictionary<ProjectileType, AnimatedTexture>();
             foreach (ProjectileType ptype in Enum.GetValues(typeof(ProjectileType)))
             {
-                ProjectileTextureMap[ptype] = new AnimatedTexture(ContentManager.Load<Texture2D>("projectiles/" + Enum.GetName(typeof(ProjectileType), ptype)));
+                Instance.projectileTextureMap[ptype] = new AnimatedTexture(ContentManager.Load<Texture2D>("projectiles/" + Enum.GetName(typeof(ProjectileType), ptype)));
             }
 
-            //// Load all pickup textures into map
-            //instance.pickupTextureMap = new Dictionary<PickupType, AnimatedTexture>();
-            //foreach (PickupType typeOfPickup in Enum.GetValues(typeof(PickupType)))
-            //{
-            //    PickupTextureMap[typeOfPickup] = new AnimatedTexture(ContentManager.Load<Texture2D>("pickups/" + Enum.GetName(typeof(PickupType), typeOfPickup)));
-            //}
+            // load all pickup textures into map
+            instance.pickupTextureMap = new Dictionary<PickupType, AnimatedTexture>();
+            foreach (PickupType typeOfPickup in Enum.GetValues(typeof(PickupType)))
+            {
+                Instance.pickupTextureMap[typeOfPickup] = new AnimatedTexture(ContentManager.Load<Texture2D>("pickups/" + Enum.GetName(typeof(PickupType), typeOfPickup)));
+            }
 
             // Load SpriteFonts
             instance.courierNew = ContentManager.Load<SpriteFont>("CourierNew");
@@ -195,7 +195,7 @@ namespace Grov
                 {
                     if(FloorManager.Instance[x,y] != null)
                     {
-                        if (FloorManager.Instance[x,y].Visited || true)
+                        if (FloorManager.Instance[x,y].Visited || GameManager.DEVMODE)
                         {
                             //Draw Doors
                             mapPoint = new Point((x * 90) + (DisplayManager.GraphicsDevice.Viewport.Width / 4) + 30, (y * 85) + ((DisplayManager.GraphicsDevice.Viewport.Height / 4) - 200));
@@ -218,12 +218,16 @@ namespace Grov
                 {
                     if (FloorManager.Instance[x, y] != null)
                     {
-                        if (FloorManager.Instance[x, y].Visited || true)
+                        if (FloorManager.Instance[x, y].Visited || GameManager.DEVMODE)
                         {
                             //Draw Rooms
                             mapPoint = new Point((x * 90) + (DisplayManager.GraphicsDevice.Viewport.Width / 4) + 30, (y * 85) + ((DisplayManager.GraphicsDevice.Viewport.Height / 4) - 200));
                             if (FloorManager.Instance[x, y] == FloorManager.Instance.CurrRoom)
                                 spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X, mapPoint.Y, 80, 80), new Rectangle(0, 256, 256, 256), Color.Orange);
+                            else if(FloorManager.Instance[x, y].Type == RoomType.Boss)
+                                spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X, mapPoint.Y, 80, 80), new Rectangle(0, 256, 256, 256), Color.Red);
+                            else if (FloorManager.Instance[x, y].Type == RoomType.Treasure)
+                                spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X, mapPoint.Y, 80, 80), new Rectangle(0, 256, 256, 256), Color.Yellow);
                             else
                                 spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X, mapPoint.Y, 80, 80), new Rectangle(0, 0, 256, 256), Color.White);
                         }
