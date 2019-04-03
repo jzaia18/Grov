@@ -32,6 +32,8 @@ namespace Grov
         // Button stuff
         private List<Button> menuButtons;
         private int menuPointer;
+        private List<Button> pauseButtons;
+        private int pausePointer;
 
         private Texture2D startTexture_NH;
         private Texture2D startTexture_H;
@@ -39,6 +41,8 @@ namespace Grov
         private Texture2D optionsTexture_H;
         private Texture2D exitTexture_NH;
         private Texture2D exitTexture_H;
+        private Texture2D returnTexture_NH;
+        private Texture2D returnTexture_H;
         private Texture2D dimScreen;
         private Texture2D map;
 
@@ -57,6 +61,8 @@ namespace Grov
         public static Dictionary<PickupType, AnimatedTexture> PickupTextureMap { get => instance.pickupTextureMap; }
         public static List<Button> MenuButtons { get => instance.menuButtons; }
         public static int MenuPointer { get => instance.menuPointer; set => instance.menuPointer = value; }
+        public static List<Button> PauseButtons { get => instance.pauseButtons; }
+        public static int PausePointer { get => instance.pausePointer; set => instance.pausePointer = value; }
 
         #endregion
 
@@ -66,6 +72,8 @@ namespace Grov
         {
             menuButtons = new List<Button>();
             menuPointer = 0;
+            pauseButtons = new List<Button>();
+            pausePointer = 0;
         }
 
         public static void Initialize(ContentManager cm, GraphicsDevice gd)
@@ -135,9 +143,20 @@ namespace Grov
             instance.menuButtons[2].NoHover = instance.exitTexture_NH;
             instance.menuButtons[2].Hover = instance.exitTexture_H;
 
+            // Loading and initializing pause textures
             instance.dimScreen = ContentManager.Load<Texture2D>("PauseDim");
             instance.map = ContentManager.Load<Texture2D>("Map");
             instance.mapMarkerRoom = ContentManager.Load<Texture2D>("MapMarkers");
+
+            instance.returnTexture_NH = ContentManager.Load<Texture2D>("button images/ReturnMenuButton_NoHover");
+            instance.returnTexture_H = ContentManager.Load<Texture2D>("button images/ReturnMenuButton_Hover");
+            instance.pauseButtons.Add(new Button(new Rectangle(new Point(830, 500 + instance.returnTexture_NH.Height), new Point(instance.returnTexture_NH.Width, instance.exitTexture_NH.Height))));
+            instance.pauseButtons[0].NoHover = instance.returnTexture_NH;
+            instance.pauseButtons[0].Hover = instance.returnTexture_H;
+
+            instance.pauseButtons.Add(new Button(new Rectangle(new Point(830, 500 + (2 * instance.exitTexture_NH.Height)), new Point(instance.exitTexture_NH.Width, instance.exitTexture_NH.Height))));
+            instance.pauseButtons[1].NoHover = instance.exitTexture_NH;
+            instance.pauseButtons[1].Hover = instance.exitTexture_H;
         }
         #endregion
 
@@ -156,6 +175,10 @@ namespace Grov
                 case GameState.PauseMenu:
                     FloorManager.Instance.Draw(spriteBatch);
                     EntityManager.Instance.Draw(spriteBatch);
+                    for (int i = 0; i < pauseButtons.Count; i++)
+                    {
+                        pauseButtons[i].Draw(spriteBatch);
+                    }
                     hud.Draw(spriteBatch);
                     //Dim the screen
                     spriteBatch.Draw(dimScreen, new Rectangle(0, 0, 1920, 1080), Color.White);
