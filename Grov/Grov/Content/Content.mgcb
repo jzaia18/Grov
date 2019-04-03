@@ -73,6 +73,30 @@
 /processorParam:TextureFormat=Color
 /build:button images/OptionsButton_NoHover.png
 
+#begin button images/RestartButton_Hover.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:button images/RestartButton_Hover.jpg
+
+#begin button images/RestartButton_NoHover.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:button images/RestartButton_NoHover.png
+
 #begin button images/ReturnMenuButton_Hover.jpg
 /importer:TextureImporter
 /processor:TextureProcessor

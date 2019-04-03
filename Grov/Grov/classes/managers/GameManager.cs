@@ -186,19 +186,18 @@ namespace Grov
                             {
                                 Exit();
                             }
-                            else if(DisplayManager.PausePointer == 0)
+                            else if(DisplayManager.PausePointer == 1)
                             {
                                 gameState = GameState.Menu;
                             }
-                            // Saving this for Restart Game button
-                            //else
-                            //{
-                            //    EntityManager.Instance.ClearEntities();
-                            //    EntityManager.Instance.ResetPlayer();
-                            //    FloorManager.Instance.FloorNumber = 1;
-                            //    FloorManager.Instance.GenerateFloor();
-                            //    gameState = GameState.Game;
-                            //}
+                            else if(DisplayManager.PausePointer == 0)
+                            {
+                                EntityManager.Instance.ClearEntities();
+                                EntityManager.Instance.ResetPlayer();
+                                FloorManager.Instance.FloorNumber = 1;
+                                FloorManager.Instance.GenerateFloor();
+                                gameState = GameState.Game;
+                            }
                         }
                     }
                     break;
