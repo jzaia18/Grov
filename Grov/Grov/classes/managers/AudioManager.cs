@@ -56,41 +56,44 @@ namespace Grov
         private void LoadSongs()
         {
             songs = new Dictionary<string, SoundEffect>();
+            totalMilliseconds = 0;
 
             songs.Add("TitleMusicIntro", DisplayManager.ContentManager.Load<SoundEffect>("Audio/Music/TitleMusicIntro"));
-            songs.Add("TitleMusicLoop", DisplayManager.ContentManager.Load<SoundEffect>("Audio/Music/TitleMusicLoop"));
+            songs.Add("Audio/Music/TitleMusicLoop", DisplayManager.ContentManager.Load<SoundEffect>("Audio/Music/TitleMusicLoop"));
 
             this.PlaySong("TitleMusicIntro");
         }
 
         public void PlaySong(string song)
         {
-            totalMilliseconds = 0;
+            Console.WriteLine(song);
             if (songs.ContainsKey(song))
             {
                 currentSong = songs[song];
-                currentSong.Play();
+                currentSong.CreateInstance().Play();
             }
         }
 
         //Testing purposes
         public void Update(GameTime gameTime)
         {
-            totalMilliseconds += gameTime.ElapsedGameTime.TotalMilliseconds;
-            Console.WriteLine(MediaPlayer.State.ToString());
-            if (totalMilliseconds++ >= currentSong.Duration.TotalMilliseconds && currentSong.Name.Contains("Intro"))
+            totalMilliseconds += gameTime.ElapsedGameTime.Milliseconds;
+            Console.WriteLine(totalMilliseconds + "||\t" + currentSong.Duration.TotalMilliseconds);
+            if (totalMilliseconds >= currentSong.Duration.TotalMilliseconds - 600 && currentSong.Name.Contains("Intro"))
             {
                 this.PlaySong(currentSong.Name.Substring(0, currentSong.Name.Length - 5) + "Loop");
+                totalMilliseconds = 0;
             }
-            else if (currentSong.Name.Contains("Loop") && totalMilliseconds >= currentSong.Duration.TotalMilliseconds)
+            else if (currentSong.Name.Contains("Loop") && totalMilliseconds >= currentSong.Duration.TotalMilliseconds - 1775)
             {
                 this.PlaySong(currentSong.Name);
+                totalMilliseconds = 0;
             }
-            else if(MediaPlayer.State != MediaState.Playing)
+            else if(totalMilliseconds >= currentSong.Duration.TotalMilliseconds)
             {
                 this.PlaySong(currentSong.Name);
+                totalMilliseconds = 0;
             }
-            
         }
         #endregion
 
