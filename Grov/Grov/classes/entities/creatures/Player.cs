@@ -27,6 +27,7 @@ namespace Grov
         private int cooldown;
         private bool stoppedFiring;
         private Weapon weapon;
+        private Weapon secondary;
         private int keys;
         private int bombs;
         private Vector2 aimDirection;
@@ -57,6 +58,7 @@ namespace Grov
         public int Keys { get => keys; set => keys = value; }
         public int Bombs { get => bombs; set => bombs = value; }
         public Weapon Weapon { get => weapon; set => weapon = value; }
+        public Weapon Secondary { get => secondary; set => secondary = value; }
         public int IFrames { get => Iframes; set => Iframes = value; }
         #endregion
 
@@ -69,11 +71,7 @@ namespace Grov
             this.currMP = maxMP;
             keys = 0;
             bombs = 0;
-            isInputKeyboard = true;
-            if (GameManager.DEVMODE)
-                weapon = new Weapon("Dev", default(Rectangle), null, false);
-            else
-                weapon = new Weapon("Default", default(Rectangle), null, false);
+            isInputKeyboard = true;  
         }
         #endregion
 
@@ -90,9 +88,10 @@ namespace Grov
             base.Update();
             point = drawPos.Location - point;
             this.hitbox.Location += point;
-            this.weapon.Update();
+            if(weapon != null)
+                this.weapon.Update();
 
-            if(this.currMP < this.MaxMP && cooldown == 0 && weapon.ReadyToFire(fireRate))
+            if(this.currMP < this.MaxMP && cooldown == 0 && (weapon == null || weapon.ReadyToFire(fireRate)))
             {
                 this.currMP += .5f;
             }
@@ -155,14 +154,20 @@ namespace Grov
                 {
                     direction += new Vector2(1f, 0f);
                 }
-                if ((GameManager.CurrentKeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Space)
-                    || GameManager.CurrentMouseState.LeftButton.Equals(ButtonState.Pressed)) && this.currMP > 0 && weapon.ReadyToFire(fireRate) && cooldown == 0)
+                if(weapon != null && ((GameManager.CurrentKeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Space)
+                    || GameManager.CurrentMouseState.LeftButton.Equals(ButtonState.Pressed)) && this.currMP > 0 && weapon.ReadyToFire(fireRate) && cooldown == 0))
                 {
                     this.Attack();
                     if (currMP <= 0) cooldown += weapon.Cooldown;
                     stoppedFiring = false;
                 }
-
+                //Switch primary weapon
+                if(GameManager.CurrentKeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.F) && !GameManager.PreviousKeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.F) && secondary != null && weapon.ReadyToFire(fireRate))
+                {
+                    Weapon holder = weapon;
+                    weapon = secondary;
+                    secondary = holder;
+                }
                 //Stop the cooldown from recharging until button is released
                 if(stoppedFiring == false && !(GameManager.CurrentKeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Space)
                     || GameManager.CurrentMouseState.LeftButton.Equals(ButtonState.Pressed)))
@@ -195,6 +200,13 @@ namespace Grov
                 {
                     stoppedFiring = true;
                 }
+                //Switch primary and secondary weapons
+                if(GameManager.CurrentGamePadState.IsButtonDown(Buttons.X) && GameManager.PreviousGamePadState.IsButtonUp(Buttons.X) && secondary != null && weapon.ReadyToFire(fireRate))
+                {
+                    Weapon holder = weapon;
+                    weapon = secondary;
+                    secondary = holder;
+                }
 
                 if (GameManager.CurrentKeyboardState != GameManager.PreviousKeyboardState)
                 {
@@ -218,7 +230,8 @@ namespace Grov
             position += velocity;
             
             velocity = new Vector2(0f, 0f);
-            weapon.Position = new Vector2(this.position.X + this.DrawPos.Width / 2, this.position.Y + this.DrawPos.Height / 2);
+            if(weapon != null)
+                weapon.Position = new Vector2(this.position.X + this.DrawPos.Width / 2, this.position.Y + this.DrawPos.Height / 2);
         }
 
         /// <summary>
@@ -312,6 +325,15 @@ namespace Grov
             switch (pickup_item.PickupType)
             {
                 case PickupType.Weapon:
+                    //Place the secondary item on the floor
+                    if(secondary != null)
+                    {
+                        secondary.Hitbox = new Rectangle(pickup_item.DrawPos.X, pickup_item.DrawPos.Y, pickup_item.DrawPos.Width, pickup_item.DrawPos.Height);
+                        secondary.IsActive = true;
+                        FloorManager.Instance.CurrRoom.PickupsInRoom.Add(secondary);
+                    }
+                    //Put the primary in the secondary
+                    secondary = weapon;
                     this.weapon = (Weapon)pickup_item;
                     break;
                 case PickupType.Heart:
