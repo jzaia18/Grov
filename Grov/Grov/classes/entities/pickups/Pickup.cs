@@ -38,12 +38,11 @@ namespace Grov
         #region constructor
         // ************* Constructors ************* //
 
-        public Pickup(PickupType pickupType, Rectangle drawPos, AnimatedTexture texture) : base(drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), new Vector2(0,0), true, texture)
+        public Pickup(PickupType pickupType, Rectangle drawPos) : base(drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), new Vector2(0,0), true, DisplayManager.PickupTextureMap[pickupType])
         {
             this.pickupType = pickupType;
         }
         #endregion
-
 
         #region methods
         // ************* Methods ************* //
