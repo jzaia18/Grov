@@ -137,7 +137,7 @@ namespace Grov
 
                         if ((currentMouseState.LeftButton.Equals(ButtonState.Pressed) || (!previousKeyboardState.IsKeyDown(Keys.Enter) && currentKeyboardState.IsKeyDown(Keys.Enter)) && DisplayManager.MenuButtons[i].IsHighlighted))
                         {
-                            if (i == DisplayManager.MenuButtons.Count - 1)
+                            if (DisplayManager.MenuPointer == DisplayManager.MenuButtons.Count - 1)
                             {
                                 Exit();
                             }
