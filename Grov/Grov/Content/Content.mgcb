@@ -13,6 +13,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin audio/music/TitleMusicIntro.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/music/TitleMusicIntro.wav
+
+#begin audio/music/TitleMusicLoop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/music/TitleMusicLoop.wav
+
 #begin button images/ExitButton_Hover.jpg
 /importer:TextureImporter
 /processor:TextureProcessor

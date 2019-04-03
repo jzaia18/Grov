@@ -74,6 +74,7 @@ namespace Grov
                 DisplayManager.Initialize(content, graphicsDevice);
                 EntityManager.Initialize();
                 FloorManager.Initialize();
+                AudioManager.Initialize();
             }
             else
             {
@@ -86,11 +87,13 @@ namespace Grov
         #region methods
         // ************* Methods ************* //
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             currentMouseState = Mouse.GetState();
             currentGamePadState = GamePad.GetState(0);
             currentKeyboardState = Keyboard.GetState();
+
+            AudioManager.Instance.Update(gameTime);
 
             switch (gameState)
             {
