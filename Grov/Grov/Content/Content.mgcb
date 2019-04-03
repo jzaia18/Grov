@@ -13,6 +13,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin audio/music/TitleMusicIntro.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/music/TitleMusicIntro.wav;audio/music/TitleMusicIntro
+
+#begin audio/music/TitleMusicLoop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/music/TitleMusicLoop.wav;audio/music/TitleMusicLoop
+
 #begin button images/ExitButton_Hover.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -211,18 +223,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:pickups/Heart.png
-
-#begin pickups/Weapon.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:pickups/Weapon.png
 
 #begin pickups/Weapon.png
 /importer:TextureImporter
