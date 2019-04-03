@@ -113,11 +113,11 @@ namespace Grov
                     FloorManager.Instance.Update();
                     break;
                 case GameState.Menu:
-                    if (currentKeyboardState.IsKeyDown(Keys.Down) && !previousKeyboardState.IsKeyDown(Keys.Down) && DisplayManager.MenuPointer <= DisplayManager.MenuButtons.Count - 1)
+                    if (currentKeyboardState.IsKeyDown(Keys.Down) && !previousKeyboardState.IsKeyDown(Keys.Down) && DisplayManager.MenuPointer < DisplayManager.MenuButtons.Count - 1)
                     {
                         DisplayManager.MenuPointer += 1;
                     }
-                    else if (currentKeyboardState.IsKeyDown(Keys.Up) && !previousKeyboardState.IsKeyDown(Keys.Up) && DisplayManager.MenuPointer >= 0)
+                    else if (currentKeyboardState.IsKeyDown(Keys.Up) && !previousKeyboardState.IsKeyDown(Keys.Up) && DisplayManager.MenuPointer > 0)
                     {
                         DisplayManager.MenuPointer -= 1;
                     }
@@ -135,6 +135,7 @@ namespace Grov
                             DisplayManager.MenuButtons[i].IsHighlighted = false;
                         }
 
+                        // If pointer is on button and Enter/Left mouse button is pressed, do whatever the button is supposed to do
                         if ((currentMouseState.LeftButton.Equals(ButtonState.Pressed) || (!previousKeyboardState.IsKeyDown(Keys.Enter) && currentKeyboardState.IsKeyDown(Keys.Enter)) && DisplayManager.MenuButtons[i].IsHighlighted))
                         {
                             if (DisplayManager.MenuPointer == DisplayManager.MenuButtons.Count - 1)
@@ -155,8 +156,51 @@ namespace Grov
                 case GameState.PauseMenu:
                     if ((currentKeyboardState.IsKeyDown(Keys.Escape) && !previousKeyboardState.IsKeyDown(Keys.Escape)) || (currentGamePadState.IsButtonDown(Buttons.Start) && !previousGamePadState.IsButtonDown(Buttons.Start)))
                         gameState = GameState.Game;
-                    if (currentKeyboardState.IsKeyDown(Keys.Enter))
-                        gameState = GameState.Menu;
+
+                    if (currentKeyboardState.IsKeyDown(Keys.Down) && !previousKeyboardState.IsKeyDown(Keys.Down) && DisplayManager.PausePointer < DisplayManager.PauseButtons.Count - 1)
+                    {
+                        DisplayManager.PausePointer += 1;
+                    }
+                    else if (currentKeyboardState.IsKeyDown(Keys.Up) && !previousKeyboardState.IsKeyDown(Keys.Up) && DisplayManager.PausePointer > 0)
+                    {
+                        DisplayManager.PausePointer -= 1;
+                    }
+
+                    for (int i = 0; i < DisplayManager.PauseButtons.Count; i++)
+                    {
+                        // Checking which button the pointer is on
+                        if (DisplayManager.PausePointer == i || DisplayManager.PauseButtons[i].Rect.Contains(currentMouseState.Position))
+                        {
+                            DisplayManager.PausePointer = i;
+                            DisplayManager.PauseButtons[i].IsHighlighted = true;
+                        }
+                        else
+                        {
+                            DisplayManager.PauseButtons[i].IsHighlighted = false;
+                        }
+
+                        // If pointer is on button and Enter/Left mouse button is pressed, do whatever the button is supposed to do
+                        if ((currentMouseState.LeftButton.Equals(ButtonState.Pressed) || (!previousKeyboardState.IsKeyDown(Keys.Enter) && currentKeyboardState.IsKeyDown(Keys.Enter)) && DisplayManager.PauseButtons[i].IsHighlighted))
+                        {
+                            if (DisplayManager.PausePointer == DisplayManager.PauseButtons.Count - 1)
+                            {
+                                Exit();
+                            }
+                            else if(DisplayManager.PausePointer == 0)
+                            {
+                                gameState = GameState.Menu;
+                            }
+                            // Saving this for Restart Game button
+                            //else
+                            //{
+                            //    EntityManager.Instance.ClearEntities();
+                            //    EntityManager.Instance.ResetPlayer();
+                            //    FloorManager.Instance.FloorNumber = 1;
+                            //    FloorManager.Instance.GenerateFloor();
+                            //    gameState = GameState.Game;
+                            //}
+                        }
+                    }
                     break;
                 case GameState.Map:
                     if ((!currentKeyboardState.IsKeyDown(Keys.Tab) && previousKeyboardState.IsKeyDown(Keys.Tab)) || (currentGamePadState.IsButtonDown(Buttons.Back) && !previousGamePadState.IsButtonDown(Buttons.Back)))
