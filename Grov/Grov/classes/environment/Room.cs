@@ -76,7 +76,8 @@ namespace Grov
 
             if(this.Type == RoomType.Treasure)
             {
-                pickupsInRoom.Add(new Pickup(PickupType.Heart, new Rectangle(DisplayManager.GraphicsDevice.Viewport.Width/2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30, 60, 60), DisplayManager.PickupTextureMap[PickupType.Heart]));
+                //pickupsInRoom.Add(new Pickup(PickupType.Heart, new Rectangle(DisplayManager.GraphicsDevice.Viewport.Width/2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30, 60, 60)));
+                pickupsInRoom.Add(new Weapon("StarBurst", new Rectangle(DisplayManager.GraphicsDevice.Viewport.Width / 2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30, 60, 60), DisplayManager.ProjectileTextureMap[ProjectileType.Fire], true));
             }
 
             // Testing - adds either a random weapon or a heart into the room
@@ -111,6 +112,17 @@ namespace Grov
                 {
                     bottom.OpenDoor();
                 }
+
+                foreach(Tile[] tileArray in tiles)
+                {
+                    foreach(Tile tile in tileArray)
+                    {
+                        if(tile.Type == TileType.BossDoor)
+                        {
+                            tile.IsPassable = true;
+                        }
+                    }
+                }
             }
 
             if(pickupsInRoom.Count > 0)
@@ -132,7 +144,7 @@ namespace Grov
 				{
 					Tile cur = tiles[x][y];
 
-                    if(cur.Type != TileType.Entrance)
+                    if(cur.Type != TileType.Entrance && cur.Type != TileType.BossDoor)
 					    spriteBatch.Draw(DisplayManager.TileTextureMap[(int)cur.Type].GetNextTexture(), 
 						                 new Rectangle(FloorManager.TileWidth * x, FloorManager.TileHeight * y, FloorManager.TileWidth, FloorManager.TileHeight), 
 									     Color.White);

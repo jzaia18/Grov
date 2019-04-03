@@ -58,7 +58,7 @@ namespace Grov
         #region constructor
         // ************* Constructor ************* //
 
-        public Weapon(string filename, Rectangle drawPos, AnimatedTexture texture, bool isActive) : base(PickupType.Weapon, drawPos, texture)
+        public Weapon(string filename, Rectangle drawPos, AnimatedTexture texture, bool isActive) : base(PickupType.Weapon, drawPos)
         {
             ReadFromFile(@"resources\weapons\" + filename + ".txt");
             this.isActive = isActive;

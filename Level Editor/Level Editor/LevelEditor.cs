@@ -196,10 +196,14 @@ namespace Level_Editor
                                     case -128:
                                         writer.Write(6);
                                         break;
-                                //Flower
-                                case -65281:
-                                    writer.Write(7);
-                                    break;
+                                    //Flower
+                                    case -65281:
+                                        writer.Write(7);
+                                        break;
+                                    //Boss door
+                                    case -65536:
+                                        writer.Write(8);
+                                        break;
                                     //HELP ME :'(
                                     default:
                                         throw new Exception();
@@ -434,6 +438,9 @@ namespace Level_Editor
                             //Flower
                             case 7:
                                 mapArray[i, ii].BackColor = Color.FromArgb(-65281);
+                                break;
+                            case 8:
+                                mapArray[i, ii].BackColor = Color.FromArgb(-65536);
                                 break;
                             default:
                                 throw new Exception();

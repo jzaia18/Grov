@@ -45,7 +45,7 @@ namespace Grov
             pickups = new List<Pickup>();
 
             //testing
-            player = new Player(100, 100, 2, 5, 5, 1, new Rectangle((15  * FloorManager.TileWidth) + FloorManager.TileWidth/2, (8 * FloorManager.TileHeight) + FloorManager.TileWidth/2, 60, 74), 
+            player = new Player(100, 100, 2, 6, 5, 1, new Rectangle((15  * FloorManager.TileWidth) + FloorManager.TileWidth/2, (8 * FloorManager.TileHeight) + FloorManager.TileWidth/2, 60, 74), 
                 new Rectangle((15 * FloorManager.TileWidth) + FloorManager.TileWidth/2, (8 * FloorManager.TileHeight) + FloorManager.TileWidth/2 + 45, 60, 29), new Vector2(0, 0), null);
         }
 
@@ -147,6 +147,9 @@ namespace Grov
             pickups.Clear();
         }
 
+        /// <summary>
+        /// This method is called when you start a new name; resets player to default values
+        /// </summary>
         public void ResetPlayer()
         {
             player.Position = new Vector2((15 * FloorManager.TileWidth) + FloorManager.TileWidth / 2, (8 * FloorManager.TileHeight) + FloorManager.TileWidth / 2);
@@ -275,6 +278,20 @@ namespace Grov
                     FloorManager.Instance.CurrRoom.SpawnPickups();
 
                     //Rest of the collisions don't matter because we're in a new room now
+                    return;
+                }
+                else if(entityTile.Type == TileType.BossDoor && entity == player)
+                {
+                    //Clear all entities
+                    this.ClearEntities();
+
+                    //Make a new floor
+                    FloorManager.Instance.FloorNumber++;
+                    FloorManager.Instance.GenerateFloor();
+
+                    //Reset player position
+                    player.Position = new Vector2((15 * FloorManager.TileWidth) + FloorManager.TileWidth / 2, (8 * FloorManager.TileHeight) + FloorManager.TileWidth / 2);
+
                     return;
                 }
             }

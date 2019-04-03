@@ -25,7 +25,8 @@ namespace Grov
         Rock = 4,
         Stump = 5,
         Bridge = 6,
-        Flower = 7
+        Flower = 7,
+        BossDoor = 8
     }
 	class Tile
 	{
@@ -104,6 +105,11 @@ namespace Grov
 
                 //Death
                 case -1:
+                    isPassable = false;
+                    blocksProjectiles = true;
+                    break;
+                //Boss door
+                case 8:
                     isPassable = false;
                     blocksProjectiles = true;
                     break;

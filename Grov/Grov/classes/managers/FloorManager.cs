@@ -61,7 +61,9 @@ namespace Grov
         #region methods
         // ************* Methods ************* //
 
-
+        /// <summary>
+        /// This code creates a new floor. Always call this method.
+        /// </summary>
         public void GenerateFloor()
         {
             RoomNode[,] floor = new RoomNode[11, 11];
@@ -228,6 +230,11 @@ namespace Grov
             } while (!AssembleRooms(floor));
         }
 
+        /// <summary>
+        /// This method links actual rooms together using the randomly generated map. This should ONLY EVER BE CALLED by the GenerateFloor() method
+        /// </summary>
+        /// <param name="floor"></param>
+        /// <returns></returns>
         private bool AssembleRooms(RoomNode[,] floor)
         { 
             numRooms = 0;
@@ -243,10 +250,17 @@ namespace Grov
                 }
             }
 
-            //If it's too small, throw it out
-            if(numRooms < 12)
+            //If it's too large or small, throw it out
+            if (floorNumber < 25)
             {
-                return false;
+                if (numRooms < 10 + ((floorNumber - 1) * 3))
+                {
+                    return false;
+                }
+                if (numRooms > 12 + ((floorNumber - 1) * 3))
+                {
+                    return false;
+                }
             }
 
             //We need to add boss rooms
@@ -278,6 +292,12 @@ namespace Grov
                 deadEnds.RemoveAt(rng);
                 rng = GameManager.RNG.Next(0, deadEnds.Count);
                 floor[deadEnds[rng].X, deadEnds[rng].Y].Type = RoomType.Treasure;
+            }
+
+            //We don't want the boss room to be adjacent to the boss room
+            if(floor[4,5].Type == RoomType.Boss || floor[6, 5].Type == RoomType.Boss || floor[5, 4].Type == RoomType.Boss || floor[5, 6].Type == RoomType.Boss)
+            {
+                return false;
             }
 
             //Add the spawn room
