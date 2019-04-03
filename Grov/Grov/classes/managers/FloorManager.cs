@@ -106,15 +106,15 @@ namespace Grov
 
                         //Randomly decrease the odds of adding a door
                             //Odds decrease further as instance increases
-                        if (chanceModifier > 80 - (instance * 5))
+                        if (chanceModifier > 80 + (instance * 7))
                         {
                             chanceModifier = 10;
                         }
-                        else if (chanceModifier > 60 - (instance * 6))
+                        else if (chanceModifier > 60 + (instance * 7))
                         {
                             chanceModifier = 15;
                         }
-                        else if (chanceModifier > 20 - (instance * 8))
+                        else if (chanceModifier > 20 + (instance * 8))
                         {
                             chanceModifier = 30;
                         }
@@ -242,13 +242,24 @@ namespace Grov
             }
 
             //If it's too large or small, throw it out
-            if (floorNumber < 25)
+            if (floorNumber < 17)
             {
-                if (numRooms < 10 + ((floorNumber - 1) * 3))
+                if (numRooms < 8 + ((floorNumber - 1) * 3))
                 {
                     return false;
                 }
-                if (numRooms > 12 + ((floorNumber - 1) * 3))
+                if (numRooms > 12 + ((floorNumber - 1) * 3.5))
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (numRooms < 60)
+                {
+                    return false;
+                }
+                if (numRooms > 90)
                 {
                     return false;
                 }
