@@ -26,7 +26,7 @@ namespace Grov
         public Texture2D NoHover { get => noHover; set => noHover = value; }
         public Texture2D Hover { get => hover; set => hover = value; }
         public Rectangle Rect { get => rect; }
-        public bool IsHighlighted { get => isHighlighted; }
+        public bool IsHighlighted { get => isHighlighted; set => isHighlighted = value; }
         #endregion
 
         #region constructor
@@ -39,19 +39,15 @@ namespace Grov
         #endregion
 
         #region methods
-        //Draws button image depending on whether mouse is hovering over it or not
+        //Draws button image depending on whether the pointer is on it or not
         public void Draw(SpriteBatch spriteBatch)
         {
-            MouseState ms = Mouse.GetState();
-
-            if (rect.Contains(ms.X, ms.Y - 10))
+            if (isHighlighted)
             {
-                isHighlighted = true;
                 spriteBatch.Draw(hover, rect, Color.White);
             }
             else
             {
-                isHighlighted = false;
                 spriteBatch.Draw(noHover, rect, Color.White);
             }
         }

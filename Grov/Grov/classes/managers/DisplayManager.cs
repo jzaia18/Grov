@@ -31,6 +31,7 @@ namespace Grov
 
         // Button stuff
         private List<Button> menuButtons;
+        private int menuPointer;
 
         private Texture2D startTexture_NH;
         private Texture2D startTexture_H;
@@ -55,6 +56,7 @@ namespace Grov
         public static Dictionary<ProjectileType, AnimatedTexture> ProjectileTextureMap { get => instance.projectileTextureMap; }
         public static Dictionary<PickupType, AnimatedTexture> PickupTextureMap { get => instance.pickupTextureMap; }
         public static List<Button> MenuButtons { get => instance.menuButtons; }
+        public static int MenuPointer { get => instance.menuPointer; set => instance.menuPointer = value; }
 
         #endregion
 
@@ -63,6 +65,7 @@ namespace Grov
         private DisplayManager()
         {
             menuButtons = new List<Button>();
+            menuPointer = 0;
         }
 
         public static void Initialize(ContentManager cm, GraphicsDevice gd)
@@ -118,6 +121,7 @@ namespace Grov
             instance.menuButtons.Add(new Button(new Rectangle(new Point(850, 500), new Point(instance.startTexture_NH.Width, instance.startTexture_NH.Height))));
             instance.menuButtons[0].NoHover = instance.startTexture_NH;
             instance.menuButtons[0].Hover = instance.startTexture_H;
+            instance.menuButtons[0].IsHighlighted = true;
 
             instance.optionsTexture_NH = ContentManager.Load<Texture2D>("button images/OptionsButton_NoHover");
             instance.optionsTexture_H = ContentManager.Load<Texture2D>("button images/OptionsButton_Hover");
@@ -158,7 +162,7 @@ namespace Grov
                     break;
                 case GameState.Menu:
                     spriteBatch.DrawString(courierNew, "Grov", new Vector2(915, 200), Color.Black);
-                    for(int i = 0; i < menuButtons.Count; i++)
+                    for (int i = 0; i < menuButtons.Count; i++)
                     {
                         menuButtons[i].Draw(spriteBatch);
                     }

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
-// Authors: Jake Zaia
+// Authors: Jake Zaia, Rachel Wong
 
 namespace Grov
 {
@@ -18,6 +18,13 @@ namespace Grov
         Menu,
         PauseMenu,
         Map
+    }
+
+    enum ControlState
+    {
+        KeyboardMode,
+        MouseMode,
+        GamePadMode
     }
 
     class GameManager
@@ -103,9 +110,27 @@ namespace Grov
                     FloorManager.Instance.Update();
                     break;
                 case GameState.Menu:
+                    if (currentKeyboardState.IsKeyDown(Keys.Down) && !previousKeyboardState.IsKeyDown(Keys.Down) && DisplayManager.MenuPointer <= DisplayManager.MenuButtons.Count - 1)
+                    {
+                        DisplayManager.MenuPointer += 1;
+                    }
+                    else if (currentKeyboardState.IsKeyDown(Keys.Up) && !previousKeyboardState.IsKeyDown(Keys.Up) && DisplayManager.MenuPointer >= 0)
+                    {
+                        DisplayManager.MenuPointer -= 1;
+                    }
+
                     for (int i = 0; i < DisplayManager.MenuButtons.Count; i++)
                     {
-                        if (CurrentMouseState.LeftButton.Equals(ButtonState.Pressed) && DisplayManager.MenuButtons[i].IsHighlighted)
+                        if (DisplayManager.MenuPointer == i)
+                        {
+                            DisplayManager.MenuButtons[i].IsHighlighted = true;
+                        }
+                        else
+                        {
+                            DisplayManager.MenuButtons[i].IsHighlighted = false;
+                        }
+
+                        if ((currentMouseState.LeftButton.Equals(ButtonState.Pressed) || currentKeyboardState.IsKeyDown(Keys.Enter)) && DisplayManager.MenuButtons[i].IsHighlighted)
                         {
                             if (i == DisplayManager.MenuButtons.Count - 1)
                             {
