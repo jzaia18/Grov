@@ -115,8 +115,8 @@ namespace Grov
                             {
                                 EntityManager.Instance.ClearEntities();
                                 EntityManager.Instance.ResetPlayer();
-                                FloorManager.Instance.GenerateFloor();
                                 FloorManager.Instance.FloorNumber = 1;
+                                FloorManager.Instance.GenerateFloor();
                                 gameState = GameState.Game;
                             }
                         }

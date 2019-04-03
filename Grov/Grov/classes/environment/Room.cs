@@ -111,6 +111,17 @@ namespace Grov
                 {
                     bottom.OpenDoor();
                 }
+
+                foreach(Tile[] tileArray in tiles)
+                {
+                    foreach(Tile tile in tileArray)
+                    {
+                        if(tile.Type == TileType.BossDoor)
+                        {
+                            tile.IsPassable = true;
+                        }
+                    }
+                }
             }
 
             if(pickupsInRoom.Count > 0)
@@ -132,7 +143,7 @@ namespace Grov
 				{
 					Tile cur = tiles[x][y];
 
-                    if(cur.Type != TileType.Entrance)
+                    if(cur.Type != TileType.Entrance && cur.Type != TileType.BossDoor)
 					    spriteBatch.Draw(DisplayManager.TileTextureMap[(int)cur.Type].GetNextTexture(), 
 						                 new Rectangle(FloorManager.TileWidth * x, FloorManager.TileHeight * y, FloorManager.TileWidth, FloorManager.TileHeight), 
 									     Color.White);
