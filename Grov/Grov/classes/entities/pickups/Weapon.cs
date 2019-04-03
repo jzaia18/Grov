@@ -171,6 +171,22 @@ namespace Grov
         {
             return (this.fireRate <= this.fireDelay * multiplier);
         }
+
+        /// <summary>
+        /// Generates the filename of a random weapon excluding the development Weapon
+        /// </summary>
+        /// <returns>A random weapon's filename </returns>
+        public static string GenRandomFilename()
+        {
+            string[] filenames = Directory.GetFiles(@"resources\weapons\");
+            for (int i = 0; i < filenames.Length; i++)
+            {
+                filenames[i] = filenames[i].Split('\\')[2];
+                filenames[i] = filenames[i].Split('.')[0];
+            }
+
+            return filenames[GameManager.RNG.Next(filenames.Length)];
+        }
         #endregion
     }
 }
