@@ -70,6 +70,7 @@ namespace Grov
 
         #region constructors
         // ************* Constructor ************* //
+
         private DisplayManager()
         {
             menuButtons = new List<Button>();
