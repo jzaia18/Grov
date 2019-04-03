@@ -24,6 +24,7 @@ namespace Grov
         private Dictionary<EnemyType, AnimatedTexture> enemyTextureMap;
         private Dictionary<ProjectileType, AnimatedTexture> projectileTextureMap;
         private Dictionary<PickupType, AnimatedTexture> pickupTextureMap;
+        private Dictionary<string, AnimatedTexture> weaponTextureMap;
         private ContentManager contentManager;
         private GraphicsDevice graphicsDevice;
         private static DisplayManager instance;
@@ -59,6 +60,7 @@ namespace Grov
         public static Dictionary<EnemyType, AnimatedTexture> EnemyTextureMap { get => instance.enemyTextureMap; }
         public static Dictionary<ProjectileType, AnimatedTexture> ProjectileTextureMap { get => instance.projectileTextureMap; }
         public static Dictionary<PickupType, AnimatedTexture> PickupTextureMap { get => instance.pickupTextureMap; }
+        public static Dictionary<string, AnimatedTexture> WeaponTextureMap { get => instance.weaponTextureMap; }
         public static List<Button> MenuButtons { get => instance.menuButtons; }
         public static int MenuPointer { get => instance.menuPointer; set => instance.menuPointer = value; }
         public static List<Button> PauseButtons { get => instance.pauseButtons; }
@@ -120,6 +122,15 @@ namespace Grov
             {
                 Instance.pickupTextureMap[typeOfPickup] = new AnimatedTexture(ContentManager.Load<Texture2D>("pickups/" + Enum.GetName(typeof(PickupType), typeOfPickup)));
             }
+
+            // TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP
+            // use same placeholder for all weapons
+            instance.weaponTextureMap = new Dictionary<string, AnimatedTexture>();
+            foreach (string filename in Weapon.GetAllFilenames())
+            {
+                Instance.weaponTextureMap[filename] = new AnimatedTexture(ContentManager.Load<Texture2D>("projectiles/Fire"));
+            }
+            Instance.weaponTextureMap["dev/Dev"] = new AnimatedTexture(ContentManager.Load<Texture2D>("projectiles/Fire"));
 
             // Load SpriteFonts
             instance.courierNew = ContentManager.Load<SpriteFont>("CourierNew");

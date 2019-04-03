@@ -27,6 +27,7 @@ namespace Grov
         // ************* Fields ************* //
 
         private string name;
+        private string filename;
         private int fireRate;
         private float atkDamage;
         private float manaCost;
@@ -43,6 +44,7 @@ namespace Grov
         #region properties
         // ************* Properties ************* //
 
+        public string Filename { get => filename; }
         public string Name { get => name; }
         public float FireRate { get => fireRate; }
         public float AttackDamage { get => atkDamage; }
@@ -58,8 +60,10 @@ namespace Grov
         #region constructor
         // ************* Constructor ************* //
 
-        public Weapon(string filename, Rectangle drawPos, AnimatedTexture texture, bool isActive) : base(PickupType.Weapon, drawPos)
+        public Weapon(string filename, Rectangle drawPos, bool isActive) : base(PickupType.Weapon, drawPos)
         {
+            this.filename = filename;
+            texture = (AnimatedTexture) DisplayManager.WeaponTextureMap[filename].Clone();
             ReadFromFile(@"resources\weapons\" + filename + ".txt");
             this.isActive = isActive;
         }
@@ -173,10 +177,10 @@ namespace Grov
         }
 
         /// <summary>
-        /// Generates the filename of a random weapon excluding the development Weapon
+        /// Gets all weapon file names
         /// </summary>
-        /// <returns>A random weapon's filename </returns>
-        public static string GenRandomFilename()
+        /// <returns>An array of all weapon filenames</returns>
+        public static string[] GetAllFilenames()
         {
             string[] filenames = Directory.GetFiles(@"resources\weapons\");
             for (int i = 0; i < filenames.Length; i++)
@@ -184,6 +188,17 @@ namespace Grov
                 filenames[i] = filenames[i].Split('\\')[2];
                 filenames[i] = filenames[i].Split('.')[0];
             }
+
+            return filenames;
+        }
+
+        /// <summary>
+        /// Generates the filename of a random weapon excluding the development Weapon
+        /// </summary>
+        /// <returns>A random weapon's filename </returns>
+        public static string GenRandomFilename()
+        {
+            string[] filenames = GetAllFilenames();
 
             return filenames[GameManager.RNG.Next(filenames.Length)];
         }

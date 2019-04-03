@@ -33,6 +33,7 @@ namespace Grov
 
         public static Player Player { get => instance.player;  }
         public static EntityManager Instance { get => instance; }
+        public static List<Pickup> Pickups { get => instance.pickups; }
         #endregion
 
         #region constructor
@@ -153,9 +154,9 @@ namespace Grov
         public void ResetPlayer()
         {
             player.Position = new Vector2((15 * FloorManager.TileWidth) + FloorManager.TileWidth / 2, (8 * FloorManager.TileHeight) + FloorManager.TileWidth / 2);
-            player.Weapon = new Weapon("Default", default(Rectangle), null, false);
+            player.Weapon = new Weapon("Default", default(Rectangle), false);
             if(GameManager.DEVMODE == true)
-                player.Secondary = new Weapon("dev/Dev", default(Rectangle), null, false);
+                player.Secondary = new Weapon("dev/Dev", default(Rectangle), false);
             player.CurrHP = 100;
             player.MaxHP = 100;
             player.MaxMP = 100;

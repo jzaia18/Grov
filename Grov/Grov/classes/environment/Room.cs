@@ -77,7 +77,7 @@ namespace Grov
             if(this.Type == RoomType.Treasure)
             {
                 //pickupsInRoom.Add(new Pickup(PickupType.Heart, new Rectangle(DisplayManager.GraphicsDevice.Viewport.Width/2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30, 60, 60)));
-                pickupsInRoom.Add(new Weapon(Weapon.GenRandomFilename(), new Rectangle(DisplayManager.GraphicsDevice.Viewport.Width / 2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30, 60, 60), DisplayManager.ProjectileTextureMap[ProjectileType.Fire], true));
+                pickupsInRoom.Add(new Weapon(Weapon.GenRandomFilename(), new Rectangle(DisplayManager.GraphicsDevice.Viewport.Width / 2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30, 60, 60), true));
             }
 
             // Testing - adds either a random weapon or a heart into the room
