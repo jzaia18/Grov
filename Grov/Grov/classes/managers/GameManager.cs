@@ -38,6 +38,7 @@ namespace Grov
         private bool gameExit;
         private Random rng;
         private GameState gameState;
+        private List<String> spawnedWeapons;
 
         private GamePadState previousGamePadState;
         private GamePadState currentGamePadState;
@@ -63,6 +64,7 @@ namespace Grov
         public static KeyboardState CurrentKeyboardState { get => instance.currentKeyboardState; }
         public static MouseState PreviousMouseState { get => instance.previousMouseState; }
         public static MouseState CurrentMouseState { get => instance.currentMouseState; }
+        public List<String> SpawnedWeapons { get => instance.spawnedWeapons; }
 
         #endregion
 
@@ -148,6 +150,7 @@ namespace Grov
                             else
                             {
                                 EntityManager.Instance.ClearEntities();
+                                spawnedWeapons = new List<String>();
                                 EntityManager.Instance.ResetPlayer();
                                 FloorManager.Instance.FloorNumber = 1;
                                 FloorManager.Instance.GenerateFloor();

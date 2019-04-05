@@ -89,7 +89,7 @@
     <Content Include="resources\weapons\player\BubbleX.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="resources\weapons\player\Default.txt">
+    <Content Include="resources\weapons\dev\Default.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="resources\weapons\dev\Dev.txt">
