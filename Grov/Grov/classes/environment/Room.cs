@@ -149,7 +149,7 @@ namespace Grov
 						                 new Rectangle(FloorManager.TileWidth * x, FloorManager.TileHeight * y, FloorManager.TileWidth, FloorManager.TileHeight), 
 									     Color.White);
                     else if(isCleared)
-                        if((x == 0 && left.NextRoom.Type == RoomType.Boss) || (x == 31 && right.NextRoom.Type == RoomType.Boss) || (y == 0 && top.NextRoom.Type == RoomType.Boss) || (y == 17 && bottom.NextRoom.Type == RoomType.Boss))
+                        if(cur.Type == TileType.Entrance && ((x == 0 && left.NextRoom.Type == RoomType.Boss) || (x == 31 && right.NextRoom.Type == RoomType.Boss) || (y == 0 && top.NextRoom.Type == RoomType.Boss) || (y == 17 && bottom.NextRoom.Type == RoomType.Boss)))
                             spriteBatch.Draw(DisplayManager.TileTextureMap[(int)TileType.Floor].GetNextTexture(),
                                          new Rectangle(FloorManager.TileWidth * x, FloorManager.TileHeight * y, FloorManager.TileWidth, FloorManager.TileHeight),
                                          Color.Red);

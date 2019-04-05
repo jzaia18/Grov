@@ -325,8 +325,8 @@ namespace Grov
                 case PickupType.Weapon:
                     //Place the secondary item on the floor
                     weapon.Position = new Vector2(pickup_item.Position.X - 110, pickup_item.Position.Y);
-                    weapon.DrawPos = new Rectangle((int)secondary.Position.X, (int)secondary.Position.Y, 60, 60);
-                    weapon.Hitbox = secondary.DrawPos;
+                    weapon.DrawPos = new Rectangle((int)weapon.Position.X, (int)weapon.Position.Y, 60, 60);
+                    weapon.Hitbox = weapon.DrawPos;
                     weapon.IsActive = true;
                     EntityManager.NewPickups.Add(weapon);
                     FloorManager.Instance.CurrRoom.PickupsInRoom.Add(weapon);
