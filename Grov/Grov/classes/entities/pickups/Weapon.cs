@@ -123,6 +123,17 @@ namespace Grov
         {
             float speedModifier = Math.Abs(direction.Length());
 
+            switch (projectileType)
+            {
+                case ProjectileType.Fire:
+                    AudioManager.Instance.PlayEffect("FireShot");
+                    break;
+
+                case ProjectileType.Bubble:
+                    AudioManager.Instance.PlayEffect("BubbleCast");
+                    break;
+            }
+
             switch (shotType)
             {
                 case ShotType.Normal:

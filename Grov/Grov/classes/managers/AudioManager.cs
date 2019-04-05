@@ -20,9 +20,11 @@ namespace Grov
         // ************* Fields ************* //
 
         Dictionary<string, SoundEffect> songs;
+        Dictionary<string, SoundEffect> effects;
         private static AudioManager instance;
         private SoundEffect currentSong;
         private double totalMilliseconds;
+        private int count; //test for frame count
         #endregion
 
         #region Properties
@@ -38,6 +40,7 @@ namespace Grov
         private AudioManager()
         {
             this.LoadSongs();
+            this.LoadEffects();
         }
 
         public static void Initialize()
@@ -53,6 +56,13 @@ namespace Grov
         #region Methods
         // ************* Methods ************* //
 
+        private void LoadEffects()
+        {
+            effects = new Dictionary<string, SoundEffect>();
+
+            effects.Add("FireShot", DisplayManager.ContentManager.Load<SoundEffect>("Audio/SFX/FireShot"));
+        }
+
         private void LoadSongs()
         {
             songs = new Dictionary<string, SoundEffect>();
@@ -67,18 +77,28 @@ namespace Grov
         public void PlaySong(string song)
         {
             Console.WriteLine(song);
+            Console.WriteLine(count);
             if (songs.ContainsKey(song))
             {
                 currentSong = songs[song];
                 currentSong.CreateInstance().Play();
+                count = 0;
+            }
+        }
+
+        public void PlayEffect(string effect)
+        {
+            if (effects.ContainsKey(effect))
+            {
+                effects[effect].CreateInstance().Play();
             }
         }
 
         //Testing purposes
         public void Update(GameTime gameTime)
         {
+            count++;
             totalMilliseconds += gameTime.ElapsedGameTime.Milliseconds;
-            Console.WriteLine(totalMilliseconds + "||\t" + currentSong.Duration.TotalMilliseconds);
             if (totalMilliseconds >= currentSong.Duration.TotalMilliseconds - 600 && currentSong.Name.Contains("Intro"))
             {
                 this.PlaySong(currentSong.Name.Substring(0, currentSong.Name.Length - 5) + "Loop");
