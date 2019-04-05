@@ -17,7 +17,8 @@ namespace Grov
         Game,
         Menu,
         PauseMenu,
-        Map
+        Map,
+        GameOver
     }
 
     //enum ControlState
@@ -109,6 +110,8 @@ namespace Grov
                         gameState = GameState.PauseMenu;
                     if ((currentKeyboardState.IsKeyDown(Keys.Tab)) || (currentGamePadState.IsButtonDown(Buttons.Back) && !previousGamePadState.IsButtonDown(Buttons.Back)))
                         gameState = GameState.Map;
+                    if ((EntityManager.Player.CurrHP <= 0))
+                        gameState = GameState.GameOver;
                     EntityManager.Instance.Update();
                     FloorManager.Instance.Update();
                     break;
@@ -204,6 +207,10 @@ namespace Grov
                 case GameState.Map:
                     if ((!currentKeyboardState.IsKeyDown(Keys.Tab) && previousKeyboardState.IsKeyDown(Keys.Tab)) || (currentGamePadState.IsButtonDown(Buttons.Back) && !previousGamePadState.IsButtonDown(Buttons.Back)))
                         gameState = GameState.Game;
+                    break;
+                case GameState.GameOver:
+                    if (currentKeyboardState.IsKeyDown(Keys.Enter))
+                        gameState = GameState.Menu;
                     break;
             }
 
