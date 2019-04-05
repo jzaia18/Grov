@@ -223,6 +223,11 @@ namespace Grov
                     spriteBatch.Draw(map, new Rectangle(0, 0, 1920, 1080), Color.White);
                     this.DrawMap(spriteBatch);
                     break;
+                case GameState.GameOver:
+                    FloorManager.Instance.Draw(spriteBatch);
+                    EntityManager.Instance.Draw(spriteBatch);
+                    spriteBatch.Draw(dimScreen, new Rectangle(0, 0, 1920, 1080), Color.White);
+                    break;
             }
         }
 
