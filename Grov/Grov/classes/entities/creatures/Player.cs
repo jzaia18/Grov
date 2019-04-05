@@ -323,14 +323,22 @@ namespace Grov
             switch (pickup_item.PickupType)
             {
                 case PickupType.Weapon:
-                    //Place the secondary item on the floor
-                    weapon.Position = new Vector2(pickup_item.Position.X - 110, pickup_item.Position.Y);
-                    weapon.DrawPos = new Rectangle((int)weapon.Position.X, (int)weapon.Position.Y, 60, 60);
-                    weapon.Hitbox = weapon.DrawPos;
-                    weapon.IsActive = true;
-                    EntityManager.NewPickups.Add(weapon);
-                    FloorManager.Instance.CurrRoom.PickupsInRoom.Add(weapon);
-                    this.weapon = (Weapon)pickup_item;
+                    if (secondary == null)
+                    {
+                        secondary = weapon;
+                        weapon = (Weapon)pickup_item;
+                    }
+                    else
+                    {
+                        //Place the secondary item on the floor
+                        weapon.Position = new Vector2(pickup_item.Position.X - 110, pickup_item.Position.Y);
+                        weapon.DrawPos = new Rectangle((int)weapon.Position.X, (int)weapon.Position.Y, 60, 60);
+                        weapon.Hitbox = weapon.DrawPos;
+                        weapon.IsActive = true;
+                        EntityManager.NewPickups.Add(weapon);
+                        FloorManager.Instance.CurrRoom.PickupsInRoom.Add(weapon);
+                        this.weapon = (Weapon)pickup_item;
+                    }
                     break;
                 case PickupType.Heart:
                     this.CurrHP += 10f;
