@@ -26,7 +26,6 @@ namespace Grov
         private float currMP;
         private int cooldown;
         private bool stoppedFiring;
-        private Weapon weapon;
         private Weapon secondary;
         private int keys;
         private int bombs;
@@ -57,7 +56,6 @@ namespace Grov
         public float MaxMP { get => maxMP; set => maxMP = value; }
         public int Keys { get => keys; set => keys = value; }
         public int Bombs { get => bombs; set => bombs = value; }
-        public Weapon Weapon { get => weapon; set => weapon = value; }
         public Weapon Secondary { get => secondary; set => secondary = value; }
         public int IFrames { get => Iframes; set => Iframes = value; }
         #endregion

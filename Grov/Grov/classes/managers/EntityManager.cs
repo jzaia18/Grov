@@ -345,7 +345,6 @@ namespace Grov
         public void SpawnEnemies(EnemyType enemyType, Vector2 position)
         {
 
-            //TODO: MUST TEST
             string filename = @"resources\enemies\" + enemyType + ".txt"; 
             StreamReader reader = null;
             try
@@ -359,8 +358,9 @@ namespace Grov
                 float attackDamage = float.Parse(reader.ReadLine());
                 float moveSpeed = float.Parse(reader.ReadLine());
                 float projectileSpeed = float.Parse(reader.ReadLine());
+                string weaponName = reader.ReadLine();
 
-                enemies.Add(new Enemy(enemyType, maxHP, true, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle((int)position.X, (int)position.Y, 60, 60), new Vector2(0,0)));
+                enemies.Add(new Enemy(enemyType, maxHP, true, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle((int)position.X, (int)position.Y, 60, 60), new Vector2(0,0), weaponName));
             }
             catch (Exception e)
             {
