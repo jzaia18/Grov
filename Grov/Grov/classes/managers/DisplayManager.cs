@@ -134,6 +134,7 @@ namespace Grov
                 Instance.weaponTextureMap[filename] = new AnimatedTexture(ContentManager.Load<Texture2D>("projectiles/Fire"));
             }
             Instance.weaponTextureMap[@"dev\Dev"] = new AnimatedTexture(ContentManager.Load<Texture2D>("projectiles/Fire"));
+            Instance.weaponTextureMap[@"dev\Default"] = new AnimatedTexture(ContentManager.Load<Texture2D>("projectiles/Fire"));
 
             // Load title textures
             instance.title = ContentManager.Load<Texture2D>("Title");
