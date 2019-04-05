@@ -149,6 +149,11 @@ namespace Grov
 						                 new Rectangle(FloorManager.TileWidth * x, FloorManager.TileHeight * y, FloorManager.TileWidth, FloorManager.TileHeight), 
 									     Color.White);
                     else if(isCleared)
+                        if((x == 0 && left.NextRoom.Type == RoomType.Boss) || (x == 31 && right.NextRoom.Type == RoomType.Boss) || (y == 0 && top.NextRoom.Type == RoomType.Boss) || (y == 17 && bottom.NextRoom.Type == RoomType.Boss))
+                            spriteBatch.Draw(DisplayManager.TileTextureMap[(int)TileType.Floor].GetNextTexture(),
+                                         new Rectangle(FloorManager.TileWidth * x, FloorManager.TileHeight * y, FloorManager.TileWidth, FloorManager.TileHeight),
+                                         Color.Red);
+                        else
                         spriteBatch.Draw(DisplayManager.TileTextureMap[(int)TileType.Floor].GetNextTexture(),
                                          new Rectangle(FloorManager.TileWidth * x, FloorManager.TileHeight * y, FloorManager.TileWidth, FloorManager.TileHeight),
                                          Color.White);
@@ -290,6 +295,9 @@ namespace Grov
         {
             foreach(Pickup pickup in pickupsInRoom)
             {
+                pickup.Position = new Vector2(DisplayManager.GraphicsDevice.Viewport.Width / 2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30);
+                pickup.DrawPos = new Rectangle(DisplayManager.GraphicsDevice.Viewport.Width / 2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30, 60, 60);
+                pickup.Hitbox = new Rectangle(DisplayManager.GraphicsDevice.Viewport.Width / 2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30, 60, 60);
                 EntityManager.Instance.SpawnPickup(pickup);
             }
         }

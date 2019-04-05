@@ -326,10 +326,13 @@ namespace Grov
             {
                 case PickupType.Weapon:
                     //Place the secondary item on the floor
-                    if(secondary != null)
+                    if (secondary != null)
                     {
-                        secondary.Hitbox = new Rectangle(pickup_item.DrawPos.X, pickup_item.DrawPos.Y, pickup_item.DrawPos.Width, pickup_item.DrawPos.Height);
+                        secondary.Position = new Vector2(pickup_item.Position.X - 110, pickup_item.Position.Y);
+                        secondary.DrawPos = new Rectangle((int)secondary.Position.X, (int)secondary.Position.Y, 60, 60);
+                        secondary.Hitbox = secondary.DrawPos;
                         secondary.IsActive = true;
+                        EntityManager.NewPickups.Add(secondary);
                         FloorManager.Instance.CurrRoom.PickupsInRoom.Add(secondary);
                     }
                     //Put the primary in the secondary
