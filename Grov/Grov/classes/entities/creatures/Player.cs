@@ -32,6 +32,7 @@ namespace Grov
         private Vector2 aimDirection;
         private bool isInputKeyboard;
         private int Iframes;
+        private Weapon lastWeaponFired;
         #endregion
 
         #region properties
@@ -57,6 +58,7 @@ namespace Grov
         public int Keys { get => keys; set => keys = value; }
         public int Bombs { get => bombs; set => bombs = value; }
         public Weapon Secondary { get => secondary; set => secondary = value; }
+        public Weapon LastWeaponFired { get => lastWeaponFired; set => lastWeaponFired = value; }
         public int IFrames { get => Iframes; set => Iframes = value; }
         #endregion
 
@@ -88,6 +90,8 @@ namespace Grov
             this.hitbox.Location += point;
             if(weapon != null)
                 this.weapon.Update();
+            if (secondary != null)
+                this.secondary.Update();
 
             if(this.currMP < this.MaxMP && cooldown == 0 && (weapon == null || weapon.ReadyToFire(fireRate)))
             {
@@ -153,14 +157,15 @@ namespace Grov
                     direction += new Vector2(1f, 0f);
                 }
                 if(weapon != null && ((GameManager.CurrentKeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Space)
-                    || GameManager.CurrentMouseState.LeftButton.Equals(ButtonState.Pressed)) && this.currMP > 0 && weapon.ReadyToFire(fireRate) && cooldown == 0))
+                    || GameManager.CurrentMouseState.LeftButton.Equals(ButtonState.Pressed)) && this.currMP > 0 && lastWeaponFired.ReadyToFire(fireRate) && cooldown == 0))
                 {
                     this.Attack();
+                    lastWeaponFired = weapon;
                     if (currMP <= 0) cooldown += weapon.Cooldown;
                     stoppedFiring = false;
                 }
                 //Switch primary weapon
-                if(GameManager.CurrentKeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.F) && !GameManager.PreviousKeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.F) && secondary != null && weapon.ReadyToFire(fireRate))
+                if(GameManager.CurrentKeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.F) && !GameManager.PreviousKeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.F) && secondary != null)
                 {
                     Weapon holder = weapon;
                     weapon = secondary;
@@ -186,7 +191,7 @@ namespace Grov
                 direction = GameManager.CurrentGamePadState.ThumbSticks.Left;
                 direction.Y = -direction.Y;
 
-                if (GameManager.CurrentGamePadState.IsButtonDown(Buttons.RightTrigger) && this.currMP >= 0 && weapon.ReadyToFire(fireRate) && cooldown == 0)
+                if (GameManager.CurrentGamePadState.IsButtonDown(Buttons.RightTrigger) && this.currMP >= 0 && lastWeaponFired.ReadyToFire(fireRate) && cooldown == 0)
                 {
                     this.Attack();
                     if (currMP <= 0) cooldown += weapon.Cooldown;
@@ -199,7 +204,7 @@ namespace Grov
                     stoppedFiring = true;
                 }
                 //Switch primary and secondary weapons
-                if(GameManager.CurrentGamePadState.IsButtonDown(Buttons.Y) && GameManager.PreviousGamePadState.IsButtonUp(Buttons.Y) && secondary != null && weapon.ReadyToFire(fireRate))
+                if(GameManager.CurrentGamePadState.IsButtonDown(Buttons.Y) && GameManager.PreviousGamePadState.IsButtonUp(Buttons.Y) && secondary != null)
                 {
                     Weapon holder = weapon;
                     weapon = secondary;

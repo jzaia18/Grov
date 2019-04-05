@@ -164,6 +164,13 @@
 /processorParam:TextureFormat=Compressed
 /build:CourierNew.spritefont
 
+#begin CourierNew16.spritefont
+/importer:FontDescriptionImporter
+/processor:LocalizedFontProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:CourierNew16.spritefont
+
 #begin dimColor.png
 /importer:TextureImporter
 /processor:TextureProcessor

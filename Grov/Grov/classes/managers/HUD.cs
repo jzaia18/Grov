@@ -18,6 +18,7 @@ namespace Grov
         Texture2D healthBarEmpty;
         Texture2D manaBarFull;
         Texture2D manaBarEmpty;
+        SpriteFont courierNew16;
 
         // ************* Constructors ************* //
 
@@ -27,6 +28,7 @@ namespace Grov
             healthBarEmpty = DisplayManager.ContentManager.Load<Texture2D>("HealthBarEmptySprite");
             manaBarFull = DisplayManager.ContentManager.Load<Texture2D>("ManaBarFullSprite");
             manaBarEmpty = DisplayManager.ContentManager.Load<Texture2D>("ManaBarEmptySprite");
+            courierNew16 = DisplayManager.ContentManager.Load<SpriteFont>("CourierNew16");
         }
 
         // ************* Methods ************* //
@@ -40,6 +42,11 @@ namespace Grov
         {
             DrawHealth(sb);
             DrawMana(sb);
+
+            if(EntityManager.Player.Weapon != null)
+                sb.DrawString(courierNew16, string.Format("Primary: {0}", EntityManager.Player.Weapon.Name), new Vector2(12, 95), Color.White);
+            if (EntityManager.Player.Secondary != null)
+                sb.DrawString(courierNew16, string.Format("Secondary: {0}", EntityManager.Player.Secondary.Name), new Vector2(12, 115), Color.White);
         }
 
         // ************* Helper Methods ************* //

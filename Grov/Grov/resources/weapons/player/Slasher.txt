@@ -1,0 +1,10 @@
+Slasher Sword
+0
+3
+4
+1
+25
+Normal
+9
+3
+Bubble
