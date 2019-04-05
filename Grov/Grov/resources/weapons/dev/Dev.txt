@@ -2,9 +2,10 @@
 1
 10000
 0
-10
+50
 25
-Normal
+Radial
 -1
 200
 Fire
+true

@@ -8,3 +8,4 @@ Normal
 45
 7
 Fire
+false

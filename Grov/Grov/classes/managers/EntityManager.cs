@@ -169,8 +169,10 @@ namespace Grov
             player.Position = new Vector2((15 * FloorManager.TileWidth) + FloorManager.TileWidth / 2, (8 * FloorManager.TileHeight) + FloorManager.TileWidth / 2);
             player.Weapon = new Weapon(@"dev\Default", default(Rectangle), false);
             player.LastWeaponFired = player.Weapon;
-            if(GameManager.DEVMODE == true)
+            if (GameManager.DEVMODE == true)
                 player.Secondary = new Weapon(@"dev\Dev", default(Rectangle), false);
+            else
+                player.Secondary = null;
             player.CurrHP = 100;
             player.MaxHP = 100;
             player.MaxMP = 100;
@@ -191,10 +193,7 @@ namespace Grov
 
         public void HandleTerrainCollisions(Entity entity)
         {
-            //Noclip entities don't collide
-            if (entity is Projectile)
-                if (((Projectile)entity).Noclip)
-                    return;
+
 
             // Gathering all the tiles that the entities touch
             List<Tile> entityTiles = FloorManager.Instance.CollidesWith(entity);
@@ -207,6 +206,11 @@ namespace Grov
                     entity.IsActive = false;
                     return;
                 }
+
+                //Noclip entities don't collide
+                if (entity is Projectile)
+                    if (((Projectile)entity).Noclip)
+                        continue;
 
                 if ((!entityTile.IsPassable && !(entity is Projectile)) || (entityTile.BlocksProjectiles && (entity is Projectile)))
                 {

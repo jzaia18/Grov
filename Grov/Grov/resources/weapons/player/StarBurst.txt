@@ -8,3 +8,4 @@ Radial
 30
 20
 Fire
+false

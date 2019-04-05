@@ -8,3 +8,4 @@ Normal
 5
 0
 Bubble
+false

@@ -8,3 +8,4 @@ Normal
 90
 7
 Fire
+false
