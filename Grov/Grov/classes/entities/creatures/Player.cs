@@ -199,7 +199,7 @@ namespace Grov
                     stoppedFiring = true;
                 }
                 //Switch primary and secondary weapons
-                if(GameManager.CurrentGamePadState.IsButtonDown(Buttons.X) && GameManager.PreviousGamePadState.IsButtonUp(Buttons.X) && secondary != null && weapon.ReadyToFire(fireRate))
+                if(GameManager.CurrentGamePadState.IsButtonDown(Buttons.Y) && GameManager.PreviousGamePadState.IsButtonUp(Buttons.Y) && secondary != null && weapon.ReadyToFire(fireRate))
                 {
                     Weapon holder = weapon;
                     weapon = secondary;
@@ -324,17 +324,12 @@ namespace Grov
             {
                 case PickupType.Weapon:
                     //Place the secondary item on the floor
-                    if (secondary != null)
-                    {
-                        secondary.Position = new Vector2(pickup_item.Position.X - 110, pickup_item.Position.Y);
-                        secondary.DrawPos = new Rectangle((int)secondary.Position.X, (int)secondary.Position.Y, 60, 60);
-                        secondary.Hitbox = secondary.DrawPos;
-                        secondary.IsActive = true;
-                        EntityManager.NewPickups.Add(secondary);
-                        FloorManager.Instance.CurrRoom.PickupsInRoom.Add(secondary);
-                    }
-                    //Put the primary in the secondary
-                    secondary = weapon;
+                    weapon.Position = new Vector2(pickup_item.Position.X - 110, pickup_item.Position.Y);
+                    weapon.DrawPos = new Rectangle((int)secondary.Position.X, (int)secondary.Position.Y, 60, 60);
+                    weapon.Hitbox = secondary.DrawPos;
+                    weapon.IsActive = true;
+                    EntityManager.NewPickups.Add(weapon);
+                    FloorManager.Instance.CurrRoom.PickupsInRoom.Add(weapon);
                     this.weapon = (Weapon)pickup_item;
                     break;
                 case PickupType.Heart:
