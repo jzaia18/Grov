@@ -132,7 +132,7 @@ namespace Grov
             {
                 Instance.weaponTextureMap[filename] = new AnimatedTexture(ContentManager.Load<Texture2D>("projectiles/Fire"));
             }
-            Instance.weaponTextureMap["dev/Dev"] = new AnimatedTexture(ContentManager.Load<Texture2D>("projectiles/Fire"));
+            Instance.weaponTextureMap[@"dev\Dev"] = new AnimatedTexture(ContentManager.Load<Texture2D>("projectiles/Fire"));
 
             // Load SpriteFonts
             instance.courierNew = ContentManager.Load<SpriteFont>("CourierNew");

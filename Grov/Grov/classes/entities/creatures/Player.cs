@@ -26,7 +26,6 @@ namespace Grov
         private float currMP;
         private int cooldown;
         private bool stoppedFiring;
-        private Weapon weapon;
         private Weapon secondary;
         private int keys;
         private int bombs;
@@ -57,7 +56,6 @@ namespace Grov
         public float MaxMP { get => maxMP; set => maxMP = value; }
         public int Keys { get => keys; set => keys = value; }
         public int Bombs { get => bombs; set => bombs = value; }
-        public Weapon Weapon { get => weapon; set => weapon = value; }
         public Weapon Secondary { get => secondary; set => secondary = value; }
         public int IFrames { get => Iframes; set => Iframes = value; }
         #endregion
@@ -201,7 +199,7 @@ namespace Grov
                     stoppedFiring = true;
                 }
                 //Switch primary and secondary weapons
-                if(GameManager.CurrentGamePadState.IsButtonDown(Buttons.X) && GameManager.PreviousGamePadState.IsButtonUp(Buttons.X) && secondary != null && weapon.ReadyToFire(fireRate))
+                if(GameManager.CurrentGamePadState.IsButtonDown(Buttons.Y) && GameManager.PreviousGamePadState.IsButtonUp(Buttons.Y) && secondary != null && weapon.ReadyToFire(fireRate))
                 {
                     Weapon holder = weapon;
                     weapon = secondary;
@@ -326,14 +324,12 @@ namespace Grov
             {
                 case PickupType.Weapon:
                     //Place the secondary item on the floor
-                    if(secondary != null)
-                    {
-                        secondary.Hitbox = new Rectangle(pickup_item.DrawPos.X, pickup_item.DrawPos.Y, pickup_item.DrawPos.Width, pickup_item.DrawPos.Height);
-                        secondary.IsActive = true;
-                        FloorManager.Instance.CurrRoom.PickupsInRoom.Add(secondary);
-                    }
-                    //Put the primary in the secondary
-                    secondary = weapon;
+                    weapon.Position = new Vector2(pickup_item.Position.X - 110, pickup_item.Position.Y);
+                    weapon.DrawPos = new Rectangle((int)secondary.Position.X, (int)secondary.Position.Y, 60, 60);
+                    weapon.Hitbox = secondary.DrawPos;
+                    weapon.IsActive = true;
+                    EntityManager.NewPickups.Add(weapon);
+                    FloorManager.Instance.CurrRoom.PickupsInRoom.Add(weapon);
                     this.weapon = (Weapon)pickup_item;
                     break;
                 case PickupType.Heart:

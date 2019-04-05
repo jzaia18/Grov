@@ -136,7 +136,7 @@ namespace Grov
                         }
 
                         // If pointer is on button and Enter/Left mouse button is pressed, do whatever the button is supposed to do
-                        if ((currentMouseState.LeftButton.Equals(ButtonState.Pressed) || (!previousKeyboardState.IsKeyDown(Keys.Enter) && currentKeyboardState.IsKeyDown(Keys.Enter)) && DisplayManager.MenuButtons[i].IsHighlighted))
+                        if (((currentMouseState.LeftButton.Equals(ButtonState.Pressed) && previousMouseState.LeftButton.Equals(ButtonState.Released)) || (!previousKeyboardState.IsKeyDown(Keys.Enter) && currentKeyboardState.IsKeyDown(Keys.Enter)) && DisplayManager.MenuButtons[i].IsHighlighted))
                         {
                             if (DisplayManager.MenuPointer == DisplayManager.MenuButtons.Count - 1)
                             {

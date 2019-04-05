@@ -191,13 +191,14 @@ namespace Grov
         /// Gets all weapon file names
         /// </summary>
         /// <returns>An array of all weapon filenames</returns>
-        public static string[] GetAllFilenames()
+        public static string[] GetAllFilenames(bool isPlayerWeapon = true)
         {
-            string[] filenames = Directory.GetFiles(@"resources\weapons\");
+            string[] filenames = Directory.GetFiles(@"resources\weapons\" + (isPlayerWeapon? @"player\" : @"enemy\"));
             for (int i = 0; i < filenames.Length; i++)
             {
-                filenames[i] = filenames[i].Split('\\')[2];
+                filenames[i] = filenames[i].Split('\\')[3];
                 filenames[i] = filenames[i].Split('.')[0];
+                filenames[i] = (isPlayerWeapon ? @"player\" : @"enemy\") + filenames[i];
             }
 
             return filenames;
@@ -207,9 +208,9 @@ namespace Grov
         /// Generates the filename of a random weapon excluding the development Weapon
         /// </summary>
         /// <returns>A random weapon's filename </returns>
-        public static string GenRandomFilename()
+        public static string GenRandomFilename(bool isPlayerWeapon = true)
         {
-            string[] filenames = GetAllFilenames();
+            string[] filenames = GetAllFilenames(isPlayerWeapon);
 
             return filenames[GameManager.RNG.Next(filenames.Length)];
         }

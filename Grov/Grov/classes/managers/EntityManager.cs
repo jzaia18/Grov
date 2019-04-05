@@ -21,6 +21,7 @@ namespace Grov
         private List<Projectile> hostileProjectiles;
         private List<Projectile> friendlyProjectiles;
         private List<Pickup> pickups;
+        private List<Pickup> newPickups;
         private static EntityManager instance;
 
         // ************* Constants ************* //
@@ -33,7 +34,7 @@ namespace Grov
 
         public static Player Player { get => instance.player;  }
         public static EntityManager Instance { get => instance; }
-        public static List<Pickup> Pickups { get => instance.pickups; }
+        public static List<Pickup> NewPickups { get => instance.newPickups; }
         #endregion
 
         #region constructor
@@ -44,6 +45,7 @@ namespace Grov
             hostileProjectiles = new List<Projectile>();
             friendlyProjectiles = new List<Projectile>();
             pickups = new List<Pickup>();
+            newPickups = new List<Pickup>();
 
             //testing
             player = new Player(100, 100, 2, 6, 5, 1, new Rectangle((15  * FloorManager.TileWidth) + FloorManager.TileWidth/2, (8 * FloorManager.TileHeight) + FloorManager.TileWidth/2, 60, 74), 
@@ -120,6 +122,17 @@ namespace Grov
             foreach (Projectile projectile in friendlyProjectiles) HandleTerrainCollisions(projectile);
             foreach (Projectile projectile in hostileProjectiles) HandleTerrainCollisions(projectile);
             foreach (Pickup itemToPickUp in pickups) HandlePickUpCollisions(itemToPickUp);
+
+            //Move new pickups to the old folder
+            if (newPickups.Count > 0)
+            {
+                for (int i = 0; i < newPickups.Count; i++)
+                {
+                    pickups.Add(newPickups[i]);
+                }
+                newPickups.Clear();
+            }
+
             HandleEnemyDamageCollisions();
             HandlePlayerDamageCollisions();
             HandleMeleeCollisions();
@@ -154,9 +167,9 @@ namespace Grov
         public void ResetPlayer()
         {
             player.Position = new Vector2((15 * FloorManager.TileWidth) + FloorManager.TileWidth / 2, (8 * FloorManager.TileHeight) + FloorManager.TileWidth / 2);
-            player.Weapon = new Weapon("Default", default(Rectangle), false);
+            player.Weapon = new Weapon(@"player\Default", default(Rectangle), false);
             if(GameManager.DEVMODE == true)
-                player.Secondary = new Weapon("dev/Dev", default(Rectangle), false);
+                player.Secondary = new Weapon(@"dev\Dev", default(Rectangle), false);
             player.CurrHP = 100;
             player.MaxHP = 100;
             player.MaxMP = 100;
@@ -337,15 +350,14 @@ namespace Grov
         {
             if (player.Hitbox.Intersects(collectible.Hitbox))
             {
-                player.Interact(collectible);
                 collectible.IsActive = false;
+                player.Interact(collectible);
             }
         }
 
         public void SpawnEnemies(EnemyType enemyType, Vector2 position)
         {
 
-            //TODO: MUST TEST
             string filename = @"resources\enemies\" + enemyType + ".txt"; 
             StreamReader reader = null;
             try
@@ -359,8 +371,9 @@ namespace Grov
                 float attackDamage = float.Parse(reader.ReadLine());
                 float moveSpeed = float.Parse(reader.ReadLine());
                 float projectileSpeed = float.Parse(reader.ReadLine());
+                string weaponName = reader.ReadLine();
 
-                enemies.Add(new Enemy(enemyType, maxHP, true, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle((int)position.X, (int)position.Y, 60, 60), new Vector2(0,0)));
+                enemies.Add(new Enemy(enemyType, maxHP, true, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle((int)position.X, (int)position.Y, 60, 60), new Vector2(0,0), weaponName));
             }
             catch (Exception e)
             {
