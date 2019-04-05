@@ -162,7 +162,7 @@ namespace Grov
             instance.menuButtons[2].Hover = instance.exitTexture_H;
 
             // Loading and initializing pause textures
-            instance.dimScreen = ContentManager.Load<Texture2D>("PauseDim");
+            instance.dimScreen = ContentManager.Load<Texture2D>("dimColor");
             instance.map = ContentManager.Load<Texture2D>("Map");
             instance.mapMarkerRoom = ContentManager.Load<Texture2D>("MapMarkers");
 
