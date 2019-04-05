@@ -13,6 +13,7 @@ namespace Grov
 {
     abstract class Creature: Entity
     {
+        #region fields
         // ************* Fields ************* //
 
         protected float maxHP;
@@ -23,17 +24,23 @@ namespace Grov
         protected float moveSpeed;
         protected float attackDamage;
         protected float projectileSpeed;
+        protected Weapon weapon;
+        #endregion
 
-		// ************* Properties ************* //
+        #region properties
+        // ************* Properties ************* //
 
-		public float MaxHP { get => maxHP; set => maxHP = value; }
+        public float MaxHP { get => maxHP; set => maxHP = value; }
         public float CurrHP { get => currentHP; set => currentHP = value; }
         public bool Melee { get => melee; set => melee = value; }
         public float FireRate { get => fireRate; set => fireRate = value; }
         public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
         public float AttackDamage { get => attackDamage; set => attackDamage = value; }
         public float ProjectileSpeed { get => projectileSpeed; set => projectileSpeed = value; }
+        public Weapon Weapon { get => weapon; set => weapon = value; }
+        #endregion
 
+        #region constructors
         // ************* Constructor ************* //
 
         public Creature(float maxHP, bool melee, float fireRate, float moveSpeed, float attackDamage, float projectileSpeed, Rectangle drawPos, Rectangle hitbox, Vector2 position, Vector2 velocity, bool isActive, AnimatedTexture texture) : base(drawPos, hitbox, position, velocity, isActive, texture)
@@ -47,7 +54,9 @@ namespace Grov
             this.attackDamage = attackDamage;
             this.projectileSpeed = projectileSpeed;
         }
-        
+        #endregion
+
+        #region methods
         // ************* Methods ************* //
 
         public override void Update()
@@ -56,8 +65,7 @@ namespace Grov
             base.Update();
         }
 
-        // ************* Helper Methods ************* //
-
         protected virtual void Move(){ }
+        #endregion
     }
 }

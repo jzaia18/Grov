@@ -13,7 +13,8 @@ namespace Grov
 {
     enum EnemyType
     {
-		Test = 0
+		Test = 0,
+        Shooty = 1
     }
 
     class Enemy : Creature
@@ -28,9 +29,16 @@ namespace Grov
 
         // ************* Constructor ************* //
 
-        public Enemy(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, float projectileSpeed, Rectangle drawPos, Vector2 velocity) : base(maxHP, melee, fireRate, moveSpeed, attackDamage, projectileSpeed, drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), velocity, true, DisplayManager.EnemyTextureMap[enemyType])
+        public Enemy(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, float projectileSpeed, Rectangle drawPos, Vector2 velocity, string weaponName) : base(maxHP, melee, fireRate, moveSpeed, attackDamage, projectileSpeed, drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), velocity, true, DisplayManager.EnemyTextureMap[enemyType])
         {
             this.enemyType = enemyType;
+            if (!melee)
+            {
+                if (weaponName != null && weaponName != "null")
+                {
+                    this.Weapon = new Weapon(@"enemy\" + weaponName, drawPos, false);
+                }
+            }
         }
 
         public override void Update()
@@ -80,7 +88,11 @@ namespace Grov
 
         private void Attack(Entity target)
         {
+            if (!melee)
+            {
+                Vector2 fireDirection = Vector2.Normalize(new Vector2(this.Position.X + this.Hitbox.Width / 2 - EntityManager.Player.Position.X - EntityManager.Player.DrawPos.Width / 2, this.Position.Y + this.Hitbox.Height / 2 - EntityManager.Player.Position.Y - EntityManager.Player.DrawPos.Height / 2));
 
+            }
         }
 
 		/// <summary>

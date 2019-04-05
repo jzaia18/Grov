@@ -167,9 +167,9 @@ namespace Grov
         public void ResetPlayer()
         {
             player.Position = new Vector2((15 * FloorManager.TileWidth) + FloorManager.TileWidth / 2, (8 * FloorManager.TileHeight) + FloorManager.TileWidth / 2);
-            player.Weapon = new Weapon("Default", default(Rectangle), false);
+            player.Weapon = new Weapon(@"player\Default", default(Rectangle), false);
             if(GameManager.DEVMODE == true)
-                player.Secondary = new Weapon("dev/Dev", default(Rectangle), false);
+                player.Secondary = new Weapon(@"dev\Dev", default(Rectangle), false);
             player.CurrHP = 100;
             player.MaxHP = 100;
             player.MaxMP = 100;
@@ -358,7 +358,6 @@ namespace Grov
         public void SpawnEnemies(EnemyType enemyType, Vector2 position)
         {
 
-            //TODO: MUST TEST
             string filename = @"resources\enemies\" + enemyType + ".txt"; 
             StreamReader reader = null;
             try
@@ -372,8 +371,9 @@ namespace Grov
                 float attackDamage = float.Parse(reader.ReadLine());
                 float moveSpeed = float.Parse(reader.ReadLine());
                 float projectileSpeed = float.Parse(reader.ReadLine());
+                string weaponName = reader.ReadLine();
 
-                enemies.Add(new Enemy(enemyType, maxHP, true, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle((int)position.X, (int)position.Y, 60, 60), new Vector2(0,0)));
+                enemies.Add(new Enemy(enemyType, maxHP, true, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle((int)position.X, (int)position.Y, 60, 60), new Vector2(0,0), weaponName));
             }
             catch (Exception e)
             {
