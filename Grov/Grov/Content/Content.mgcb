@@ -279,7 +279,7 @@
 /processorParam:TextureFormat=Color
 /build:MapMarkers.png
 
-#begin PauseDim.png
+#begin PausedLabel.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -289,7 +289,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:PauseDim.png
+/build:PausedLabel.png
 
 #begin pickups/Heart.png
 /importer:TextureImporter

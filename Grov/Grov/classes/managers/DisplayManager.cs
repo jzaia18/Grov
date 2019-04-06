@@ -47,6 +47,7 @@ namespace Grov
         private Texture2D returnTexture_H;
         private Texture2D restartTexture_NH;
         private Texture2D restartTexture_H;
+        private Texture2D pauseTitle;
         private Texture2D dimScreen;
         private Texture2D map;
 
@@ -162,10 +163,12 @@ namespace Grov
             instance.menuButtons[2].NoHover = instance.exitTexture_NH;
             instance.menuButtons[2].Hover = instance.exitTexture_H;
 
-            // Loading and initializing pause textures
             instance.dimScreen = ContentManager.Load<Texture2D>("dimColor");
             instance.map = ContentManager.Load<Texture2D>("Map");
             instance.mapMarkerRoom = ContentManager.Load<Texture2D>("MapMarkers");
+
+            // Loading and initializing pause textures
+            instance.pauseTitle = ContentManager.Load<Texture2D>("PausedLabel");
 
             instance.restartTexture_NH = ContentManager.Load<Texture2D>("button images/RestartButton_NoHover");
             instance.restartTexture_H = ContentManager.Load<Texture2D>("button images/RestartButton_Hover");
@@ -205,6 +208,7 @@ namespace Grov
                         pauseButtons[i].Draw(spriteBatch);
                     }
                     hud.Draw(spriteBatch);
+                    spriteBatch.Draw(pauseTitle, new Rectangle(750, 300, pauseTitle.Width, pauseTitle.Height), Color.White);
                     //Dim the screen
                     spriteBatch.Draw(dimScreen, new Rectangle(0, 0, 1920, 1080), Color.White);
                     break;
