@@ -6,6 +6,6 @@ Default
 10.0
 Normal
 90
-7
+9
 Fire
 false

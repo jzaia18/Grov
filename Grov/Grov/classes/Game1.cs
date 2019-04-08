@@ -78,7 +78,12 @@ namespace Grov
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            GameManager.Instance.Update(gameTime);
+            if (!this.IsActive && GameManager.GameState == GameState.Game)
+            {
+                GameManager.GameState = GameState.PauseMenu;
+            }
+            else
+                GameManager.Instance.Update(gameTime);
 
             if (GameManager.GameExit) Exit();
 
