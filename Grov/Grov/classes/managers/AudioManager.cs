@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Windows.Input;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
+using CSCore;
 
 
 namespace Grov
