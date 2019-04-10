@@ -23,20 +23,27 @@ namespace Grov
 
         private EnemyType enemyType;
         private int hitstun;
+        private int lungeTime;
+        private int timeSinceLunge;
 
         // ************* Properties ************* //
         public int Hitstun { get => hitstun; set => hitstun = value; }
 
         // ************* Constructor ************* //
 
-        public Enemy(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, float projectileSpeed, Rectangle drawPos, Vector2 velocity, string weaponName) : base(maxHP, melee, fireRate, moveSpeed, attackDamage, projectileSpeed, drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), velocity, true, DisplayManager.EnemyTextureMap[enemyType])
+        public Enemy(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, float projectileSpeed, Rectangle drawPos, Vector2 velocity, string weaponName, int lungeTime) : base(maxHP, melee, fireRate, moveSpeed, attackDamage, projectileSpeed, drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), velocity, true, DisplayManager.EnemyTextureMap[enemyType])
         {
             this.enemyType = enemyType;
-            if (!melee)
+            if (melee)
+            {
+                this.lungeTime = lungeTime;
+                Console.WriteLine(lungeTime);
+            }
+            else
             {
                 if (weaponName != null && weaponName != "null")
                 {
-                    this.Weapon = new Weapon(@"enemy\" + weaponName, drawPos, false);
+                    this.Weapon = new Weapon(@"enemy\" + weaponName, drawPos, false, false);
                 }
             }
         }
@@ -58,6 +65,7 @@ namespace Grov
 
                 if (hitstun == 0)
                 {
+                    this.Attack(target);
                     if (!this.hitbox.Intersects(target.Hitbox))
                     {
                         this.Move(target);
@@ -68,6 +76,11 @@ namespace Grov
                 else
                 {
                     hitstun--;
+                }
+
+                if (!melee && this.Weapon != null)
+                {
+                    weapon.Position = this.Position; //TEMP
                 }
             }
         }
@@ -88,10 +101,20 @@ namespace Grov
 
         private void Attack(Entity target)
         {
-            if (!melee)
+            if (melee)
             {
-                Vector2 fireDirection = Vector2.Normalize(new Vector2(this.Position.X + this.Hitbox.Width / 2 - EntityManager.Player.Position.X - EntityManager.Player.DrawPos.Width / 2, this.Position.Y + this.Hitbox.Height / 2 - EntityManager.Player.Position.Y - EntityManager.Player.DrawPos.Height / 2));
-
+                if (timeSinceLunge == lungeTime)
+                    moveSpeed /= 1.5f;
+                else if (timeSinceLunge == 0)
+                    moveSpeed *= 1.5f;
+                else if (timeSinceLunge >= 2 * lungeTime)
+                    timeSinceLunge = -1;
+                timeSinceLunge++;
+            }
+            else
+            {
+                Vector2 fireDirection = Vector2.Normalize(new Vector2(EntityManager.Player.Position.X + EntityManager.Player.DrawPos.Width / 2 - this.Position.X - this.Hitbox.Width / 2, EntityManager.Player.Position.Y + EntityManager.Player.DrawPos.Height / 2 - this.Position.Y - this.Hitbox.Height / 2));
+                Weapon.Use(fireDirection);
             }
         }
 

@@ -112,6 +112,8 @@ namespace Grov
             // Load all enemy textures into map
             instance.enemyTextureMap = new Dictionary<EnemyType, AnimatedTexture>();
             EnemyTextureMap[EnemyType.Test] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
+            EnemyTextureMap[EnemyType.Shooty] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
+
 
             // Load all projectile textures into map
             instance.projectileTextureMap = new Dictionary<ProjectileType, AnimatedTexture>();
@@ -130,7 +132,11 @@ namespace Grov
             // TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP
             // use same placeholder for all weapons
             instance.weaponTextureMap = new Dictionary<string, AnimatedTexture>();
-            foreach (string filename in Weapon.GetAllFilenames())
+            foreach (string filename in Weapon.GetAllFilenames()) //player weapons
+            {
+                Instance.weaponTextureMap[filename] = new AnimatedTexture(ContentManager.Load<Texture2D>("projectiles/Fire"));
+            }
+            foreach (string filename in Weapon.GetAllFilenames(false)) //enemy weapons
             {
                 Instance.weaponTextureMap[filename] = new AnimatedTexture(ContentManager.Load<Texture2D>("projectiles/Fire"));
             }

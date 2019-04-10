@@ -40,6 +40,7 @@ namespace Grov
         private int hitstun = 7;
         private int projectileLifeSpan;
         private bool noclip;
+        private bool playerWeapon;
         #endregion
 
         #region properties
@@ -61,12 +62,13 @@ namespace Grov
         #region constructor
         // ************* Constructor ************* //
 
-        public Weapon(string filename, Rectangle drawPos, bool isActive) : base(PickupType.Weapon, drawPos)
+        public Weapon(string filename, Rectangle drawPos, bool isActive, bool playerWeapon) : base(PickupType.Weapon, drawPos)
         {
             this.filename = filename;
             texture = (AnimatedTexture) DisplayManager.WeaponTextureMap[filename].Clone();
             ReadFromFile(@"resources\weapons\" + filename + ".txt");
             this.isActive = isActive;
+            this.playerWeapon = playerWeapon;
         }
         #endregion
 
@@ -146,7 +148,7 @@ namespace Grov
                     for (int i = 1; i < numProjectiles + 1; i++)
                     {
                         Vector2 projVelocity = shotSpeed * speedModifier * (new Vector2(-1 * (float) Math.Cos(playerOffset + i * offset), (float) Math.Sin(playerOffset + i * offset)));
-                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, true, noclip, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileType));
+                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, playerWeapon, noclip, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileType));
                     }
                     break;
                 case ShotType.Radial:
@@ -156,7 +158,7 @@ namespace Grov
                     for (int i = 0; i < numProjectiles; i++)
                     {
                         Vector2 projVelocity = shotSpeed * speedModifier * (new Vector2( (float) Math.Cos(originTheta + i*angleOffset), (float) Math.Sin(originTheta + i * angleOffset)));
-                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, true, noclip, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileType));
+                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, playerWeapon, noclip, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileType));
                     }
                     break;
                 case ShotType.Spread:
@@ -165,11 +167,11 @@ namespace Grov
                     for (int i = 0; i < numProjectiles; i++) {
                         float phi = theta + GameManager.RNG.Next(-128, 128) / 244.46199f;  // Random "percent" * PI/6   (but simplified)
                         Vector2 projVelocity = shotSpeed * speedModifier * (new Vector2((float) Math.Cos(phi), (float) Math.Sin(phi)));
-                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, true, noclip, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileType));
+                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, playerWeapon, noclip, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileType));
                     }
                     break;
                 case ShotType.Bubble:
-                    Projectile bubble = new Projectile(atkDamage, projectileLifeSpan, true, noclip, new Rectangle(EntityManager.Player.DrawPos.X - (170 - EntityManager.Player.DrawPos.Width) / 2, EntityManager.Player.DrawPos.Y - (170 - EntityManager.Player.DrawPos.Height) / 2, 170, 170), new Vector2(0f, 0f), projectileType);
+                    Projectile bubble = new Projectile(atkDamage, projectileLifeSpan, playerWeapon, noclip, new Rectangle(EntityManager.Player.DrawPos.X - (170 - EntityManager.Player.DrawPos.Width) / 2, EntityManager.Player.DrawPos.Y - (170 - EntityManager.Player.DrawPos.Height) / 2, 170, 170), new Vector2(0f, 0f), projectileType);
                     EntityManager.AddProjectile(bubble);
                     break;
                 default:

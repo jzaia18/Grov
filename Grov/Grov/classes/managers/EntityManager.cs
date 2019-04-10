@@ -167,10 +167,10 @@ namespace Grov
         public void ResetPlayer()
         {
             player.Position = new Vector2((15 * FloorManager.TileWidth) + FloorManager.TileWidth / 2, (8 * FloorManager.TileHeight) + FloorManager.TileWidth / 2);
-            player.Weapon = new Weapon(@"dev\Default", default(Rectangle), false);
+            player.Weapon = new Weapon(@"dev\Default", default(Rectangle), false, true);
             player.LastWeaponFired = player.Weapon;
             if (GameManager.DEVMODE == true)
-                player.Secondary = new Weapon(@"dev\Dev", default(Rectangle), false);
+                player.Secondary = new Weapon(@"dev\Dev", default(Rectangle), false, true);
             else
                 player.Secondary = null;
             player.CurrHP = 100;
@@ -363,7 +363,8 @@ namespace Grov
         public void SpawnEnemies(EnemyType enemyType, Vector2 position)
         {
 
-            string filename = @"resources\enemies\" + enemyType + ".txt"; 
+            string filename = @"resources\enemies\Shooty.txt";
+            //string filename = @"resources\enemies\" + enemyType + ".txt"; 
             StreamReader reader = null;
             try
             {
@@ -376,9 +377,15 @@ namespace Grov
                 float attackDamage = float.Parse(reader.ReadLine());
                 float moveSpeed = float.Parse(reader.ReadLine());
                 float projectileSpeed = float.Parse(reader.ReadLine());
-                string weaponName = reader.ReadLine();
+                string weaponName = null;
+                int lungeTime = 0;
+                if (melee)
+                    lungeTime = int.Parse(reader.ReadLine());
+                else
+                    weaponName = reader.ReadLine();
 
-                enemies.Add(new Enemy(enemyType, maxHP, true, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle((int)position.X, (int)position.Y, 60, 60), new Vector2(0,0), weaponName));
+
+                enemies.Add(new Enemy(enemyType, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle((int)position.X, (int)position.Y, 60, 60), new Vector2(0,0), weaponName, lungeTime));
             }
             catch (Exception e)
             {

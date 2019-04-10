@@ -88,7 +88,7 @@ namespace Grov
                 }
 
                 //pickupsInRoom.Add(new Pickup(PickupType.Heart, new Rectangle(DisplayManager.GraphicsDevice.Viewport.Width/2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30, 60, 60)));
-                pickupsInRoom.Add(new Weapon(weaponFileName, new Rectangle(DisplayManager.GraphicsDevice.Viewport.Width / 2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30, 60, 60), true));
+                pickupsInRoom.Add(new Weapon(weaponFileName, new Rectangle(DisplayManager.GraphicsDevice.Viewport.Width / 2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30, 60, 60), true, true));
             }
 
             // Testing - adds either a random weapon or a heart into the room
