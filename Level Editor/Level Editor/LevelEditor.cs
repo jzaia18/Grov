@@ -243,6 +243,11 @@ namespace Level_Editor
                                 {
                                     writer.Write(0);
                                 }
+                                //Enemy 1
+                                else if (mapArray[i, ii].Image == enemy1.Image)
+                                {
+                                    writer.Write(1);
+                                }
 
                             }
                         }
@@ -460,6 +465,9 @@ namespace Level_Editor
                     {
                         case 0:
                             mapArray[y, x].Image = enemy0.Image;
+                            break;
+                        case 1:
+                            mapArray[y, x].Image = enemy1.Image;
                             break;
                     }
                 }

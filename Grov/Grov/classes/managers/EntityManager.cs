@@ -87,6 +87,11 @@ namespace Grov
                     enemies[i].Update();
                     if (enemies[i].IsActive == false)
                     {
+                        if (GameManager.RNG.Next(0, 100) <= 12)
+                        {
+                            pickups.Add(new Pickup(PickupType.Heart, new Rectangle((int)enemies[i].Hitbox.X, (int)enemies[i].Hitbox.Y, 60, 60)));
+                            FloorManager.Instance.CurrRoom.PickupsInRoom.Add(pickups[pickups.Count - 1]);
+                        }
                         enemies.RemoveAt(i);
                         i--;
                     }
@@ -167,10 +172,10 @@ namespace Grov
         public void ResetPlayer()
         {
             player.Position = new Vector2((15 * FloorManager.TileWidth) + FloorManager.TileWidth / 2, (8 * FloorManager.TileHeight) + FloorManager.TileWidth / 2);
-            player.Weapon = new Weapon(@"dev\Default", default(Rectangle), false);
+            player.Weapon = new Weapon(@"dev\Default", default(Rectangle), false, true);
             player.LastWeaponFired = player.Weapon;
             if (GameManager.DEVMODE == true)
-                player.Secondary = new Weapon(@"dev\Dev", default(Rectangle), false);
+                player.Secondary = new Weapon(@"dev\Dev", default(Rectangle), false, true);
             else
                 player.Secondary = null;
             player.CurrHP = 100;
@@ -255,9 +260,6 @@ namespace Grov
                 }
                 else if(entityTile.Type == TileType.Entrance && entity == player)
                 {
-                    //Delete all entities in the room
-                    this.ClearEntities();
-
                     //Which door did we take?
                     int door = -1; // 0 top 1 left 2 bottom 3 right
                     if (entityTile.Location.Y == 0) //top
@@ -292,8 +294,11 @@ namespace Grov
 
                     FloorManager.Instance.CurrRoom.Visited = true;
 
+                    //Delete all entities in the room
+                    this.ClearEntities();
+
                     //Spawn enemies
-                    if(!FloorManager.Instance.CurrRoom.IsCleared)
+                    if (!FloorManager.Instance.CurrRoom.IsCleared)
                     {
                         FloorManager.Instance.CurrRoom.SpawnEnemies();
                     }
@@ -362,7 +367,6 @@ namespace Grov
 
         public void SpawnEnemies(EnemyType enemyType, Vector2 position)
         {
-
             string filename = @"resources\enemies\" + enemyType + ".txt"; 
             StreamReader reader = null;
             try
@@ -376,9 +380,15 @@ namespace Grov
                 float attackDamage = float.Parse(reader.ReadLine());
                 float moveSpeed = float.Parse(reader.ReadLine());
                 float projectileSpeed = float.Parse(reader.ReadLine());
-                string weaponName = reader.ReadLine();
+                string weaponName = null;
+                int lungeTime = 0;
+                if (melee)
+                    lungeTime = int.Parse(reader.ReadLine());
+                else
+                    weaponName = reader.ReadLine();
 
-                enemies.Add(new Enemy(enemyType, maxHP, true, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle((int)position.X, (int)position.Y, 60, 60), new Vector2(0,0), weaponName));
+
+                enemies.Add(new Enemy(enemyType, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle((int)position.X, (int)position.Y, 60, 60), new Vector2(0,0), weaponName, lungeTime));
             }
             catch (Exception e)
             {

@@ -23,7 +23,6 @@ namespace Grov
         public int windowHeight = 1080;
         public int windowWidth = 1920;
         public bool fullScreen = true;
-        public bool hardwareSwitch = true;
 
         public Game1()
         {
@@ -46,7 +45,7 @@ namespace Grov
             //Set the game to Fullscreen mode
             graphics.IsFullScreen = fullScreen;
             //This makes it a "soft" fullscreen, AKA borderless fullscreen. Less efficient but faster to initialize
-            graphics.HardwareModeSwitch = hardwareSwitch;
+            graphics.HardwareModeSwitch = fullScreen;
             graphics.ApplyChanges();
 
             IsMouseVisible = true;
@@ -78,7 +77,12 @@ namespace Grov
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            GameManager.Instance.Update(gameTime);
+            if (!this.IsActive && (GameManager.GameState == GameState.Game || GameManager.GameState == GameState.Map))
+            {
+                GameManager.GameState = GameState.PauseMenu;
+            }
+            else
+                GameManager.Instance.Update(gameTime);
 
             if (GameManager.GameExit) Exit();
 
