@@ -260,9 +260,6 @@ namespace Grov
                 }
                 else if(entityTile.Type == TileType.Entrance && entity == player)
                 {
-                    //Delete all entities in the room
-                    this.ClearEntities();
-
                     //Which door did we take?
                     int door = -1; // 0 top 1 left 2 bottom 3 right
                     if (entityTile.Location.Y == 0) //top
@@ -297,8 +294,11 @@ namespace Grov
 
                     FloorManager.Instance.CurrRoom.Visited = true;
 
+                    //Delete all entities in the room
+                    this.ClearEntities();
+
                     //Spawn enemies
-                    if(!FloorManager.Instance.CurrRoom.IsCleared)
+                    if (!FloorManager.Instance.CurrRoom.IsCleared)
                     {
                         FloorManager.Instance.CurrRoom.SpawnEnemies();
                     }
