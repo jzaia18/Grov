@@ -43,7 +43,6 @@ namespace Grov
             if (melee)
             {
                 this.lungeTime = lungeTime;
-                Console.WriteLine(lungeTime);
             }
             else
             {
