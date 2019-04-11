@@ -14,7 +14,8 @@ namespace Grov
     enum ProjectileType
     {
         Fire,
-        Bubble
+        Bubble,
+        Star
     }
 
     class Projectile : Entity
