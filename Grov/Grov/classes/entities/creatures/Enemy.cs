@@ -19,16 +19,22 @@ namespace Grov
 
     class Enemy : Creature
     {
+        #region fields
         // ************* Fields ************* //
 
         private EnemyType enemyType;
         private int hitstun;
         private int lungeTime;
         private int timeSinceLunge;
+        #endregion
 
+        #region properties
         // ************* Properties ************* //
-        public int Hitstun { get => hitstun; set => hitstun = value; }
 
+        public int Hitstun { get => hitstun; set => hitstun = value; }
+        #endregion
+
+        #region constrcutor
         // ************* Constructor ************* //
 
         public Enemy(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, float projectileSpeed, Rectangle drawPos, Vector2 velocity, string weaponName, int lungeTime) : base(maxHP, melee, fireRate, moveSpeed, attackDamage, projectileSpeed, drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), velocity, true, DisplayManager.EnemyTextureMap[enemyType])
@@ -47,7 +53,14 @@ namespace Grov
                 }
             }
         }
+        #endregion
 
+        #region methods
+        // ************* Methods ************* //
+
+        /// <summary>
+        /// Updates all necessary values of the enemy class
+        /// </summary>
         public override void Update()
         {
             if (IsActive)
@@ -86,6 +99,10 @@ namespace Grov
             }
         }
 
+        /// <summary>
+        /// Draws the enemy at its position on the screen
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (this.isActive && this.hitstun == 0)
@@ -100,22 +117,42 @@ namespace Grov
             }
         }
 
+        /// <summary>
+        /// Returns whether or not this enemy has line of sight to the target
+        /// </summary>
+        /// <param name="target">The entity the enemy is checking for LoS</param>
+        /// <returns>True if there is LoS</returns>
+        public bool LineOfSight(Entity target)
+        {
+
+            //TODO TODO TODO TODO TODO
+
+            return true;
+        }
+
+        /// <summary>
+        /// Use the enemy's attck if it is prepared
+        /// </summary>
+        /// <param name="target">The entity the enemy is attacking</param>
         private void Attack(Entity target)
         {
-            if (melee)
+            if (LineOfSight(target))
             {
-                if (timeSinceLunge == lungeTime)
-                    moveSpeed /= 1.5f;
-                else if (timeSinceLunge == 0)
-                    moveSpeed *= 1.5f;
-                else if (timeSinceLunge >= 2 * lungeTime)
-                    timeSinceLunge = -1;
-                timeSinceLunge++;
-            }
-            else if (weapon != null && weapon.ReadyToFire(fireRate))
-            {
-                Vector2 fireDirection = Vector2.Normalize(new Vector2(EntityManager.Player.Position.X + EntityManager.Player.DrawPos.Width / 2 - this.Position.X - this.Hitbox.Width / 2, EntityManager.Player.Position.Y + EntityManager.Player.DrawPos.Height / 2 - this.Position.Y - this.Hitbox.Height / 2));
-                Weapon.Use(fireDirection);
+                if (melee)
+                {
+                    if (timeSinceLunge == lungeTime)
+                        moveSpeed /= 1.5f;
+                    else if (timeSinceLunge == 0)
+                        moveSpeed *= 1.5f;
+                    else if (timeSinceLunge >= 2 * lungeTime)
+                        timeSinceLunge = -1;
+                    timeSinceLunge++;
+                }
+                else if (weapon != null && weapon.ReadyToFire(fireRate))
+                {
+                    Vector2 fireDirection = Vector2.Normalize(new Vector2(EntityManager.Player.Position.X + EntityManager.Player.DrawPos.Width / 2 - this.Position.X - this.Hitbox.Width / 2, EntityManager.Player.Position.Y + EntityManager.Player.DrawPos.Height / 2 - this.Position.Y - this.Hitbox.Height / 2));
+                    Weapon.Use(fireDirection);
+                }
             }
         }
 
@@ -134,5 +171,6 @@ namespace Grov
 
             this.fireDelay = FireRate;
 		}
-	}
+        #endregion
+    }
 }
