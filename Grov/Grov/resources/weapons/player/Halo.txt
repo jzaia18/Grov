@@ -7,5 +7,5 @@ Halo
 Radial
 2
 0
-Fire
+Star
 false
