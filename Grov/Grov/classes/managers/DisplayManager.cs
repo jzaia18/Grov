@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
 
-// Authors: Jake Zaia, Rachel Wong, Duncan Mott
+// Authors: Jack Hoffman, Jake Zaia, Rachel Wong, Duncan Mott
 
 
 namespace Grov
