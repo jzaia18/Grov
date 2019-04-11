@@ -367,6 +367,7 @@ namespace Grov
 
         public void SpawnEnemies(EnemyType enemyType, Vector2 position)
         {
+            //string filename = @"resources\enemies\Shooty.txt";
             string filename = @"resources\enemies\" + enemyType + ".txt"; 
             StreamReader reader = null;
             try

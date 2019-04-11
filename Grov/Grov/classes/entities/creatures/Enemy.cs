@@ -43,7 +43,7 @@ namespace Grov
             {
                 if (weaponName != null && weaponName != "null")
                 {
-                    this.Weapon = new Weapon(@"enemy\" + weaponName, drawPos, false, false);
+                    this.weapon = new Weapon(@"enemy\" + weaponName, drawPos, false, false);
                 }
             }
         }
@@ -80,6 +80,7 @@ namespace Grov
 
                 if (!melee && this.Weapon != null)
                 {
+                    weapon.Update();
                     weapon.Position = this.Position; //TEMP
                 }
             }
@@ -111,7 +112,7 @@ namespace Grov
                     timeSinceLunge = -1;
                 timeSinceLunge++;
             }
-            else
+            else if (weapon != null && weapon.ReadyToFire(fireRate))
             {
                 Vector2 fireDirection = Vector2.Normalize(new Vector2(EntityManager.Player.Position.X + EntityManager.Player.DrawPos.Width / 2 - this.Position.X - this.Hitbox.Width / 2, EntityManager.Player.Position.Y + EntityManager.Player.DrawPos.Height / 2 - this.Position.Y - this.Hitbox.Height / 2));
                 Weapon.Use(fireDirection);
