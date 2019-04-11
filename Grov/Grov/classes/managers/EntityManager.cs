@@ -87,6 +87,11 @@ namespace Grov
                     enemies[i].Update();
                     if (enemies[i].IsActive == false)
                     {
+                        if (GameManager.RNG.Next(0, 100) <= 12)
+                        {
+                            pickups.Add(new Pickup(PickupType.Heart, new Rectangle((int)enemies[i].Hitbox.X, (int)enemies[i].Hitbox.Y, 60, 60)));
+                            FloorManager.Instance.CurrRoom.PickupsInRoom.Add(pickups[pickups.Count - 1]);
+                        }
                         enemies.RemoveAt(i);
                         i--;
                     }
@@ -362,9 +367,7 @@ namespace Grov
 
         public void SpawnEnemies(EnemyType enemyType, Vector2 position)
         {
-
-            string filename = @"resources\enemies\Shooty.txt";
-            //string filename = @"resources\enemies\" + enemyType + ".txt"; 
+            string filename = @"resources\enemies\" + enemyType + ".txt"; 
             StreamReader reader = null;
             try
             {

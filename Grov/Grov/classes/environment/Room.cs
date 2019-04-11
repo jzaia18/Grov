@@ -306,9 +306,12 @@ namespace Grov
         {
             foreach(Pickup pickup in pickupsInRoom)
             {
-                pickup.Position = new Vector2(DisplayManager.GraphicsDevice.Viewport.Width / 2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30);
-                pickup.DrawPos = new Rectangle(DisplayManager.GraphicsDevice.Viewport.Width / 2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30, 60, 60);
-                pickup.Hitbox = new Rectangle(DisplayManager.GraphicsDevice.Viewport.Width / 2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30, 60, 60);
+                if (this.type == RoomType.Treasure)
+                {
+                    pickup.Position = new Vector2(DisplayManager.GraphicsDevice.Viewport.Width / 2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30);
+                    pickup.DrawPos = new Rectangle(DisplayManager.GraphicsDevice.Viewport.Width / 2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30, 60, 60);
+                    pickup.Hitbox = new Rectangle(DisplayManager.GraphicsDevice.Viewport.Width / 2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30, 60, 60);
+                }
                 EntityManager.Instance.SpawnPickup(pickup);
             }
         }
