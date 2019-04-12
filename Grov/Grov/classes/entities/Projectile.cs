@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-// Authors: Jake Zaia
+// Authors: Jake Zaia, Jack Hoffman
 
 namespace Grov
 {

@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Content;
 //debugging
 using System.Diagnostics;
 
-// Authors: Jake Zaia, Rachel Wong, Duncan Mott
+// Authors: Jake Zaia, Rachel Wong, Duncan Mott, Jack Hoffman
 
 namespace Grov
 { 
