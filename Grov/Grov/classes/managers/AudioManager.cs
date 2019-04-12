@@ -94,7 +94,7 @@ namespace Grov
         {
             if (effects.ContainsKey(effect))
             {
-                effects[effect].CreateInstance().Play();
+                //effects[effect].CreateInstance().Play();
             }
         }
 
