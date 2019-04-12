@@ -1,9 +1,9 @@
 ﻿Shooty
-14
+12
 false
-6
-6
+1
+1
 4
-6
+1
 Default
 false
