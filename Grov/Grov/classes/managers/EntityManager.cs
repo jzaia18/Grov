@@ -181,6 +181,7 @@ namespace Grov
             player.CurrHP = 100;
             player.MaxHP = 100;
             player.MaxMP = 100;
+            GameManager.Instance.SpawnedWeapons.Clear();
         }
 
         public void HandlePlayerDamageCollisions()
@@ -190,7 +191,7 @@ namespace Grov
                 if (projectile.Hitbox.Intersects(player.DrawPos) && player.IFrames == 0)
                 {
                     projectile.IsActive = false;
-                    player.CurrHP -= 1f;
+                    player.CurrHP -= projectile.Damage;
                     player.IFrames = MAX_IFRAMES;
                 }
             }
@@ -350,7 +351,8 @@ namespace Grov
                         enemy.CurrHP -= projectile.Damage;
                         if(!projectile.Noclip)
                             projectile.IsActive = false;
-                        enemy.Hitstun += player.Weapon.Hitstun;
+                        if(!enemy.Sturdy)
+                            enemy.Hitstun += player.Weapon.Hitstun;
                     }
                 }
             }
@@ -367,7 +369,6 @@ namespace Grov
 
         public void SpawnEnemies(EnemyType enemyType, Vector2 position)
         {
-            //string filename = @"resources\enemies\Shooty.txt";
             string filename = @"resources\enemies\" + enemyType + ".txt"; 
             StreamReader reader = null;
             try
@@ -387,9 +388,10 @@ namespace Grov
                     lungeTime = int.Parse(reader.ReadLine());
                 else
                     weaponName = reader.ReadLine();
+                bool sturdy = bool.Parse(reader.ReadLine());
 
 
-                enemies.Add(new Enemy(enemyType, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle((int)position.X, (int)position.Y, 60, 60), new Vector2(0,0), weaponName, lungeTime));
+                enemies.Add(new Enemy(enemyType, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle((int)position.X, (int)position.Y, 60, 60), new Vector2(0,0), weaponName, lungeTime, sturdy));
             }
             catch (Exception e)
             {
