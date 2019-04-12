@@ -54,6 +54,7 @@
             this.enemyBox = new System.Windows.Forms.GroupBox();
             this.palletteButton = new System.Windows.Forms.Button();
             this.clearButton = new System.Windows.Forms.Button();
+            this.enemyLessThan1 = new System.Windows.Forms.PictureBox();
             this.enemy1 = new System.Windows.Forms.PictureBox();
             this.eraseEnemy = new System.Windows.Forms.PictureBox();
             this.enemy0 = new System.Windows.Forms.PictureBox();
@@ -61,6 +62,7 @@
             this.colorBox.SuspendLayout();
             this.currentBox.SuspendLayout();
             this.enemyBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.enemyLessThan1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.enemy1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.eraseEnemy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.enemy0)).BeginInit();
@@ -315,6 +317,7 @@
             // 
             // enemyBox
             // 
+            this.enemyBox.Controls.Add(this.enemyLessThan1);
             this.enemyBox.Controls.Add(this.enemy1);
             this.enemyBox.Controls.Add(this.eraseEnemy);
             this.enemyBox.Controls.Add(this.enemy0);
@@ -345,6 +348,17 @@
             this.clearButton.Text = "Clear";
             this.clearButton.UseVisualStyleBackColor = true;
             this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
+            // 
+            // enemyLessThan1
+            // 
+            this.enemyLessThan1.Image = global::Level_Editor.Properties.Resources.tree;
+            this.enemyLessThan1.Location = new System.Drawing.Point(111, 141);
+            this.enemyLessThan1.Name = "enemyLessThan1";
+            this.enemyLessThan1.Size = new System.Drawing.Size(100, 98);
+            this.enemyLessThan1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.enemyLessThan1.TabIndex = 3;
+            this.enemyLessThan1.TabStop = false;
+            this.enemyLessThan1.Click += new System.EventHandler(this.enemy_Click);
             // 
             // enemy1
             // 
@@ -408,6 +422,7 @@
             this.colorBox.PerformLayout();
             this.currentBox.ResumeLayout(false);
             this.enemyBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.enemyLessThan1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.enemy1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.eraseEnemy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.enemy0)).EndInit();
@@ -448,5 +463,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button bossDoorButton;
         private System.Windows.Forms.PictureBox enemy1;
+        private System.Windows.Forms.PictureBox enemyLessThan1;
     }
 }

@@ -13,6 +13,10 @@ namespace Grov
 {
     enum EnemyType
     {
+        //Bosses
+        Grot = -1,
+
+        //Normies
 		Test = 0,
         Shooty = 1
     }
@@ -26,20 +30,23 @@ namespace Grov
         private int hitstun;
         private int lungeTime;
         private int timeSinceLunge;
+        private bool sturdy;
         #endregion
 
         #region properties
         // ************* Properties ************* //
 
         public int Hitstun { get => hitstun; set => hitstun = value; }
+        public bool Sturdy { get => sturdy; }
         #endregion
 
         #region constrcutor
         // ************* Constructor ************* //
 
-        public Enemy(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, float projectileSpeed, Rectangle drawPos, Vector2 velocity, string weaponName, int lungeTime) : base(maxHP, melee, fireRate, moveSpeed, attackDamage, projectileSpeed, drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), velocity, true, DisplayManager.EnemyTextureMap[enemyType])
+        public Enemy(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, float projectileSpeed, Rectangle drawPos, Vector2 velocity, string weaponName, int lungeTime, bool sturdy) : base(maxHP, melee, fireRate, moveSpeed, attackDamage, projectileSpeed, drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), velocity, true, DisplayManager.EnemyTextureMap[enemyType])
         {
             this.enemyType = enemyType;
+            this.sturdy = sturdy;
             if (melee)
             {
                 this.lungeTime = lungeTime;

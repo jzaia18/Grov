@@ -72,6 +72,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="resources\enemies\Grot.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="resources\enemies\Shooty.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -80,6 +83,9 @@
     </Content>
     <Content Include="Icon.ico" />
     <Content Include="resources\weapons\enemy\Default.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\weapons\enemy\Grot.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="resources\weapons\player\BeamSword.txt">
@@ -200,16 +206,16 @@
     <None Include="resources\rooms\1111\DeadlyMountain.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="resources\rooms\boss\Placeholder\0001\Placeholder.grovlev">
+    <None Include="resources\rooms\boss\Grot\0001\Grot.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="resources\rooms\boss\Placeholder\0010\Placeholder.grovlev">
+    <None Include="resources\rooms\boss\Grot\0010\Grot.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="resources\rooms\boss\Placeholder\0100\Placeholder.grovlev">
+    <None Include="resources\rooms\boss\Grot\0100\Grot.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="resources\rooms\boss\Placeholder\1000\1000_Placeholder.grovlev">
+    <None Include="resources\rooms\boss\Grot\1000\Grot.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="resources\rooms\spawn.grovlev">

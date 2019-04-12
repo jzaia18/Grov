@@ -1,0 +1,11 @@
+Grot
+1
+10
+0
+7
+10
+Radial
+0
+0
+Star
+false
