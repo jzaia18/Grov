@@ -7,14 +7,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-// Authors: Jake Zaia
+// Authors: Jake Zaia, Jack Hoffman
 
 namespace Grov
 {
     enum ProjectileType
     {
         Fire,
-        Bubble
+        Bubble,
+        Star
     }
 
     class Projectile : Entity

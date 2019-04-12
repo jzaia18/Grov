@@ -219,18 +219,6 @@
 /processorParam:TextureFormat=Color
 /build:HealthBarFull.png;HealthBarFullSprite
 
-#begin MageholderSprite.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:MageholderSprite.png;MageholderSprite
-
 #begin ManaBarEmpty.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -350,6 +338,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:projectiles/Fire.png
+
+#begin projectiles/Star.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:projectiles/Star.png
 
 #begin tiles/tile0.png
 /importer:TextureImporter

@@ -7,5 +7,5 @@ Zoner
 Radial
 3
 1
-Fire
+Star
 true

@@ -11,6 +11,10 @@ using System.Windows.Input;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 
+/*
+ * Authors:
+ * Jack Hoffman
+ */
 
 namespace Grov
 {
