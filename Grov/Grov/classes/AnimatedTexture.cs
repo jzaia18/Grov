@@ -70,6 +70,15 @@ namespace Grov
         }
 
         /// <summary>
+        /// Returns the current texture in the sequence
+        /// </summary>
+        /// <returns>The current texture</returns>
+        public Texture2D GetCurrentTexture()
+        {
+            return textures[currframe];
+        }
+
+        /// <summary>
         /// Adds a new texture to the end of the animation sequence
         /// </summary>
         /// <param name="texture">The texture to add</param>

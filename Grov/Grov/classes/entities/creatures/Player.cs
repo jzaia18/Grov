@@ -316,6 +316,7 @@ namespace Grov
         /// </summary>
         public void Attack()
         {
+            this.weapon.Position = new Vector2(this.position.X + this.drawPos.Width / 2 - 15, this.position.Y + this.drawPos.Height / 2 - 15);
             this.weapon.Use(aimDirection * projectileSpeed);
             this.currMP -= weapon.ManaCost;
         }
