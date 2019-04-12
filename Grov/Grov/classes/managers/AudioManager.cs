@@ -9,8 +9,13 @@ using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
 using System.Windows.Input;
 using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Media;
 using CSCore;
+using CSCore.CoreAudioAPI;
+using CSCore.DirectSound;
+using CSCore.Codecs.MP3;
+using CSCore.Codecs.WAV;
+using CSCore.SoundOut;
+using CSCore.Streams;
 
 
 namespace Grov
@@ -20,10 +25,12 @@ namespace Grov
         #region Fields
         // ************* Fields ************* //
 
-        Dictionary<string, SoundEffect> songs;
+        WasapiOut audioStream;
+
+        Dictionary<string, string> songs;
         Dictionary<string, SoundEffect> effects;
+        BufferSource currentSong;
         private static AudioManager instance;
-        private SoundEffect currentSong;
         private double totalMilliseconds;
         private int count; //test for frame count
         #endregion
@@ -40,6 +47,7 @@ namespace Grov
 
         private AudioManager()
         {
+            audioStream = new WasapiOut();
             this.LoadSongs();
             this.LoadEffects();
         }
@@ -66,23 +74,21 @@ namespace Grov
 
         private void LoadSongs()
         {
-            songs = new Dictionary<string, SoundEffect>();
+            songs = new Dictionary<string, string>();
             totalMilliseconds = 0;
 
-            songs.Add("TitleMusicIntro", DisplayManager.ContentManager.Load<SoundEffect>("Audio/Music/TitleMusicIntro"));
-            songs.Add("Audio/Music/TitleMusicLoop", DisplayManager.ContentManager.Load<SoundEffect>("Audio/Music/TitleMusicLoop"));
-
+            songs.Add("TitleMusicIntro", "Audio/music/TitleMusicIntro.mp3");
+            songs.Add("TitleMusicLoop", "Audio/music/TitleMusicLoop.mp3");
             this.PlaySong("TitleMusicIntro");
         }
 
         public void PlaySong(string song)
         {
-            Console.WriteLine(song);
-            Console.WriteLine(count);
+            
             if (songs.ContainsKey(song))
             {
-                currentSong = songs[song];
-                currentSong.CreateInstance().Play();
+                audioStream.Initialize()
+                audioStream.Play();
                 count = 0;
             }
         }
@@ -98,23 +104,7 @@ namespace Grov
         //Testing purposes
         public void Update(GameTime gameTime)
         {
-            count++;
-            totalMilliseconds += gameTime.ElapsedGameTime.Milliseconds;
-            if (totalMilliseconds >= currentSong.Duration.TotalMilliseconds - 600 && currentSong.Name.Contains("Intro"))
-            {
-                this.PlaySong(currentSong.Name.Substring(0, currentSong.Name.Length - 5) + "Loop");
-                totalMilliseconds = 0;
-            }
-            else if (currentSong.Name.Contains("Loop") && totalMilliseconds >= currentSong.Duration.TotalMilliseconds - 1775)
-            {
-                this.PlaySong(currentSong.Name);
-                totalMilliseconds = 0;
-            }
-            else if(totalMilliseconds >= currentSong.Duration.TotalMilliseconds)
-            {
-                this.PlaySong(currentSong.Name);
-                totalMilliseconds = 0;
-            }
+            
         }
         #endregion
 
