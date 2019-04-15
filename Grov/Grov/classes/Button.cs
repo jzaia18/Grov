@@ -13,6 +13,21 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Grov
 {
+    enum MenuButtons
+    {
+        Start,
+        Options,
+        Exit
+    }
+
+    enum PauseButtons
+    {
+        Resume,
+        Restart,
+        ReturnMenu,
+        Exit
+    }
+
     class Button
     {
         #region fields

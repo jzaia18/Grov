@@ -31,6 +31,7 @@ namespace Grov
         private SpriteFont courierNew;
 
         // Button stuff
+        private Dictionary<MenuButtons, AnimatedTexture[]> menuButtonTextureMap;
         private List<Button> menuButtons;
         private int menuPointer;
         private List<Button> pauseButtons;
@@ -151,6 +152,20 @@ namespace Grov
             instance.courierNew = ContentManager.Load<SpriteFont>("CourierNew");
 
             // Loading and initializing menu buttons
+            instance.menuButtonTextureMap = new Dictionary<MenuButtons, AnimatedTexture[]>();
+            //foreach (MenuButtons menuButton in Enum.GetValues(typeof(MenuButtons)))
+            //{
+            //    instance.menuButtonTextureMap[menuButton] = new AnimatedTexture[2];
+            //    instance.menuButtonTextureMap[menuButton][0] = (new AnimatedTexture(ContentManager.Load<Texture2D>("button images/"
+            //                                                                                                    + Enum.GetName(typeof(MenuButtons), menuButton)
+            //                                                                                                    + "Button_NoHover")));
+            //    instance.menuButtonTextureMap[menuButton][1] = (new AnimatedTexture(ContentManager.Load<Texture2D>("button images/"
+            //                                                                                                    + Enum.GetName(typeof(MenuButtons), menuButton)
+            //                                                                                                    + "Button_Hover")));
+            //    instance.menuButtons.Add(new Button(new Rectangle(new Point(820, 600), new Point(instance.menuButtonTextureMap[menuButton][0].Width,
+            //                                                                                     instance.menuButtonTextureMap[menuButton][0].Height))));
+            //}
+
             instance.startTexture_NH = ContentManager.Load<Texture2D>("button images/StartButton_NoHover");
             instance.startTexture_H = ContentManager.Load<Texture2D>("button images/StartButton_Hover");
             instance.menuButtons.Add(new Button(new Rectangle(new Point(820, 600), new Point(instance.startTexture_NH.Width, instance.startTexture_NH.Height))));
@@ -225,6 +240,8 @@ namespace Grov
                     {
                         menuButtons[i].Draw(spriteBatch);
                     }
+                    break;
+                case GameState.ConfirmationMenu:
                     break;
                 case GameState.Map:
                     FloorManager.Instance.Draw(spriteBatch);

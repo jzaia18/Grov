@@ -17,6 +17,7 @@ namespace Grov
         Game,
         Menu,
         PauseMenu,
+        ConfirmationMenu, // For when player wants to restart or exit game
         Map,
         GameOver
     }
@@ -34,7 +35,7 @@ namespace Grov
         // ************* Fields ************* //
 
         private static GameManager instance;
-        private bool devmode = true;
+        private bool devmode = false;
         private bool gameExit;
         private Random rng;
         private GameState gameState;

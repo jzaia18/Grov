@@ -22,7 +22,8 @@ namespace Grov
 
         #region properties
         // ************* Properties ************* //
-
+        public int Width { get => textures[currframe].Width; }
+        public int Height { get => textures[currframe].Height; }
         public int NumFrames { get => textures.Count; }
         private int CurrFrame { get => currframe; set => currframe = (currframe + value) % textures.Count; }
 
