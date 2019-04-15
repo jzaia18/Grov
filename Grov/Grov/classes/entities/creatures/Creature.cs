@@ -75,13 +75,13 @@ namespace Grov
         public bool LineOfSight(Entity target)
         {
 
-            Vector2 direction = (target.Position + new Vector2(target.DrawPos.Width/2, target.DrawPos.Height/2)) - (this.Position + new Vector2(this.DrawPos.Width / 2, this.DrawPos.Height / 2));
+            Vector2 direction = new Vector2(target.Hitbox.X + target.DrawPos.Width/2 - this.Hitbox.X - this.Hitbox.Width/2, target.Hitbox.Y + target.Hitbox.Height/2 - this.Hitbox.Y - this.Hitbox.Height/2);
 
             float stop = direction.Length();
             direction = Vector2.Normalize(direction);
-            for (float i = 5; i < stop - 10; i += 5)
+            for (float i = 5; i < stop - 20; i += 5)
             {
-                if (FloorManager.Instance.BlocksLineOfSight((i * direction) + position))
+                if (FloorManager.Instance.BlocksLineOfSight((i * direction) + new Vector2(this.Hitbox.X + this.Hitbox.Width / 2, this.Hitbox.Y + this.Hitbox.Height / 2)))
                     return false;
             }
 
