@@ -37,6 +37,7 @@ namespace Grov
 		private TileType type;
 		private bool isPassable;
 		private bool blocksProjectiles;
+        private bool blocksLineOfSight;
 
         #endregion
 
@@ -46,6 +47,7 @@ namespace Grov
         public TileType Type { get => type; set => type = value; }
 		public bool IsPassable { get => isPassable; set => isPassable = value; }
 		public bool BlocksProjectiles { get => blocksProjectiles; }
+        public bool BlocksLineOfSight { get => blocksLineOfSight; }
         public Point Location { get => location; set => location = value; }
         #endregion
 
@@ -66,52 +68,62 @@ namespace Grov
                 case 0:
                     isPassable = true;
                     blocksProjectiles = false;
+                    blocksLineOfSight = false;
                     break;
                 //Border wall
                 case 1:
                     isPassable = false;
                     blocksProjectiles = true;
+                    blocksLineOfSight = true;
                     break;
                 //Door
                 case 2:
 					isPassable = false;
 					blocksProjectiles = true;
+                    blocksLineOfSight = false;
                     break;
                 //Water
                 case 3:
                     isPassable = false;
                     blocksProjectiles = false;
+                    blocksLineOfSight = false;
                     break;
                 //Rock
                 case 4:
                     isPassable = false;
                     blocksProjectiles = true;
+                    blocksLineOfSight = false;
                     break;
                 //Stump
                 case 5:
                     isPassable = false;
                     blocksProjectiles = false;
+                    blocksLineOfSight = false;
                     break;
                 //Bridge
                 case 6:
                     isPassable = true;
                     blocksProjectiles = false;
+                    blocksLineOfSight = false;
                     break;
                 //Flowers
                 case 7:
                     isPassable = true;
                     blocksProjectiles = false;
+                    blocksLineOfSight = false;
                     break;
 
                 //Death
                 case -1:
                     isPassable = false;
                     blocksProjectiles = true;
+                    blocksLineOfSight = false;
                     break;
                 //Boss door
                 case 8:
                     isPassable = false;
                     blocksProjectiles = true;
+                    blocksLineOfSight = false;
                     break;
             }
         }

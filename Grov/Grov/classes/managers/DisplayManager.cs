@@ -142,7 +142,7 @@ namespace Grov
             instance.weaponTextureMap = new Dictionary<ProjectileType, AnimatedTexture>();
             foreach (ProjectileType ptype in Enum.GetValues(typeof(ProjectileType))) //player weapons
             {
-                Instance.weaponTextureMap[ptype] = new AnimatedTexture(ContentManager.Load<Texture2D>("pickups/" + Enum.GetName(typeof(ProjectileType), ptype)));
+                Instance.weaponTextureMap[ptype] = new AnimatedTexture(ContentManager.Load<Texture2D>("pickups/weapons/" + Enum.GetName(typeof(ProjectileType), ptype)));
             }
 
             // Load title textures

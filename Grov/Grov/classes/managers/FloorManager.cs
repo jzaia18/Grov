@@ -462,6 +462,25 @@ namespace Grov
 			}
             return tilesTouched;
 		}
+
+        /// <summary>
+        /// Returns whether or not a given point on the screen is in a passable tile
+        /// </summary>
+        public bool BlocksLineOfSight(Vector2 v)
+        {
+            return BlocksLineOfSight(v.X, v.Y);
+        }
+        /// <summary>
+        /// Returns whether or not a given point on the screen is in a passable tile
+        /// </summary>
+        public bool BlocksLineOfSight(float x, float y)
+        {
+            Console.WriteLine(x);
+            Tile tile = currRoom[(int)(x / TileWidth), (int)(y / TileHeight)];
+
+            //Console.WriteLine(tile.Location);
+            return tile.BlocksLineOfSight;
+        }
         #endregion
     }
 }
