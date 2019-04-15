@@ -279,6 +279,30 @@
 /processorParam:TextureFormat=Color
 /build:PausedLabel.png
 
+#begin pickups/Bubble.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:pickups/Bubble.png
+
+#begin pickups/Fire.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:pickups/Fire.png
+
 #begin pickups/Heart.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -291,7 +315,7 @@
 /processorParam:TextureFormat=Color
 /build:pickups/Heart.png
 
-#begin pickups/Weapon.png
+#begin pickups/Star.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -301,7 +325,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:pickups/Weapon.png
+/build:pickups/Star.png
 
 #begin PlayerSprite.png
 /importer:TextureImporter

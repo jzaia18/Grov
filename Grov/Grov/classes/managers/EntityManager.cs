@@ -151,10 +151,11 @@ namespace Grov
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Player.Draw(spriteBatch);
-            foreach (Enemy enemy in enemies) enemy.Draw(spriteBatch);
             foreach (Projectile projectile in friendlyProjectiles) projectile.Draw(spriteBatch);
             foreach (Projectile projectile in hostileProjectiles) projectile.Draw(spriteBatch);
+            Player.Draw(spriteBatch);
+            foreach (Enemy enemy in enemies) enemy.Draw(spriteBatch);
+
             foreach (Pickup pickup in pickups) pickup.Draw(spriteBatch);
         }
 
