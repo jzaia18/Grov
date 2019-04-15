@@ -24,7 +24,7 @@ namespace Grov
         private Dictionary<EnemyType, AnimatedTexture> enemyTextureMap;
         private Dictionary<ProjectileType, AnimatedTexture> projectileTextureMap;
         private Dictionary<PickupType, AnimatedTexture> pickupTextureMap;
-        private Dictionary<string, AnimatedTexture> weaponTextureMap;
+        private Dictionary<ProjectileType, AnimatedTexture> weaponTextureMap;
         private ContentManager contentManager;
         private GraphicsDevice graphicsDevice;
         private static DisplayManager instance;
@@ -64,7 +64,7 @@ namespace Grov
         public static Dictionary<EnemyType, AnimatedTexture> EnemyTextureMap { get => instance.enemyTextureMap; }
         public static Dictionary<ProjectileType, AnimatedTexture> ProjectileTextureMap { get => instance.projectileTextureMap; }
         public static Dictionary<PickupType, AnimatedTexture> PickupTextureMap { get => instance.pickupTextureMap; }
-        public static Dictionary<string, AnimatedTexture> WeaponTextureMap { get => instance.weaponTextureMap; }
+        public static Dictionary<ProjectileType, AnimatedTexture> WeaponTextureMap { get => instance.weaponTextureMap; }
         public static List<Button> MenuButtons { get => instance.menuButtons; }
         public static int MenuPointer { get => instance.menuPointer; set => instance.menuPointer = value; }
         public static List<Button> PauseButtons { get => instance.pauseButtons; }
@@ -127,22 +127,22 @@ namespace Grov
             instance.pickupTextureMap = new Dictionary<PickupType, AnimatedTexture>();
             foreach (PickupType typeOfPickup in Enum.GetValues(typeof(PickupType)))
             {
-                Instance.pickupTextureMap[typeOfPickup] = new AnimatedTexture(ContentManager.Load<Texture2D>("pickups/" + Enum.GetName(typeof(PickupType), typeOfPickup)));
+                if(typeOfPickup == PickupType.Weapon)
+                {
+                    Instance.pickupTextureMap[typeOfPickup] = null;
+                }
+                else
+                {
+                    Instance.pickupTextureMap[typeOfPickup] = new AnimatedTexture(ContentManager.Load<Texture2D>("pickups/" + Enum.GetName(typeof(PickupType), typeOfPickup)));
+                }
             }
 
-            // TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP
-            // use same placeholder for all weapons
-            instance.weaponTextureMap = new Dictionary<string, AnimatedTexture>();
-            foreach (string filename in Weapon.GetAllFilenames()) //player weapons
+            // Load weapon pick up textures
+            instance.weaponTextureMap = new Dictionary<ProjectileType, AnimatedTexture>();
+            foreach (ProjectileType ptype in Enum.GetValues(typeof(ProjectileType))) //player weapons
             {
-                Instance.weaponTextureMap[filename] = new AnimatedTexture(ContentManager.Load<Texture2D>("projectiles/Fire"));
+                Instance.weaponTextureMap[ptype] = new AnimatedTexture(ContentManager.Load<Texture2D>("pickups/" + Enum.GetName(typeof(ProjectileType), ptype)));
             }
-            foreach (string filename in Weapon.GetAllFilenames(false)) //enemy weapons
-            {
-                Instance.weaponTextureMap[filename] = new AnimatedTexture(ContentManager.Load<Texture2D>("projectiles/Fire"));
-            }
-            Instance.weaponTextureMap[@"dev\Dev"] = new AnimatedTexture(ContentManager.Load<Texture2D>("projectiles/Fire"));
-            Instance.weaponTextureMap[@"dev\Default"] = new AnimatedTexture(ContentManager.Load<Texture2D>("projectiles/Fire"));
 
             // Load title textures
             instance.title = ContentManager.Load<Texture2D>("Title");

@@ -65,8 +65,8 @@ namespace Grov
         public Weapon(string filename, Rectangle drawPos, bool isActive, bool playerWeapon) : base(PickupType.Weapon, drawPos)
         {
             this.filename = filename;
-            texture = (AnimatedTexture) DisplayManager.WeaponTextureMap[filename].Clone();
             ReadFromFile(@"resources\weapons\" + filename + ".txt");
+            texture = (AnimatedTexture) DisplayManager.WeaponTextureMap[projectileType].Clone();
             this.isActive = isActive;
             this.playerWeapon = playerWeapon;
         }
