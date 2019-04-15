@@ -124,19 +124,6 @@ namespace Grov
         }
 
         /// <summary>
-        /// Returns whether or not this enemy has line of sight to the target
-        /// </summary>
-        /// <param name="target">The entity the enemy is checking for LoS</param>
-        /// <returns>True if there is LoS</returns>
-        public bool LineOfSight(Entity target)
-        {
-
-            //TODO TODO TODO TODO TODO
-
-            return true;
-        }
-
-        /// <summary>
         /// Use the enemy's attck if it is prepared
         /// </summary>
         /// <param name="target">The entity the enemy is attacking</param>
@@ -167,15 +154,18 @@ namespace Grov
 		/// </summary>
 		protected void Move(Entity target)
 		{
-            Vector2 direction = (target.Position + new Vector2(target.DrawPos.Width/2, target.DrawPos.Height/2)) - (this.position + new Vector2(drawPos.Width/2, drawPos.Height/2));
+            if (LineOfSight(target))
+            {
+                Vector2 direction = (target.Position + new Vector2(target.DrawPos.Width / 2, target.DrawPos.Height / 2)) - (this.position + new Vector2(drawPos.Width / 2, drawPos.Height / 2));
 
-            direction.Normalize();
+                direction.Normalize();
 
-            velocity = direction * moveSpeed;
+                velocity = direction * moveSpeed;
 
-            position += velocity;
+                position += velocity;
 
-            this.fireDelay = FireRate;
+                this.fireDelay = FireRate;
+            }
 		}
         #endregion
     }

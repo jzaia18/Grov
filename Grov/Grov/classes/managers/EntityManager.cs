@@ -329,6 +329,32 @@ namespace Grov
         {
             foreach(Enemy enemy in enemies)
             {
+                foreach (Enemy secondEnemy in enemies)
+                {
+                    if (secondEnemy != enemy)
+                    {
+                        if (enemy.Hitbox.Intersects(secondEnemy.Hitbox))
+                        {
+                            Rectangle overlap = Rectangle.Intersect(enemy.Hitbox, secondEnemy.Hitbox);
+
+                            if (overlap.Width > overlap.Height)
+                            {
+                                if (secondEnemy.Position.Y > enemy.Position.Y)
+                                    secondEnemy.Position = new Vector2(secondEnemy.Position.X, secondEnemy.Position.Y + overlap.Height);
+                                else
+                                    secondEnemy.Position = new Vector2(secondEnemy.Position.X, secondEnemy.Position.Y - overlap.Height);
+                            }
+                            else
+                            {
+                                if (secondEnemy.Position.X > enemy.Position.X)
+                                    secondEnemy.Position = new Vector2(secondEnemy.Position.X + overlap.Width, secondEnemy.Position.Y);
+                                else
+                                    secondEnemy.Position = new Vector2(secondEnemy.Position.X - overlap.Width, secondEnemy.Position.Y);
+                            }
+                        }
+                    }
+                }
+
                 if (enemy.Melee)
                 {
                     if (enemy.Hitbox.Intersects(player.Hitbox) && Player.IFrames == 0)

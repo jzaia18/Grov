@@ -66,6 +66,28 @@ namespace Grov
         }
 
         protected virtual void Move(){ }
+
+        /// <summary>
+        /// Returns whether or not this creature has line of sight to the target
+        /// </summary>
+        /// <param name="target">The entity the creature is checking for LoS</param>
+        /// <returns>True if there is LoS</returns>
+        public bool LineOfSight(Entity target)
+        {
+
+            Vector2 direction = (target.Position + new Vector2(target.DrawPos.Width/2, target.DrawPos.Height/2)) - (this.Position + new Vector2(this.DrawPos.Width / 2, this.DrawPos.Height / 2));
+
+            float stop = direction.Length();
+            direction = Vector2.Normalize(direction);
+            for (float i = 5; i < stop - 10; i += 5)
+            {
+                if (FloorManager.Instance.BlocksLineOfSight((i * direction) + position))
+                    return false;
+            }
+
+            return true;
+        }
+
         #endregion
     }
 }
