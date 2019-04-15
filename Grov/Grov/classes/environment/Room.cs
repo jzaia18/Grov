@@ -79,7 +79,7 @@ namespace Grov
                 //Pick a weapon
                 string weaponFileName = Weapon.GenRandomFilename();
                     //Don't bother if we've seen all of them
-                if(GameManager.Instance.SpawnedWeapons.Count != Weapon.GetAllFilenames().Length)
+                if(GameManager.Instance.SpawnedWeapons.Count < Weapon.GetAllFilenames().Length - 1)
                 {
                     while(GameManager.Instance.SpawnedWeapons.Contains(weaponFileName))
                     {
