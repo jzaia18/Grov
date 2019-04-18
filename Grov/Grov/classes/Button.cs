@@ -22,7 +22,7 @@ namespace Grov
 
     enum PauseButtons
     {
-        Resume,
+        //Resume,
         Restart,
         ReturnMenu,
         Exit

@@ -31,23 +31,14 @@ namespace Grov
         private SpriteFont courierNew;
 
         // Button stuff
-        private Dictionary<MenuButtons, AnimatedTexture[]> menuButtonTextureMap;
+        private Dictionary<MenuButtons, Texture2D[]> menuButtonTextureMap;
         private List<Button> menuButtons;
         private int menuPointer;
+        private Dictionary<PauseButtons, Texture2D[]> pauseButtonTextureMap;
         private List<Button> pauseButtons;
         private int pausePointer;
 
         private Texture2D title;
-        private Texture2D startTexture_NH;
-        private Texture2D startTexture_H;
-        private Texture2D optionsTexture_NH;
-        private Texture2D optionsTexture_H;
-        private Texture2D exitTexture_NH;
-        private Texture2D exitTexture_H;
-        private Texture2D returnTexture_NH;
-        private Texture2D returnTexture_H;
-        private Texture2D restartTexture_NH;
-        private Texture2D restartTexture_H;
         private Texture2D pauseTitle;
         private Texture2D dimScreen;
         private Texture2D map;
@@ -152,38 +143,20 @@ namespace Grov
             instance.courierNew = ContentManager.Load<SpriteFont>("CourierNew");
 
             // Loading and initializing menu buttons
-            instance.menuButtonTextureMap = new Dictionary<MenuButtons, AnimatedTexture[]>();
-            //foreach (MenuButtons menuButton in Enum.GetValues(typeof(MenuButtons)))
-            //{
-            //    instance.menuButtonTextureMap[menuButton] = new AnimatedTexture[2];
-            //    instance.menuButtonTextureMap[menuButton][0] = (new AnimatedTexture(ContentManager.Load<Texture2D>("button images/"
-            //                                                                                                    + Enum.GetName(typeof(MenuButtons), menuButton)
-            //                                                                                                    + "Button_NoHover")));
-            //    instance.menuButtonTextureMap[menuButton][1] = (new AnimatedTexture(ContentManager.Load<Texture2D>("button images/"
-            //                                                                                                    + Enum.GetName(typeof(MenuButtons), menuButton)
-            //                                                                                                    + "Button_Hover")));
-            //    instance.menuButtons.Add(new Button(new Rectangle(new Point(820, 600), new Point(instance.menuButtonTextureMap[menuButton][0].Width,
-            //                                                                                     instance.menuButtonTextureMap[menuButton][0].Height))));
-            //}
+            instance.menuButtonTextureMap = new Dictionary<MenuButtons, Texture2D[]>();
+            foreach (MenuButtons menuButton in Enum.GetValues(typeof(MenuButtons)))
+            {
+                instance.menuButtonTextureMap[menuButton] = new Texture2D[2];
+                instance.menuButtonTextureMap[menuButton][0] = ContentManager.Load<Texture2D>("button images/" + Enum.GetName(typeof(MenuButtons), menuButton) + "Button_NoHover");
+                instance.menuButtonTextureMap[menuButton][1] = ContentManager.Load<Texture2D>("button images/" + Enum.GetName(typeof(MenuButtons), menuButton) + "Button_Hover");
 
-            instance.startTexture_NH = ContentManager.Load<Texture2D>("button images/StartButton_NoHover");
-            instance.startTexture_H = ContentManager.Load<Texture2D>("button images/StartButton_Hover");
-            instance.menuButtons.Add(new Button(new Rectangle(new Point(820, 600), new Point(instance.startTexture_NH.Width, instance.startTexture_NH.Height))));
-            instance.menuButtons[0].NoHover = instance.startTexture_NH;
-            instance.menuButtons[0].Hover = instance.startTexture_H;
-            instance.menuButtons[0].IsHighlighted = true;
-
-            instance.optionsTexture_NH = ContentManager.Load<Texture2D>("button images/OptionsButton_NoHover");
-            instance.optionsTexture_H = ContentManager.Load<Texture2D>("button images/OptionsButton_Hover");
-            instance.menuButtons.Add(new Button(new Rectangle(new Point(820, 600 + instance.optionsTexture_NH.Height), new Point(instance.optionsTexture_NH.Width, instance.optionsTexture_NH.Height))));
-            instance.menuButtons[1].NoHover = instance.optionsTexture_NH;
-            instance.menuButtons[1].Hover = instance.optionsTexture_H;
-
-            instance.exitTexture_NH = ContentManager.Load<Texture2D>("button images/ExitButton_NoHover");
-            instance.exitTexture_H = ContentManager.Load<Texture2D>("button images/ExitButton_Hover");
-            instance.menuButtons.Add(new Button(new Rectangle(new Point(820, 600 + (2 * instance.exitTexture_NH.Height)), new Point(instance.exitTexture_NH.Width, instance.exitTexture_NH.Height))));
-            instance.menuButtons[2].NoHover = instance.exitTexture_NH;
-            instance.menuButtons[2].Hover = instance.exitTexture_H;
+                // Temp variable for new button
+                Button newButton = new Button(new Rectangle(new Point(820, 600 + (instance.menuButtons.Count * (instance.menuButtonTextureMap[menuButton][0].Height + 15))), 
+                                                            new Point(instance.menuButtonTextureMap[menuButton][0].Width, instance.menuButtonTextureMap[menuButton][0].Height)));
+                instance.menuButtons.Add(newButton);
+                newButton.NoHover = instance.menuButtonTextureMap[menuButton][0];
+                newButton.Hover = instance.menuButtonTextureMap[menuButton][1];
+            }
 
             instance.dimScreen = ContentManager.Load<Texture2D>("dimColor");
             instance.map = ContentManager.Load<Texture2D>("Map");
@@ -192,21 +165,20 @@ namespace Grov
             // Loading and initializing pause textures
             instance.pauseTitle = ContentManager.Load<Texture2D>("PausedLabel");
 
-            instance.restartTexture_NH = ContentManager.Load<Texture2D>("button images/RestartButton_NoHover");
-            instance.restartTexture_H = ContentManager.Load<Texture2D>("button images/RestartButton_Hover");
-            instance.pauseButtons.Add(new Button(new Rectangle(new Point(820, 500), new Point(instance.restartTexture_NH.Width, instance.restartTexture_NH.Height))));
-            instance.pauseButtons[0].NoHover = instance.restartTexture_NH;
-            instance.pauseButtons[0].Hover = instance.restartTexture_H;
+            instance.pauseButtonTextureMap = new Dictionary<PauseButtons, Texture2D[]>();
+            foreach (PauseButtons pauseButton in Enum.GetValues(typeof(PauseButtons)))
+            {
+                instance.pauseButtonTextureMap[pauseButton] = new Texture2D[2];
+                instance.pauseButtonTextureMap[pauseButton][0] = ContentManager.Load<Texture2D>("button images/" + Enum.GetName(typeof(PauseButtons), pauseButton) + "Button_NoHover");
+                instance.pauseButtonTextureMap[pauseButton][1] = ContentManager.Load<Texture2D>("button images/" + Enum.GetName(typeof(PauseButtons), pauseButton) + "Button_Hover");
 
-            instance.returnTexture_NH = ContentManager.Load<Texture2D>("button images/ReturnMenuButton_NoHover");
-            instance.returnTexture_H = ContentManager.Load<Texture2D>("button images/ReturnMenuButton_Hover");
-            instance.pauseButtons.Add(new Button(new Rectangle(new Point(820, 500 + instance.returnTexture_NH.Height), new Point(instance.returnTexture_NH.Width, instance.returnTexture_NH.Height))));
-            instance.pauseButtons[1].NoHover = instance.returnTexture_NH;
-            instance.pauseButtons[1].Hover = instance.returnTexture_H;
-
-            instance.pauseButtons.Add(new Button(new Rectangle(new Point(820, 500 + (2 * instance.exitTexture_NH.Height)), new Point(instance.exitTexture_NH.Width, instance.exitTexture_NH.Height))));
-            instance.pauseButtons[2].NoHover = instance.exitTexture_NH;
-            instance.pauseButtons[2].Hover = instance.exitTexture_H;
+                // Temp variable for new button
+                Button newButton = new Button(new Rectangle(new Point(820, 600 + (instance.pauseButtons.Count * (instance.pauseButtonTextureMap[pauseButton][0].Height + 15))),
+                                                            new Point(instance.pauseButtonTextureMap[pauseButton][0].Width, instance.pauseButtonTextureMap[pauseButton][0].Height)));
+                instance.pauseButtons.Add(newButton);
+                newButton.NoHover = instance.pauseButtonTextureMap[pauseButton][0];
+                newButton.Hover = instance.pauseButtonTextureMap[pauseButton][1];
+            }
         }
         #endregion
 
