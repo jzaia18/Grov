@@ -212,6 +212,8 @@ namespace Grov
                         }
                     }
                     break;
+                case GameState.ConfirmationMenu:
+                    break;
                 case GameState.Map:
                     if ((!currentKeyboardState.IsKeyDown(Keys.Tab) && previousKeyboardState.IsKeyDown(Keys.Tab)) || (currentGamePadState.IsButtonDown(Buttons.Back) && !previousGamePadState.IsButtonDown(Buttons.Back)))
                         gameState = GameState.Game;
