@@ -193,16 +193,20 @@ namespace Grov
                             {
                                 Exit();
                             }
-                            else if(DisplayManager.PausePointer == 1)
+                            else if(DisplayManager.PausePointer == 2)
                             {
                                 gameState = GameState.Menu;
                             }
-                            else if(DisplayManager.PausePointer == 0)
+                            else if(DisplayManager.PausePointer == 1)
                             {
                                 EntityManager.Instance.ClearEntities();
                                 EntityManager.Instance.ResetPlayer();
                                 FloorManager.Instance.FloorNumber = 1;
                                 FloorManager.Instance.GenerateFloor();
+                                gameState = GameState.Game;
+                            }
+                            else if(DisplayManager.PausePointer == 0)
+                            {
                                 gameState = GameState.Game;
                             }
                         }
