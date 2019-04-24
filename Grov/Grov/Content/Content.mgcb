@@ -169,7 +169,7 @@
 /processorParam:TextureFormat=Color
 /build:button images/start-button.png;button images/StartButton_NoHover.png
 
-#begin button images/start-button-hover.jpg
+#begin button images/StartButton_Hover.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -179,7 +179,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:button images/start-button-hover.jpg;button images/StartButton_Hover.jpg
+/build:button images/StartButton_Hover.jpg
 
 #begin ConfirmationLabel.png
 /importer:TextureImporter
