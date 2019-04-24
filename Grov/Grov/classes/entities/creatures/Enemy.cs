@@ -31,6 +31,7 @@ namespace Grov
         private int lungeTime;
         private int timeSinceLunge;
         private bool sturdy;
+        private Pathfinder pathfinder;
         #endregion
 
         #region properties

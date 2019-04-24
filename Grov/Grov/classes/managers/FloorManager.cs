@@ -475,11 +475,12 @@ namespace Grov
         /// </summary>
         public bool BlocksLineOfSight(float x, float y)
         {
-            Console.WriteLine(x);
-            Tile tile = currRoom[(int)(x / TileWidth), (int)(y / TileHeight)];
+            return GetTileAt(x, y).BlocksLineOfSight;
+        }
 
-            //Console.WriteLine(tile.Location);
-            return tile.BlocksLineOfSight;
+        public Tile GetTileAt(float x, float y)
+        {
+            return currRoom[(int)(x / TileWidth), (int)(y / TileHeight)];
         }
         #endregion
     }
