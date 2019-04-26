@@ -150,6 +150,15 @@ namespace Grov
             }
         }
 
+        protected void Attack(Vector2 location)
+        {
+            if (weapon != null && weapon.ReadyToFire(fireRate))
+            {
+                Vector2 fireDirection = Vector2.Normalize(new Vector2(this.position.X + this.drawPos.Width / 2 - location.X, this.position.Y + this.drawPos.Height / 2 - location.Y));
+                Weapon.Use(fireDirection);
+            }
+        }
+
 		/// <summary>
 		/// Handles enemy movement and actions
 		/// </summary>

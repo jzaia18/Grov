@@ -44,6 +44,7 @@
     <Compile Include="classes\AnimatedTexture.cs" />
     <Compile Include="classes\Button.cs" />
     <Compile Include="classes\entities\creatures\Creature.cs" />
+    <Compile Include="classes\entities\creatures\GrotBehaviorManager.cs" />
     <Compile Include="classes\environment\RoomNode.cs" />
     <Compile Include="classes\managers\AudioManager.cs" />
     <Compile Include="classes\managers\DisplayManager.cs" />
