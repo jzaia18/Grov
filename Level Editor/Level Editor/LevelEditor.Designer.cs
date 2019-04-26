@@ -54,6 +54,7 @@
             this.enemyBox = new System.Windows.Forms.GroupBox();
             this.palletteButton = new System.Windows.Forms.Button();
             this.clearButton = new System.Windows.Forms.Button();
+            this.enemy2 = new System.Windows.Forms.PictureBox();
             this.enemyLessThan1 = new System.Windows.Forms.PictureBox();
             this.enemy1 = new System.Windows.Forms.PictureBox();
             this.eraseEnemy = new System.Windows.Forms.PictureBox();
@@ -62,6 +63,7 @@
             this.colorBox.SuspendLayout();
             this.currentBox.SuspendLayout();
             this.enemyBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.enemy2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.enemyLessThan1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.enemy1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.eraseEnemy)).BeginInit();
@@ -317,6 +319,7 @@
             // 
             // enemyBox
             // 
+            this.enemyBox.Controls.Add(this.enemy2);
             this.enemyBox.Controls.Add(this.enemyLessThan1);
             this.enemyBox.Controls.Add(this.enemy1);
             this.enemyBox.Controls.Add(this.eraseEnemy);
@@ -348,6 +351,17 @@
             this.clearButton.Text = "Clear";
             this.clearButton.UseVisualStyleBackColor = true;
             this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
+            // 
+            // enemy2
+            // 
+            this.enemy2.Image = global::Level_Editor.Properties.Resources.Mounted_turret_icon;
+            this.enemy2.Location = new System.Drawing.Point(6, 245);
+            this.enemy2.Name = "enemy2";
+            this.enemy2.Size = new System.Drawing.Size(100, 98);
+            this.enemy2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.enemy2.TabIndex = 4;
+            this.enemy2.TabStop = false;
+            this.enemy2.Click += new System.EventHandler(this.enemy_Click);
             // 
             // enemyLessThan1
             // 
@@ -422,6 +436,7 @@
             this.colorBox.PerformLayout();
             this.currentBox.ResumeLayout(false);
             this.enemyBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.enemy2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.enemyLessThan1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.enemy1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.eraseEnemy)).EndInit();
@@ -464,5 +479,6 @@
         private System.Windows.Forms.Button bossDoorButton;
         private System.Windows.Forms.PictureBox enemy1;
         private System.Windows.Forms.PictureBox enemyLessThan1;
+        private System.Windows.Forms.PictureBox enemy2;
     }
 }

@@ -18,7 +18,8 @@ namespace Grov
 
         //Normies
 		Test = 0,
-        Shooty = 1
+        Shooty = 1,
+        Turret = 2
     }
 
     class Enemy : Creature
