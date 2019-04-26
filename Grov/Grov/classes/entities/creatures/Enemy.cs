@@ -91,13 +91,14 @@ namespace Grov
                     {
                         this.Move(target);
                     }
-                    base.Update();
-                    hitbox = drawPos;
                 }
                 else
                 {
                     hitstun--;
                 }
+
+                base.Update();
+                hitbox = drawPos;
 
                 if (!melee && this.Weapon != null)
                 {
