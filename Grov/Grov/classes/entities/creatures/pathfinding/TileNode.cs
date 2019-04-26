@@ -25,8 +25,9 @@ namespace Grov
         #region constructor
         // ************* Constructor ************* //
 
-        public TileNode(int x, int y)
+        public TileNode(int x, int y, Tile tile)
         {
+            Tile = tile;
             X = x;
             Y = y;
             Reset();

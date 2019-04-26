@@ -23,11 +23,19 @@ namespace Grov
         #region constructor
         // ************* Constructor ************* //
 
-        public Pathfinder(TileNode[,] grid, Point start, Point end)
+        public Pathfinder()
         {
-            this.grid = grid;
-            this.start = start;
-            this.end = end;
+            Room room = FloorManager.Instance.CurrRoom;
+            int width = 32;
+            int height = 18;
+            this.grid = new TileNode[width, height];
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    grid[x, y] = new TileNode(x, y, room[x, y]);
+                }
+            }
             openSet = new PriorityQueue<TileNode>();
             closedSet = new List<TileNode>();
         }
@@ -97,17 +105,20 @@ namespace Grov
         /// <summary>
         /// Runs the algorithm synchronously
         /// </summary>
-        public List<TileNode> GetPathToTarget()
+        public List<Tile> GetPathToTarget(Vector2 self, Vector2 target)
         {
+            this.start = new Point((int) (self.X / FloorManager.TileWidth), (int) (self.Y / FloorManager.TileHeight));
+            this.end = new Point((int)(target.X / FloorManager.TileWidth), (int)(target.Y / FloorManager.TileHeight));
+
             Start();
             while (!Step()) /*While not finished, do a step*/;
 
-            List<TileNode> ret = new List<TileNode>();
+            List<Tile> ret = new List<Tile>();
 
             TileNode current = closedSet[closedSet.Count - 1];
             while (current != null)
             {
-                ret.Add(current);
+                ret.Add(current.Tile);
                 current = current.PathNeighbor;
             }
 
@@ -121,7 +132,7 @@ namespace Grov
         /// </summary>
         public void Start()
         {
-            current = grid[start.X,start.Y];
+            current = grid[start.X, start.Y];
             current.H = 0;
             current.G = 0;
         }

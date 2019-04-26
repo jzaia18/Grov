@@ -32,6 +32,7 @@ namespace Grov
         private int timeSinceLunge;
         private bool sturdy;
         private Pathfinder pathfinder;
+        private List<Tile> currentPath;
         #endregion
 
         #region properties
@@ -41,13 +42,14 @@ namespace Grov
         public bool Sturdy { get => sturdy; }
         #endregion
 
-        #region constrcutor
+        #region constructor
         // ************* Constructor ************* //
 
         public Enemy(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, float projectileSpeed, Rectangle drawPos, Vector2 velocity, string weaponName, int lungeTime, bool sturdy) : base(maxHP, melee, fireRate, moveSpeed, attackDamage, projectileSpeed, drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), velocity, true, DisplayManager.EnemyTextureMap[enemyType])
         {
             this.enemyType = enemyType;
             this.sturdy = sturdy;
+            pathfinder = new Pathfinder();
             if (melee)
             {
                 this.lungeTime = lungeTime;
@@ -155,18 +157,25 @@ namespace Grov
 		/// </summary>
 		protected void Move(Entity target)
 		{
-            if (LineOfSight(target))
+            if (currentPath == null || currentPath.Count <= 0 || currentPath[currentPath.Count - 1] != FloorManager.Instance.GetTileAt(target.Position.X, target.Position.Y))
             {
-                Vector2 direction = (target.Position + new Vector2(target.DrawPos.Width / 2, target.DrawPos.Height / 2)) - (this.position + new Vector2(drawPos.Width / 2, drawPos.Height / 2));
+                currentPath = pathfinder.GetPathToTarget(position, target.Position);
+            }
+            else //if (LineOfSight(target))
+            {
+                //Vector2 direction = (target.Position + new Vector2(target.DrawPos.Width / 2, target.DrawPos.Height / 2)) - (this.position + new Vector2(drawPos.Width / 2, drawPos.Height / 2));
 
-                if (!melee && direction.Length() < weapon.ProjectileLifeSpan * weapon.ShotSpeed)
-                    return;
+                //if (!melee && direction.Length() < weapon.ProjectileLifeSpan * weapon.ShotSpeed)
+                //    return;
 
-                direction.Normalize();
+                //direction.Normalize();
 
-                velocity = direction * moveSpeed;
+                //velocity = direction * moveSpeed;
 
-                position += velocity;
+                //position += velocity;
+                Point p = currentPath[0].Location;
+                position = new Vector2(p.X*60, p.Y*60);
+                currentPath.RemoveAt(0);
 
                 this.fireDelay = FireRate;
             }
