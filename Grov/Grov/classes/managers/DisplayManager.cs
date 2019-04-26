@@ -114,7 +114,7 @@ namespace Grov
 
             EnemyTextureMap[EnemyType.Grot] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
             EnemyTextureMap[EnemyType.Turret] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
-
+            EnemyTextureMap[EnemyType.ForestGiant] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
 
             // Load all projectile textures into map
             instance.projectileTextureMap = new Dictionary<ProjectileType, AnimatedTexture>();

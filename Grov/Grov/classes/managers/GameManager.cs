@@ -22,20 +22,13 @@ namespace Grov
         GameOver
     }
 
-    //enum ControlState
-    //{
-    //    KeyboardMode,
-    //    MouseMode,
-    //    GamePadMode
-    //}
-
     class GameManager
     {
         #region fields
         // ************* Fields ************* //
 
         private static GameManager instance;
-        private bool devmode = false;
+        private bool devmode = true;
         private bool gameExit;
         private Random rng;
         private GameState gameState;

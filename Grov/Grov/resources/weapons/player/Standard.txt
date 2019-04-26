@@ -1,11 +1,11 @@
-Razor Leaf
+Devastator
 17
-2
-13
+2.5
+10
 1
 11.0
 Normal
 95
 11
-Twig
+Fire
 false
