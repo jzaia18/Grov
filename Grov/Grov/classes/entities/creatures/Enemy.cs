@@ -40,6 +40,8 @@ namespace Grov
 
         public int Hitstun { get => hitstun; set => hitstun = value; }
         public bool Sturdy { get => sturdy; }
+
+        public int TEMP { get; set; }
         #endregion
 
         #region constructor
@@ -157,12 +159,20 @@ namespace Grov
 		/// </summary>
 		protected void Move(Entity target)
 		{
-            if (currentPath == null || currentPath.Count <= 0 || currentPath[currentPath.Count - 1] != FloorManager.Instance.GetTileAt(target.Position.X, target.Position.Y))
+
+            Vector2 targetPos = new Vector2(target.Hitbox.X + target.Hitbox.Width / 2, target.Hitbox.Y + target.Hitbox.Height / 2); 
+            TEMP++;
+            TEMP %= 30;
+            if (TEMP != 0)
             {
-                currentPath = pathfinder.GetPathToTarget(position, target.Position);
+                return;
             }
-            else //if (LineOfSight(target))
+
+            if (currentPath == null || currentPath.Count <= 0 || currentPath[0] != FloorManager.Instance.GetTileAt(targetPos))
             {
+                currentPath = pathfinder.GetPathToTarget(position, targetPos);
+            }
+            //if (LineOfSight(target))
                 //Vector2 direction = (target.Position + new Vector2(target.DrawPos.Width / 2, target.DrawPos.Height / 2)) - (this.position + new Vector2(drawPos.Width / 2, drawPos.Height / 2));
 
                 //if (!melee && direction.Length() < weapon.ProjectileLifeSpan * weapon.ShotSpeed)
@@ -173,12 +183,12 @@ namespace Grov
                 //velocity = direction * moveSpeed;
 
                 //position += velocity;
-                Point p = currentPath[0].Location;
+                    
+                Point p = currentPath[currentPath.Count - 1].Location;
                 position = new Vector2(p.X*60, p.Y*60);
-                currentPath.RemoveAt(0);
+                currentPath.RemoveAt(currentPath.Count - 1);
 
                 this.fireDelay = FireRate;
-            }
 		}
         #endregion
     }

@@ -43,6 +43,11 @@ namespace Grov
             Checked = false;
             PathNeighbor = null;
         }
+
+        public override string ToString()
+        {
+            return String.Format("Tile at ({0}, {1}): Neighbor at ({2})", X, Y, (PathNeighbor != null ? PathNeighbor.X + ", " + PathNeighbor.Y : "null"));
+        }
         #endregion
     }
 }

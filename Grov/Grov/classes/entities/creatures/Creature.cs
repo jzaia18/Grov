@@ -79,7 +79,7 @@ namespace Grov
 
             float stop = direction.Length();
             direction = Vector2.Normalize(direction);
-            for (float i = 5; i < stop - 20; i += 5)
+            for (float i = 5; i < stop - 20; i += 15)
             {
                 if (FloorManager.Instance.BlocksLineOfSight((i * direction) + new Vector2(this.Hitbox.X + this.Hitbox.Width / 2, this.Hitbox.Y + this.Hitbox.Height / 2)))
                     return false;
@@ -88,6 +88,37 @@ namespace Grov
             return true;
         }
 
+        public bool LineOfFire(Entity target)
+        {
+
+            Vector2 direction = new Vector2(target.Hitbox.X + target.DrawPos.Width / 2 - this.Hitbox.X - this.Hitbox.Width / 2, target.Hitbox.Y + target.Hitbox.Height / 2 - this.Hitbox.Y - this.Hitbox.Height / 2);
+
+            float stop = direction.Length();
+            direction = Vector2.Normalize(direction);
+            for (float i = 5; i < stop - 20; i += 15)
+            {
+                if (FloorManager.Instance.BlocksProjectiles((i * direction) + new Vector2(this.Hitbox.X + this.Hitbox.Width / 2, this.Hitbox.Y + this.Hitbox.Height / 2)))
+                    return false;
+            }
+
+            return true;
+        }
+
+        public bool LineOfPathing(Entity target)
+        {
+
+            Vector2 direction = new Vector2(target.Hitbox.X + target.DrawPos.Width / 2 - this.Hitbox.X - this.Hitbox.Width / 2, target.Hitbox.Y + target.Hitbox.Height / 2 - this.Hitbox.Y - this.Hitbox.Height / 2);
+
+            float stop = direction.Length();
+            direction = Vector2.Normalize(direction);
+            for (float i = 5; i < stop - 20; i += 15)
+            {
+                if (FloorManager.Instance.BlocksPathing((i * direction) + new Vector2(this.Hitbox.X + this.Hitbox.Width / 2, this.Hitbox.Y + this.Hitbox.Height / 2)))
+                    return false;
+            }
+
+            return true;
+        }
         #endregion
     }
 }

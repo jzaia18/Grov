@@ -180,6 +180,11 @@ namespace Grov
             }
 
         }
+
+        public void Clear()
+        {
+            heap.Clear();
+        }
         #endregion
     }
 }

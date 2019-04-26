@@ -478,6 +478,28 @@ namespace Grov
             return GetTileAt(x, y).BlocksLineOfSight;
         }
 
+        public bool BlocksProjectiles(Vector2 v)
+        {
+            return BlocksLineOfSight(v.X, v.Y);
+        }
+        public bool BlocksProjectiles(float x, float y)
+        {
+            return GetTileAt(x, y).BlocksProjectiles;
+        }
+
+        public bool BlocksPathing(Vector2 v)
+        {
+            return BlocksPathing(v.X, v.Y);
+        }
+        public bool BlocksPathing(float x, float y)
+        {
+            return !GetTileAt(x, y).IsPassable;
+        }
+
+        public Tile GetTileAt(Vector2 position)
+        {
+            return GetTileAt(position.X, position.Y);
+        }
         public Tile GetTileAt(float x, float y)
         {
             return currRoom[(int)(x / TileWidth), (int)(y / TileHeight)];

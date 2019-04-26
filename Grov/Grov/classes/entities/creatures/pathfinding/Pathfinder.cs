@@ -15,8 +15,6 @@ namespace Grov
         private PriorityQueue<TileNode> openSet;
         private List<TileNode> closedSet;
         private TileNode[,] grid;
-        private Point start;
-        private Point end;
         private TileNode current;
         #endregion
 
@@ -95,7 +93,7 @@ namespace Grov
         /// Calculates the heuristic from a given point to the end
         /// </summary>
         /// <returns>The heuristic distance</returns>
-        public int Heuristic(int x, int y)
+        public int Heuristic(int x, int y, Point end)
         {
             x = Math.Abs(end.X - x);
             y = Math.Abs(end.Y - y);
@@ -107,11 +105,14 @@ namespace Grov
         /// </summary>
         public List<Tile> GetPathToTarget(Vector2 self, Vector2 target)
         {
-            this.start = new Point((int) (self.X / FloorManager.TileWidth), (int) (self.Y / FloorManager.TileHeight));
-            this.end = new Point((int)(target.X / FloorManager.TileWidth), (int)(target.Y / FloorManager.TileHeight));
+            Tile startTile = FloorManager.Instance.GetTileAt(self);
+            Tile endTile = FloorManager.Instance.GetTileAt(target);
 
-            Start();
-            while (!Step()) /*While not finished, do a step*/;
+            Point start = new Point(startTile.Location.X, startTile.Location.Y);
+            Point end = new Point(endTile.Location.X, endTile.Location.Y);
+
+            Start(start, end);
+            while (!Step(start, end)) /*While not finished, do a step*/;
 
             List<Tile> ret = new List<Tile>();
 
@@ -122,31 +123,42 @@ namespace Grov
                 current = current.PathNeighbor;
             }
 
-            ret.Reverse();
-
             return ret;
         }
 
         /// <summary>
         /// Set up necessary node for running the algorithm
         /// </summary>
-        public void Start()
+        public void Start(Point start, Point end)
         {
+            for (int x = 0; x < grid.GetLength(0); x++)
+            {
+                for (int y = 0; y < grid.GetLength(1); y++)
+                {
+                    grid[x,y].Reset();
+                }
+            }
+            openSet.Clear();
+            closedSet.Clear();
             current = grid[start.X, start.Y];
-            current.H = 0;
-            current.G = 0;
+            current.Checked = true;
+            current.PathNeighbor = null;
+            closedSet.Add(current);
+
         }
 
         /// <summary>
         /// Makes one "step" of the algorithm, checks the current node, gets its neighbor and selects the next node
         /// </summary>
         /// <returns>A boolean representing if the algorithm has finished</returns>
-        public bool Step()
+        public bool Step(Point start, Point end)
         {
             List<TileNode> currNeighbors = GetNeighbors(current.X, current.Y);
 
             foreach (TileNode neighbor in currNeighbors)
             {
+                if (closedSet.IndexOf(neighbor) != -1)
+                    continue;
                 if (neighbor.Checked)
                 {
                     if (current.G + 1 < neighbor.G)
@@ -161,7 +173,8 @@ namespace Grov
                 {
                     neighbor.Checked = true;
                     neighbor.G = current.G + 1;
-                    neighbor.H = Heuristic(neighbor.X, neighbor.Y);
+                    neighbor.H = Heuristic(neighbor.X, neighbor.Y, end);
+                    neighbor.PathNeighbor = current;
                     openSet.Enqueue(neighbor.F, neighbor);
                 }
             }
