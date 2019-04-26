@@ -475,7 +475,7 @@ namespace Grov
         /// </summary>
         public bool BlocksLineOfSight(float x, float y)
         {
-            Console.WriteLine(x);
+            //Console.WriteLine(x);
             Tile tile = currRoom[(int)(x / TileWidth), (int)(y / TileHeight)];
 
             //Console.WriteLine(tile.Location);

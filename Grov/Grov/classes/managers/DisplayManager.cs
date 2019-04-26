@@ -103,8 +103,15 @@ namespace Grov
 
             // Load all enemy textures into map
             instance.enemyTextureMap = new Dictionary<EnemyType, AnimatedTexture>();
-            EnemyTextureMap[EnemyType.Test] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
-            EnemyTextureMap[EnemyType.Shooty] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
+
+            EnemyTextureMap[EnemyType.Test] = new AnimatedTexture(ContentManager.Load<Texture2D>("enemy walking/000"));
+            Texture2D duplicate = ContentManager.Load<Texture2D>("enemy walking/001"); // This texture will be used twice
+            EnemyTextureMap[EnemyType.Test].AddTexture(duplicate);
+            EnemyTextureMap[EnemyType.Test].AddTexture(ContentManager.Load<Texture2D>("enemy walking/002"));
+            EnemyTextureMap[EnemyType.Test].AddTexture(duplicate);
+
+            EnemyTextureMap[EnemyType.Shooty] = new AnimatedTexture(ContentManager.Load<Texture2D>("enemy walking/000"));
+
             EnemyTextureMap[EnemyType.Grot] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
 
 

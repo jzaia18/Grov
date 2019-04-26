@@ -17,6 +17,7 @@ namespace Grov
 
         private List<Texture2D> textures;
         private int currframe;
+        private int frameTime;
 
         #endregion
 
@@ -25,7 +26,8 @@ namespace Grov
         public int Width { get => textures[currframe].Width; }
         public int Height { get => textures[currframe].Height; }
         public int NumFrames { get => textures.Count; }
-        private int CurrFrame { get => currframe; set => currframe = (currframe + value) % textures.Count; }
+        private int CurrFrame { get => currframe / frameTime; set => currframe = (currframe + value) % (NumFrames * FrameTime); }
+        public int FrameTime { get => frameTime; set => frameTime = value; }
 
         #endregion
 
@@ -35,6 +37,7 @@ namespace Grov
         public AnimatedTexture()
         {
             textures = new List<Texture2D>();
+            frameTime = 30;
         }
 
         public AnimatedTexture(Texture2D firstTexture) : this()
@@ -67,16 +70,7 @@ namespace Grov
         public Texture2D GetNextTexture()
         {
             CurrFrame++;
-            return textures[currframe];
-        }
-
-        /// <summary>
-        /// Returns the current texture in the sequence
-        /// </summary>
-        /// <returns>The current texture</returns>
-        public Texture2D GetCurrentTexture()
-        {
-            return textures[currframe];
+            return textures[CurrFrame];
         }
 
         /// <summary>
