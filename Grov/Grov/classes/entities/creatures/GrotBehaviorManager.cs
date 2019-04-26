@@ -25,14 +25,13 @@ namespace Grov
 
         public GrotBehaviorManager(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, float projectileSpeed, Rectangle drawPos, Vector2 velocity, string weaponName, int lungeTime, bool sturdy) : base(enemyType, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, drawPos, velocity,"Grot", 0, true)
         {
-            currentBehavior = BehaviorMode.Taunt;
+            currentBehavior = BehaviorMode.SpinAttack;
             currentFrame = 0;
         }
 
         public override void Update()
         {
             currentFrame++;
-
             switch (currentBehavior)
             {
                 case BehaviorMode.Taunt:
@@ -85,8 +84,9 @@ namespace Grov
                 radians = (currentFrame - 90) / 75f * sign;
             }
 
-            this.weapon = new Weapon("Grot", this.drawPos, true, false);
-            this.Attack(new Vector2(this.position.X + this.drawPos.Width / 2 + (float)Math.Cos(radians), this.position.Y + this.drawPos.Height / 2  + (float)Math.Sin(radians)));
+            this.weapon = new Weapon(@"enemy\Grot", this.drawPos, true, false);
+            //this.Attack(new Vector2(this.position.X + this.drawPos.Width / 2 + (float)Math.Cos(radians), this.position.Y + this.drawPos.Height / 2  + (float)Math.Sin(radians)));
+            weapon.Use(new Vector2(1, 0));
 
             if(currentFrame >= 420)
             {
