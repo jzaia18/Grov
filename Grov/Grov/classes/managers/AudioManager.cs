@@ -80,8 +80,8 @@ namespace Grov
 
         public void PlaySong(string song)
         {
-            Console.WriteLine(song);
-            Console.WriteLine(count);
+            //Console.WriteLine(song);
+            //Console.WriteLine(count);
             if (songs.ContainsKey(song))
             {
                 currentSong = songs[song];
