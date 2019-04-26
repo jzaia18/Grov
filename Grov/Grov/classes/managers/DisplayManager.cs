@@ -104,13 +104,18 @@ namespace Grov
             // Load all enemy textures into map
             instance.enemyTextureMap = new Dictionary<EnemyType, AnimatedTexture>();
 
-            EnemyTextureMap[EnemyType.Test] = new AnimatedTexture(ContentManager.Load<Texture2D>("enemy walking/000"));
-            Texture2D duplicate = ContentManager.Load<Texture2D>("enemy walking/001"); // This texture will be used twice
-            EnemyTextureMap[EnemyType.Test].AddTexture(duplicate);
-            EnemyTextureMap[EnemyType.Test].AddTexture(ContentManager.Load<Texture2D>("enemy walking/002"));
-            EnemyTextureMap[EnemyType.Test].AddTexture(duplicate);
+            EnemyTextureMap[EnemyType.Test] = new AnimatedTexture(ContentManager.Load<Texture2D>("animations/Test_Walking/000"));
+            Texture2D duplicateTest = ContentManager.Load<Texture2D>("animations/Test_Walking/001"); // This texture will be used twice
+            EnemyTextureMap[EnemyType.Test].AddTexture(duplicateTest);
+            EnemyTextureMap[EnemyType.Test].AddTexture(ContentManager.Load<Texture2D>("animations/Test_Walking/002"));
+            EnemyTextureMap[EnemyType.Test].AddTexture(duplicateTest);
 
-            EnemyTextureMap[EnemyType.Shooty] = new AnimatedTexture(ContentManager.Load<Texture2D>("enemy walking/000"));
+            EnemyTextureMap[EnemyType.Shooty] = new AnimatedTexture(ContentManager.Load<Texture2D>("animations/Shooty_Walking/000"));
+            Texture2D duplicateShooty = ContentManager.Load<Texture2D>("animations/Shooty_Walking/001");
+            EnemyTextureMap[EnemyType.Shooty].AddTexture(duplicateShooty);
+            EnemyTextureMap[EnemyType.Shooty].AddTexture(ContentManager.Load<Texture2D>("animations/Shooty_Walking/002"));
+            EnemyTextureMap[EnemyType.Shooty].AddTexture(duplicateShooty);
+            EnemyTextureMap[EnemyType.Shooty].AddTexture(ContentManager.Load<Texture2D>("animations/Shooty_Walking/003"));
 
             EnemyTextureMap[EnemyType.Grot] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
             EnemyTextureMap[EnemyType.Turret] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
