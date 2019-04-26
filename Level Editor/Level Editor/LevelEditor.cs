@@ -254,9 +254,14 @@ namespace Level_Editor
                                     writer.Write(2);
                                 }
                                 //Enemy -1
-                                else if(mapArray[i, ii].Image == enemyLessThan1.Image)
+                                else if(mapArray[i, ii].Image == enemyMinus1.Image)
                                 {
                                     writer.Write(-1);
+                                }
+                                //Enemy -2
+                                else if(mapArray[i, ii].Image == enemyMinus2.Image)
+                                {
+                                    writer.Write(-2);
                                 }
                             }
                         }
@@ -479,10 +484,13 @@ namespace Level_Editor
                             mapArray[y, x].Image = enemy1.Image;
                             break;
                         case -1:
-                            mapArray[y, x].Image = enemyLessThan1.Image;
+                            mapArray[y, x].Image = enemyMinus1.Image;
                             break;
                         case 2:
                             mapArray[y, x].Image = enemy2.Image;
+                            break;
+                        case -2:
+                            mapArray[y, x].Image = enemyMinus2.Image;
                             break;
                     }
                 }

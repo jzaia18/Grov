@@ -94,5 +94,8 @@
   <ItemGroup>
     <None Include="Resources\Mounted_turret_icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\download.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

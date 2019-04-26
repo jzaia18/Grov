@@ -22,13 +22,6 @@ namespace Grov
         GameOver
     }
 
-    //enum ControlState
-    //{
-    //    KeyboardMode,
-    //    MouseMode,
-    //    GamePadMode
-    //}
-
     class GameManager
     {
         #region fields

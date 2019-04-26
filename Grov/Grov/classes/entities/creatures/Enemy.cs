@@ -15,6 +15,7 @@ namespace Grov
     {
         //Bosses
         Grot = -1,
+        ForestGiant = -2,
 
         //Normies
 		Test = 0,
@@ -168,7 +169,7 @@ namespace Grov
             {
                 Vector2 direction = (target.Position + new Vector2(target.DrawPos.Width / 2, target.DrawPos.Height / 2)) - (this.position + new Vector2(drawPos.Width / 2, drawPos.Height / 2));
 
-                if (!melee && direction.Length() < weapon.ProjectileLifeSpan * weapon.ShotSpeed)
+                if ((!melee && enemyType != EnemyType.ForestGiant) && direction.Length() < weapon.ProjectileLifeSpan * weapon.ShotSpeed)
                     return;
 
                 direction.Normalize();
