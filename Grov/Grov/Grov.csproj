@@ -248,10 +248,19 @@
     <None Include="resources\rooms\boss\Forest Giant\0001\Forest Giant.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="resources\rooms\boss\Forest Giant\0001\Hell.grovlev">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="resources\rooms\boss\Forest Giant\0010\Forest Giant.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="resources\rooms\boss\Forest Giant\0010\Hell.grovlev">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="resources\rooms\boss\Forest Giant\0100\Forest Giant.grovlev">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\rooms\boss\Forest Giant\0100\WateryHell.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="resources\rooms\boss\Forest Giant\1000\Forest Giant.grovlev">
