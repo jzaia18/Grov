@@ -191,6 +191,9 @@
     <None Include="resources\rooms\1010\CurvedPath.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="resources\rooms\1010\Turret.grovlev">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="resources\rooms\1011\BattleaxeClearing.grovlev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
