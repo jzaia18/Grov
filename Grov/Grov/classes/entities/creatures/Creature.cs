@@ -79,7 +79,7 @@ namespace Grov
 
             float stop = direction.Length();
             direction = Vector2.Normalize(direction);
-            for (float i = 5; i < stop - 20; i += 5)
+            for (float i = 5; i < stop - 20; i += 15)
             {
                 if (FloorManager.Instance.BlocksLineOfSight((i * direction) + new Vector2(this.Hitbox.X + this.Hitbox.Width / 2, this.Hitbox.Y + this.Hitbox.Height / 2)))
                     return false;
