@@ -6,6 +6,6 @@ Paralyzer Bubble
 0
 Bubble
 2
-160
+200
 Bubble
 true

@@ -6,6 +6,6 @@
 25
 Normal
 -1
-200
+2000
 Fire
 true
