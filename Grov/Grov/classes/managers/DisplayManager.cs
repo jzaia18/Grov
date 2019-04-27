@@ -164,8 +164,8 @@ namespace Grov
                 instance.menuButtonTextureMap[menuButton][1] = ContentManager.Load<Texture2D>("button images/" + Enum.GetName(typeof(MenuButtons), menuButton) + "Button_Hover");
 
                 // Temp variable for new button
-                Button newButton = new Button(new Rectangle(new Point(820, 600 + (instance.menuButtons.Count * (instance.menuButtonTextureMap[menuButton][0].Height + 15))), 
-                                                            new Point(instance.menuButtonTextureMap[menuButton][0].Width, instance.menuButtonTextureMap[menuButton][0].Height)));
+                Button newButton = new Button(new Rectangle(new Point(750, 600 + (instance.menuButtons.Count * (instance.menuButtonTextureMap[menuButton][0].Height / 2 + 15))), 
+                                                            new Point(instance.menuButtonTextureMap[menuButton][0].Width / 2, instance.menuButtonTextureMap[menuButton][0].Height / 2)));
                 instance.menuButtons.Add(newButton);
                 newButton.NoHover = instance.menuButtonTextureMap[menuButton][0];
                 newButton.Hover = instance.menuButtonTextureMap[menuButton][1];
@@ -186,8 +186,8 @@ namespace Grov
                 instance.pauseButtonTextureMap[pauseButton][1] = ContentManager.Load<Texture2D>("button images/" + Enum.GetName(typeof(PauseButtons), pauseButton) + "Button_Hover");
 
                 // Temp variable for new button
-                Button newButton = new Button(new Rectangle(new Point(820, 600 + (instance.pauseButtons.Count * (instance.pauseButtonTextureMap[pauseButton][0].Height + 15))),
-                                                            new Point(instance.pauseButtonTextureMap[pauseButton][0].Width, instance.pauseButtonTextureMap[pauseButton][0].Height)));
+                Button newButton = new Button(new Rectangle(new Point(820, 600 + (instance.pauseButtons.Count * (instance.pauseButtonTextureMap[pauseButton][0].Height / 2 + 15))),
+                                                            new Point(instance.pauseButtonTextureMap[pauseButton][0].Width / 2, instance.pauseButtonTextureMap[pauseButton][0].Height / 2)));
                 instance.pauseButtons.Add(newButton);
                 newButton.NoHover = instance.pauseButtonTextureMap[pauseButton][0];
                 newButton.Hover = instance.pauseButtonTextureMap[pauseButton][1];

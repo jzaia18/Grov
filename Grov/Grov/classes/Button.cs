@@ -16,7 +16,7 @@ namespace Grov
     enum MenuButtons
     {
         Start,
-        Options,
+        Help,
         Exit
     }
 

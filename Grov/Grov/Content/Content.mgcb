@@ -121,7 +121,7 @@
 /processorParam:Quality=Best
 /build:audio/SFX/FireShot.mp3;audio/SFX/FireShot
 
-#begin button images/ExitButton_Hover.jpg
+#begin button images/ExitButton_Hover.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -131,7 +131,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:button images/ExitButton_Hover.jpg
+/build:button images/ExitButton_Hover.png
 
 #begin button images/ExitButton_NoHover.png
 /importer:TextureImporter
@@ -145,7 +145,7 @@
 /processorParam:TextureFormat=Color
 /build:button images/ExitButton_NoHover.png
 
-#begin button images/OptionsButton_Hover.jpg
+#begin button images/HelpButton_Hover.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -155,9 +155,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:button images/OptionsButton_Hover.jpg
+/build:button images/HelpButton_Hover.png
 
-#begin button images/OptionsButton_NoHover.png
+#begin button images/HelpButton_NoHover.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -167,9 +167,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:button images/OptionsButton_NoHover.png
+/build:button images/HelpButton_NoHover.png
 
-#begin button images/RestartButton_Hover.jpg
+#begin button images/RestartButton_Hover.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -179,7 +179,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:button images/RestartButton_Hover.jpg
+/build:button images/RestartButton_Hover.png
 
 #begin button images/RestartButton_NoHover.png
 /importer:TextureImporter
@@ -193,7 +193,7 @@
 /processorParam:TextureFormat=Color
 /build:button images/RestartButton_NoHover.png
 
-#begin button images/ResumeButton_Hover.jpg
+#begin button images/ResumeButton_Hover.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -203,7 +203,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:button images/ResumeButton_Hover.jpg
+/build:button images/ResumeButton_Hover.png
 
 #begin button images/ResumeButton_NoHover.png
 /importer:TextureImporter
@@ -217,7 +217,7 @@
 /processorParam:TextureFormat=Color
 /build:button images/ResumeButton_NoHover.png
 
-#begin button images/ReturnMenuButton_Hover.jpg
+#begin button images/ReturnMenuButton_Hover.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -227,7 +227,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:button images/ReturnMenuButton_Hover.jpg
+/build:button images/ReturnMenuButton_Hover.png
 
 #begin button images/ReturnMenuButton_NoHover.png
 /importer:TextureImporter
@@ -241,7 +241,7 @@
 /processorParam:TextureFormat=Color
 /build:button images/ReturnMenuButton_NoHover.png
 
-#begin button images/start-button.png
+#begin button images/StartButton_Hover.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -251,9 +251,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:button images/start-button.png;button images/StartButton_NoHover.png
+/build:button images/StartButton_Hover.png
 
-#begin button images/StartButton_Hover.jpg
+#begin button images/StartButton_NoHover.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -263,7 +263,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:button images/StartButton_Hover.jpg
+/build:button images/StartButton_NoHover.png
 
 #begin ConfirmationLabel.png
 /importer:TextureImporter
