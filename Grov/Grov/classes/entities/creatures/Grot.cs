@@ -27,7 +27,7 @@ namespace Grov
         {
             currentBehavior = BehaviorMode.Taunt;
             currentFrame = 0;
-            sign = 1;
+            sign = 0;
         }
 
         public override void Update()
@@ -59,7 +59,7 @@ namespace Grov
 
         private void Taunt()
         {
-            if(currentFrame >= 60)
+            if(currentFrame >= 120)
             {
                 this.currentBehavior = (BehaviorMode)GameManager.RNG.Next(1, 5); // Generates a new attack
                 currentFrame = 0;
@@ -68,7 +68,7 @@ namespace Grov
 
         private void Idle()
         {
-            if(currentFrame >= 120)
+            if(currentFrame >= 60)
             {
                 this.currentBehavior = (BehaviorMode)GameManager.RNG.Next(1, 5); // Generates a new attack
                 currentFrame = 0;
@@ -79,7 +79,7 @@ namespace Grov
         {
             double radians = 0f;
 
-            if(currentFrame % 90 == 0)
+            if(currentFrame == 90)
             {
                 sign = GameManager.RNG.Next(0, 2) * 2 - 1; // Generates a random direction
             }
@@ -92,7 +92,8 @@ namespace Grov
             if(currentFrame >= 420)
             {
                 currentFrame = 0;
-                this.currentBehavior = BehaviorMode.Idle;
+                this.currentBehavior = BehaviorMode.Taunt;
+                sign = 0;
             }
         }
 

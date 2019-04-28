@@ -1,4 +1,4 @@
-﻿Shooty
+﻿Fire Shroomlet
 12
 false
 1
