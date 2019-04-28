@@ -74,7 +74,7 @@ namespace Grov
         {
             if (texture != null)
             {
-                if (!this.FacingRight)
+                if (this.FacingRight)
                     spriteBatch.Draw(texture.GetNextTexture(), drawPos, null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 1f);
                 else
                     spriteBatch.Draw(texture.GetNextTexture(), drawPos, Color.White);
