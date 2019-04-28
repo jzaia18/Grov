@@ -33,6 +33,8 @@ namespace Grov
         private int lungeTime;
         private int timeSinceLunge;
         private bool sturdy;
+        private Pathfinder pathfinder;
+        private List<Tile> currentPath;
         #endregion
 
         #region properties
@@ -42,13 +44,14 @@ namespace Grov
         public bool Sturdy { get => sturdy; }
         #endregion
 
-        #region constrcutor
+        #region constructor
         // ************* Constructor ************* //
 
         public Enemy(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, float projectileSpeed, Rectangle drawPos, Vector2 velocity, string weaponName, int lungeTime, bool sturdy) : base(maxHP, melee, fireRate, moveSpeed, attackDamage, projectileSpeed, drawPos, drawPos, new Vector2(drawPos.X, drawPos.Y), velocity, true, DisplayManager.EnemyTextureMap[enemyType])
         {
             this.enemyType = enemyType;
             this.sturdy = sturdy;
+            pathfinder = new Pathfinder();
             if (melee)
             {
                 this.lungeTime = lungeTime;
@@ -166,22 +169,48 @@ namespace Grov
 		/// </summary>
 		protected void Move(Entity target)
 		{
-            if (LineOfSight(target))
+            Vector2 selfPos = new Vector2(this.Hitbox.X + this.Hitbox.Width / 2, this.Hitbox.Y + this.Hitbox.Height / 2);
+            Vector2 targetPos = new Vector2(target.Hitbox.X + target.Hitbox.Width / 2, target.Hitbox.Y + target.Hitbox.Height / 2);
+            Vector2 direction = targetPos - selfPos;
+
+            // If I'm ranged and can fire at you, don't bother moving
+            if ((!melee && enemyType != EnemyType.ForestGiant) && LineOfFire(target) && direction.Length() < weapon.ProjectileLifeSpan * weapon.ShotSpeed)
+                return;
+
+            // If you can walk in a straight line to the target, don't bother pathfinding
+            if (LineOfPathing(target))
             {
-                Vector2 direction = (target.Position + new Vector2(target.DrawPos.Width / 2, target.DrawPos.Height / 2)) - (this.position + new Vector2(drawPos.Width / 2, drawPos.Height / 2));
+                direction.Normalize();
+                velocity = direction * moveSpeed;
+                position += velocity;
+            }
 
-                if ((!melee && enemyType != EnemyType.ForestGiant) && direction.Length() < weapon.ProjectileLifeSpan * weapon.ShotSpeed)
-                    return;
+            //Otherwise pathfinding is necessary
+            else
+            {
+                // Only run the pathfinding algo again if the player has moved
+                if (currentPath == null || currentPath.Count <= 0 || currentPath[0] != FloorManager.Instance.GetTileAt(targetPos))
+                {
+                    currentPath = pathfinder.GetPathToTarget(position, targetPos);
+                }
 
+                // If I've reached the next tile I'm looking for, pop it off the list of tiles to walk to
+                if (FloorManager.Instance.GetTileAt(selfPos) == currentPath[currentPath.Count - 1])
+                {
+                    currentPath.RemoveAt(currentPath.Count - 1);
+                }
+
+                //Start walking towards a tile that will bring me closer to my target
+                Point targetPoint = currentPath[currentPath.Count - 1].Location;
+                direction = new Vector2((targetPoint.X + .5f) * FloorManager.TileWidth - selfPos.X, (targetPoint.Y + .5f) * FloorManager.TileHeight - selfPos.Y);
                 direction.Normalize();
 
                 velocity = direction * moveSpeed;
-
                 position += velocity;
 
                 this.fireDelay = FireRate;
             }
-		}
+        }
         #endregion
     }
 }
