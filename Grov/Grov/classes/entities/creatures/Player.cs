@@ -84,18 +84,18 @@ namespace Grov
         public override void Update()
         {
             Point point = DrawPos.Location;
-            this.Aim();
             base.Update();
+            this.Aim();
             point = drawPos.Location - point;
             this.hitbox.Location += point;
             if(weapon != null)
-                this.weapon.Update();
+                weapon.Update();
             if (secondary != null)
-                this.secondary.Update();
+                secondary.Update();
 
-            if(this.currMP < this.MaxMP && cooldown == 0 && (weapon == null || weapon.ReadyToFire(fireRate)))
+            if(currMP < MaxMP && cooldown == 0 && (weapon == null || weapon.ReadyToFire(fireRate)))
             {
-                this.currMP += .5f;
+                currMP += .5f;
             }
 
             if(this.Iframes > 0)
@@ -238,8 +238,6 @@ namespace Grov
                 this.facingRight = false;
             
             velocity = new Vector2(0f, 0f);
-            if(weapon != null)
-                weapon.Position = new Vector2(this.position.X + this.DrawPos.Width / 2, this.position.Y + this.DrawPos.Height / 2);
         }
 
         /// <summary>
@@ -275,7 +273,7 @@ namespace Grov
                 }
                 if (isMouse)
                 {
-                    direction = new Vector2(GameManager.CurrentMouseState.X - (DrawPos.X + DrawPos.Width / 2), GameManager.CurrentMouseState.Y - (DrawPos.Y + DrawPos.Height / 2));
+                    direction = new Vector2(GameManager.CurrentMouseState.Position.X - (weapon.DrawPos.X + weapon.DrawPos.Width / 2), GameManager.CurrentMouseState.Position.Y - (weapon.DrawPos.Y + weapon.DrawPos.Height / 2));
                 }
 
 
@@ -321,7 +319,7 @@ namespace Grov
         /// </summary>
         public void Attack()
         {
-            this.weapon.Position = new Vector2(this.position.X + this.drawPos.Width / 2 - 15, this.position.Y + this.drawPos.Height / 2 - 15);
+            //this.weapon.Position = new Vector2(this.position.X + (this.drawPos.Width - weapon.DrawPos.Width)/2, this.position.Y + (this.drawPos.Height - weapon.DrawPos.Height) / 2);
             this.weapon.Use(aimDirection * projectileSpeed);
             this.currMP -= weapon.ManaCost;
         }

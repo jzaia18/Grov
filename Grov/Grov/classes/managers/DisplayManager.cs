@@ -43,6 +43,7 @@ namespace Grov
         private Texture2D pauseTitle;
         private Texture2D dimScreen;
         private Texture2D map;
+        private Texture2D background;
 
         private Texture2D mapMarkerRoom;
         #endregion
@@ -181,6 +182,7 @@ namespace Grov
 
             instance.dimScreen = ContentManager.Load<Texture2D>("dimColor");
             instance.map = ContentManager.Load<Texture2D>("Map");
+            instance.background = ContentManager.Load<Texture2D>("background");
             instance.mapMarkerRoom = ContentManager.Load<Texture2D>("MapMarkers");
 
             // Loading and initializing pause textures
@@ -230,6 +232,7 @@ namespace Grov
                     spriteBatch.Draw(dimScreen, new Rectangle(0, 0, 1920, 1080), Color.White);
                     break;
                 case GameState.Menu:
+                    spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White);
                     spriteBatch.Draw(title, new Rectangle(600, 200, title.Width + 300, title.Height), Color.White);
                     for (int i = 0; i < menuButtons.Count; i++)
                     {
