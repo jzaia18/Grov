@@ -5,7 +5,7 @@ Zoner
 55
 260
 Radial
-3
+2
 1
 Star
 true
