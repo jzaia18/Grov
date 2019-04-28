@@ -376,7 +376,18 @@ namespace Grov
             {
                 foreach(Enemy enemy in enemies)
                 {
-                    if (projectile.Hitbox.Intersects(enemy.Hitbox))
+                    if(enemy.EnemyType == EnemyType.Grot)
+                    {
+                        if (projectile.Hitbox.Intersects(enemy.Hitbox))
+                        {
+                            enemy.CurrHP -= projectile.Damage;
+                            if (!projectile.Noclip)
+                                projectile.IsActive = false;
+                            if (!enemy.Sturdy)
+                                enemy.Hitstun += player.Weapon.Hitstun;
+                        }
+                    }
+                    else if (projectile.Hitbox.Intersects(enemy.DrawPos))
                     {
                         enemy.CurrHP -= projectile.Damage;
                         if(!projectile.Noclip)

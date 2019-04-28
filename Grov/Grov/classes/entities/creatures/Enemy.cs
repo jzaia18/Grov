@@ -42,6 +42,7 @@ namespace Grov
 
         public int Hitstun { get => hitstun; set => hitstun = value; }
         public bool Sturdy { get => sturdy; }
+        public EnemyType EnemyType { get => enemyType; }
         #endregion
 
         #region constructor
