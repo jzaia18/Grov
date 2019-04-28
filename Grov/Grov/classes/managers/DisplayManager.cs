@@ -117,7 +117,7 @@ namespace Grov
             EnemyTextureMap[EnemyType.Shooty].AddTexture(duplicateShooty);
             EnemyTextureMap[EnemyType.Shooty].AddTexture(ContentManager.Load<Texture2D>("animations/Shooty_Walking/003"));
 
-            EnemyTextureMap[EnemyType.Grot] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
+            EnemyTextureMap[EnemyType.Grot] = new AnimatedTexture(ContentManager.Load<Texture2D>("Grot"));
             EnemyTextureMap[EnemyType.Turret] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
             EnemyTextureMap[EnemyType.ForestGiant] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
 
