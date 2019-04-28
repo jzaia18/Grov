@@ -124,7 +124,7 @@ namespace Grov
 
             EnemyTextureMap[EnemyType.ForestGiant] = new AnimatedTexture(ContentManager.Load<Texture2D>("animations/ForestGiant_Walking/000"));
             EnemyTextureMap[EnemyType.ForestGiant].AddTexture(ContentManager.Load<Texture2D>("animations/ForestGiant_Walking/001"));
-            EnemyTextureMap[EnemyType.ForestGiant].FrameTime = 12;
+            EnemyTextureMap[EnemyType.ForestGiant].FrameTime = 20;
 
             // Load all projectile textures into map
             instance.projectileTextureMap = new Dictionary<ProjectileType, AnimatedTexture>();
