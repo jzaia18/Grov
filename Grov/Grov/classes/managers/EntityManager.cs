@@ -329,6 +329,9 @@ namespace Grov
             }
         }
 
+        /// <summary>
+        /// Handles all melee-based collisions
+        /// </summary>
         public void HandleMeleeCollisions()
         {
             foreach(Enemy enemy in enemies)
@@ -370,6 +373,9 @@ namespace Grov
             }
         }
 
+        /// <summary>
+        /// Handles all Enemies taking damage
+        /// </summary>
         public void HandleEnemyDamageCollisions()
         {
             foreach(Projectile projectile in friendlyProjectiles)
@@ -399,6 +405,9 @@ namespace Grov
             }
         }
 
+        /// <summary>
+        /// Handles picking up collectibles
+        /// </summary>
         public void HandlePickUpCollisions(Pickup collectible)
         {
             if (player.Hitbox.Intersects(collectible.Hitbox))
@@ -408,6 +417,9 @@ namespace Grov
             }
         }
 
+        /// <summary>
+        /// Handles when projectiles hit each other
+        /// </summary>
         public void HandleProjectileClank(Projectile friendlyProjectile)
         {
             if(friendlyProjectile.Type == ProjectileType.Bubble)
@@ -423,6 +435,9 @@ namespace Grov
             }
         }
 
+        /// <summary>
+        /// Spawns an enemy in a room
+        /// </summary>
         public void SpawnEnemies(EnemyType enemyType, Vector2 position)
         {
             string filename = @"resources\enemies\" + enemyType + ".txt"; 
@@ -481,11 +496,9 @@ namespace Grov
             this.pickups.Add(pickup);
         }
 
-        public void RemoveEnemy(Enemy enemy)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// Adds a projectile to the manager's list
+        /// </summary>
         public static void AddProjectile(Projectile projectile)
         {
             if (projectile.IsFromPlayer)
@@ -496,9 +509,6 @@ namespace Grov
                 instance.hostileProjectiles.Add(projectile);
             }
         }
-
-
-
         #endregion
     }
 }

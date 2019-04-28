@@ -352,7 +352,7 @@ namespace Grov
                     }
                     break;
                 case PickupType.Heart:
-                    this.CurrHP += 10f;
+                    this.CurrHP += 20f;
                     if (this.CurrHP > this.MaxHP)
                         this.CurrHP = this.MaxHP;
                     break;
