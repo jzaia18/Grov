@@ -61,6 +61,30 @@
 /processorParam:TextureFormat=Color
 /build:animations/FireShroomlet_Walking/003.png
 
+#begin animations/ForestGiant_Walking/000.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:animations/ForestGiant_Walking/000.png
+
+#begin animations/ForestGiant_Walking/001.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:animations/ForestGiant_Walking/001.png
+
 #begin animations/RedShroomlet_Walking/000.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -518,6 +542,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:projectiles/Fire.png
+
+#begin projectiles/Leaf.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:projectiles/Leaf.png
 
 #begin projectiles/Star.png
 /importer:TextureImporter

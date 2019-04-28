@@ -61,7 +61,7 @@ namespace Grov
         {
             if(currentFrame >= 120)
             {
-                this.currentBehavior = (BehaviorMode)GameManager.RNG.Next(1, 5); // Generates a new attack
+                this.currentBehavior = (BehaviorMode)GameManager.RNG.Next(2, 5); // Generates a new attack
                 currentFrame = 0;
             }
         }
@@ -70,14 +70,18 @@ namespace Grov
         {
             if(currentFrame >= 60)
             {
-                this.currentBehavior = (BehaviorMode)GameManager.RNG.Next(1, 5); // Generates a new attack
+                this.currentBehavior = (BehaviorMode)GameManager.RNG.Next(2, 5); // Generates a new attack
                 currentFrame = 0;
             }
         }
 
         private void SpinAttack()
         {
-            double radians = 0f;
+            if (currentFrame == 1)
+            {
+                this.weapon = new Weapon(@"enemy\Grot", new Rectangle(this.drawPos.X + this.drawPos.Width / 2, this.drawPos.Y + this.drawPos.Height / 2, 1, 1), true, false);
+            }
+                double radians = 0f;
 
             if(currentFrame == 90)
             {
@@ -86,7 +90,6 @@ namespace Grov
 
             radians = ((currentFrame / 2) % 360) * (Math.PI/180) * sign;
 
-            this.weapon = new Weapon(@"enemy\Grot", this.drawPos, true, false);
             weapon.Use(Vector2.Normalize(new Vector2((float)Math.Cos(radians), (float)Math.Sin(radians))));
 
             if(currentFrame >= 420)
@@ -99,16 +102,19 @@ namespace Grov
 
         private void PulseAttack()
         {
-            this.weapon = new Weapon(@"enemy\Forest Giant", this.drawPos, true, false);
+            if (currentFrame == 1)
+            {
+                this.weapon = new Weapon(@"enemy\Grot Pulse", new Rectangle(this.drawPos.X + this.drawPos.Width / 2, this.drawPos.Y + this.drawPos.Height / 2, 1, 1), true, false);
+            }
 
-            if (currentFrame % 40 == 0)
+            if (currentFrame % 60 == 0)
             {
                 weapon.Use(new Vector2(1, 1));
             }
 
-            if (currentFrame >= 150)
+            if (currentFrame >= 200)
             {
-                this.currentBehavior = (BehaviorMode)GameManager.RNG.Next(1, 5); // Generates a new attack
+                this.currentBehavior = (BehaviorMode)GameManager.RNG.Next(0, 2); // Generates a new attack
                 currentFrame = 0;
             }
         }
@@ -117,7 +123,7 @@ namespace Grov
         {
             if (currentFrame >= 0)
             {
-                this.currentBehavior = (BehaviorMode)GameManager.RNG.Next(1, 5); // Generates a new attack
+                this.currentBehavior = (BehaviorMode)GameManager.RNG.Next(0, 2); // Generates a new attack
                 currentFrame = 0;
             }
         }
