@@ -86,10 +86,10 @@
     <Content Include="resources\enemies\Turret.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="resources\enemies\Shooty.txt">
+    <Content Include="resources\enemies\FireShroomlet.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="resources\enemies\Test.txt">
+    <Content Include="resources\enemies\RedShroomlet.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />

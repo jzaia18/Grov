@@ -6,6 +6,6 @@
 8
 Spread
 16
-1
+3
 Fire
 false
