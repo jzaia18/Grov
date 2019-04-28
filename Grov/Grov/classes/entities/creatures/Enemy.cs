@@ -201,6 +201,12 @@ namespace Grov
 
                 this.fireDelay = FireRate;
             }
+
+            if (velocity.X < 0)
+                this.facingRight = false;
+            else if(velocity.X > 0)
+                this.facingRight = true;
+
         }
         #endregion
     }

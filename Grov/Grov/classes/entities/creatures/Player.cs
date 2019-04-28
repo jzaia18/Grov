@@ -231,6 +231,11 @@ namespace Grov
             velocity = moveSpeed * direction;
 
             position += velocity;
+
+            if (velocity.X > 0)
+                this.facingRight = true;
+            else if (velocity.X < 0)
+                this.facingRight = false;
             
             velocity = new Vector2(0f, 0f);
             if(weapon != null)

@@ -25,6 +25,7 @@ namespace Grov
         protected float attackDamage;
         protected float projectileSpeed;
         protected Weapon weapon;
+        protected bool facingRight;
         #endregion
 
         #region properties
@@ -38,6 +39,7 @@ namespace Grov
         public float AttackDamage { get => attackDamage; set => attackDamage = value; }
         public float ProjectileSpeed { get => projectileSpeed; set => projectileSpeed = value; }
         public Weapon Weapon { get => weapon; set => weapon = value; }
+        public bool FacingRight { get => facingRight; }
         #endregion
 
         #region constructors
@@ -53,6 +55,7 @@ namespace Grov
             this.moveSpeed = moveSpeed;
             this.attackDamage = attackDamage;
             this.projectileSpeed = projectileSpeed;
+            facingRight = false;
         }
         #endregion
 
@@ -66,6 +69,17 @@ namespace Grov
         }
 
         protected virtual void Move(){ }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if (texture != null)
+            {
+                if (!this.FacingRight)
+                    spriteBatch.Draw(texture.GetNextTexture(), drawPos, null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 1f);
+                else
+                    spriteBatch.Draw(texture.GetNextTexture(), drawPos, Color.White);
+            }
+        }
 
         /// <summary>
         /// Returns whether or not this creature has line of sight to the target
