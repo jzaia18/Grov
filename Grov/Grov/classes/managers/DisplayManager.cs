@@ -124,7 +124,7 @@ namespace Grov
 
             EnemyTextureMap[EnemyType.ForestGiant] = new AnimatedTexture(ContentManager.Load<Texture2D>("animations/ForestGiant_Walking/000"));
             EnemyTextureMap[EnemyType.ForestGiant].AddTexture(ContentManager.Load<Texture2D>("animations/ForestGiant_Walking/001"));
-            EnemyTextureMap[EnemyType.ForestGiant].FrameTime = 12;
+            EnemyTextureMap[EnemyType.ForestGiant].FrameTime = 20;
 
             // Load all projectile textures into map
             instance.projectileTextureMap = new Dictionary<ProjectileType, AnimatedTexture>();
@@ -151,7 +151,10 @@ namespace Grov
             instance.weaponTextureMap = new Dictionary<ProjectileType, AnimatedTexture>();
             foreach (ProjectileType ptype in Enum.GetValues(typeof(ProjectileType))) //player weapons
             {
-                Instance.weaponTextureMap[ptype] = new AnimatedTexture(ContentManager.Load<Texture2D>("pickups/weapons/" + Enum.GetName(typeof(ProjectileType), ptype)));
+                if (ptype != ProjectileType.Leaf)
+                {
+                    Instance.weaponTextureMap[ptype] = new AnimatedTexture(ContentManager.Load<Texture2D>("pickups/weapons/" + Enum.GetName(typeof(ProjectileType), ptype)));
+                }
             }
 
             // Load title textures
