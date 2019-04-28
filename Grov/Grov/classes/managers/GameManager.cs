@@ -112,11 +112,11 @@ namespace Grov
                     FloorManager.Instance.Update();
                     break;
                 case GameState.Menu:
-                    if (currentKeyboardState.IsKeyDown(Keys.Down) && !previousKeyboardState.IsKeyDown(Keys.Down) && DisplayManager.MenuPointer < DisplayManager.MenuButtons.Count - 1)
+                    if ((currentKeyboardState.IsKeyDown(Keys.Down) && !previousKeyboardState.IsKeyDown(Keys.Down)) || (currentGamePadState.ThumbSticks.Left.Y < 0 && previousGamePadState.ThumbSticks.Left.Y >= 0) && DisplayManager.MenuPointer < DisplayManager.MenuButtons.Count - 1)
                     {
                         DisplayManager.MenuPointer += 1;
                     }
-                    else if (currentKeyboardState.IsKeyDown(Keys.Up) && !previousKeyboardState.IsKeyDown(Keys.Up) && DisplayManager.MenuPointer > 0)
+                    else if ((currentKeyboardState.IsKeyDown(Keys.Up) && !previousKeyboardState.IsKeyDown(Keys.Up)) || (currentGamePadState.ThumbSticks.Left.Y > 0 && previousGamePadState.ThumbSticks.Left.Y <= 0) && DisplayManager.MenuPointer > 0)
                     {
                         DisplayManager.MenuPointer -= 1;
                     }
@@ -135,7 +135,7 @@ namespace Grov
                         }
 
                         // If pointer is on button and Enter/Left mouse button is pressed, do whatever the button is supposed to do
-                        if (((currentMouseState.LeftButton.Equals(ButtonState.Pressed) && previousMouseState.LeftButton.Equals(ButtonState.Released)) || (!previousKeyboardState.IsKeyDown(Keys.Enter) && currentKeyboardState.IsKeyDown(Keys.Enter)) && DisplayManager.MenuButtons[i].IsHighlighted))
+                        if (((currentMouseState.LeftButton.Equals(ButtonState.Released) && previousMouseState.LeftButton.Equals(ButtonState.Pressed)) || ((!previousKeyboardState.IsKeyDown(Keys.Enter) && currentKeyboardState.IsKeyDown(Keys.Enter)) || (previousGamePadState.Buttons.A == ButtonState.Released && currentGamePadState.Buttons.A == ButtonState.Pressed) && DisplayManager.MenuButtons[i].IsHighlighted)))
                         {
                             if (DisplayManager.MenuPointer == DisplayManager.MenuButtons.Count - 1)
                             {
@@ -157,11 +157,11 @@ namespace Grov
                     if ((currentKeyboardState.IsKeyDown(Keys.Escape) && !previousKeyboardState.IsKeyDown(Keys.Escape)) || (currentGamePadState.IsButtonDown(Buttons.Start) && !previousGamePadState.IsButtonDown(Buttons.Start)))
                         gameState = GameState.Game;
 
-                    if (currentKeyboardState.IsKeyDown(Keys.Down) && !previousKeyboardState.IsKeyDown(Keys.Down) && DisplayManager.PausePointer < DisplayManager.PauseButtons.Count - 1)
+                    if ((currentKeyboardState.IsKeyDown(Keys.Down) && !previousKeyboardState.IsKeyDown(Keys.Down)) || (currentGamePadState.ThumbSticks.Left.Y < 0 && previousGamePadState.ThumbSticks.Left.Y >= 0) && DisplayManager.MenuPointer < DisplayManager.MenuButtons.Count - 1)
                     {
                         DisplayManager.PausePointer += 1;
                     }
-                    else if (currentKeyboardState.IsKeyDown(Keys.Up) && !previousKeyboardState.IsKeyDown(Keys.Up) && DisplayManager.PausePointer > 0)
+                    else if ((currentKeyboardState.IsKeyDown(Keys.Up) && !previousKeyboardState.IsKeyDown(Keys.Up)) || (currentGamePadState.ThumbSticks.Left.Y > 0 && previousGamePadState.ThumbSticks.Left.Y <= 0) && DisplayManager.MenuPointer > 0)
                     {
                         DisplayManager.PausePointer -= 1;
                     }
@@ -180,7 +180,7 @@ namespace Grov
                         }
 
                         // If pointer is on button and Enter/Left mouse button is pressed, do whatever the button is supposed to do
-                        if ((currentMouseState.LeftButton.Equals(ButtonState.Pressed) || (!previousKeyboardState.IsKeyDown(Keys.Enter) && currentKeyboardState.IsKeyDown(Keys.Enter)) && DisplayManager.PauseButtons[i].IsHighlighted))
+                        if (((currentMouseState.LeftButton.Equals(ButtonState.Released) && previousMouseState.LeftButton.Equals(ButtonState.Pressed)) || ((!previousKeyboardState.IsKeyDown(Keys.Enter) && currentKeyboardState.IsKeyDown(Keys.Enter)) || (previousGamePadState.Buttons.A == ButtonState.Released && currentGamePadState.Buttons.A == ButtonState.Pressed) && DisplayManager.MenuButtons[i].IsHighlighted)))
                         {
                             if (DisplayManager.PausePointer == DisplayManager.PauseButtons.Count - 1)
                             {

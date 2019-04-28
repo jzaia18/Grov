@@ -28,6 +28,7 @@ namespace Grov
         private ContentManager contentManager;
         private GraphicsDevice graphicsDevice;
         private static DisplayManager instance;
+        private AnimatedTexture crosshairTexture;
         private SpriteFont courierNew;
 
         // Button stuff
@@ -61,6 +62,7 @@ namespace Grov
         public static int MenuPointer { get => instance.menuPointer; set => instance.menuPointer = value; }
         public static List<Button> PauseButtons { get => instance.pauseButtons; }
         public static int PausePointer { get => instance.pausePointer; set => instance.pausePointer = value; }
+        public static AnimatedTexture CrosshairTexture { get => instance.crosshairTexture; }
 
         #endregion
 
@@ -104,20 +106,20 @@ namespace Grov
             // Load all enemy textures into map
             instance.enemyTextureMap = new Dictionary<EnemyType, AnimatedTexture>();
 
-            EnemyTextureMap[EnemyType.Test] = new AnimatedTexture(ContentManager.Load<Texture2D>("animations/Test_Walking/000"));
-            Texture2D duplicateTest = ContentManager.Load<Texture2D>("animations/Test_Walking/001"); // This texture will be used twice
-            EnemyTextureMap[EnemyType.Test].AddTexture(duplicateTest);
-            EnemyTextureMap[EnemyType.Test].AddTexture(ContentManager.Load<Texture2D>("animations/Test_Walking/002"));
-            EnemyTextureMap[EnemyType.Test].AddTexture(duplicateTest);
+            EnemyTextureMap[EnemyType.RedShroomlet] = new AnimatedTexture(ContentManager.Load<Texture2D>("animations/RedShroomlet_Walking/000"));
+            Texture2D duplicateTest = ContentManager.Load<Texture2D>("animations/RedShroomlet_Walking/001"); // This texture will be used twice
+            EnemyTextureMap[EnemyType.RedShroomlet].AddTexture(duplicateTest);
+            EnemyTextureMap[EnemyType.RedShroomlet].AddTexture(ContentManager.Load<Texture2D>("animations/RedShroomlet_Walking/002"));
+            EnemyTextureMap[EnemyType.RedShroomlet].AddTexture(duplicateTest);
 
-            EnemyTextureMap[EnemyType.Shooty] = new AnimatedTexture(ContentManager.Load<Texture2D>("animations/Shooty_Walking/000"));
-            Texture2D duplicateShooty = ContentManager.Load<Texture2D>("animations/Shooty_Walking/001");
-            EnemyTextureMap[EnemyType.Shooty].AddTexture(duplicateShooty);
-            EnemyTextureMap[EnemyType.Shooty].AddTexture(ContentManager.Load<Texture2D>("animations/Shooty_Walking/002"));
-            EnemyTextureMap[EnemyType.Shooty].AddTexture(duplicateShooty);
-            EnemyTextureMap[EnemyType.Shooty].AddTexture(ContentManager.Load<Texture2D>("animations/Shooty_Walking/003"));
+            EnemyTextureMap[EnemyType.FireShroomlet] = new AnimatedTexture(ContentManager.Load<Texture2D>("animations/FireShroomlet_Walking/000"));
+            Texture2D duplicateFireShroomlet = ContentManager.Load<Texture2D>("animations/FireShroomlet_Walking/001");
+            EnemyTextureMap[EnemyType.FireShroomlet].AddTexture(duplicateFireShroomlet);
+            EnemyTextureMap[EnemyType.FireShroomlet].AddTexture(ContentManager.Load<Texture2D>("animations/FireShroomlet_Walking/002"));
+            EnemyTextureMap[EnemyType.FireShroomlet].AddTexture(duplicateFireShroomlet);
+            EnemyTextureMap[EnemyType.FireShroomlet].AddTexture(ContentManager.Load<Texture2D>("animations/FireShroomlet_Walking/003"));
 
-            EnemyTextureMap[EnemyType.Grot] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
+            EnemyTextureMap[EnemyType.Grot] = new AnimatedTexture(ContentManager.Load<Texture2D>("Grot"));
             EnemyTextureMap[EnemyType.Turret] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
             EnemyTextureMap[EnemyType.ForestGiant] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
 
@@ -192,6 +194,8 @@ namespace Grov
                 newButton.NoHover = instance.pauseButtonTextureMap[pauseButton][0];
                 newButton.Hover = instance.pauseButtonTextureMap[pauseButton][1];
             }
+
+            instance.crosshairTexture = new AnimatedTexture(ContentManager.Load<Texture2D>("Crosshair"));
         }
         #endregion
 
@@ -243,6 +247,8 @@ namespace Grov
                     spriteBatch.Draw(dimScreen, new Rectangle(0, 0, 1920, 1080), Color.White);
                     break;
             }
+            Rectangle mousePos = new Rectangle(Mouse.GetState().Position.X - 16, Mouse.GetState().Position.Y - 32, 32, 32);
+            spriteBatch.Draw(crosshairTexture.GetNextTexture(), mousePos, Color.White);
         }
 
         private void DrawMap(SpriteBatch spriteBatch)
