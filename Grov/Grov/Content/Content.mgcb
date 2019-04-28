@@ -315,6 +315,18 @@
 /processorParam:TextureFormat=Color
 /build:EnemyholderSprite.png;EnemyholderSprite
 
+#begin Grot.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Grot.png
+
 #begin HealthBarEmpty.png
 /importer:TextureImporter
 /processor:TextureProcessor
