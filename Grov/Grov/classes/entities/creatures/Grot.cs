@@ -5,10 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
+/*
+ * Authors
+ * Jack Hoffman
+ * Duncan Mott
+ */
 namespace Grov
 {
+    /// <summary>
+    /// This class defines a Grot boss and their behaviors
+    /// </summary>
     class Grot : Enemy
     {
+        #region fields
         enum BehaviorMode
         {
             Taunt = 0,
@@ -21,16 +30,25 @@ namespace Grov
         private BehaviorMode currentBehavior;
         private int currentFrame;
         private int sign;
+        #endregion
 
-
-        public Grot(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, float projectileSpeed, Rectangle drawPos, Vector2 velocity, string weaponName, int lungeTime, bool sturdy) : base(enemyType, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle(drawPos.X - FloorManager.TileWidth * 1, drawPos.Y - FloorManager.TileHeight * 3, FloorManager.TileWidth * 3, FloorManager.TileHeight * 5), velocity,"Grot", 0, true)
+        #region constructors
+        /// <summary>
+        /// Creates a new Grot boss
+        /// </summary>
+        public Grot(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, float projectileSpeed, Rectangle drawPos, Vector2 velocity, string weaponName, int lungeTime, bool sturdy) : base(enemyType, 75, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle(drawPos.X - FloorManager.TileWidth * 1, drawPos.Y - FloorManager.TileHeight * 3, FloorManager.TileWidth * 3, FloorManager.TileHeight * 5), velocity,"Grot", 0, true)
         {
             currentBehavior = BehaviorMode.Taunt;
             currentFrame = 0;
             sign = 0;
             this.hitbox = new Rectangle(this.drawPos.X, this.drawPos.Y + FloorManager.TileHeight * 2, FloorManager.TileWidth * 3, FloorManager.TileHeight * 3);
         }
+        #endregion
 
+        #region methods
+        /// <summary>
+        /// Determines what behaviors Grot should perform
+        /// </summary>
         public override void Update()
         {
             if(this.currentHP <= 0)
@@ -58,6 +76,9 @@ namespace Grov
             }
         }
 
+        /// <summary>
+        /// 2 second taunt animation
+        /// </summary>
         private void Taunt()
         {
             if(currentFrame >= 120)
@@ -67,6 +88,9 @@ namespace Grov
             }
         }
 
+        /// <summary>
+        /// 1 second idle animation
+        /// </summary>
         private void Idle()
         {
             if(currentFrame >= 60)
@@ -76,6 +100,9 @@ namespace Grov
             }
         }
 
+        /// <summary>
+        /// Causes Grot to shoot beams of twigs and then rotate them around
+        /// </summary>
         private void SpinAttack()
         {
             if (currentFrame == 1)
@@ -108,6 +135,9 @@ namespace Grov
             }
         }
 
+        /// <summary>
+        /// Creates a pulse of projectiles from the center of Grot
+        /// </summary>
         private void PulseAttack()
         {
             if (currentFrame == 1)
@@ -127,6 +157,9 @@ namespace Grov
             }
         }
 
+        /// <summary>
+        /// Summons a set of enemies to help Grot fight
+        /// </summary>
         private void Summon()
         {
             if (currentFrame >= 0)
@@ -135,5 +168,6 @@ namespace Grov
                 currentFrame = 0;
             }
         }
+        #endregion
     }
 }
