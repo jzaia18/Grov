@@ -173,10 +173,10 @@ namespace Grov
         public void ResetPlayer()
         {
             player.Position = new Vector2((15 * FloorManager.TileWidth) + FloorManager.TileWidth / 2, (8 * FloorManager.TileHeight) + FloorManager.TileWidth / 2);
-            player.Weapon = new Weapon(@"dev\Default", default(Rectangle), false, true);
+            player.Weapon = new Weapon(@"dev\Default", new Rectangle(0,0,32,32), false, true);
             player.LastWeaponFired = player.Weapon;
             if (GameManager.DEVMODE == true)
-                player.Secondary = new Weapon(@"dev\Dev", default(Rectangle), false, true);
+                player.Secondary = new Weapon(@"dev\Dev", new Rectangle(0, 0, 32, 32), false, true);
             else
                 player.Secondary = null;
             player.CurrHP = 100;

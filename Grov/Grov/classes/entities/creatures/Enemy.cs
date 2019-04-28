@@ -106,7 +106,6 @@ namespace Grov
                 if (!melee && this.Weapon != null)
                 {
                     weapon.Update();
-                    weapon.Position = this.Position; //TEMP
                 }
             }
         }

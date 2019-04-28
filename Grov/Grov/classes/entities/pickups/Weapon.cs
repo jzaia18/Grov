@@ -126,6 +126,8 @@ namespace Grov
         public void Use(Vector2 direction)
         {
             float speedModifier = Math.Abs(direction.Length());
+            int projectileSize = 30;
+            Rectangle origin = new Rectangle(drawPos.X + (drawPos.Width - projectileSize) / 2, drawPos.Y + (drawPos.Height - projectileSize) / 2, projectileSize, projectileSize);
 
             switch (projectileType)
             {
@@ -148,7 +150,7 @@ namespace Grov
                     for (int i = 1; i < numProjectiles + 1; i++)
                     {
                         Vector2 projVelocity = shotSpeed * speedModifier * (new Vector2(-1 * (float) Math.Cos(playerOffset + i * offset), (float) Math.Sin(playerOffset + i * offset)));
-                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, playerWeapon, noclip, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileType));
+                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, playerWeapon, noclip, origin, projVelocity, projectileType));
                     }
                     break;
                 case ShotType.Radial:
@@ -158,7 +160,7 @@ namespace Grov
                     for (int i = 0; i < numProjectiles; i++)
                     {
                         Vector2 projVelocity = shotSpeed * speedModifier * (new Vector2( (float) Math.Cos(originTheta + i*angleOffset), (float) Math.Sin(originTheta + i * angleOffset)));
-                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, playerWeapon, noclip, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileType));
+                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, playerWeapon, noclip, origin, projVelocity, projectileType));
                     }
                     break;
                 case ShotType.Spread:
@@ -167,7 +169,7 @@ namespace Grov
                     for (int i = 0; i < numProjectiles; i++) {
                         float phi = theta + GameManager.RNG.Next(-128, 128) / 244.46199f;  // Random "percent" * PI/6   (but simplified)
                         Vector2 projVelocity = shotSpeed * speedModifier * (new Vector2((float) Math.Cos(phi), (float) Math.Sin(phi)));
-                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, playerWeapon, noclip, new Rectangle((int)position.X, (int)position.Y, 30, 30), projVelocity, projectileType));
+                        EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, playerWeapon, noclip, origin, projVelocity, projectileType));
                     }
                     break;
                 case ShotType.Bubble:

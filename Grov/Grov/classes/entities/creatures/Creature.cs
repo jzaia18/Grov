@@ -63,6 +63,8 @@ namespace Grov
         {
             this.Move();
             base.Update();
+            if (weapon != null)
+                weapon.Position = new Vector2(this.drawPos.X + (this.drawPos.Width - weapon.DrawPos.Width) / 2, this.drawPos.Y + (this.drawPos.Height - weapon.DrawPos.Height) / 2); ;
         }
 
         protected virtual void Move(){ }
