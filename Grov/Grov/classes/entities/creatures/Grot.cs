@@ -27,6 +27,7 @@ namespace Grov
         {
             currentBehavior = BehaviorMode.SpinAttack;
             currentFrame = 0;
+            sign = 1;
         }
 
         public override void Update()
@@ -77,21 +78,17 @@ namespace Grov
 
         private void SpinAttack()
         {
-            float radians = 0f;
+            double radians = 0f;
 
-            if (currentFrame >= 90)
+            if(currentFrame % 90 == 0)
             {
-                if(currentFrame == 90)
-                {
-                    sign = GameManager.RNG.Next(0, 2) * 2 - 1; // Generates a random direction
-                }
-
-                radians = (currentFrame - 90) / 75f * sign;
+                sign = GameManager.RNG.Next(0, 2) * 2 - 1; // Generates a random direction
             }
 
+            radians = ((currentFrame / 2) % 360) * (Math.PI/180) * sign;
+
             this.weapon = new Weapon(@"enemy\Grot", this.drawPos, true, false);
-            //this.Attack(new Vector2(this.position.X + this.drawPos.Width / 2 + (float)Math.Cos(radians), this.position.Y + this.drawPos.Height / 2  + (float)Math.Sin(radians)));
-            weapon.Use(new Vector2(1, 0));
+            weapon.Use(Vector2.Normalize(new Vector2((float)Math.Cos(radians), (float)Math.Sin(radians))));
 
             if(currentFrame >= 420)
             {
