@@ -18,8 +18,8 @@ namespace Grov
         ForestGiant = -2,
 
         //Normies
-		Test = 0,
-        Shooty = 1,
+		RedShroomlet = 0,
+        FireShroomlet = 1,
         Turret = 2
     }
 
