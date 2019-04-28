@@ -68,6 +68,9 @@ namespace Grov
         {
             Player.Update();
 
+            if(Player.Weapon.ProjectType == ProjectileType.Bubble || (Player.Secondary != null && Player.Secondary.ProjectType == ProjectileType.Bubble))
+                foreach (Projectile projectile in friendlyProjectiles) HandleProjectileClank(projectile);
+
             //Update friendly projectiles
             for (int i = 0; i < friendlyProjectiles.Count; i++)
             {
@@ -391,6 +394,21 @@ namespace Grov
             {
                 collectible.IsActive = false;
                 player.Interact(collectible);
+            }
+        }
+
+        public void HandleProjectileClank(Projectile friendlyProjectile)
+        {
+            if(friendlyProjectile.Type == ProjectileType.Bubble)
+            {
+                foreach(Projectile projectile in hostileProjectiles)
+                {
+                    if(friendlyProjectile.Hitbox.Intersects(projectile.Hitbox))
+                    {
+                        friendlyProjectile.IsActive = false;
+                        projectile.IsActive = false;
+                    }
+                }
             }
         }
 
