@@ -72,6 +72,7 @@ namespace Grov
                     this.isActive = false;
                 }
             }
+            //Delete it
             else
             {
                 if (this.drawPos.Width > 0)

@@ -104,6 +104,9 @@ namespace Grov
             return true;
         }
 
+        /// <summary>
+        /// Returns whether or not the entity can shoot at the target
+        /// </summary>
         public bool LineOfFire(Entity target)
         {
 
@@ -120,6 +123,9 @@ namespace Grov
             return true;
         }
 
+        /// <summary>
+        /// Returns whether or not the entity can walk in a straight line towards the target
+        /// </summary>
         public bool LineOfPathing(Entity target)
         {
 

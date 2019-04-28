@@ -260,18 +260,12 @@ namespace Grov
             spriteBatch.Draw(crosshairTexture.GetNextTexture(), mousePos, Color.White);
         }
 
+        /// <summary>
+        /// Draws the map screen
+        /// </summary>
         private void DrawMap(SpriteBatch spriteBatch)
         {
             Point mapPoint = new Point((DisplayManager.GraphicsDevice.Viewport.Width / 2), (DisplayManager.GraphicsDevice.Viewport.Height / 2) - 40);
-            /*
-            //Spawn doors
-            spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X + 60, mapPoint.Y + 20, 50, 50), new Rectangle(256, 0, 256, 256), Color.White); // Right
-            spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X - 30, mapPoint.Y + 20, 50, 50), new Rectangle(256, 0, 256, 256), Color.White); // Left
-            spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X + 65, mapPoint.Y - 25, 50, 50), new Rectangle(256, 0, 256, 256), Color.White, 1.57079632679f, new Vector2(0,0), SpriteEffects.None, 0f); // Top
-            spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X + 15, mapPoint.Y + 105, 50, 50), new Rectangle(256, 0, 256, 256), Color.White, -1.57079632679f, new Vector2(0, 0), SpriteEffects.None, 0f); // Bottom
-            //Spawn room
-            spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X, mapPoint.Y, 80, 80), new Rectangle(0, 0, 256, 256), Color.White);
-            */
 
             //Draw doors
             for(int x = 0; x < 11; x++)
@@ -280,6 +274,7 @@ namespace Grov
                 {
                     if(FloorManager.Instance[x,y] != null)
                     {
+                        //Only draw if the room has been visited, or if you're in developer/cheats mode
                         if (FloorManager.Instance[x,y].Visited || GameManager.DEVMODE)
                         {
                             //Draw Doors
@@ -303,6 +298,7 @@ namespace Grov
                 {
                     if (FloorManager.Instance[x, y] != null)
                     {
+                        //Only draw if the room has been visited, or if you're in developer/cheats mode
                         if (FloorManager.Instance[x, y].Visited || GameManager.DEVMODE)
                         {
                             //Draw Rooms
@@ -319,6 +315,8 @@ namespace Grov
                     }
                 }
             }
+
+            //While looping through a 2D array twice may be expensive, the game will always be paused when this function is called so it's no big deal
         }
         #endregion
     }

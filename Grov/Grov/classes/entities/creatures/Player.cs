@@ -93,11 +93,13 @@ namespace Grov
             if (secondary != null)
                 secondary.Update();
 
+            //If you're not shooting/weapon isn't in cooldown, recharge mana
             if(currMP < MaxMP && cooldown == 0 && (weapon == null || weapon.ReadyToFire(fireRate)))
             {
                 currMP += .5f;
             }
 
+            //If you're invinceable for whatever reason, increment time
             if(this.Iframes > 0)
             {
                 Iframes--;
@@ -339,7 +341,7 @@ namespace Grov
                     }
                     else
                     {
-                        //Place the secondary item on the floor
+                        //Place the secondary item on the floor, and give it a location
                         weapon.Position = new Vector2(pickup_item.Position.X - 110, pickup_item.Position.Y);
                         weapon.DrawPos = new Rectangle((int)weapon.Position.X, (int)weapon.Position.Y, 60, 60);
                         weapon.Hitbox = weapon.DrawPos;
