@@ -376,7 +376,18 @@ namespace Grov
             {
                 foreach(Enemy enemy in enemies)
                 {
-                    if (projectile.Hitbox.Intersects(enemy.Hitbox))
+                    if(enemy.EnemyType == EnemyType.Grot)
+                    {
+                        if (projectile.Hitbox.Intersects(enemy.Hitbox))
+                        {
+                            enemy.CurrHP -= projectile.Damage;
+                            if (!projectile.Noclip)
+                                projectile.IsActive = false;
+                            if (!enemy.Sturdy)
+                                enemy.Hitstun += player.Weapon.Hitstun;
+                        }
+                    }
+                    else if (projectile.Hitbox.Intersects(enemy.DrawPos))
                     {
                         enemy.CurrHP -= projectile.Damage;
                         if(!projectile.Noclip)
@@ -438,6 +449,10 @@ namespace Grov
                 if (enemyType == EnemyType.Grot)
                 {
                     enemies.Add(new Grot(EnemyType.Grot, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle((int)position.X, (int)position.Y, 60, 60), new Vector2(0, 0), weaponName, lungeTime, sturdy));
+                }
+                else if (enemyType == EnemyType.ForestGiant)
+                {
+                    enemies.Add(new Enemy(EnemyType.ForestGiant, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle((int)position.X, (int)position.Y, 90, 180), new Vector2(0, 0), weaponName, lungeTime, sturdy));
                 }
                 else
                 {
