@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Grov
 {
-    class GrotBehaviorManager : Enemy
+    class Grot : Enemy
     {
         enum BehaviorMode
         {
@@ -23,7 +23,7 @@ namespace Grov
         private int sign;
 
 
-        public GrotBehaviorManager(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, float projectileSpeed, Rectangle drawPos, Vector2 velocity, string weaponName, int lungeTime, bool sturdy) : base(enemyType, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, drawPos, velocity,"Grot", 0, true)
+        public Grot(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, float projectileSpeed, Rectangle drawPos, Vector2 velocity, string weaponName, int lungeTime, bool sturdy) : base(enemyType, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, drawPos, velocity,"Grot", 0, true)
         {
             currentBehavior = BehaviorMode.SpinAttack;
             currentFrame = 0;
@@ -31,6 +31,11 @@ namespace Grov
 
         public override void Update()
         {
+            if(this.currentHP <= 0)
+            {
+                this.isActive = false;
+            }
+
             currentFrame++;
             switch (currentBehavior)
             {

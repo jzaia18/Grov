@@ -419,7 +419,7 @@ namespace Grov
 
                 if (enemyType == EnemyType.Grot)
                 {
-                    enemies.Add(new GrotBehaviorManager(EnemyType.Grot, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle((int)position.X, (int)position.Y, 60, 60), new Vector2(0, 0), weaponName, lungeTime, sturdy));
+                    enemies.Add(new Grot(EnemyType.Grot, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle((int)position.X, (int)position.Y, 60, 60), new Vector2(0, 0), weaponName, lungeTime, sturdy));
                 }
                 else
                 {
