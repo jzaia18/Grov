@@ -3,7 +3,7 @@ Forest Giant
 false
 1
 1
-2.5
+2
 1
 Forest Giant
 true

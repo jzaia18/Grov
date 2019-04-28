@@ -11,11 +11,11 @@ namespace Grov
     {
         enum BehaviorMode
         {
-            SpinAttack,
-            PulseAttack,
-            Summon,
-            Idle,
-            Taunt
+            Taunt = 0,
+            SpinAttack = 1,
+            PulseAttack = 2,
+            Summon = 3,
+            Idle = 4
         }
  
         private BehaviorMode currentBehavior;
@@ -25,7 +25,7 @@ namespace Grov
 
         public Grot(EnemyType enemyType, int maxHP, bool melee, float fireRate, float attackDamage, float moveSpeed, float projectileSpeed, Rectangle drawPos, Vector2 velocity, string weaponName, int lungeTime, bool sturdy) : base(enemyType, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, drawPos, velocity,"Grot", 0, true)
         {
-            currentBehavior = BehaviorMode.SpinAttack;
+            currentBehavior = BehaviorMode.Taunt;
             currentFrame = 0;
             sign = 1;
         }
@@ -36,7 +36,6 @@ namespace Grov
             {
                 this.isActive = false;
             }
-
             currentFrame++;
             switch (currentBehavior)
             {
@@ -62,7 +61,7 @@ namespace Grov
         {
             if(currentFrame >= 60)
             {
-                this.currentBehavior = (BehaviorMode)GameManager.RNG.Next(0, 3); // Generates a new attack
+                this.currentBehavior = (BehaviorMode)GameManager.RNG.Next(1, 5); // Generates a new attack
                 currentFrame = 0;
             }
         }
@@ -71,7 +70,7 @@ namespace Grov
         {
             if(currentFrame >= 120)
             {
-                this.currentBehavior = (BehaviorMode)GameManager.RNG.Next(0, 3); // Generates a new attack
+                this.currentBehavior = (BehaviorMode)GameManager.RNG.Next(1, 5); // Generates a new attack
                 currentFrame = 0;
             }
         }
@@ -93,18 +92,33 @@ namespace Grov
             if(currentFrame >= 420)
             {
                 currentFrame = 0;
-                this.currentBehavior = BehaviorMode.Taunt;
+                this.currentBehavior = BehaviorMode.Idle;
             }
         }
 
         private void PulseAttack()
         {
-            this.currentBehavior = BehaviorMode.SpinAttack;
+            this.weapon = new Weapon(@"enemy\Forest Giant", this.drawPos, true, false);
+
+            if (currentFrame % 40 == 0)
+            {
+                weapon.Use(new Vector2(1, 1));
+            }
+
+            if (currentFrame >= 150)
+            {
+                this.currentBehavior = (BehaviorMode)GameManager.RNG.Next(1, 5); // Generates a new attack
+                currentFrame = 0;
+            }
         }
 
         private void Summon()
         {
-            this.currentBehavior = BehaviorMode.SpinAttack;
+            if (currentFrame >= 0)
+            {
+                this.currentBehavior = (BehaviorMode)GameManager.RNG.Next(1, 5); // Generates a new attack
+                currentFrame = 0;
+            }
         }
     }
 }
