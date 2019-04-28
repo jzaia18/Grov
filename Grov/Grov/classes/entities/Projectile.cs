@@ -16,7 +16,8 @@ namespace Grov
         Fire,
         Bubble,
         Star,
-        Twig
+        Twig,
+        Leaf
     }
 
     class Projectile : Entity

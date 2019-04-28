@@ -57,6 +57,7 @@ namespace Grov
         public int Cooldown { get => cooldown; }
         public int Hitstun { get => hitstun; }
         public int ProjectileLifeSpan { get => projectileLifeSpan; }
+        public ProjectileType ProjectType { get => projectileType; }
         #endregion
 
         #region constructor

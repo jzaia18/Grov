@@ -43,6 +43,7 @@ namespace Grov
         private Texture2D pauseTitle;
         private Texture2D dimScreen;
         private Texture2D map;
+        private Texture2D background;
 
         private Texture2D mapMarkerRoom;
         #endregion
@@ -121,7 +122,10 @@ namespace Grov
 
             EnemyTextureMap[EnemyType.Grot] = new AnimatedTexture(ContentManager.Load<Texture2D>("Grot"));
             EnemyTextureMap[EnemyType.Turret] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
-            EnemyTextureMap[EnemyType.ForestGiant] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
+
+            EnemyTextureMap[EnemyType.ForestGiant] = new AnimatedTexture(ContentManager.Load<Texture2D>("animations/ForestGiant_Walking/000"));
+            EnemyTextureMap[EnemyType.ForestGiant].AddTexture(ContentManager.Load<Texture2D>("animations/ForestGiant_Walking/001"));
+            EnemyTextureMap[EnemyType.ForestGiant].FrameTime = 20;
 
             // Load all projectile textures into map
             instance.projectileTextureMap = new Dictionary<ProjectileType, AnimatedTexture>();
@@ -148,7 +152,10 @@ namespace Grov
             instance.weaponTextureMap = new Dictionary<ProjectileType, AnimatedTexture>();
             foreach (ProjectileType ptype in Enum.GetValues(typeof(ProjectileType))) //player weapons
             {
-                Instance.weaponTextureMap[ptype] = new AnimatedTexture(ContentManager.Load<Texture2D>("pickups/weapons/" + Enum.GetName(typeof(ProjectileType), ptype)));
+                if (ptype != ProjectileType.Leaf)
+                {
+                    Instance.weaponTextureMap[ptype] = new AnimatedTexture(ContentManager.Load<Texture2D>("pickups/weapons/" + Enum.GetName(typeof(ProjectileType), ptype)));
+                }
             }
 
             // Load title textures
@@ -175,6 +182,7 @@ namespace Grov
 
             instance.dimScreen = ContentManager.Load<Texture2D>("dimColor");
             instance.map = ContentManager.Load<Texture2D>("Map");
+            instance.background = ContentManager.Load<Texture2D>("background");
             instance.mapMarkerRoom = ContentManager.Load<Texture2D>("MapMarkers");
 
             // Loading and initializing pause textures
@@ -224,6 +232,7 @@ namespace Grov
                     spriteBatch.Draw(dimScreen, new Rectangle(0, 0, 1920, 1080), Color.White);
                     break;
                 case GameState.Menu:
+                    spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White);
                     spriteBatch.Draw(title, new Rectangle(600, 200, title.Width + 300, title.Height), Color.White);
                     for (int i = 0; i < menuButtons.Count; i++)
                     {
