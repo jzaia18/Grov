@@ -40,8 +40,6 @@ namespace Grov
 
         public int Hitstun { get => hitstun; set => hitstun = value; }
         public bool Sturdy { get => sturdy; }
-
-        public int TEMP { get; set; }
         #endregion
 
         #region constructor
@@ -159,37 +157,45 @@ namespace Grov
 		/// </summary>
 		protected void Move(Entity target)
 		{
+            Vector2 selfPos = new Vector2(this.Hitbox.X + this.Hitbox.Width / 2, this.Hitbox.Y + this.Hitbox.Height / 2);
+            Vector2 targetPos = new Vector2(target.Hitbox.X + target.Hitbox.Width / 2, target.Hitbox.Y + target.Hitbox.Height / 2);
+            Vector2 direction;
 
-            Vector2 targetPos = new Vector2(target.Hitbox.X + target.Hitbox.Width / 2, target.Hitbox.Y + target.Hitbox.Height / 2); 
-            TEMP++;
-            TEMP %= 30;
-            if (TEMP != 0)
+            // If you can walk in a straight line to the target, don't bother pathfinding
+            if (LineOfPathing(target))
             {
-                return;
+                direction = targetPos - selfPos;
+                direction.Normalize();
+                velocity = direction * moveSpeed;
+                position += velocity;
             }
 
-            if (currentPath == null || currentPath.Count <= 0 || currentPath[0] != FloorManager.Instance.GetTileAt(targetPos))
+            //Otherwise pathfinding is necessary
+            else
             {
-                currentPath = pathfinder.GetPathToTarget(position, targetPos);
-            }
-            //if (LineOfSight(target))
-                //Vector2 direction = (target.Position + new Vector2(target.DrawPos.Width / 2, target.DrawPos.Height / 2)) - (this.position + new Vector2(drawPos.Width / 2, drawPos.Height / 2));
+                // Only run the pathfinding algo again if the player has moved
+                if (currentPath == null || currentPath.Count <= 0 || currentPath[0] != FloorManager.Instance.GetTileAt(targetPos))
+                {
+                    currentPath = pathfinder.GetPathToTarget(position, targetPos);
+                }
 
-                //if (!melee && direction.Length() < weapon.ProjectileLifeSpan * weapon.ShotSpeed)
-                //    return;
+                // If I've reached the next tile I'm looking for, pop it off the list of tiles to walk to
+                if (FloorManager.Instance.GetTileAt(selfPos) == currentPath[currentPath.Count - 1])
+                {
+                    currentPath.RemoveAt(currentPath.Count - 1);
+                }
 
-                //direction.Normalize();
+                //Start walking towards a tile that will bring me closer to my target
+                Point targetPoint = currentPath[currentPath.Count - 1].Location;
+                direction = new Vector2((targetPoint.X + .5f) * FloorManager.TileWidth - selfPos.X, (targetPoint.Y + .5f) * FloorManager.TileHeight - selfPos.Y);
+                direction.Normalize();
 
-                //velocity = direction * moveSpeed;
-
-                //position += velocity;
-                    
-                Point p = currentPath[currentPath.Count - 1].Location;
-                position = new Vector2(p.X*60, p.Y*60);
-                currentPath.RemoveAt(currentPath.Count - 1);
+                velocity = direction * moveSpeed;
+                position += velocity;
 
                 this.fireDelay = FireRate;
-		}
+            }
+        }
         #endregion
     }
 }

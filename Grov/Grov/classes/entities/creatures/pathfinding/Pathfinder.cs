@@ -77,14 +77,14 @@ namespace Grov
         {
             List<TileNode> ret = new List<TileNode>();
 
-            if (SafeToAdd(x - 1, y - 1)) ret.Add(grid[x - 1, y - 1]);
+            //if (SafeToAdd(x - 1, y - 1)) ret.Add(grid[x - 1, y - 1]);
             if (SafeToAdd(x - 1, y)) ret.Add(grid[x - 1, y]);
-            if (SafeToAdd(x - 1, y + 1)) ret.Add(grid[x - 1, y + 1]);
+            //if (SafeToAdd(x - 1, y + 1)) ret.Add(grid[x - 1, y + 1]);
             if (SafeToAdd(x, y - 1)) ret.Add(grid[x, y - 1]);
             if (SafeToAdd(x, y + 1)) ret.Add(grid[x, y + 1]);
-            if (SafeToAdd(x + 1, y - 1)) ret.Add(grid[x + 1, y - 1]);
+            //if (SafeToAdd(x + 1, y - 1)) ret.Add(grid[x + 1, y - 1]);
             if (SafeToAdd(x + 1, y)) ret.Add(grid[x + 1, y]);
-            if (SafeToAdd(x + 1, y + 1)) ret.Add(grid[x + 1, y + 1]);
+            //if (SafeToAdd(x + 1, y + 1)) ret.Add(grid[x + 1, y + 1]);
 
             return ret;
         }
