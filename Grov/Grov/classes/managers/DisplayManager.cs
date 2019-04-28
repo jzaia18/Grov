@@ -28,6 +28,7 @@ namespace Grov
         private ContentManager contentManager;
         private GraphicsDevice graphicsDevice;
         private static DisplayManager instance;
+        private AnimatedTexture crosshairTexture;
         private SpriteFont courierNew;
 
         // Button stuff
@@ -61,6 +62,7 @@ namespace Grov
         public static int MenuPointer { get => instance.menuPointer; set => instance.menuPointer = value; }
         public static List<Button> PauseButtons { get => instance.pauseButtons; }
         public static int PausePointer { get => instance.pausePointer; set => instance.pausePointer = value; }
+        public static AnimatedTexture CrosshairTexture { get => instance.crosshairTexture; }
 
         #endregion
 
@@ -192,6 +194,8 @@ namespace Grov
                 newButton.NoHover = instance.pauseButtonTextureMap[pauseButton][0];
                 newButton.Hover = instance.pauseButtonTextureMap[pauseButton][1];
             }
+
+            instance.crosshairTexture = new AnimatedTexture(ContentManager.Load<Texture2D>("Crosshair"));
         }
         #endregion
 
@@ -243,6 +247,8 @@ namespace Grov
                     spriteBatch.Draw(dimScreen, new Rectangle(0, 0, 1920, 1080), Color.White);
                     break;
             }
+            Rectangle mousePos = new Rectangle(Mouse.GetState().Position.X - 16, Mouse.GetState().Position.Y - 32, 32, 32);
+            spriteBatch.Draw(crosshairTexture.GetNextTexture(), mousePos, Color.White);
         }
 
         private void DrawMap(SpriteBatch spriteBatch)

@@ -48,7 +48,7 @@ namespace Grov
             graphics.HardwareModeSwitch = fullScreen;
             graphics.ApplyChanges();
 
-            IsMouseVisible = true;
+            IsMouseVisible = false;
 
             base.Initialize();
         }
