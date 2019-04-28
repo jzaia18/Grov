@@ -405,7 +405,7 @@ namespace Grov
                 {
                     if(friendlyProjectile.Hitbox.Intersects(projectile.Hitbox))
                     {
-                        friendlyProjectile.IsActive = false;
+                        //friendlyProjectile.IsActive = false;
                         projectile.IsActive = false;
                     }
                 }
