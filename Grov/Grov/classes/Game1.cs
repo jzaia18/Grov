@@ -22,7 +22,7 @@ namespace Grov
             //TODO: when we make options, these should be properties/in another class
         public int windowHeight = 1080;
         public int windowWidth = 1920;
-        public bool fullScreen = false;
+        public bool fullScreen = true;
 
         public Game1()
         {
