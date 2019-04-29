@@ -1,10 +1,10 @@
 Turret
-24
+27
 20
 10
 1
 10
 Normal
-130
+100
 7
 Star
