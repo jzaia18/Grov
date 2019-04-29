@@ -58,7 +58,9 @@
     <Compile Include="classes\environment\Entrance.cs" />
     <Compile Include="classes\managers\FloorManager.cs" />
     <Compile Include="classes\Game1.cs" />
-    <Compile Include="classes\managers\GameManager.cs" />
+    <Compile Include="classes\managers\GameManager.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="classes\managers\HUD.cs" />
     <Compile Include="classes\entities\pickups\Pickup.cs" />
     <Compile Include="classes\entities\creatures\Player.cs" />
@@ -83,7 +85,7 @@
     <Content Include="resources\enemies\Grot.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="resources\enemies\Turret.txt">
+    <Content Include="resources\enemies\PurpleShroomlet.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="resources\enemies\FireShroomlet.txt">

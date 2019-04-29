@@ -49,6 +49,7 @@ namespace Grov
         private Texture2D dimScreen;
         private Texture2D map;
         private Texture2D background;
+        private Texture2D helpText;
 
         private Texture2D mapMarkerRoom;
         #endregion
@@ -231,6 +232,7 @@ namespace Grov
                 newButton.Hover = instance.confirmationButtonTextureMap[confirmButton][1];
             }
 
+            instance.helpText = ContentManager.Load<Texture2D>("HelpScreen");
             instance.crosshairTexture = new AnimatedTexture(ContentManager.Load<Texture2D>("Crosshair"));
         }
         #endregion
@@ -266,6 +268,10 @@ namespace Grov
                     {
                         menuButtons[i].Draw(spriteBatch);
                     }
+                    break;
+                case GameState.Help:
+                    spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White);
+                    spriteBatch.Draw(helpText, new Rectangle(560, 100, 800, 1080), Color.White);
                     break;
                 case GameState.ConfirmationMenu:
                     FloorManager.Instance.Draw(spriteBatch);
