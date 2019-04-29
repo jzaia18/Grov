@@ -109,12 +109,9 @@ namespace Grov
 
         public override void Update()
         {
-            //TODO: restrict usage based on whether or not it is active
-            // Active => item is on ground
-            // Inactive => item is usable and held by player
-
             if (!isActive)
             {
+                //Handles time innetween shots
                 if (fireDelay < fireRate)
                 {
                     fireDelay++;
@@ -124,12 +121,14 @@ namespace Grov
             base.Update();
         }
 
+        //Shoots projectiles in specified direction, behaviour dependant on weapon type
         public void Use(Vector2 direction)
         {
             float speedModifier = Math.Abs(direction.Length());
             int projectileSize = 30;
             Rectangle origin = new Rectangle(drawPos.X + (drawPos.Width - projectileSize) / 2, drawPos.Y + (drawPos.Height - projectileSize) / 2, projectileSize, projectileSize);
 
+            //Audio stuff
             switch (projectileType)
             {
                 case ProjectileType.Fire:
@@ -141,10 +140,11 @@ namespace Grov
                     break;
             }
 
+            //Create projectiles
             switch (shotType)
             {
+                //Shots are fired in a straight line, or in a cone if there are multiple projectiles per shot
                 case ShotType.Normal:
-                    
                     float offset = (float) Math.PI / (numProjectiles+1);
                     float playerOffset = (float) Math.Atan2(direction.X, direction.Y);
                     
@@ -154,6 +154,7 @@ namespace Grov
                         EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, playerWeapon, noclip, origin, projVelocity, projectileType));
                     }
                     break;
+                //Shots are fired in a circle around the player
                 case ShotType.Radial:
                     float originTheta = (float) Math.Atan2(direction.Y, direction.X);
                     float angleOffset = (float) Math.PI * 2 / numProjectiles;
@@ -164,6 +165,7 @@ namespace Grov
                         EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, playerWeapon, noclip, origin, projVelocity, projectileType));
                     }
                     break;
+                //Projectiles are shot in a cone, but their direction is totally random within the cone
                 case ShotType.Spread:
                     float theta = (float)Math.Atan2(direction.Y, direction.X);
 
@@ -173,6 +175,7 @@ namespace Grov
                         EntityManager.AddProjectile(new Projectile(atkDamage, projectileLifeSpan, playerWeapon, noclip, origin, projVelocity, projectileType));
                     }
                     break;
+                //Creates a bubble around the player
                 case ShotType.Bubble:
                     Projectile bubble = new Projectile(atkDamage, projectileLifeSpan, playerWeapon, noclip, new Rectangle(EntityManager.Player.DrawPos.X - (170 - EntityManager.Player.DrawPos.Width) / 2, EntityManager.Player.DrawPos.Y - (170 - EntityManager.Player.DrawPos.Height) / 2, 170, 170), new Vector2(0f, 0f), projectileType);
                     EntityManager.AddProjectile(bubble);

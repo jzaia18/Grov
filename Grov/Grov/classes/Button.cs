@@ -28,6 +28,12 @@ namespace Grov
         Exit
     }
 
+    enum ConfirmationButtons
+    {
+        Yes,
+        No
+    }
+
     class Button
     {
         #region fields

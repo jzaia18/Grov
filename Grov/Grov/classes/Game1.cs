@@ -22,7 +22,7 @@ namespace Grov
             //TODO: when we make options, these should be properties/in another class
         public int windowHeight = 1080;
         public int windowWidth = 1920;
-        public bool fullScreen = true;
+        public bool fullScreen = false;
 
         public Game1()
         {
@@ -77,6 +77,7 @@ namespace Grov
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            //If you tab out of the game, put it in pause and stop updating
             if (!this.IsActive && (GameManager.GameState == GameState.Game || GameManager.GameState == GameState.Map))
             {
                 GameManager.GameState = GameState.PauseMenu;

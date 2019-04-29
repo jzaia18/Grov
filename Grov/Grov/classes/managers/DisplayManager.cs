@@ -38,9 +38,14 @@ namespace Grov
         private Dictionary<PauseButtons, Texture2D[]> pauseButtonTextureMap;
         private List<Button> pauseButtons;
         private int pausePointer;
+        private Dictionary<ConfirmationButtons, Texture2D[]> confirmationButtonTextureMap;
+        private List<Button> confirmationButtons;
+        private int confirmationPointer;
+
 
         private Texture2D title;
         private Texture2D pauseTitle;
+        private Texture2D confirmationText;
         private Texture2D dimScreen;
         private Texture2D map;
         private Texture2D background;
@@ -63,6 +68,8 @@ namespace Grov
         public static int MenuPointer { get => instance.menuPointer; set => instance.menuPointer = value; }
         public static List<Button> PauseButtons { get => instance.pauseButtons; }
         public static int PausePointer { get => instance.pausePointer; set => instance.pausePointer = value; }
+        public static List<Button> ConfirmationButtons { get => instance.confirmationButtons; }
+        public static int ConfirmationPointer { get => instance.confirmationPointer; set => instance.confirmationPointer = value; }
         public static AnimatedTexture CrosshairTexture { get => instance.crosshairTexture; }
 
         #endregion
@@ -76,6 +83,8 @@ namespace Grov
             menuPointer = 0;
             pauseButtons = new List<Button>();
             pausePointer = 0;
+            confirmationButtons = new List<Button>();
+            confirmationPointer = 1;
         }
 
         public static void Initialize(ContentManager cm, GraphicsDevice gd)
@@ -184,7 +193,6 @@ namespace Grov
 
             // Loading and initializing pause textures
             instance.pauseTitle = ContentManager.Load<Texture2D>("PausedLabel");
-
             instance.pauseButtonTextureMap = new Dictionary<PauseButtons, Texture2D[]>();
             foreach (PauseButtons pauseButton in Enum.GetValues(typeof(PauseButtons)))
             {
@@ -198,6 +206,23 @@ namespace Grov
                 instance.pauseButtons.Add(newButton);
                 newButton.NoHover = instance.pauseButtonTextureMap[pauseButton][0];
                 newButton.Hover = instance.pauseButtonTextureMap[pauseButton][1];
+            }
+
+            // Loading and initializing confirmation textures
+            instance.confirmationText = ContentManager.Load<Texture2D>("ConfirmationLabel");
+            instance.confirmationButtonTextureMap = new Dictionary<ConfirmationButtons, Texture2D[]>();
+            foreach(ConfirmationButtons confirmButton in Enum.GetValues(typeof(ConfirmationButtons)))
+            {
+                instance.confirmationButtonTextureMap[confirmButton] = new Texture2D[2];
+                instance.confirmationButtonTextureMap[confirmButton][0] = ContentManager.Load<Texture2D>("button images/" + Enum.GetName(typeof(ConfirmationButtons), confirmButton) + "Button_NoHover");
+                instance.confirmationButtonTextureMap[confirmButton][1] = ContentManager.Load<Texture2D>("button images/" + Enum.GetName(typeof(ConfirmationButtons), confirmButton) + "Button_Hover");
+
+                // Temp variable for new button
+                Button newButton = new Button(new Rectangle(new Point(750, 600 + (instance.confirmationButtons.Count * (instance.confirmationButtonTextureMap[confirmButton][0].Height / 2 + 15))),
+                                                            new Point(instance.confirmationButtonTextureMap[confirmButton][0].Width / 2, instance.confirmationButtonTextureMap[confirmButton][0].Height / 2)));
+                instance.confirmationButtons.Add(newButton);
+                newButton.NoHover = instance.confirmationButtonTextureMap[confirmButton][0];
+                newButton.Hover = instance.confirmationButtonTextureMap[confirmButton][1];
             }
 
             instance.crosshairTexture = new AnimatedTexture(ContentManager.Load<Texture2D>("Crosshair"));
@@ -237,6 +262,16 @@ namespace Grov
                     }
                     break;
                 case GameState.ConfirmationMenu:
+                    FloorManager.Instance.Draw(spriteBatch);
+                    EntityManager.Instance.Draw(spriteBatch);
+                    for (int i = 0; i < confirmationButtons.Count; i++)
+                    {
+                        confirmationButtons[i].Draw(spriteBatch);
+                    }
+                    hud.Draw(spriteBatch);
+                    spriteBatch.Draw(confirmationText, new Rectangle(550, 300, confirmationText.Width, confirmationText.Height), Color.White);
+                    //Dim the screen
+                    spriteBatch.Draw(dimScreen, new Rectangle(0, 0, 1920, 1080), Color.White);
                     break;
                 case GameState.Map:
                     FloorManager.Instance.Draw(spriteBatch);
@@ -257,18 +292,12 @@ namespace Grov
             spriteBatch.Draw(crosshairTexture.GetNextTexture(), mousePos, Color.White);
         }
 
+        /// <summary>
+        /// Draws the map screen
+        /// </summary>
         private void DrawMap(SpriteBatch spriteBatch)
         {
             Point mapPoint = new Point((DisplayManager.GraphicsDevice.Viewport.Width / 2), (DisplayManager.GraphicsDevice.Viewport.Height / 2) - 40);
-            /*
-            //Spawn doors
-            spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X + 60, mapPoint.Y + 20, 50, 50), new Rectangle(256, 0, 256, 256), Color.White); // Right
-            spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X - 30, mapPoint.Y + 20, 50, 50), new Rectangle(256, 0, 256, 256), Color.White); // Left
-            spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X + 65, mapPoint.Y - 25, 50, 50), new Rectangle(256, 0, 256, 256), Color.White, 1.57079632679f, new Vector2(0,0), SpriteEffects.None, 0f); // Top
-            spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X + 15, mapPoint.Y + 105, 50, 50), new Rectangle(256, 0, 256, 256), Color.White, -1.57079632679f, new Vector2(0, 0), SpriteEffects.None, 0f); // Bottom
-            //Spawn room
-            spriteBatch.Draw(mapMarkerRoom, new Rectangle(mapPoint.X, mapPoint.Y, 80, 80), new Rectangle(0, 0, 256, 256), Color.White);
-            */
 
             //Draw doors
             for(int x = 0; x < 11; x++)
@@ -277,6 +306,7 @@ namespace Grov
                 {
                     if(FloorManager.Instance[x,y] != null)
                     {
+                        //Only draw if the room has been visited, or if you're in developer/cheats mode
                         if (FloorManager.Instance[x,y].Visited || GameManager.DEVMODE)
                         {
                             //Draw Doors
@@ -300,6 +330,7 @@ namespace Grov
                 {
                     if (FloorManager.Instance[x, y] != null)
                     {
+                        //Only draw if the room has been visited, or if you're in developer/cheats mode
                         if (FloorManager.Instance[x, y].Visited || GameManager.DEVMODE)
                         {
                             //Draw Rooms
@@ -316,6 +347,8 @@ namespace Grov
                     }
                 }
             }
+
+            //While looping through a 2D array twice may be expensive, the game will always be paused when this function is called so it's no big deal
         }
         #endregion
     }
