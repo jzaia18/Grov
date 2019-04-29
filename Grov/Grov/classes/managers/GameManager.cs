@@ -250,7 +250,7 @@ namespace Grov
                         gameState = GameState.Game;
                     break;
                 case GameState.GameOver:
-                    if (currentKeyboardState.IsKeyDown(Keys.Enter))
+                    if ((currentKeyboardState.IsKeyDown(Keys.Enter) && !PreviousKeyboardState.IsKeyDown(Keys.Enter)) || (currentGamePadState.IsButtonDown(Buttons.A) && !previousGamePadState.IsButtonDown(Buttons.A) || (currentMouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released))
                         gameState = GameState.Menu;
                     break;
             }
