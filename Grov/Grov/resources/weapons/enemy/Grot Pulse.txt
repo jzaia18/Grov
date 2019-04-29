@@ -7,5 +7,5 @@ Grot Pulse
 Radial
 90
 0
-Fire
+Leaf
 false
