@@ -29,7 +29,7 @@ namespace Grov
         // ************* Fields ************* //
 
         private static GameManager instance;
-        private bool devmode = true;
+        private bool devmode = false;
         private bool gameExit;
         private Random rng;
         private GameState gameState;

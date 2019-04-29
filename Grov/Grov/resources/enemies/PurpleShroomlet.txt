@@ -1,5 +1,5 @@
 ﻿Turret
-15
+12
 false
 1
 1
