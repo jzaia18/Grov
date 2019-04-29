@@ -107,6 +107,7 @@ namespace Grov
         /// </summary>
         public void Update()
         {
+            //If the room is cleared, make sure the doors are opened
             if (isCleared)
             {
                 if (left != null)
@@ -138,6 +139,7 @@ namespace Grov
                 }
             }
 
+            //If there are pickups in the room, check if they're still there and remove them if they aren't
             if(pickupsInRoom.Count > 0)
             {
                 for(int i = 0; i < pickupsInRoom.Count; i++)
@@ -151,25 +153,32 @@ namespace Grov
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            //Draw every tile
 			for (int x = 0; x < tiles.Length; x++)
 			{
 				for (int y = 0; y < tiles[x].Length; y++)
 				{
+                    //Current tile
 					Tile cur = tiles[x][y];
 
+                    //Handles all non-door tiles
                     if(cur.Type != TileType.Entrance && cur.Type != TileType.BossDoor)
 					    spriteBatch.Draw(DisplayManager.TileTextureMap[(int)cur.Type].GetNextTexture(), 
 						                 new Rectangle(FloorManager.TileWidth * x, FloorManager.TileHeight * y, FloorManager.TileWidth, FloorManager.TileHeight), 
 									     Color.White);
+                    //If the room is cleared, draw doors as "grass"
                     else if(isCleared)
+                        //Doors leading to boss rooms should be tinted red to signify danger
                         if(cur.Type == TileType.Entrance && ((x == 0 && left.NextRoom.Type == RoomType.Boss) || (x == 31 && right.NextRoom.Type == RoomType.Boss) || (y == 0 && top.NextRoom.Type == RoomType.Boss) || (y == 17 && bottom.NextRoom.Type == RoomType.Boss)))
                             spriteBatch.Draw(DisplayManager.TileTextureMap[(int)TileType.Floor].GetNextTexture(),
                                          new Rectangle(FloorManager.TileWidth * x, FloorManager.TileHeight * y, FloorManager.TileWidth, FloorManager.TileHeight),
                                          Color.Red);
+                        //Normal doors are normal
                         else
                         spriteBatch.Draw(DisplayManager.TileTextureMap[(int)TileType.Floor].GetNextTexture(),
                                          new Rectangle(FloorManager.TileWidth * x, FloorManager.TileHeight * y, FloorManager.TileWidth, FloorManager.TileHeight),
                                          Color.White);
+                    //If the room isn't cleared, draw doors as "walls"
                     else
                         spriteBatch.Draw(DisplayManager.TileTextureMap[(int)TileType.Wall].GetNextTexture(),
                                          new Rectangle(FloorManager.TileWidth * x, FloorManager.TileHeight * y, FloorManager.TileWidth, FloorManager.TileHeight),
@@ -213,6 +222,7 @@ namespace Grov
                     }
                 }
 
+                //Check for doors, and create a new entrance object (linked list) pointing to the neighboring room
                 //Check top/bottom for door
                 for(int i = 0; i < 32; i++)
                 {
@@ -233,7 +243,7 @@ namespace Grov
                         bottom.UpdateLocation(new Point(i, 17));
                     }
                 }
-                //Check left for door
+                //Check left/right for door
                 for (int i = 0; i < 18; i++)
                 {
                     //Left
@@ -265,6 +275,7 @@ namespace Grov
             }
         }
 
+        //Read enemies from the level file and spawn them when you enter the room
         public void SpawnEnemies()
         {
             FileStream stream = File.OpenRead(filename);
@@ -280,11 +291,13 @@ namespace Grov
                     reader.ReadInt32();
                 }
 
-                //Handle Enemies
+                //How many enemies are in the room?
                 int enemyCount = reader.ReadInt32();
 
+                //Create each enemy in its designated position
                 for (int i = 0; i < enemyCount; i++)
                 {
+                    //Read coordinates, and enemy type
                     int x = reader.ReadInt32();
                     int y = reader.ReadInt32();
                     EnemyType type = (EnemyType)reader.ReadInt32();
@@ -304,10 +317,12 @@ namespace Grov
             }
         }
 
+        //Called when the player enters the room; takes every pickup in the list of pickups and spawns it
         public void SpawnPickups()
         {
             foreach(Pickup pickup in pickupsInRoom)
             {
+                //Center the pickup in treasure rooms
                 if (this.type == RoomType.Treasure)
                 {
                     pickup.Position = new Vector2(DisplayManager.GraphicsDevice.Viewport.Width / 2 - 30, DisplayManager.GraphicsDevice.Viewport.Height / 2 - 30);

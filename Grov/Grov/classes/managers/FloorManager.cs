@@ -67,13 +67,14 @@ namespace Grov
         public void GenerateFloor()
         {
             RoomNode[,] floor = new RoomNode[11, 11];
+            //In a do while loop; if the floor we make is deemed unusable, we need to make a new one
             do
             {
                 floor = new RoomNode[11, 11];
                 this.floorRooms = new Room[11, 11];
                 List<RoomNode> currentNodes = new List<RoomNode>();
 
-                //Spawn
+                //Spawn room
                 floor[5, 5] = new RoomNode(5, 5);
 
                 //Top
@@ -92,8 +93,9 @@ namespace Grov
                 floor[6, 5] = new RoomNode(6, 5, DoorGen.right);
                 currentNodes.Add(floor[6, 5]);
 
-
+                //Calculations based on "instance" means as we move away from spawn things get more rare
                 int instance = 1;
+                //While there are rooms we just made that don't have doors yet
                 while (currentNodes.Count > 0)
                 {
                     List<RoomNode> newNodes = new List<RoomNode>();
@@ -135,7 +137,7 @@ namespace Grov
 
                         currentNodes[i].Doors = (DoorGen)((byte)currentNodes[i].Doors | door);
                     }
-                    // Loop through all current Nodes
+                    // Loop through all current Nodes and adds rooms where there are open doors
                     for (int i = 0; i < currentNodes.Count; i++)
                     {
 
@@ -214,11 +216,12 @@ namespace Grov
                         }
                     }
 
+                    //We made new rooms
                     currentNodes = newNodes;
                     instance++;
 
                 }
-            } while (!AssembleRooms(floor));
+            } while (!AssembleRooms(floor)); //See if this floor is acceptable, then add actual rooms to our map
         }
 
         /// <summary>
@@ -229,7 +232,7 @@ namespace Grov
         private bool AssembleRooms(RoomNode[,] floor)
         { 
             numRooms = 0;
-            //Get the floor count
+            //Get the number of rooms on the floor
             for(int x = 0; x < floor.GetLength(0); x++)
             {
                 for(int y = 0; y < floor.GetLength(1); y++)
@@ -244,7 +247,7 @@ namespace Grov
             //If it's too large or small, throw it out
             if (floorNumber < 17)
             {
-                if (numRooms < 8 + ((floorNumber - 1) * 3))
+                if (numRooms < 8 + ((floorNumber - 1) * 2.7))
                 {
                     return false;
                 }
@@ -253,6 +256,7 @@ namespace Grov
                     return false;
                 }
             }
+            //Formula becomes impossible to appease after about floor 17, so use set values
             else
             {
                 if (numRooms < 60)
@@ -265,7 +269,7 @@ namespace Grov
                 }
             }
 
-            //We need to add boss rooms
+            //Make a list of all the dead ends
             List<Point> deadEnds = new List<Point>();
             for (int x = 0; x < floor.GetLength(0); x++)
             {
@@ -281,12 +285,12 @@ namespace Grov
                 }
             }
 
-            //We need to make a dead end
+            //There aren't enough dead ends to have both a boss and treasure room, so throw it out
             if(deadEnds.Count < 2)
             {
                 return false;
             }
-            //We don't need to make a new dead end
+            //Randomly make one of the dead ends a boss and one a treasure room
             else
             {
                 int rng = GameManager.RNG.Next(0, deadEnds.Count);
@@ -332,7 +336,7 @@ namespace Grov
                         }
 
                         //Add all the level files from the specific path
-                        if (floor[x, y].Type == RoomType.Boss)
+                        if (floor[x, y].Type == RoomType.Boss) //Boss rooms are in a specific subfolder; also picks a specific boss
                         {
                             string tempPath = @"resources\rooms\boss\";
                             List<string> bosses = new List<string>();
@@ -340,7 +344,7 @@ namespace Grov
                             tempPath = bosses[GameManager.RNG.Next(0, bosses.Count)];
                             path = tempPath + "\\" + path;
                         }
-                        else if (floor[x, y].Type == RoomType.Treasure)
+                        else if (floor[x, y].Type == RoomType.Treasure) //Treasure rooms need a specific directory
                             path = @"resources\rooms\treasure\" + path;
                         else
                             path = @"resources\rooms\" + path;

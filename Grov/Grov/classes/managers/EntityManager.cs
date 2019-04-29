@@ -71,7 +71,7 @@ namespace Grov
             if(Player.Weapon.ProjectType == ProjectileType.Bubble || (Player.Secondary != null && Player.Secondary.ProjectType == ProjectileType.Bubble))
                 foreach (Projectile projectile in friendlyProjectiles) HandleProjectileClank(projectile);
 
-            //Update friendly projectiles
+            //Update friendly projectiles, remove them if they're inactive
             for (int i = 0; i < friendlyProjectiles.Count; i++)
             {
                 friendlyProjectiles[i].Update();
@@ -82,9 +82,9 @@ namespace Grov
                 }
             }
 
+            //Update enemies, remove them if inactive
             if (enemies.Count > 0)
             {
-                //Update enemies, this time actually kill them though
                 for(int i = 0; i < enemies.Count; i++)
                 {
                     enemies[i].Update();
@@ -101,6 +101,7 @@ namespace Grov
                 }
             }
 
+            //Update hostile projectiles, remove them if inactive
             for (int i = 0; i < hostileProjectiles.Count; i++)
             {
                 hostileProjectiles[i].Update();
@@ -111,9 +112,9 @@ namespace Grov
                 }
             }
 
+            //Update pickups, remove if they're inactive
             if (pickups.Count > 0)
             {
-                //Update pickups, this time actually kill them though
                 for (int i = 0; i < pickups.Count; i++)
                 {
                     pickups[i].Update();
@@ -125,13 +126,18 @@ namespace Grov
                 }
             }
 
+            //Handle collisions with the terrain/player
             HandleTerrainCollisions(player);
+            //Handle collisions with the terrain/enemies
             foreach (Enemy enemy in enemies) HandleTerrainCollisions(enemy);
+            //Handle collisions with the terrain/friendly projectiles
             foreach (Projectile projectile in friendlyProjectiles) HandleTerrainCollisions(projectile);
+            //Handle collisions with the terrain/hostile projectiles
             foreach (Projectile projectile in hostileProjectiles) HandleTerrainCollisions(projectile);
+            //Handle collisions between the player and pickups
             foreach (Pickup itemToPickUp in pickups) HandlePickUpCollisions(itemToPickUp);
 
-            //Move new pickups to the old folder
+            //Move if any pickups were created this loop (player swaps weapons) add the new pickups to the pickup list
             if (newPickups.Count > 0)
             {
                 for (int i = 0; i < newPickups.Count; i++)
@@ -141,10 +147,14 @@ namespace Grov
                 newPickups.Clear();
             }
 
+            //Handle enemies getting hit by projectiles
             HandleEnemyDamageCollisions();
+            //Handle player getting hit with projectiles
             HandlePlayerDamageCollisions();
+            //Stop enemies from walking into each other
             HandleMeleeCollisions();
 
+            //When every enemy is dead, open the room
             if(enemies.Count == 0)
             {
                 FloorManager.Instance.CurrRoom.IsCleared = true;
@@ -158,10 +168,10 @@ namespace Grov
             foreach (Projectile projectile in hostileProjectiles) projectile.Draw(spriteBatch);
             Player.Draw(spriteBatch);
             foreach (Enemy enemy in enemies) enemy.Draw(spriteBatch);
-
             foreach (Pickup pickup in pickups) pickup.Draw(spriteBatch);
         }
 
+        //Deletes every entity in the room; used when going through doors
         public void ClearEntities()
         {
             enemies.Clear();
@@ -176,18 +186,20 @@ namespace Grov
         public void ResetPlayer()
         {
             player.Position = new Vector2((15 * FloorManager.TileWidth) + FloorManager.TileWidth / 2, (8 * FloorManager.TileHeight) + FloorManager.TileWidth / 2);
-            player.Weapon = new Weapon(@"dev\Default", default(Rectangle), false, true);
+            player.Weapon = new Weapon(@"dev\Default", new Rectangle(0,0,32,32), false, true);
             player.LastWeaponFired = player.Weapon;
             if (GameManager.DEVMODE == true)
-                player.Secondary = new Weapon(@"dev\Dev", default(Rectangle), false, true);
+                player.Secondary = new Weapon(@"dev\Dev", new Rectangle(0, 0, 32, 32), false, true);
             else
                 player.Secondary = null;
             player.CurrHP = 100;
             player.MaxHP = 100;
             player.MaxMP = 100;
+            //Clear the list of weapons that have already spawned, the only part of terrain generation that persists across floors
             GameManager.Instance.SpawnedWeapons.Clear();
         }
 
+        //Handle player getting shot
         public void HandlePlayerDamageCollisions()
         {
             foreach(Projectile projectile in hostileProjectiles)
@@ -201,6 +213,7 @@ namespace Grov
             }
         }
 
+        //Terrain collisions
         public void HandleTerrainCollisions(Entity entity)
         {
 
@@ -222,6 +235,7 @@ namespace Grov
                     if (((Projectile)entity).Noclip)
                         continue;
 
+                //Only run the loop if the tile would actually block the entity
                 if ((!entityTile.IsPassable && !(entity is Projectile)) || (entityTile.BlocksProjectiles && (entity is Projectile)))
                 {
                     // Temp variables for structs
@@ -263,6 +277,7 @@ namespace Grov
                     entity.Hitbox = temp;
                     if (entity is Projectile) entity.IsActive = false;
                 }
+                //The player is going through a door
                 else if(entityTile.Type == TileType.Entrance && entity == player)
                 {
                     //Which door did we take?
@@ -299,7 +314,7 @@ namespace Grov
 
                     FloorManager.Instance.CurrRoom.Visited = true;
 
-                    //Delete all entities in the room
+                    //Delete all entities from the previous room
                     this.ClearEntities();
 
                     //Spawn enemies
@@ -309,9 +324,10 @@ namespace Grov
                     }
                     FloorManager.Instance.CurrRoom.SpawnPickups();
 
-                    //Rest of the collisions don't matter because we're in a new room now
+                    //The rest of the collisions don't matter because we're in a new room now
                     return;
                 }
+                //If the player goes through a boss exit door we need to make a new floor
                 else if(entityTile.Type == TileType.BossDoor && entity == player)
                 {
                     //Clear all entities
@@ -329,12 +345,15 @@ namespace Grov
             }
         }
 
+        //Stop enemies from walking into each other
         public void HandleMeleeCollisions()
         {
+            //Double loop, yucky
             foreach(Enemy enemy in enemies)
             {
                 foreach (Enemy secondEnemy in enemies)
                 {
+                    //If they're the same enemy, don't bother
                     if (secondEnemy != enemy)
                     {
                         if (enemy.Hitbox.Intersects(secondEnemy.Hitbox))
@@ -359,6 +378,7 @@ namespace Grov
                     }
                 }
 
+                //If the enemy is touching the player hurt the player
                 if (enemy.Melee)
                 {
                     if (enemy.Hitbox.Intersects(player.Hitbox) && Player.IFrames == 0)
@@ -370,13 +390,25 @@ namespace Grov
             }
         }
 
+        //Enemies getting shot
         public void HandleEnemyDamageCollisions()
         {
             foreach(Projectile projectile in friendlyProjectiles)
             {
                 foreach(Enemy enemy in enemies)
                 {
-                    if (projectile.Hitbox.Intersects(enemy.Hitbox))
+                    if(enemy.EnemyType == EnemyType.Grot)
+                    {
+                        if (projectile.Hitbox.Intersects(enemy.Hitbox))
+                        {
+                            enemy.CurrHP -= projectile.Damage;
+                            if (!projectile.Noclip)
+                                projectile.IsActive = false;
+                            if (!enemy.Sturdy)
+                                enemy.Hitstun += player.Weapon.Hitstun;
+                        }
+                    }
+                    else if (projectile.Hitbox.Intersects(enemy.DrawPos))
                     {
                         enemy.CurrHP -= projectile.Damage;
                         if(!projectile.Noclip)
@@ -388,6 +420,7 @@ namespace Grov
             }
         }
 
+        //Player picking up items
         public void HandlePickUpCollisions(Pickup collectible)
         {
             if (player.Hitbox.Intersects(collectible.Hitbox))
@@ -397,6 +430,7 @@ namespace Grov
             }
         }
 
+        //Projectiles of type "bubble" delete other projectiles on contact
         public void HandleProjectileClank(Projectile friendlyProjectile)
         {
             if(friendlyProjectile.Type == ProjectileType.Bubble)
@@ -412,6 +446,7 @@ namespace Grov
             }
         }
 
+        //Called by the "room" class when you enter it; spawns every enemy that should be in the room
         public void SpawnEnemies(EnemyType enemyType, Vector2 position)
         {
             string filename = @"resources\enemies\" + enemyType + ".txt"; 
@@ -435,6 +470,7 @@ namespace Grov
                     weaponName = reader.ReadLine();
                 bool sturdy = bool.Parse(reader.ReadLine());
 
+                //Special case for bosses
                 if (enemyType == EnemyType.Grot)
                 {
                     enemies.Add(new Grot(EnemyType.Grot, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle((int)position.X, (int)position.Y, 60, 60), new Vector2(0, 0), weaponName, lungeTime, sturdy));
@@ -443,6 +479,7 @@ namespace Grov
                 {
                     enemies.Add(new Enemy(EnemyType.ForestGiant, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle((int)position.X, (int)position.Y, 90, 180), new Vector2(0, 0), weaponName, lungeTime, sturdy));
                 }
+                //Normal enemies
                 else
                 {
                     enemies.Add(new Enemy(enemyType, maxHP, melee, fireRate, attackDamage, moveSpeed, projectileSpeed, new Rectangle((int)position.X, (int)position.Y, 60, 60), new Vector2(0, 0), weaponName, lungeTime, sturdy));
@@ -470,11 +507,7 @@ namespace Grov
             this.pickups.Add(pickup);
         }
 
-        public void RemoveEnemy(Enemy enemy)
-        {
-            throw new NotImplementedException();
-        }
-
+        //Create new projectiles
         public static void AddProjectile(Projectile projectile)
         {
             if (projectile.IsFromPlayer)

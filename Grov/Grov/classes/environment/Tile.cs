@@ -62,6 +62,7 @@ namespace Grov
             this.type = type;
             location = new Point(x, y);
 
+            //Depending on what tile type it is, change its collision detection properties
             switch ((int)type)
             {
                 //Floor

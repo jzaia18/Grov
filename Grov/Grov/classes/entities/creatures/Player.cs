@@ -84,20 +84,22 @@ namespace Grov
         public override void Update()
         {
             Point point = DrawPos.Location;
-            this.Aim();
             base.Update();
+            this.Aim();
             point = drawPos.Location - point;
             this.hitbox.Location += point;
             if(weapon != null)
-                this.weapon.Update();
+                weapon.Update();
             if (secondary != null)
-                this.secondary.Update();
+                secondary.Update();
 
-            if(this.currMP < this.MaxMP && cooldown == 0 && (weapon == null || weapon.ReadyToFire(fireRate)))
+            //If you're not shooting/weapon isn't in cooldown, recharge mana
+            if(currMP < MaxMP && cooldown == 0 && (weapon == null || weapon.ReadyToFire(fireRate)))
             {
-                this.currMP += .5f;
+                currMP += .5f;
             }
 
+            //If you're invinceable for whatever reason, increment time
             if(this.Iframes > 0)
             {
                 Iframes--;
@@ -238,8 +240,6 @@ namespace Grov
                 this.facingRight = false;
             
             velocity = new Vector2(0f, 0f);
-            if(weapon != null)
-                weapon.Position = new Vector2(this.position.X + this.DrawPos.Width / 2, this.position.Y + this.DrawPos.Height / 2);
         }
 
         /// <summary>
@@ -275,7 +275,7 @@ namespace Grov
                 }
                 if (isMouse)
                 {
-                    direction = new Vector2(GameManager.CurrentMouseState.X - (DrawPos.X + DrawPos.Width / 2), GameManager.CurrentMouseState.Y - (DrawPos.Y + DrawPos.Height / 2));
+                    direction = new Vector2(GameManager.CurrentMouseState.Position.X - (weapon.DrawPos.X + weapon.DrawPos.Width / 2), GameManager.CurrentMouseState.Position.Y - (weapon.DrawPos.Y + weapon.DrawPos.Height / 2));
                 }
 
 
@@ -321,7 +321,7 @@ namespace Grov
         /// </summary>
         public void Attack()
         {
-            this.weapon.Position = new Vector2(this.position.X + this.drawPos.Width / 2 - 15, this.position.Y + this.drawPos.Height / 2 - 15);
+            //this.weapon.Position = new Vector2(this.position.X + (this.drawPos.Width - weapon.DrawPos.Width)/2, this.position.Y + (this.drawPos.Height - weapon.DrawPos.Height) / 2);
             this.weapon.Use(aimDirection * projectileSpeed);
             this.currMP -= weapon.ManaCost;
         }
@@ -341,7 +341,7 @@ namespace Grov
                     }
                     else
                     {
-                        //Place the secondary item on the floor
+                        //Place the secondary item on the floor, and give it a location
                         weapon.Position = new Vector2(pickup_item.Position.X - 110, pickup_item.Position.Y);
                         weapon.DrawPos = new Rectangle((int)weapon.Position.X, (int)weapon.Position.Y, 60, 60);
                         weapon.Hitbox = weapon.DrawPos;
@@ -352,7 +352,7 @@ namespace Grov
                     }
                     break;
                 case PickupType.Heart:
-                    this.CurrHP += 10f;
+                    this.CurrHP += 20f;
                     if (this.CurrHP > this.MaxHP)
                         this.CurrHP = this.MaxHP;
                     break;

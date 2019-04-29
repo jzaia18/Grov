@@ -33,6 +33,7 @@ namespace Grov
         #endregion
 
         #region constructors
+        //Node used for terrain generation
         public RoomNode(int x, int y, DoorGen previousRoomDoor)
         {
             this.x = x;

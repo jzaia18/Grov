@@ -42,6 +42,7 @@ namespace Grov
 
         public int Hitstun { get => hitstun; set => hitstun = value; }
         public bool Sturdy { get => sturdy; }
+        public EnemyType EnemyType { get => enemyType; }
         #endregion
 
         #region constructor
@@ -76,25 +77,32 @@ namespace Grov
         {
             if (IsActive)
             {
+                //If the ennemy needs to die
                 if (this.currentHP <= 0)
                 {
                     this.IsActive = false;
+                    //Remove the hitbox immediately
                     this.position = new Vector2(0f, 0f);
                     this.drawPos.Width = 0;
                     this.drawPos.Height = 0;
                     return;
                 }
 
+                //Target the player
                 Entity target = EntityManager.Player;
 
+                //Enemy will freeze if it's been hit recently
                 if (hitstun == 0)
                 {
+                    //Attempt to attack the target
                     this.Attack(target);
+                    //If we're not touching the player, move closer to it
                     if (!this.hitbox.Intersects(target.Hitbox))
                     {
                         this.Move(target);
                     }
                 }
+                //Decrease remaining hitstun time
                 else
                 {
                     hitstun--;
@@ -103,10 +111,10 @@ namespace Grov
                 base.Update();
                 hitbox = drawPos;
 
+                //Weapon needs to update, updates firerate
                 if (!melee && this.Weapon != null)
                 {
                     weapon.Update();
-                    weapon.Position = this.Position; //TEMP
                 }
             }
         }
@@ -121,7 +129,7 @@ namespace Grov
             {
                 base.Draw(spriteBatch);
             }
-            //Hitstun
+            //If it's in hitstun, draw it red
             else if(this.isActive)
             {
                 if (texture != null)
@@ -135,8 +143,10 @@ namespace Grov
         /// <param name="target">The entity the enemy is attacking</param>
         private void Attack(Entity target)
         {
+            //If we can see the player
             if (LineOfSight(target))
             {
+                //If this is a melee enemy, lunge at him in bursts of time
                 if (melee)
                 {
                     if (timeSinceLunge == lungeTime)
@@ -147,6 +157,7 @@ namespace Grov
                         timeSinceLunge = -1;
                     timeSinceLunge++;
                 }
+                //If we have a weapon, shoot it
                 else if (weapon != null && weapon.ReadyToFire(fireRate))
                 {
                     Vector2 fireDirection = Vector2.Normalize(new Vector2(EntityManager.Player.Position.X + EntityManager.Player.DrawPos.Width / 2 - this.Position.X - this.Hitbox.Width / 2, EntityManager.Player.Position.Y + EntityManager.Player.DrawPos.Height / 2 - this.Position.Y - this.Hitbox.Height / 2));

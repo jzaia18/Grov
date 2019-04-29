@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
-// Authors: Jake Zaia, Rachel Wong
+// Authors: Jake Zaia, Rachel Wong, Jack Hoffman
 
 namespace Grov
 {
@@ -28,7 +28,7 @@ namespace Grov
         // ************* Fields ************* //
 
         private static GameManager instance;
-        private bool devmode = true;
+        private bool devmode = false;
         private bool gameExit;
         private Random rng;
         private GameState gameState;

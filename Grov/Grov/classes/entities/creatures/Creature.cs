@@ -66,6 +66,8 @@ namespace Grov
         {
             this.Move();
             base.Update();
+            if (weapon != null)
+                weapon.Position = new Vector2(this.drawPos.X + (this.drawPos.Width - weapon.DrawPos.Width) / 2, this.drawPos.Y + (this.drawPos.Height - weapon.DrawPos.Height) / 2); ;
         }
 
         protected virtual void Move(){ }
@@ -102,6 +104,9 @@ namespace Grov
             return true;
         }
 
+        /// <summary>
+        /// Returns whether or not the entity can shoot at the target
+        /// </summary>
         public bool LineOfFire(Entity target)
         {
 
@@ -118,6 +123,9 @@ namespace Grov
             return true;
         }
 
+        /// <summary>
+        /// Returns whether or not the entity can walk in a straight line towards the target
+        /// </summary>
         public bool LineOfPathing(Entity target)
         {
 
