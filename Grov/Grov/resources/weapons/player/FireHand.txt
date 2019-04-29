@@ -1,9 +1,9 @@
 ﻿Hand of Fire
 10
-0.5
+1
 6
 3
-10
+11
 Normal
 45
 7
