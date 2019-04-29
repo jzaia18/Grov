@@ -19,6 +19,7 @@ namespace Grov
         PauseMenu,
         ConfirmationMenu, // For when player wants to restart or exit game
         Map,
+        Help,
         GameOver
     }
 
@@ -142,6 +143,10 @@ namespace Grov
                             {
                                 Exit();
                             }
+                            else if (DisplayManager.MenuPointer == 1)
+                            {
+                                gameState = GameState.Help;
+                            }
                             else
                             {
                                 EntityManager.Instance.ClearEntities();
@@ -153,6 +158,10 @@ namespace Grov
                             }
                         }
                     }
+                    break;
+                case GameState.Help:
+                    if ((currentKeyboardState.IsKeyDown(Keys.Enter) && !previousKeyboardState.IsKeyDown(Keys.Enter)) || (currentKeyboardState.IsKeyDown(Keys.Escape) && !previousKeyboardState.IsKeyDown(Keys.Escape)) || (currentGamePadState.IsButtonDown(Buttons.Y) && !previousGamePadState.IsButtonDown(Buttons.Y)) || (currentGamePadState.IsButtonDown(Buttons.Start) && !previousGamePadState.IsButtonDown(Buttons.Start)))
+                        gameState = GameState.Menu;
                     break;
                 case GameState.PauseMenu:
                     if ((currentKeyboardState.IsKeyDown(Keys.Escape) && !previousKeyboardState.IsKeyDown(Keys.Escape)) || (currentGamePadState.IsButtonDown(Buttons.Start) && !previousGamePadState.IsButtonDown(Buttons.Start)))

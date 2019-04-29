@@ -56,6 +56,10 @@ namespace Grov
                 this.isActive = false;
             }
             currentFrame++;
+            if(this.hitstun > 0)
+            {
+                hitstun--;
+            }
             switch (currentBehavior)
             {
                 case BehaviorMode.Taunt:

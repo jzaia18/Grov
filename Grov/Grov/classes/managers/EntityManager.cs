@@ -406,6 +406,8 @@ namespace Grov
                                 projectile.IsActive = false;
                             if (!enemy.Sturdy)
                                 enemy.Hitstun += player.Weapon.Hitstun;
+                            else
+                                enemy.Hitstun += 2;
                         }
                     }
                     else if (projectile.Hitbox.Intersects(enemy.DrawPos))
@@ -413,8 +415,10 @@ namespace Grov
                         enemy.CurrHP -= projectile.Damage;
                         if(!projectile.Noclip)
                             projectile.IsActive = false;
-                        if(!enemy.Sturdy)
+                        if (!enemy.Sturdy)
                             enemy.Hitstun += player.Weapon.Hitstun;
+                        else
+                            enemy.Hitstun += 2;
                     }
                 }
             }

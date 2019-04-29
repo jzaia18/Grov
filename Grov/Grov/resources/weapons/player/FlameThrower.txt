@@ -1,11 +1,11 @@
 ﻿Flame Thrower
 3
-0.1
+0.5
 1.5
 1
-8
+10
 Spread
-16
-3
+20
+1
 Fire
 false

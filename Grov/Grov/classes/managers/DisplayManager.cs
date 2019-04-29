@@ -49,6 +49,7 @@ namespace Grov
         private Texture2D dimScreen;
         private Texture2D map;
         private Texture2D background;
+        private Texture2D helpText;
 
         private Texture2D mapMarkerRoom;
         #endregion
@@ -117,10 +118,10 @@ namespace Grov
             instance.enemyTextureMap = new Dictionary<EnemyType, AnimatedTexture>();
 
             EnemyTextureMap[EnemyType.RedShroomlet] = new AnimatedTexture(ContentManager.Load<Texture2D>("animations/RedShroomlet_Walking/000"));
-            Texture2D duplicateTest = ContentManager.Load<Texture2D>("animations/RedShroomlet_Walking/001"); // This texture will be used twice
-            EnemyTextureMap[EnemyType.RedShroomlet].AddTexture(duplicateTest);
+            Texture2D duplicateRedShroomlet = ContentManager.Load<Texture2D>("animations/RedShroomlet_Walking/001"); // This texture will be used twice
+            EnemyTextureMap[EnemyType.RedShroomlet].AddTexture(duplicateRedShroomlet);
             EnemyTextureMap[EnemyType.RedShroomlet].AddTexture(ContentManager.Load<Texture2D>("animations/RedShroomlet_Walking/002"));
-            EnemyTextureMap[EnemyType.RedShroomlet].AddTexture(duplicateTest);
+            EnemyTextureMap[EnemyType.RedShroomlet].AddTexture(duplicateRedShroomlet);
 
             EnemyTextureMap[EnemyType.FireShroomlet] = new AnimatedTexture(ContentManager.Load<Texture2D>("animations/FireShroomlet_Walking/000"));
             Texture2D duplicateFireShroomlet = ContentManager.Load<Texture2D>("animations/FireShroomlet_Walking/001");
@@ -129,8 +130,14 @@ namespace Grov
             EnemyTextureMap[EnemyType.FireShroomlet].AddTexture(duplicateFireShroomlet);
             EnemyTextureMap[EnemyType.FireShroomlet].AddTexture(ContentManager.Load<Texture2D>("animations/FireShroomlet_Walking/003"));
 
+            EnemyTextureMap[EnemyType.PurpleShroomlet] = new AnimatedTexture(ContentManager.Load<Texture2D>("animations/PurpleShroomlet_Walking/000"));
+            Texture2D duplicatePurpleShroomlet = ContentManager.Load<Texture2D>("animations/PurpleShroomlet_Walking/001");
+            EnemyTextureMap[EnemyType.PurpleShroomlet].AddTexture(duplicatePurpleShroomlet);
+            EnemyTextureMap[EnemyType.PurpleShroomlet].AddTexture(ContentManager.Load<Texture2D>("animations/PurpleShroomlet_Walking/002"));
+            EnemyTextureMap[EnemyType.PurpleShroomlet].AddTexture(duplicatePurpleShroomlet);
+            EnemyTextureMap[EnemyType.PurpleShroomlet].FrameTime = 5;
+
             EnemyTextureMap[EnemyType.Grot] = new AnimatedTexture(ContentManager.Load<Texture2D>("Grot"));
-            EnemyTextureMap[EnemyType.Turret] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
 
             EnemyTextureMap[EnemyType.ForestGiant] = new AnimatedTexture(ContentManager.Load<Texture2D>("animations/ForestGiant_Walking/000"));
             EnemyTextureMap[EnemyType.ForestGiant].AddTexture(ContentManager.Load<Texture2D>("animations/ForestGiant_Walking/001"));
@@ -225,6 +232,7 @@ namespace Grov
                 newButton.Hover = instance.confirmationButtonTextureMap[confirmButton][1];
             }
 
+            instance.helpText = ContentManager.Load<Texture2D>("HelpScreen");
             instance.crosshairTexture = new AnimatedTexture(ContentManager.Load<Texture2D>("Crosshair"));
         }
         #endregion
@@ -260,6 +268,10 @@ namespace Grov
                     {
                         menuButtons[i].Draw(spriteBatch);
                     }
+                    break;
+                case GameState.Help:
+                    spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White);
+                    spriteBatch.Draw(helpText, new Rectangle(560, 100, 800, 1080), Color.White);
                     break;
                 case GameState.ConfirmationMenu:
                     FloorManager.Instance.Draw(spriteBatch);

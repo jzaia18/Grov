@@ -20,7 +20,7 @@ namespace Grov
         //Normies
 		RedShroomlet = 0,
         FireShroomlet = 1,
-        Turret = 2
+        PurpleShroomlet = 2
     }
 
     class Enemy : Creature
@@ -28,13 +28,13 @@ namespace Grov
         #region fields
         // ************* Fields ************* //
 
-        private EnemyType enemyType;
-        private int hitstun;
-        private int lungeTime;
-        private int timeSinceLunge;
-        private bool sturdy;
-        private Pathfinder pathfinder;
-        private List<Tile> currentPath;
+        protected EnemyType enemyType;
+        protected int hitstun;
+        protected int lungeTime;
+        protected int timeSinceLunge;
+        protected bool sturdy;
+        protected Pathfinder pathfinder;
+        protected List<Tile> currentPath;
         #endregion
 
         #region properties
@@ -91,8 +91,8 @@ namespace Grov
                 //Target the player
                 Entity target = EntityManager.Player;
 
-                //Enemy will freeze if it's been hit recently
-                if (hitstun == 0)
+                //Enemy will freeze if it's been hit recently, but not if it's sturdy
+                if (hitstun == 0 || this.Sturdy)
                 {
                     //Attempt to attack the target
                     this.Attack(target);
@@ -103,7 +103,7 @@ namespace Grov
                     }
                 }
                 //Decrease remaining hitstun time
-                else
+                if(hitstun != 0 || (hitstun != 0 && this.Sturdy))
                 {
                     hitstun--;
                 }
@@ -126,15 +126,11 @@ namespace Grov
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (this.isActive && this.hitstun == 0)
-            {
-                base.Draw(spriteBatch);
-            }
+                drawColor = Color.White;
             //If it's in hitstun, draw it red
             else if(this.isActive)
-            {
-                if (texture != null)
-                    spriteBatch.Draw(texture.GetNextTexture(), drawPos, Color.Red);
-            }
+                drawColor = Color.Red;
+            base.Draw(spriteBatch);
         }
 
         /// <summary>

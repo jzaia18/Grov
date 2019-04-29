@@ -21,6 +21,7 @@ namespace Grov
         protected Vector2 velocity;
         protected bool isActive;
         protected AnimatedTexture texture;
+        protected Color drawColor;
 
         #endregion
 
@@ -50,6 +51,7 @@ namespace Grov
 
         public Entity(Rectangle drawPos, Rectangle hitbox, Vector2 position, Vector2 velocity, bool isActive, AnimatedTexture texture)
         {
+            this.drawColor = Color.White;
             this.drawPos = drawPos;
             this.hitbox = hitbox;
             this.position = position;
@@ -76,7 +78,7 @@ namespace Grov
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             if (texture != null)
-                spriteBatch.Draw(texture.GetNextTexture(), drawPos, Color.White);
+                spriteBatch.Draw(texture.GetNextTexture(), drawPos, drawColor);
         }
 
         /// <summary>
