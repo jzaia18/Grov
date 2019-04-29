@@ -51,7 +51,6 @@ namespace Grov
         #endregion
 
         #region constructor
-        //Constructor
         public Button(Rectangle rect)
         {
             this.rect = rect;
