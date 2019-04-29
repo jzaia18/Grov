@@ -20,9 +20,7 @@ namespace Grov
         #region fields
         // ************* Fields ************* //
 
-        private Room startRoom;
 		private Room currRoom;
-		private Room bossRoom;
 		private int numRooms;
 		private int floorNumber;
         private static FloorManager instance;
