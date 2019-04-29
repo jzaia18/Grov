@@ -20,7 +20,7 @@ namespace Grov
         //Normies
 		RedShroomlet = 0,
         FireShroomlet = 1,
-        Turret = 2
+        PurpleShroomlet = 2
     }
 
     class Enemy : Creature

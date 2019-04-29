@@ -28,6 +28,12 @@ namespace Grov
         Exit
     }
 
+    enum ConfirmationButtons
+    {
+        Yes,
+        No
+    }
+
     class Button
     {
         #region fields
@@ -45,7 +51,6 @@ namespace Grov
         #endregion
 
         #region constructor
-        //Constructor
         public Button(Rectangle rect)
         {
             this.rect = rect;

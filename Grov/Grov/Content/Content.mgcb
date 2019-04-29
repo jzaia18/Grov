@@ -85,6 +85,42 @@
 /processorParam:TextureFormat=Color
 /build:animations/ForestGiant_Walking/001.png
 
+#begin animations/PurpleShroomlet_Walking/000.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:animations/PurpleShroomlet_Walking/000.png
+
+#begin animations/PurpleShroomlet_Walking/001.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:animations/PurpleShroomlet_Walking/001.png
+
+#begin animations/PurpleShroomlet_Walking/002.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:animations/PurpleShroomlet_Walking/002.png
+
 #begin animations/RedShroomlet_Walking/000.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -205,6 +241,30 @@
 /processorParam:TextureFormat=Color
 /build:button images/HelpButton_NoHover.png
 
+#begin button images/NoButton_Hover.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:button images/NoButton_Hover.png
+
+#begin button images/NoButton_NoHover.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:button images/NoButton_NoHover.png
+
 #begin button images/RestartButton_Hover.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -300,6 +360,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:button images/StartButton_NoHover.png
+
+#begin button images/YesButton_Hover.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:button images/YesButton_Hover.png
+
+#begin button images/YesButton_NoHover.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:button images/YesButton_NoHover.png
 
 #begin ConfirmationLabel.png
 /importer:TextureImporter
@@ -494,6 +578,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:pickups/weapons/Fire.png
+
+#begin pickups/weapons/Leaf.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:pickups/weapons/Leaf.png
 
 #begin pickups/weapons/Star.png
 /importer:TextureImporter
