@@ -117,10 +117,10 @@ namespace Grov
             instance.enemyTextureMap = new Dictionary<EnemyType, AnimatedTexture>();
 
             EnemyTextureMap[EnemyType.RedShroomlet] = new AnimatedTexture(ContentManager.Load<Texture2D>("animations/RedShroomlet_Walking/000"));
-            Texture2D duplicateTest = ContentManager.Load<Texture2D>("animations/RedShroomlet_Walking/001"); // This texture will be used twice
-            EnemyTextureMap[EnemyType.RedShroomlet].AddTexture(duplicateTest);
+            Texture2D duplicateRedShroomlet = ContentManager.Load<Texture2D>("animations/RedShroomlet_Walking/001"); // This texture will be used twice
+            EnemyTextureMap[EnemyType.RedShroomlet].AddTexture(duplicateRedShroomlet);
             EnemyTextureMap[EnemyType.RedShroomlet].AddTexture(ContentManager.Load<Texture2D>("animations/RedShroomlet_Walking/002"));
-            EnemyTextureMap[EnemyType.RedShroomlet].AddTexture(duplicateTest);
+            EnemyTextureMap[EnemyType.RedShroomlet].AddTexture(duplicateRedShroomlet);
 
             EnemyTextureMap[EnemyType.FireShroomlet] = new AnimatedTexture(ContentManager.Load<Texture2D>("animations/FireShroomlet_Walking/000"));
             Texture2D duplicateFireShroomlet = ContentManager.Load<Texture2D>("animations/FireShroomlet_Walking/001");
@@ -129,8 +129,14 @@ namespace Grov
             EnemyTextureMap[EnemyType.FireShroomlet].AddTexture(duplicateFireShroomlet);
             EnemyTextureMap[EnemyType.FireShroomlet].AddTexture(ContentManager.Load<Texture2D>("animations/FireShroomlet_Walking/003"));
 
+            EnemyTextureMap[EnemyType.PurpleShroomlet] = new AnimatedTexture(ContentManager.Load<Texture2D>("animations/PurpleShroomlet_Walking/000"));
+            Texture2D duplicatePurpleShroomlet = ContentManager.Load<Texture2D>("animations/PurpleShroomlet_Walking/001");
+            EnemyTextureMap[EnemyType.PurpleShroomlet].AddTexture(duplicatePurpleShroomlet);
+            EnemyTextureMap[EnemyType.PurpleShroomlet].AddTexture(ContentManager.Load<Texture2D>("animations/PurpleShroomlet_Walking/002"));
+            EnemyTextureMap[EnemyType.PurpleShroomlet].AddTexture(duplicatePurpleShroomlet);
+            EnemyTextureMap[EnemyType.PurpleShroomlet].FrameTime = 5;
+
             EnemyTextureMap[EnemyType.Grot] = new AnimatedTexture(ContentManager.Load<Texture2D>("Grot"));
-            EnemyTextureMap[EnemyType.Turret] = new AnimatedTexture(ContentManager.Load<Texture2D>("EnemyHolderSprite"));
 
             EnemyTextureMap[EnemyType.ForestGiant] = new AnimatedTexture(ContentManager.Load<Texture2D>("animations/ForestGiant_Walking/000"));
             EnemyTextureMap[EnemyType.ForestGiant].AddTexture(ContentManager.Load<Texture2D>("animations/ForestGiant_Walking/001"));
