@@ -1,3 +1,5 @@
 # game
 
-106 group project repo
+This game is built in C#, using Monogame engine.
+
+To run the game, we recommend Visual Studio with the Monogame plugin
