@@ -1,4 +1,4 @@
-# game
+# Grov
 
 This game is built in C#, using Monogame engine.
 
